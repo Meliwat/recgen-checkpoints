@@ -1,0 +1,23 @@
+[project]
+name = "recgen"
+version = "0.1.0"
+description = "Test recursive generalization on Pythia training checkpoints"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=5.1.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.4.6",
+    "safetensors>=0.8.0",
+    "scikit-learn>=1.9.1",
+    "sentence-transformers>=6.1.0",
+    "torch>=2.14.1",
+    "transformers>=5.20.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
