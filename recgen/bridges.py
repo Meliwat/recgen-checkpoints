@@ -98,14 +98,17 @@ def select(corpus: np.ndarray, candidates: list[dict], results: list[dict]) -> l
         np.save(POOL_EMBEDDINGS_PATH, embed([context_text(corpus, w, p) for w, p in positions]).astype(np.float16))
     pool = np.load(POOL_EMBEDDINGS_PATH).astype(np.float32)
     by_neuron = {c["neuron"]: c for c in candidates}
-    centroids = {}
+    embeddings, centroids = {}, {}
     pairs = later_facet_pairs(results)
     for pair in pairs:
         facets = by_neuron[pair["neuron"]]["facets"]
         for f in (pair["a"], pair["b"]):
             if (pair["neuron"], f) not in centroids:
-                centroids[pair["neuron"], f] = centroid(embed([context_text(corpus, w, p) for w, p, _ in facets[f]]))
-        cos_a, cos_b = pool @ centroids[pair["neuron"], pair["a"]], pool @ centroids[pair["neuron"], pair["b"]]
+                embeddings[pair["neuron"], f] = embed([context_text(corpus, w, p) for w, p, _ in facets[f]])
+                centroids[pair["neuron"], f] = centroid(embeddings[pair["neuron"], f])
+        c_a, c_b = centroids[pair["neuron"], pair["a"]], centroids[pair["neuron"], pair["b"]]
+        cos_a, cos_b = pool @ c_a, pool @ c_b
+        b_examples = embeddings[pair["neuron"], pair["b"]]
         windows = positions[:, 0]
         bridge = bridge_set(cos_a, cos_b, windows)
         used = set(windows[bridge])
@@ -115,7 +118,9 @@ def select(corpus: np.ndarray, candidates: list[dict], results: list[dict]) -> l
             "bridge": bridge, "a_control": a_control, "b_control": b_control,
             "similarity": {name: {"to_a": round(float(np.median(cos_a[idx])), 3),
                                   "to_b": round(float(np.median(cos_b[idx])), 3)}
-                           for name, idx in (("bridge", bridge), ("a_control", a_control), ("b_control", b_control))},
+                           for name, idx in (("bridge", bridge), ("a_control", a_control), ("b_control", b_control))}
+            | {"b_examples": {"to_a": round(float(np.median(b_examples @ c_a)), 3),
+                              "to_b": round(float(np.median(b_examples @ c_b)), 3)}},
             "bridge_examples": [display_text(corpus, *positions[i]) for i in bridge[:EXAMPLES_SHOWN]],
         })
     BRIDGES_PATH.write_text(json.dumps(pairs, indent=1))
