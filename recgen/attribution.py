@@ -153,6 +153,9 @@ def background_examples(candidates: list[dict], n_corpus_windows: int, n: int, r
 
 
 def main() -> None:
+    if ATTRIBUTION_PATH.exists():
+        print(f"{ATTRIBUTION_PATH.name}: already recorded")
+        return
     corpus = load_corpus()
     candidates = json.loads((RESULTS_DIR / "candidates.json").read_text())
     neurons = selected_neurons()

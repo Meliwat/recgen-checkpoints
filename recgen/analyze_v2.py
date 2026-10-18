@@ -6,6 +6,7 @@ results/bridges.json and data/dense/ (recgen.bridges), and v1's results.
 
 import json
 from collections import Counter
+from itertools import combinations, product
 
 import numpy as np
 
@@ -13,7 +14,7 @@ from recgen.analyze import HAND_PICKED_PATH
 from recgen.attribution import ATTRIBUTION_PATH
 from recgen.bridges import BRIDGES_PATH, dense_path, facet_examples, window_steps
 from recgen.config import CHECKPOINT_STEPS, RESULTS_DIR, SEED
-from recgen.rubric import RECURSIVE_GENERALIZATION
+from recgen.rubric import RECURSIVE_GENERALIZATION, tokens_related
 from recgen.rubric_v2 import (
     BRIDGE_LEADS, BRIDGE_WITH_OR_AFTER, NO_BRIDGE_RESPONSE, NULL_PERCENTILE, SENSITIVITY_NULL_PERCENTILE,
     SENSITIVITY_TOP_UNITS, TOP_UNITS, WINDOW_TOO_SHORT, adjacency, bridge_lead, bridge_outcome, classify,
@@ -75,6 +76,24 @@ def source_shares(att, rows, neuron: int, facet: int) -> dict[str, float]:
     return {name: value / total for name, value in rise.items()}
 
 
+def chance_labels(times: list[int | None], rate: float) -> dict[str, float]:
+    """Exploratory: label probabilities if each facet pair were adjacent independently at the
+    null's false-positive rate, i.e. if no facets shared drivers beyond unrelated text."""
+    pairs = list(combinations(range(len(times)), 2))
+    probabilities = Counter()
+    for bits in product([False, True], repeat=len(pairs)):
+        adjacent = np.eye(len(times), dtype=bool)
+        for (i, j), bit in zip(pairs, bits):
+            adjacent[i, j] = adjacent[j, i] = bit
+        probabilities[classify(times, adjacent)] += rate ** sum(bits) * (1 - rate) ** (len(bits) - sum(bits))
+    return dict(probabilities)
+
+
+def v1_adjacent(result: dict, threshold: float, i: int, j: int) -> bool:
+    return (result["facet_similarities"][f"{i}-{j}"] >= threshold
+            or tokens_related(result["top_tokens"][i], result["top_tokens"][j]))
+
+
 def adjacency_results(candidates, v1):
     att = load_attribution()
     shifts, rows, background = facet_shifts(att, candidates)
@@ -91,8 +110,9 @@ def adjacency_results(candidates, v1):
                 label = classify(times, adjacency(pairs, null_threshold(null, percentile)))
                 variants.setdefault(f"top {k}, null {percentile}th", Counter())[label] += 1
                 if (k, percentile) == (TOP_UNITS, NULL_PERCENTILE):
-                    primary = {"label": label, "threshold": null_threshold(null), "null": null}
+                    primary = {"label": label, "threshold": null_threshold(null), "null": null, "pairs": pairs}
         n_facets = len(r["emergence_steps"])
+        exceedance = float(np.mean(np.array(primary["null"]) > primary["threshold"]))
         neurons.append({
             "neuron": n,
             "hand_picked": r["hand_picked"],
@@ -106,6 +126,11 @@ def adjacency_results(candidates, v1):
             "split_half_overlaps": [round(split_half_overlap(att, rows, background, n, f, TOP_UNITS, rng), 3)
                                     for f in range(n_facets)],
             "mlp_neuron_share": [round(source_shares(att, rows, n, f)["mlp_neurons"], 3) for f in range(n_facets)],
+            "null_exceedance": round(exceedance, 3),
+            "chance_labels": chance_labels(times, exceedance),
+            "adjacent_pairs": {f"{i}-{j}": {"v1": v1_adjacent(r, v1["summary"]["adjacency_threshold"], i, j),
+                                            "v2": bool(primary["pairs"][i, j] > primary["threshold"])}
+                               for i in range(n_facets) for j in range(i + 1, n_facets)},
         })
     reconstruction_error = float(np.abs(sum(att["parts"].values()) - att["pre"]).max())
     return neurons, variants, reconstruction_error
@@ -205,6 +230,12 @@ def main() -> None:
         "median_null_overlap": float(np.median([r["null_median"] for r in neurons])),
         "median_adjacency_threshold": float(np.median([r["adjacency_threshold"] for r in neurons])),
         "median_mlp_neuron_share": float(np.median([x for r in neurons for x in r["mlp_neuron_share"]])),
+        "exploratory": {
+            "expected_labels_by_chance": {label: round(sum(r["chance_labels"].get(label, 0) for r in neurons), 1)
+                                          for label in variants[f"top {TOP_UNITS}, null {NULL_PERCENTILE}th"]},
+            "pair_adjacency_v1_vs_v2": Counter(f"v1 {'adjacent' if a['v1'] else 'not'}, v2 {'adjacent' if a['v2'] else 'not'}"
+                                               for r in neurons for a in r["adjacent_pairs"].values()),
+        },
         "bridge_outcomes": Counter(b["bridge"] for b in bridges),
         "placebo_outcomes": Counter(b["placebo"] for b in bridges),
         "later_facets": later_facets_with_bridge(bridges),

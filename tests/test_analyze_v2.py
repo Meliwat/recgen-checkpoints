@@ -24,3 +24,11 @@ def test_later_facet_counts_once_however_many_earlier_facets_bridge_to_it():
                {"neuron": 1, "b": 3, "bridge": BRIDGE_WITH_OR_AFTER},
                {"neuron": 5, "b": 0, "bridge": WINDOW_TOO_SHORT}]
     assert later_facets_with_bridge(bridges) == {"testable": 2, "with a leading bridge": 1}
+
+
+def test_chance_labels_for_a_staggered_pair_follow_the_false_positive_rate():
+    from recgen.analyze_v2 import chance_labels
+    from recgen.rubric import PACKING_LIKE, RECURSIVE_GENERALIZATION
+    labels = chance_labels([3, 5], rate=0.05)
+    assert labels[RECURSIVE_GENERALIZATION] == 0.05
+    assert labels[PACKING_LIKE] == 0.95
