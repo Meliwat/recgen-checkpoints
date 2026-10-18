@@ -9,7 +9,7 @@ import numpy as np
 from recgen.activations import MIN_CONTEXT
 from recgen.config import CHECKPOINT_STEPS, RESULTS_DIR
 from recgen.corpus import load_corpus
-from recgen.facets import TOP_K, centroid, context_text, embed, tokenizer
+from recgen.facets import TOP_K, centroid, context_text, display_text, embed, tokenizer
 from recgen.record import neuron_activations_path
 from recgen.rubric import Facet, classify, emergence
 
@@ -18,6 +18,7 @@ ADJACENT_PERCENTILE = 75
 # candidates before any trajectory was recorded.
 HAND_PICKED_PATH = RESULTS_DIR / "hand_picked.json"
 TOP_SHOWN = 10  # strongest examples kept per checkpoint for reading trajectories
+REPORT_EXAMPLES = 4  # of those, how many the readable report shows
 
 
 def activating_token(corpus, window: int, pos: int) -> str:
@@ -72,6 +73,30 @@ def adjacency_threshold(facets: dict[int, list[Facet]]) -> float:
     return float(np.percentile(similarities, ADJACENT_PERCENTILE))
 
 
+def write_report(results, trajectories, hand_picked, corpus) -> None:
+    """Readable per-checkpoint view of each hand-picked neuron, for inspecting labels by hand."""
+    lines = ["# Trajectories of the hand-picked neurons\n",
+             "Facet responses are relative to the neuron's top-50 level at that checkpoint "
+             "(present at 0.5 or more). Examples are the neuron's strongest windows at that checkpoint.\n"]
+    for r in results:
+        if not r["hand_picked"]:
+            continue
+        n = r["neuron"]
+        names = hand_picked[str(n)]["facets"]
+        lines.append(f"## Neuron {n}: {r['label']}\n")
+        lines.append(f"{hand_picked[str(n)]['why']}\n")
+        lines += [f"- facet {i}, {name}: emerges at step {step}, top token `{token}`"
+                  for i, (name, step, token) in enumerate(zip(names, r["emergence_steps"], r["top_tokens"]))]
+        lines.append("")
+        for step in CHECKPOINT_STEPS:
+            point = trajectories[n][step]
+            responses = ", ".join(f"{x:.2f}" for x in point["responses"])
+            lines.append(f"**step {step}**, facet responses [{responses}]\n")
+            lines += [f"- {a:.2f} `{display_text(corpus, w, p)}`" for w, p, a in point["top"][:REPORT_EXAMPLES]]
+            lines.append("")
+    (RESULTS_DIR / "trajectories.md").write_text("\n".join(lines))
+
+
 def main() -> None:
     corpus = load_corpus()
     candidates = json.loads((RESULTS_DIR / "candidates.json").read_text())
@@ -100,6 +125,7 @@ def main() -> None:
     }
     (RESULTS_DIR / "classification.json").write_text(json.dumps({"summary": summary, "neurons": results}, indent=1))
     (RESULTS_DIR / "trajectories.json").write_text(json.dumps(trajectories))
+    write_report(results, trajectories, hand_picked, corpus)
     print(json.dumps(summary, indent=1))
 
 
