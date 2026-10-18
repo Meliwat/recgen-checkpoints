@@ -1,6 +1,7 @@
 """Record activations for one or more checkpoints.
 
-For every neuron: its max activation in each corpus window and where it happened.
+At the final checkpoint, for every neuron: its max activation in each corpus window
+and where it happened (used to select neurons).
 For the neurons in results/selected_neurons.json (if present): every activation.
 """
 
@@ -10,7 +11,7 @@ import json
 import numpy as np
 
 from recgen.activations import checkpoint, neuron_activations, window_maxima
-from recgen.config import CHECKPOINT_STEPS, DATA_DIR, RESULTS_DIR
+from recgen.config import CHECKPOINT_STEPS, DATA_DIR, FINAL_STEP, RESULTS_DIR
 from recgen.corpus import load_corpus
 
 SELECTED_PATH = RESULTS_DIR / "selected_neurons.json"
@@ -31,7 +32,7 @@ def selected_neurons() -> list[int]:
 
 
 def record(step: int, corpus: np.ndarray, neurons: list[int]) -> None:
-    need_maxima = not window_maxima_path(step).exists()
+    need_maxima = step == FINAL_STEP and not window_maxima_path(step).exists()
     need_acts = bool(neurons) and not neuron_activations_path(step).exists()
     if not (need_maxima or need_acts):
         print(f"step {step}: already recorded")
