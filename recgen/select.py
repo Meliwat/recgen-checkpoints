@@ -15,8 +15,8 @@ from recgen.facets import centroid, context_text, display_text, embed, find_face
 from recgen.record import SELECTED_PATH, window_maxima_path
 
 MIN_PEAK = 1.0  # skip near-dead neurons (typical peak activation here is ~2)
-STRONG_FRACTION = 0.3  # a window counts as strong if it reaches 30% of the neuron's peak
-MAX_STRONG_WINDOWS = 0.25  # skip dense neurons that fire strongly in over a quarter of windows
+STRONG_FRACTION = 0.5  # a window counts as strong if it reaches half the neuron's peak
+MAX_STRONG_WINDOWS = 0.5  # skip dense neurons; most reach 30% of peak somewhere in 80% of 512-token windows
 N_TRACED = 40
 EXAMPLES_SHOWN = 4
 
@@ -60,7 +60,7 @@ def main() -> None:
             lines += [f"- {a:.2f} `{display_text(corpus, w, p)}`" for w, p, a in facet[:EXAMPLES_SHOWN]]
             lines.append("")
     (RESULTS_DIR / "candidates.md").write_text("\n".join(lines))
-    SELECTED_PATH.write_text(json.dumps({"traced": [s["neuron"] for s in candidates], "hand_picked": {}}, indent=1))
+    SELECTED_PATH.write_text(json.dumps({"traced": [s["neuron"] for s in candidates]}, indent=1))
 
 
 if __name__ == "__main__":
