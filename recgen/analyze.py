@@ -73,6 +73,28 @@ def adjacency_threshold(facets: dict[int, list[Facet]]) -> float:
     return float(np.percentile(similarities, ADJACENT_PERCENTILE))
 
 
+def exploratory_stats(candidates, results) -> dict:
+    """Not pre-registered. Does the largest facet (the neuron's apparent main job) emerge
+    first, and how far apart do the two least-related facets emerge?"""
+    sizes = {c["neuron"]: [len(f) for f in c["facets"]] for c in candidates}
+    order = Counter()
+    chance = 0.0
+    gaps = []
+    for r in results:
+        times = [CHECKPOINT_STEPS.index(s) for s in r["emergence_steps"]]
+        largest = int(np.argmax(sizes[r["neuron"]]))
+        others = [t for i, t in enumerate(times) if i != largest]
+        order["first" if times[largest] < min(others) else "tied" if times[largest] == min(times) else "later"] += 1
+        chance += 1 / len(times)
+        i, j = map(int, min(r["facet_similarities"], key=r["facet_similarities"].get).split("-"))
+        gaps.append(abs(times[i] - times[j]))
+    return {
+        "largest_facet_emerges": order,
+        "largest_facet_strictly_first_by_chance": round(chance, 1),
+        "least_related_pair_emergence_gap_in_checkpoints": sorted(gaps),
+    }
+
+
 def write_report(results, trajectories, hand_picked, corpus) -> None:
     """Readable per-checkpoint view of each hand-picked neuron, for inspecting labels by hand."""
     lines = ["# Trajectories of the hand-picked neurons\n",
@@ -122,6 +144,7 @@ def main() -> None:
         "adjacency_threshold": round(threshold, 3),
         "labels_all": Counter(r["label"] for r in results),
         "labels_hand_picked": Counter(r["label"] for r in results if r["hand_picked"]),
+        "exploratory": exploratory_stats(candidates, results),
     }
     (RESULTS_DIR / "classification.json").write_text(json.dumps({"summary": summary, "neurons": results}, indent=1))
     (RESULTS_DIR / "trajectories.json").write_text(json.dumps(trajectories))

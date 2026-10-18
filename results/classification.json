@@ -1,0 +1,793 @@
+{
+ "summary": {
+  "adjacency_threshold": 0.141,
+  "labels_all": {
+   "packing-like": 35,
+   "mixed from the start": 5
+  },
+  "labels_hand_picked": {
+   "packing-like": 19,
+   "mixed from the start": 4
+  },
+  "exploratory": {
+   "largest_facet_emerges": {
+    "tied": 9,
+    "later": 21,
+    "first": 10
+   },
+   "largest_facet_strictly_first_by_chance": 16.8,
+   "least_related_pair_emergence_gap_in_checkpoints": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    6,
+    6
+   ]
+  }
+ },
+ "neurons": [
+  {
+   "neuron": 1059,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    55000,
+    89000
+   ],
+   "top_tokens": [
+    "see",
+    "see",
+    "-"
+   ],
+   "facet_similarities": {
+    "0-1": 0.549,
+    "0-2": -0.056,
+    "1-2": -0.171
+   }
+  },
+  {
+   "neuron": 1641,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    89000,
+    5000,
+    34000
+   ],
+   "top_tokens": [
+    ".",
+    "under",
+    ""
+   ],
+   "facet_similarities": {
+    "0-1": 0.079,
+    "0-2": 0.023,
+    "1-2": -0.166
+   }
+  },
+  {
+   "neuron": 3656,
+   "hand_picked": true,
+   "label": "mixed from the start",
+   "emergence_steps": [
+    8000,
+    13000,
+    8000
+   ],
+   "top_tokens": [
+    "find",
+    "found",
+    "by"
+   ],
+   "facet_similarities": {
+    "0-1": 0.506,
+    "0-2": -0.145,
+    "1-2": -0.062
+   }
+  },
+  {
+   "neuron": 3812,
+   "hand_picked": true,
+   "label": "mixed from the start",
+   "emergence_steps": [
+    5000,
+    5000
+   ],
+   "top_tokens": [
+    "kill",
+    "189"
+   ],
+   "facet_similarities": {
+    "0-1": -0.142
+   }
+  },
+  {
+   "neuron": 510,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    13000,
+    34000
+   ],
+   "top_tokens": [
+    "hope",
+    "v"
+   ],
+   "facet_similarities": {
+    "0-1": -0.131
+   }
+  },
+  {
+   "neuron": 2817,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    8000,
+    13000
+   ],
+   "top_tokens": [
+    "80",
+    "on",
+    "gender"
+   ],
+   "facet_similarities": {
+    "0-1": 0.051,
+    "0-2": -0.123,
+    "1-2": 0.087
+   }
+  },
+  {
+   "neuron": 3068,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    8000,
+    21000
+   ],
+   "top_tokens": [
+    "64",
+    "tx",
+    "react"
+   ],
+   "facet_similarities": {
+    "0-1": 0.105,
+    "0-2": -0.112,
+    "1-2": 0.116
+   }
+  },
+  {
+   "neuron": 1528,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    89000,
+    13000
+   ],
+   "top_tokens": [
+    "ende",
+    "see"
+   ],
+   "facet_similarities": {
+    "0-1": -0.111
+   }
+  },
+  {
+   "neuron": 93,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    34000,
+    21000
+   ],
+   "top_tokens": [
+    "90",
+    "facts",
+    "90"
+   ],
+   "facet_similarities": {
+    "0-1": -0.058,
+    "0-2": 0.448,
+    "1-2": -0.108
+   }
+  },
+  {
+   "neuron": 3707,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    13000
+   ],
+   "top_tokens": [
+    "ights",
+    ","
+   ],
+   "facet_similarities": {
+    "0-1": -0.108
+   }
+  },
+  {
+   "neuron": 782,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    8000
+   ],
+   "top_tokens": [
+    "42",
+    "main"
+   ],
+   "facet_similarities": {
+    "0-1": -0.103
+   }
+  },
+  {
+   "neuron": 2976,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    8000,
+    21000,
+    34000
+   ],
+   "top_tokens": [
+    "\ufffd",
+    "iss",
+    "\u00e7"
+   ],
+   "facet_similarities": {
+    "0-1": -0.102,
+    "0-2": 0.328,
+    "1-2": 0.137
+   }
+  },
+  {
+   "neuron": 138,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    55000,
+    55000
+   ],
+   "top_tokens": [
+    "appeals",
+    "org",
+    ""
+   ],
+   "facet_similarities": {
+    "0-1": 0.14,
+    "0-2": 0.126,
+    "1-2": -0.097
+   }
+  },
+  {
+   "neuron": 2346,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    13000,
+    34000
+   ],
+   "top_tokens": [
+    "quand",
+    "color",
+    "."
+   ],
+   "facet_similarities": {
+    "0-1": -0.095,
+    "0-2": 0.091,
+    "1-2": 0.287
+   }
+  },
+  {
+   "neuron": 2570,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    2000,
+    21000
+   ],
+   "top_tokens": [
+    "-",
+    "hoping"
+   ],
+   "facet_similarities": {
+    "0-1": -0.093
+   }
+  },
+  {
+   "neuron": 2464,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    3000,
+    8000
+   ],
+   "top_tokens": [
+    "?\"",
+    "alkyl",
+    "ethyl"
+   ],
+   "facet_similarities": {
+    "0-1": 0.034,
+    "0-2": -0.09,
+    "1-2": 0.477
+   }
+  },
+  {
+   "neuron": 2918,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    13000
+   ],
+   "top_tokens": [
+    ")(",
+    "\u00a3"
+   ],
+   "facet_similarities": {
+    "0-1": -0.085
+   }
+  },
+  {
+   "neuron": 4012,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    13000,
+    8000
+   ],
+   "top_tokens": [
+    "\u017e",
+    "and"
+   ],
+   "facet_similarities": {
+    "0-1": -0.084
+   }
+  },
+  {
+   "neuron": 467,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    21000
+   ],
+   "top_tokens": [
+    "\"",
+    "figure"
+   ],
+   "facet_similarities": {
+    "0-1": -0.081
+   }
+  },
+  {
+   "neuron": 3686,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    8000
+   ],
+   "top_tokens": [
+    "(",
+    "the"
+   ],
+   "facet_similarities": {
+    "0-1": -0.078
+   }
+  },
+  {
+   "neuron": 4071,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    8000,
+    5000
+   ],
+   "top_tokens": [
+    "-",
+    "at",
+    "new"
+   ],
+   "facet_similarities": {
+    "0-1": 0.138,
+    "0-2": -0.075,
+    "1-2": 0.102
+   }
+  },
+  {
+   "neuron": 4094,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    8000
+   ],
+   "top_tokens": [
+    "ex",
+    "return"
+   ],
+   "facet_similarities": {
+    "0-1": -0.07
+   }
+  },
+  {
+   "neuron": 2442,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    8000,
+    21000,
+    8000
+   ],
+   "top_tokens": [
+    "feel",
+    "stirred",
+    "here"
+   ],
+   "facet_similarities": {
+    "0-1": 0.099,
+    "0-2": 0.569,
+    "1-2": -0.068
+   }
+  },
+  {
+   "neuron": 2706,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    34000
+   ],
+   "top_tokens": [
+    "surprised",
+    "36"
+   ],
+   "facet_similarities": {
+    "0-1": -0.068
+   }
+  },
+  {
+   "neuron": 3282,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    3000
+   ],
+   "top_tokens": [
+    "200",
+    "her"
+   ],
+   "facet_similarities": {
+    "0-1": -0.066
+   }
+  },
+  {
+   "neuron": 2382,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    3000
+   ],
+   "top_tokens": [
+    "78",
+    "obstetric"
+   ],
+   "facet_similarities": {
+    "0-1": -0.064
+   }
+  },
+  {
+   "neuron": 2757,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    34000,
+    13000
+   ],
+   "top_tokens": [
+    "held",
+    "col"
+   ],
+   "facet_similarities": {
+    "0-1": -0.06
+   }
+  },
+  {
+   "neuron": 2443,
+   "hand_picked": true,
+   "label": "mixed from the start",
+   "emergence_steps": [
+    8000,
+    8000
+   ],
+   "top_tokens": [
+    "to",
+    "<<"
+   ],
+   "facet_similarities": {
+    "0-1": -0.059
+   }
+  },
+  {
+   "neuron": 1391,
+   "hand_picked": true,
+   "label": "mixed from the start",
+   "emergence_steps": [
+    21000,
+    34000,
+    21000
+   ],
+   "top_tokens": [
+    "3",
+    "with",
+    "g"
+   ],
+   "facet_similarities": {
+    "0-1": 0.043,
+    "0-2": -0.057,
+    "1-2": 0.169
+   }
+  },
+  {
+   "neuron": 61,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    13000,
+    34000
+   ],
+   "top_tokens": [
+    "really",
+    ","
+   ],
+   "facet_similarities": {
+    "0-1": -0.056
+   }
+  },
+  {
+   "neuron": 4010,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    13000,
+    3000
+   ],
+   "top_tokens": [
+    "*",
+    "the"
+   ],
+   "facet_similarities": {
+    "0-1": -0.052
+   }
+  },
+  {
+   "neuron": 682,
+   "hand_picked": false,
+   "label": "mixed from the start",
+   "emergence_steps": [
+    34000,
+    34000
+   ],
+   "top_tokens": [
+    "knew",
+    "\u00a3"
+   ],
+   "facet_similarities": {
+    "0-1": -0.051
+   }
+  },
+  {
+   "neuron": 1228,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    3000,
+    21000,
+    3000,
+    3000,
+    5000
+   ],
+   "top_tokens": [
+    "40",
+    "{",
+    ".",
+    "119",
+    "."
+   ],
+   "facet_similarities": {
+    "0-1": 0.042,
+    "0-2": 0.192,
+    "0-3": 0.525,
+    "0-4": 0.084,
+    "1-2": 0.052,
+    "1-3": 0.126,
+    "1-4": 0.048,
+    "2-3": -0.051,
+    "2-4": 0.205,
+    "3-4": 0.073
+   }
+  },
+  {
+   "neuron": 1345,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    21000,
+    89000
+   ],
+   "top_tokens": [
+    "finish",
+    "*"
+   ],
+   "facet_similarities": {
+    "0-1": -0.051
+   }
+  },
+  {
+   "neuron": 3370,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    13000,
+    5000
+   ],
+   "top_tokens": [
+    "sure",
+    "sure",
+    "\u3082"
+   ],
+   "facet_similarities": {
+    "0-1": 0.567,
+    "0-2": -0.051,
+    "1-2": 0.031
+   }
+  },
+  {
+   "neuron": 2019,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    5000,
+    5000,
+    13000
+   ],
+   "top_tokens": [
+    "(",
+    "(",
+    "-"
+   ],
+   "facet_similarities": {
+    "0-1": 0.396,
+    "0-2": 0.073,
+    "1-2": -0.05
+   }
+  },
+  {
+   "neuron": 1814,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    55000,
+    13000
+   ],
+   "top_tokens": [
+    "is",
+    "thought"
+   ],
+   "facet_similarities": {
+    "0-1": -0.049
+   }
+  },
+  {
+   "neuron": 3915,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    5000,
+    8000,
+    8000,
+    8000
+   ],
+   "top_tokens": [
+    "yeah",
+    "yeah",
+    "",
+    ""
+   ],
+   "facet_similarities": {
+    "0-1": 0.58,
+    "0-2": 0.0,
+    "0-3": -0.049,
+    "1-2": 0.036,
+    "1-3": 0.013,
+    "2-3": 0.364
+   }
+  },
+  {
+   "neuron": 4052,
+   "hand_picked": false,
+   "label": "packing-like",
+   "emergence_steps": [
+    13000,
+    34000,
+    34000
+   ],
+   "top_tokens": [
+    "place",
+    "'",
+    ""
+   ],
+   "facet_similarities": {
+    "0-1": -0.049,
+    "0-2": 0.003,
+    "1-2": 0.371
+   }
+  },
+  {
+   "neuron": 1710,
+   "hand_picked": true,
+   "label": "packing-like",
+   "emergence_steps": [
+    512,
+    5000
+   ],
+   "top_tokens": [
+    "8",
+    "nodded"
+   ],
+   "facet_similarities": {
+    "0-1": -0.047
+   }
+  }
+ ]
+}
