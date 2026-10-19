@@ -14,6 +14,8 @@ from recgen.config import RESULTS_DIR
 from recgen.plots import FIGURES_DIR
 from recgen.rubric_v3 import LABELS, MIN_HELP, SAME_JOB
 
+LABELED_HELP = 0.004  # neurons further than this from zero help get their number shown
+
 
 def plot_scores(data, path) -> None:
     neurons = data["neurons"]
@@ -24,10 +26,10 @@ def plot_scores(data, path) -> None:
         "least-related facet pairs": [p["score"] for r, key, p in reliable if key == r["primary_pair"]],
         "other facet pairs v2 calls unrelated":
             [p["score"] for r, key, p in reliable if key != r["primary_pair"] and not p["v2_adjacent"]],
-        "facet vs other neurons' facets, neuron patched in (negative control)": data["negative_control_scores"],
+        "facet vs other neurons' facets (negative control)": data["negative_control_scores"],
     }
     rng = np.random.default_rng(0)
-    fig, ax = plt.subplots(figsize=(8, 3.2))
+    fig, ax = plt.subplots(figsize=(10, 3.4))
     for y, (name, values) in enumerate(rows.items()):
         alpha = 0.1 if "negative" in name else 0.7
         ax.scatter(values, y + rng.uniform(-0.25, 0.25, len(values)), s=8, alpha=alpha)
@@ -36,9 +38,8 @@ def plot_scores(data, path) -> None:
     ax.axvline(SAME_JOB, color="grey", linestyle="--", linewidth=0.8)
     ax.set_yticks(range(len(rows)), [f"{name} (n={len(v)})" for name, v in rows.items()], fontsize=8)
     ax.invert_yaxis()
-    ax.set_xlabel("shared-job score (1: same use of the neuron beyond its generic push, 0: unrelated)")
-    ax.set_title("Facet pairs whose facets both have a reliable signature; black = median, dashed = one-job cutoff",
-                 fontsize=9)
+    ax.set_xlabel("shared-job score (1: the network does the same with the neuron on both, 0: unrelated)")
+    ax.set_title("Facet pairs with both facets reliable; black = median, dashed = one-job cutoff", fontsize=9)
     fig.tight_layout()
     fig.savefig(path, dpi=110)
     plt.close(fig)
@@ -57,13 +58,15 @@ def plot_primary_help(neurons, path) -> None:
         if points:
             ax.scatter([p[0] for p in points], [p[1] for p in points], s=18, label=f"{label} ({len(points)})")
             for a, b, n in points:
-                ax.annotate(str(n), (a, b), fontsize=6, xytext=(2, 2), textcoords="offset points")
+                if max(abs(a), abs(b)) >= LABELED_HELP:
+                    ax.annotate(str(n), (a, b), fontsize=7, xytext=(2, 2), textcoords="offset points")
     for value in (MIN_HELP, -MIN_HELP):
         ax.axvline(value, color="grey", linestyle="--", linewidth=0.8)
         ax.axhline(value, color="grey", linestyle="--", linewidth=0.8)
     ax.set_xlabel("median help on the facet it helps more (nats)")
     ax.set_ylabel("median help on the other facet (nats)")
-    ax.set_title("Least-related facet pair of each neuron; dashed = least help that counts", fontsize=9)
+    ax.set_title("Least-related facet pair of each neuron; dashed = least help that counts\n"
+                 "(numbered: neurons with a median help of 0.004 or more in size)", fontsize=9)
     ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(path, dpi=110)
