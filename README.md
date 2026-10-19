@@ -362,6 +362,83 @@ Exact intervals and the secondary measure are in [`results/v5_models.md`](result
 
 `run_v5.sh` needs only `data/corpus.npy`. From scratch it takes about 2 hours on an M1 Pro: it downloads the six models one at a time (about 12 GB in all), deletes each after use, and caches 2.3 GB in `data/v5/`, including sentence embeddings of 918,218 example contexts. With that cache, it reruns in a few minutes.
 
+## v6 results
+
+Every result so far groups a neuron's strongest examples with a sentence model (MiniLM). v5's review found that this detector behaves differently with model size, splits one pattern by genre or language, and that v5's middle-layer decline beyond 70M depends on its settings. The essay's argument is that a neuron should be read the way the network reads it. v6 reruns v5's sweep, on the same neurons and the same examples, with a detector that groups examples by the network's own representation of them. The rules are in [`recgen/rubric_v6.py`](recgen/rubric_v6.py), committed (`e1b34cc`) before any v6 data was recorded. No earlier file or result changed.
+
+### v6 method
+
+1. **Embedding.** An example is represented by the residual stream entering the neuron's layer at that position, which is what the layer's MLP reads through its LayerNorm. The vector is LayerNorm-normalized, the mean over 1,024 random corpus positions is removed, and the neuron's own input direction (its input weights times the LayerNorm gain) is projected out. Without that last step the examples would look alike by construction, since the neuron's pre-activation is exactly that direction's dot product with the vector.
+2. **Calibration.** A cosine similarity means different things in MiniLM's space and in each model's residual stream, so the thresholds come from a null: the similarities between all pairs of the 1,024 random positions, embedded the way the neuron's examples are. The percentiles are where v1's thresholds sit in MiniLM's own null on the same positions. Groups merge while their average similarity is above the 98.2nd percentile (MiniLM's 0.25), and two facets are unrelated if their centroids are less similar than the 81.0th percentile (MiniLM's 0.1). So both detectors run at the same operating point relative to random text.
+3. **Unchanged from v5:** the six sizes, the three depths, the sampled neurons (the recorder checks they are v5's), their 50 strongest windows, the minimum facet size of 5, both measures, the bootstrap and the verdict rule. Recording reuses v5's positions. As a check, each neuron's activations rebuilt from the stored residuals match v5's within 0.035 (median top activation 2 to 3).
+4. **Comparison with v5,** pre-registered: per-neuron agreement (Cohen's kappa on the unrelated-mixed flags, and the adjusted Rand index between the two detectors' groupings of each neuron's 50 examples), and whether each of v5's verdicts holds. Verdicts without 70M are secondary.
+5. **Detector checks,** reported for both detectors: the share of neurons with no facet, how alike a neuron's top examples are relative to the null, token purity (the share of a facet's examples on its most common activating token), and power. For power, 500 synthetic neurons per layer each pool the 25 strongest examples of two sampled neurons, and the check is the share called unrelated mixed. If a detector's power falls with size, a falling share can't be told apart from lost sensitivity.
+
+Before committing the rules, I tried the recorder and detector on Pythia 14M and 31M, which aren't in the sweep. They showed the detector wasn't degenerate, and that it splits mostly by activating token in those small models, so token purity was added as a check. No threshold or rule changed.
+
+### What v6 found
+
+![Share of mixed-looking neurons by model size under both detectors](results/figures/v6_scale.png)
+
+| Unrelated mixed | 70M | 160M | 410M | 1B | 1.4B | 2.8B | Spearman | v6 verdict | v5's verdict |
+|---|---|---|---|---|---|---|---|---|---|
+| **middle (primary)** | **44.5%** | **44.9%** | **54.2%** | **45.8%** | **47.2%** | **44.0%** | **-0.03** | **no clear trend** | fits the essay |
+| quarter | 50.8% | 49.8% | 49.2% | 43.7% | 42.2% | 40.6% | -1.00 | fits the essay | no clear trend |
+| three quarters | 43.7% | 47.4% | 42.2% | 52.8% | 45.1% | 46.6% | +0.26 | no clear trend | against the essay |
+
+Intervals, the secondary measure and per-layer agreement are in [`results/v6_models.md`](results/v6_models.md) and [`results/classification_v6.json`](results/classification_v6.json). Point 6's anisotropy figure is exploratory, added after seeing the results.
+
+1. **v5's middle-layer decline doesn't survive the change of detector.** Under the network-native detector, the unrelated-mixed share at the middle layer stays near 45% from 70M (42.0 to 47.0%) to 2.8B (41.9 to 46.1%), peaking at 54.2% in 410M. Without 70M there's still no clear trend (Spearman -0.30), and the share with 2+ facets stays at 82 to 88%. So v5's primary verdict doesn't hold, with or without 70M.
+2. **The other depths change too.** v5's rise at three quarters disappears (no clear trend). A quarter of the way in, v6 finds a steady fall from 50.8% to 40.6% ("fits the essay", also without 70M), where MiniLM drifted down without passing the test (13.1% to 10.4%). That quarter-depth decline is the one trend both detectors lean toward.
+3. **The two detectors disagree about which neurons are mixed.** v6 flags 2 to 6 times as many neurons as v5 does. Per layer, Cohen's kappa is 0.03 to 0.15, and the median adjusted Rand index between their groupings of a neuron's 50 examples is 0.01 to 0.13: the two detectors group the same examples almost independently. Of the neurons v5 calls unrelated mixed, v6 also flags 48 to 70%, against its base rate of 41 to 54%.
+4. **MiniLM rarely finds a pooled pair of neurons, and less often in bigger models.** On synthetic neurons that pool two random neurons' strongest examples, MiniLM finds an unrelated-mixed pair in only 9 to 23%, barely more than in single neurons (7 to 21%). At 410M's middle layer it's 9.8% against 9.9%. At the quarter and middle depths this power falls with size (middle: 22.2% to 9.6%), and by the pre-registered reading, v5's falling share there can't be told apart from lost power. Most of that fall is from 70M to 160M, and without 70M MiniLM's power shows no clear trend. v6 finds 55 to 86% of the pooled pairs, against 41 to 54% of single neurons. Its power also drifts down with size (Spearman -0.64 to -0.73, highest at 70M) without passing the test.
+5. **v6 finds groups in almost every neuron, at every size.** It finds no facet in 0 to 3% of neurons, where MiniLM finds none in 20 to 37%, rising with size at the quarter and middle depths. Both detectors see a neuron's top examples as less alike, relative to random text, in bigger models: at the middle layer the median similarity between top examples falls from the 91st to the 79th percentile of the null under v6, and from the 65th to the 57th under MiniLM. Under MiniLM that showed up as more neurons with no facet. Under v6 it doesn't change the number of facets ([checks](results/figures/v6_checks.png)).
+6. **Settings don't produce a middle-layer trend, except one.** At the middle depth there's no clear trend under every other v5 detector setting mapped through the null (shares from 30% to 66%), with the LayerNorm gain applied, or without the projection. Only the uncentered variant falls with size (38% to 11%). That variant is distorted by size (exploratory): the mean that every position shares makes up a growing part of the residual vector, 26% of its squared norm in 70M's middle layer and 55% in 2.8B's (73% at 2.8B's three-quarters layer). Without centering, a big model's examples look alike whatever they are, which is why the rubric removes the mean.
+7. **What the network-native detector groups by** (from the three random neurons per model and depth in [`results/v6_models.md`](results/v6_models.md)). It often finds coherent groups that MiniLM misses.
+   - 2.8B middle neuron 3663 has math operators ("128\*v *-* 130\*v") and "imm" in "immortality".
+   - 2.8B middle neuron 9147 has word pieces ("linuxbrew.b*int*ray", "Bar*th*olomew") and contrast words ("while", "whereas").
+
+   MiniLM found one facet in 3663 and none in 9147. But v6 also splits what reads as one pattern, by token and syntactic role.
+   - 2.8B quarter-depth neuron 3737 gets six facets that read to me as one broad pattern of quantities and measurement: time units, delays and intervals, counts and iterations, degrees and distances, and integer types and a math package in code.
+   - 2.8B quarter-depth neuron 6726 gets four facets of argumentative prose, split by the activating word ("credibility *of*", "but *that*", "nothing more *than*", "our valued *concepts*"), where MiniLM saw one genre.
+
+   In small models and early layers its facets are mostly single tokens (median token purity 1.0 at 70M's quarter layer), but at 1B and up they mix tokens about as much as MiniLM's do (0.33 to 0.5 against 0.29 to 0.5).
+
+![Detector checks by model size](results/figures/v6_checks.png)
+
+### What this does and doesn't show
+
+- **v5's scale result depends on the detector.** At v1's operating point, a detector that reads the layer's own representation finds the share of mixed-looking neurons at the middle layer flat from 70M to 2.8B, near 45%. v5's decline can't be told apart from MiniLM losing sensitivity, at least from 70M to 160M (point 4), and its deep-layer rise goes away too. So the repo no longer has a robust middle-layer scale result for or against the essay's expectation that bigger models have narrower neurons. The quarter-depth decline is the one trend both detectors lean toward, and only v6's passes the test.
+- **It doesn't say which detector is right.** They group the same examples almost independently. In the examples I read, MiniLM tends to group by topic and genre, and the residual stream more by the token and its role in the sentence. "Mixed-looking" depends on who reads the examples, and neither reader is ground truth.
+- **It measures how varied a neuron's strongest contexts are, not why.** v6 asks how alike the contexts are in the network's representation apart from the neuron's own input direction. A neuron with one job in varied contexts (the essay's V shape) counts as mixed here too. Like v5, it doesn't say whether neurons got that way by packing, branching or anything else.
+
+### What's still shaky
+
+- **The operating point is borrowed from MiniLM.** Matching percentiles of a random-text null puts the two detectors on the same footing relative to random text, but the absolute shares (about 45%) depend on that choice. Other settings move the middle-layer share between 30% and 66%, though none of them gives a trend.
+- **The unrelated cutoff compares centroids against a null of single pairs.** Centroids average away noise, so their similarities aren't on the same scale as single pairs. v5's 0.1 under MiniLM has the same issue, and v6 inherits it through the calibration.
+- **One view of the network.** v6 reads the residual stream entering the neuron's layer. It doesn't use what downstream components do with the neuron (v3's output side) or other layers' views. Projecting out one direction removes the neuron's linear read, not everything correlated with it (without the projection, results are similar: point 6).
+- **v6's own power drifts down with size** (point 4), mostly from 70M. It doesn't pass the test, but a weaker form of MiniLM's problem may be present.
+- **The rules weren't written blind.** They were committed before any v6 data, but chosen knowing v5's results and its review, and after a pilot on 14M and 31M. Point 6's anisotropy figure and the hand readings are post hoc.
+- **Scope is unchanged:** six sizes of one family up to 2.8B, one 2.1M-token corpus, float16, 2,048 sampled neurons per layer.
+
+### v6 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v6.py`](recgen/rubric_v6.py) | Pre-registered embedding, calibration, comparison with v5 and detector checks |
+| [`recgen/sweep_v6.py`](recgen/sweep_v6.py) | Normalized residuals at v5's example positions and at random positions, and the neurons' input weights |
+| [`recgen/analyze_v6.py`](recgen/analyze_v6.py), [`recgen/plots_v6.py`](recgen/plots_v6.py) | Both detectors on the same neurons, verdicts, agreement, checks and sensitivity; the figures |
+| `tests/test_rubric_v6.py`, `tests/test_sweep_v6.py`, `tests/test_analyze_v6.py` | Tests for the rules, the recorder and the analysis |
+| [`results/classification_v6.json`](results/classification_v6.json) | Verdicts beside v5's, per-layer shares, intervals, agreement, checks and sensitivity, per-neuron results under both detectors |
+| [`results/v6_models.md`](results/v6_models.md) | Per model: both detectors' shares and agreement by depth, and three random v6 unrelated-mixed neurons per depth with examples |
+| [`results/figures/`](results/figures/) `v6_*.png` | Shares by size under both detectors, and the detector checks |
+
+```bash
+./run_v6.sh
+```
+
+`run_v6.sh` needs `data/corpus.npy`, v5's `data/v5/` cache (window maxima and sentence embeddings) and `results/classification_v5.json`. From scratch it takes about 2 hours on an M1 Pro: it downloads the six models one at a time (about 12 GB in all), deletes each after use, and caches 4.9 GB in `data/v6/`. With that cache, the analysis reruns in about 20 minutes.
+
 ## Files
 
 | Path | What it is |
