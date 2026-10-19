@@ -38,3 +38,26 @@ def test_decisions_flag_the_primary_measure_and_judge_each_depth():
     out = decisions(stats)
     assert out["middle: unrelated_mixed"]["verdict"] == FITS and out["middle: unrelated_mixed"]["primary"]
     assert out["middle: multi_facet"]["verdict"] == NO_TREND and not out["middle: multi_facet"]["primary"]
+
+
+def test_shared_token_rates_compare_a_neurons_unrelated_facets_with_other_neurons_facets():
+    from recgen.analyze_v5 import shared_token_rates
+    from recgen.facets import tokenizer
+
+    ids = {w: tokenizer().encode(w)[0] for w in (" See", " find", " cat", " Id", " it", " dog")}
+    corpus = np.zeros((6, 40), dtype=np.int64)
+    # Neuron k's two facets both fire on the same token (a[k]) but are followed by different tokens.
+    a = [" See", " find", " cat"]
+    nexts = [(" Id", " it"), (" it", " dog"), (" dog", " Id")]
+    neurons = {}
+    for k in range(3):
+        facets = []
+        for f in range(2):
+            w = 2 * k + f
+            corpus[w, 33], corpus[w, 34] = ids[a[k]], ids[nexts[k][f]]
+            facets.append([(w, 33, 1.0)] * 5)
+        neurons[k] = {"n_facets": 2, "least_related_similarity": 0.0, "least_related_pair": (0, 1), "facets": facets}
+    rates = shared_token_rates(neurons, corpus, np.random.default_rng(0))
+    assert rates["neurons"] == 3
+    assert rates["least_related_pair"] == {"same_activating_token": 1.0, "same_next_token": 0.0}
+    assert rates["null"]["same_activating_token"] == 0.0

@@ -13,7 +13,8 @@ import numpy as np
 
 from recgen.config import RESULTS_DIR, SEED
 from recgen.corpus import load_corpus
-from recgen.facets import centroid, context_text, display_text, embed, find_facets, top_examples
+from recgen.facets import centroid, context_text, display_text, embed, find_facets, tokenizer, top_examples
+from recgen.rubric import tokens_related
 from recgen.rubric_v5 import (
     DEPTHS, MODELS, PRIMARY_DEPTH, bootstrap_interval, decide, eligible, sample, unrelated_mixed,
 )
@@ -61,11 +62,11 @@ def embeddings_for(layers: dict, corpus: np.ndarray) -> dict[tuple[int, int], np
 def neuron_facets(examples: list, vectors: dict) -> dict:
     embeddings = np.stack([vectors[w, p] for w, p, _ in examples])
     facets = find_facets(embeddings)
-    least = None
+    least, pair = None, None
     if len(facets) >= 2:
         centroids = [centroid(embeddings[f]) for f in facets]
-        least = min(float(a @ b) for a, b in combinations(centroids, 2))
-    return {"n_facets": len(facets), "least_related_similarity": least,
+        least, pair = min((float(centroids[i] @ centroids[j]), (i, j)) for i, j in combinations(range(len(facets)), 2))
+    return {"n_facets": len(facets), "least_related_similarity": least, "least_related_pair": pair,
             "facets": [[examples[i] for i in f] for f in facets]}
 
 
@@ -93,6 +94,33 @@ def decisions(stats: list[dict]) -> dict:
             out[f"{depth}: {measure}"] = {"verdict": verdict, "spearman_rho": round(rho, 3),
                                           "primary": depth == PRIMARY_DEPTH and measure == "unrelated_mixed"}
     return out
+
+
+def facet_tokens(facet: list, corpus: np.ndarray) -> tuple[str, str]:
+    """A facet's most common activating token and most common next token, normalized."""
+    tok = tokenizer()
+    current = Counter(tok.decode(corpus[w, p:p + 1]).strip().lower() for w, p, _ in facet)
+    following = Counter(tok.decode(corpus[w, p + 1:p + 2]).strip().lower() for w, p, _ in facet if p + 1 < corpus.shape[1])
+    return current.most_common(1)[0][0], following.most_common(1)[0][0] if following else ""
+
+
+def shared_token_rates(neurons: dict, corpus: np.ndarray, rng) -> dict:
+    """Exploratory: among unrelated-mixed neurons, how often the least-related pair of facets shares
+    its activating token (equal, or one contains the other) or its next token. The null pairs a facet
+    of one such neuron with a facet of another, in the same layer."""
+    mixed = [r for r in neurons.values() if unrelated_mixed(r["n_facets"], r["least_related_similarity"])]
+    pairs = [(facet_tokens(r["facets"][r["least_related_pair"][0]], corpus),
+              facet_tokens(r["facets"][r["least_related_pair"][1]], corpus)) for r in mixed]
+    if len(pairs) < 2:
+        return {"neurons": len(pairs)}
+    shuffled = rng.permutation(len(pairs))
+    null = [(pairs[i][0], pairs[j][1]) for i, j in zip(range(len(pairs)), shuffled) if i != j]
+
+    def rates(ps):
+        return {"same_activating_token": round(float(np.mean([tokens_related(a[0], b[0]) for a, b in ps])), 3),
+                "same_next_token": round(float(np.mean([a[1] == b[1] for a, b in ps])), 3)}
+
+    return {"neurons": len(pairs), "least_related_pair": rates(pairs), "null": rates(null)}
 
 
 def write_report(stats, per_neuron, corpus) -> None:
@@ -136,8 +164,12 @@ def main() -> None:
         "consistency_410m_middle_vs_v1": {"v5_multi_facet_share": round(v1_410m["multi_facet_share"], 3),
                                           "v1_multi_facet_share": round(V1_MULTI_FACET[0] / V1_MULTI_FACET[1], 3)},
         "unique_contexts_embedded": len(vectors),
+        "exploratory_shared_tokens": {f"{model} {depth}": shared_token_rates(per_neuron[model, depth], corpus,
+                                                                             rng_for(model, depth))
+                                      for model in MODELS for depth in DEPTHS},
     }
-    neurons_out = {f"{model} {depth}": {str(n): {k: v for k, v in r.items() if k != "facets"} for n, r in rows.items()}
+    neurons_out = {f"{model} {depth}": {str(n): {k: v for k, v in r.items() if k not in ("facets", "least_related_pair")}
+                                        for n, r in rows.items()}
                    for (model, depth), rows in per_neuron.items()}
     (RESULTS_DIR / "classification_v5.json").write_text(
         json.dumps({"summary": summary, "layers": stats, "neurons": neurons_out}, indent=1))
