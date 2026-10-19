@@ -1,6 +1,6 @@
 # v3 results per neuron
 
-Help is the change in log-prob (nats) of the actual next token when the neuron is zero-ablated at the example (positive: the neuron helps). Reliability is how well two halves of a facet agree on what the network does with the neuron there beyond its generic push. The shared-job score is about 1 when two facets share one job and about 0 when unrelated; one job needs 0.5 or more. Promoted tokens are those the neuron raises most on the facet; specific ones are beyond its generic push.
+Help is the change in log-prob (nats) of the actual next token when the neuron is zero-ablated at the example (positive: the neuron helps). Reliability is how well two halves of a facet agree on what the network does with the neuron there beyond its generic push. The shared-job score is about 1 when two facets share one job and about 0 when unrelated; one job needs 0.5 or more. Promoted tokens are those the neuron raises most on the facet; specific ones are beyond its generic push. The probability line (exploratory, added after the logit-space results) is the KL divergence and share of next-token probability the neuron moves, the cosine between its logit change and the prediction's own log-probs (positive: it sharpens what is already predicted), and the tokens whose probability it raises and lowers most.
 
 | Neuron | Hand-picked | v1 | v2 | v3 (least-related pair) | Median help, A / B | Shared-job score |
 |---|---|---|---|---|---|---|

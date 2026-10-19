@@ -283,7 +283,11 @@ def write_report(results, hand_picked) -> None:
              "at the example (positive: the neuron helps). Reliability is how well two halves of a facet agree on "
              "what the network does with the neuron there beyond its generic push. The shared-job score is about 1 "
              f"when two facets share one job and about 0 when unrelated; one job needs {SAME_JOB} or more. "
-             "Promoted tokens are those the neuron raises most on the facet; specific ones are beyond its generic push.\n",
+             "Promoted tokens are those the neuron raises most on the facet; specific ones are beyond its generic push. "
+             "The probability line (exploratory, added after the logit-space results) is the KL divergence and share of "
+             "next-token probability the neuron moves, the cosine between its logit change and the prediction's own "
+             "log-probs (positive: it sharpens what is already predicted), and the tokens whose probability it raises "
+             "and lowers most.\n",
              "| Neuron | Hand-picked | v1 | v2 | v3 (least-related pair) | Median help, A / B | Shared-job score |",
              "|---|---|---|---|---|---|---|"]
     for r in results:
