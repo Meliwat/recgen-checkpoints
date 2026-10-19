@@ -67,6 +67,13 @@ def levels(null: np.ndarray) -> dict:
     return {"merge": dict(zip(MERGE_PERCENTILES, values[:-1].tolist())), "unrelated": float(values[-1])}
 
 
+def mean_share(vectors: np.ndarray) -> float:
+    """Exploratory, added after seeing the uncentered variant: the share of the vectors' mean squared
+    norm that lies along their common mean."""
+    mean = vectors.mean(axis=0)
+    return float(mean @ mean / np.mean(np.sum(vectors ** 2, axis=1)))
+
+
 def detect(units: np.ndarray, merge: float, unrelated: float, min_size: int = MIN_FACET_SIZE) -> dict:
     facets = find_facets(units, merge, min_size)
     least, pair = least_related(units, facets)
@@ -87,6 +94,7 @@ class Layer:
         weights, gain = data["weights"].astype(np.float64), data["gain"].astype(np.float64)
         random = self.z[data["random_rows"]].astype(np.float64)
         mean = random.mean(axis=0)
+        self.mean_share = mean_share(random)
         # embedding -> (mean removed, scale, directions projected out [S, d])
         self.embeddings = {PRIMARY: (mean, None, weights * gain), "with LayerNorm gain": (mean, gain, weights),
                            "uncentered": (None, None, weights * gain), "unprojected": (mean, None, None)}
@@ -218,6 +226,7 @@ def analyze_layer(model: str, depth: str, minilm: MiniLM, corpus: np.ndarray, pu
         },
         "sensitivity": {setting_label(s): share([r["sensitivity"][s] for r in v6], rng_for(model, depth))
                         for s in SENSITIVITY_SETTINGS},
+        "exploratory_mean_share": layer.mean_share,
         "variants": {name: {"unrelated_mixed": share([r["variants"][name][1] for r in v6], rng_for(model, depth)),
                             "multi_facet": share([r["variants"][name][0] >= 2 for r in v6], rng_for(model, depth))}
                      for name in EMBEDDING_VARIANTS},
@@ -359,6 +368,8 @@ def main() -> None:
         "minilm_calibration": {"frozen": {str(k): v for k, v in MINILM_PERCENTILES.items()}, "recomputed": calibration,
                                "matches": all(abs(calibration[str(k)] - v) <= 0.05 for k, v in MINILM_PERCENTILES.items())},
         "largest_activation_error": max(s["activation_error"] for s in stats),
+        "exploratory_mean_share": {depth: [round(x, 3) for x in by_model(stats, depth, lambda s: s["exploratory_mean_share"])]
+                                   for depth in DEPTHS},
     }
     (RESULTS_DIR / "classification_v6.json").write_text(
         json.dumps({"summary": summary, "layers": stats, "neurons": neurons_out}, indent=1))

@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 import recgen.analyze_v6 as analyze_v6
-from recgen.analyze_v6 import Layer, NullSpace, checks, decisions, trend
+from recgen.analyze_v6 import Layer, NullSpace, checks, decisions, mean_share, trend
 from recgen.rubric_v5 import AGAINST, DEPTHS, FITS, MODELS, NO_TREND
 from recgen.rubric_v6 import MERGE_PERCENTILE, embed, find_facets, least_related, pair_similarities, thresholds
 
@@ -92,3 +92,9 @@ def test_checks_read_falling_power_as_lost_power():
     out = checks(fake_stats([0.2] * 6, [0.9, 0.8, 0.7, 0.6, 0.5, 0.4]))
     assert out["middle: v6"]["mixture_power"]["verdict"] == "falls with size"
     assert out["middle: v5"]["mixture_power"]["verdict"] == NO_TREND
+
+
+def test_mean_share_is_the_part_of_the_norm_shared_by_every_vector():
+    vectors = np.array([[1.0, 1.0], [1.0, -1.0]])  # common part (1, 0), the rest cancels
+    assert mean_share(vectors) == pytest.approx(0.5)
+    assert mean_share(np.array([[1.0, 0.0], [-1.0, 0.0]])) == 0.0
