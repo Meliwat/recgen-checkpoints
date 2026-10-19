@@ -10,6 +10,7 @@ computed once and cached in data/v6/minilm_random.npy.
 import json
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+from itertools import combinations
 
 import numpy as np
 from sklearn.metrics import adjusted_rand_score
@@ -74,6 +75,20 @@ def mean_share(vectors: np.ndarray) -> float:
     return float(mean @ mean / np.mean(np.sum(vectors ** 2, axis=1)))
 
 
+def pair_level_unrelated_mixed(units: np.ndarray, facets: list[np.ndarray], unrelated: float) -> bool:
+    """Exploratory, added after review: unrelated mixed judged by two facets' mean cross-pair similarity,
+    the scale the null is on, instead of their centroids' similarity."""
+    return len(facets) >= 2 and min(float((units[a] @ units[b].T).mean())
+                                    for a, b in combinations(facets, 2)) < unrelated
+
+
+def grouped_together(facets: list[np.ndarray], n_examples: int) -> np.ndarray:
+    """For each pair of examples (upper triangle), whether they share a facet."""
+    labels = partition(facets, n_examples)
+    i, j = np.triu_indices(n_examples, 1)
+    return labels[i] == labels[j]
+
+
 def detect(units: np.ndarray, merge: float, unrelated: float, min_size: int = MIN_FACET_SIZE) -> dict:
     facets = find_facets(units, merge, min_size)
     least, pair = least_related(units, facets)
@@ -118,6 +133,7 @@ class Layer:
         units, null, lv = self.embedded(PRIMARY, self.rows[s], [s])
         result = detect(units, lv["merge"][MERGE_PERCENTILE], lv["unrelated"])
         result["top_pair_percentile"] = percentile_rank(float(np.median(pair_similarities(units))), null)
+        result["pair_level_unrelated_mixed"] = pair_level_unrelated_mixed(units, result["facets"], lv["unrelated"])
         result["sensitivity"] = {setting: detect(units, lv["merge"][percentile], lv["unrelated"], size)["unrelated_mixed"]
                                  for setting, (percentile, size) in SENSITIVITY_SETTINGS.items()}
         result["variants"] = {}
@@ -198,6 +214,8 @@ def analyze_layer(model: str, depth: str, minilm: MiniLM, corpus: np.ndarray, pu
                    for a, b in pairs]
 
     v6_flags, v5_flags = (np.array([r["unrelated_mixed"] for r in rs]) for rs in (v6, v5))
+    v6_together, v5_together = (np.concatenate([grouped_together(r["facets"], len(k)) for r, k in zip(rs, keys)])
+                                for rs in (v6, v5))
     rng = rng_for(model, depth)  # one generator for the two pre-registered measures, as in v5
     stats = {
         "model": model, "depth": depth, "layer": layer.layer, "n_layers": layer.n_layers, "sampled": len(v6),
@@ -227,6 +245,13 @@ def analyze_layer(model: str, depth: str, minilm: MiniLM, corpus: np.ndarray, pu
         "sensitivity": {setting_label(s): share([r["sensitivity"][s] for r in v6], rng_for(model, depth))
                         for s in SENSITIVITY_SETTINGS},
         "exploratory_mean_share": layer.mean_share,
+        "exploratory_after_review": {
+            "v6_flags_among_v5_flagged": float(v6_flags[v5_flags].mean()),
+            "v6_flags_among_v5_unflagged": float(v6_flags[~v5_flags].mean()),
+            "v6_together_given_v5_together": float(v6_together[v5_together].mean()),
+            "v6_together": float(v6_together.mean()),
+            "pair_level_unrelated_mixed": share([r["pair_level_unrelated_mixed"] for r in v6], rng_for(model, depth)),
+        },
         "variants": {name: {"unrelated_mixed": share([r["variants"][name][1] for r in v6], rng_for(model, depth)),
                             "multi_facet": share([r["variants"][name][0] >= 2 for r in v6], rng_for(model, depth))}
                      for name in EMBEDDING_VARIANTS},
@@ -279,8 +304,23 @@ def checks(stats: list[dict]) -> dict:
                 power[key] = POWER_READING.get(power[key], power[key])
             out[f"{depth}: {detector}"] = {
                 "mixture_power": power,
+                "mixture_excess_over_single_neurons": [round(x, 3) for x in by_model(stats, depth, lambda s: (
+                    s["checks"]["mixture_power"][detector]["share"]
+                    - (s["unrelated_mixed"]["share"] if detector == "v6" else s["v5_unrelated_mixed_share"])))],
                 **{check: [round(x, 3) for x in by_model(stats, depth, lambda s: s["checks"][check][detector])]
                    for check in ("no_facet_share", "median_top_pair_percentile", "median_token_purity")}}
+    return out
+
+
+def after_review(stats: list[dict]) -> dict:
+    """Exploratory checks added after the independent review, by depth: the pair-level cutoff's trend, how
+    often v6 groups together the examples MiniLM groups, and v6's flags among neurons v5 does and doesn't flag."""
+    out = {}
+    for depth in DEPTHS:
+        row = {"pair_level_unrelated_mixed": trend(by_model(stats, depth, lambda s: s["exploratory_after_review"]["pair_level_unrelated_mixed"]))}
+        for key in ("v6_together_given_v5_together", "v6_together", "v6_flags_among_v5_flagged", "v6_flags_among_v5_unflagged"):
+            row[key] = [round(x, 3) for x in by_model(stats, depth, lambda s: s["exploratory_after_review"][key])]
+        out[depth] = row
     return out
 
 
@@ -370,6 +410,7 @@ def main() -> None:
         "largest_activation_error": max(s["activation_error"] for s in stats),
         "exploratory_mean_share": {depth: [round(x, 3) for x in by_model(stats, depth, lambda s: s["exploratory_mean_share"])]
                                    for depth in DEPTHS},
+        "exploratory_after_review": after_review(stats),
     }
     (RESULTS_DIR / "classification_v6.json").write_text(
         json.dumps({"summary": summary, "layers": stats, "neurons": neurons_out}, indent=1))

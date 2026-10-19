@@ -2,7 +2,9 @@ import numpy as np
 import pytest
 
 import recgen.analyze_v6 as analyze_v6
-from recgen.analyze_v6 import Layer, NullSpace, checks, decisions, mean_share, trend
+from recgen.analyze_v6 import (
+    Layer, NullSpace, checks, decisions, grouped_together, mean_share, pair_level_unrelated_mixed, trend,
+)
 from recgen.rubric_v5 import AGAINST, DEPTHS, FITS, MODELS, NO_TREND
 from recgen.rubric_v6 import MERGE_PERCENTILE, embed, find_facets, least_related, pair_similarities, thresholds
 
@@ -47,8 +49,36 @@ def test_layer_neuron_follows_the_rubric_definition(layer_file):
     assert set(result["variants"]) == {"with LayerNorm gain", "uncentered", "unprojected"}
 
 
-def test_mixture_pools_two_neurons(layer_file):
-    assert isinstance(Layer("70m", "middle").mixture((0, 2)), bool)
+def test_gain_variant_scales_by_the_gain_and_projects_out_the_raw_weights(layer_file):
+    z, random = layer_file["z"].astype(np.float64), layer_file["z"][layer_file["random_rows"]].astype(np.float64)
+    gain, weights = layer_file["gain"].astype(np.float64), layer_file["weights"].astype(np.float64)
+    rows = layer_file["example_rows"][1]
+    units, null, _ = Layer("70m", "middle").embedded("with LayerNorm gain", rows, [1])
+    np.testing.assert_allclose(units, embed(z[rows], random.mean(axis=0), weights[1], gain), atol=1e-12)
+    np.testing.assert_allclose(null, pair_similarities(embed(random, random.mean(axis=0), weights[1], gain)), atol=1e-12)
+
+
+def test_mixture_pools_two_neurons_with_both_directions_projected_out(layer_file):
+    z, random = layer_file["z"].astype(np.float64), layer_file["z"][layer_file["random_rows"]].astype(np.float64)
+    directions = layer_file["weights"][[0, 2]] * layer_file["gain"]
+    rows = np.concatenate([layer_file["example_rows"][0][:25], layer_file["example_rows"][2][:25]])
+    units = embed(z[rows], random.mean(axis=0), directions)
+    merge, unrelated = thresholds(pair_similarities(embed(random, random.mean(axis=0), directions)))
+    facets = find_facets(units, merge)
+    expected = len(facets) >= 2 and least_related(units, facets)[0] < unrelated
+    assert Layer("70m", "middle").mixture((0, 2)) == expected
+
+
+def test_pair_level_cutoff_uses_mean_cross_pair_similarity():
+    units = np.array([[1.0, 0.0], [1.0, 0.0], [0.6, 0.8], [0.6, 0.8]])
+    facets = [np.array([0, 1]), np.array([2, 3])]
+    assert pair_level_unrelated_mixed(units, facets, 0.7) and not pair_level_unrelated_mixed(units, facets, 0.5)
+    assert not pair_level_unrelated_mixed(units, facets[:1], 0.7)
+
+
+def test_grouped_together_marks_pairs_in_one_facet():
+    together = grouped_together([np.array([0, 2])], 3)  # pairs (0, 1), (0, 2), (1, 2)
+    assert together.tolist() == [False, True, False]
 
 
 def rows(shares):
@@ -68,7 +98,7 @@ def fake_stats(unrelated, power):
         for depth in DEPTHS:
             check = {"v6": 0.1, "v5": 0.2}
             stats.append({"model": model, "depth": depth, "unrelated_mixed": rows([unrelated[i]])[0],
-                          "multi_facet": rows([0.5])[0],
+                          "multi_facet": rows([0.5])[0], "v5_unrelated_mixed_share": 0.3,
                           "checks": {"mixture_power": {"v6": rows([power[i]])[0], "v5": rows([0.5])[0]},
                                      "no_facet_share": check, "median_top_pair_percentile": check,
                                      "median_token_purity": check}})
@@ -92,6 +122,8 @@ def test_checks_read_falling_power_as_lost_power():
     out = checks(fake_stats([0.2] * 6, [0.9, 0.8, 0.7, 0.6, 0.5, 0.4]))
     assert out["middle: v6"]["mixture_power"]["verdict"] == "falls with size"
     assert out["middle: v5"]["mixture_power"]["verdict"] == NO_TREND
+    assert out["middle: v6"]["mixture_excess_over_single_neurons"] == [0.7, 0.6, 0.5, 0.4, 0.3, 0.2]
+    assert out["middle: v5"]["mixture_excess_over_single_neurons"] == [0.2] * 6
 
 
 def test_mean_share_is_the_part_of_the_norm_shared_by_every_vector():
