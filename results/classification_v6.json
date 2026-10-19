@@ -216,6 +216,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.718
     },
+    "mixture_excess_over_single_neurons": [
+     0.206,
+     0.176,
+     0.316,
+     0.197,
+     0.246,
+     0.228
+    ],
     "no_facet_share": [
      0.013,
      0.015,
@@ -256,6 +264,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.9
     },
+    "mixture_excess_over_single_neurons": [
+     0.055,
+     0.016,
+     0.012,
+     0.025,
+     0.006,
+     0.008
+    ],
     "no_facet_share": [
      0.247,
      0.279,
@@ -296,6 +312,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.359
     },
+    "mixture_excess_over_single_neurons": [
+     0.415,
+     0.229,
+     0.222,
+     0.254,
+     0.24,
+     0.226
+    ],
     "no_facet_share": [
      0.001,
      0.014,
@@ -336,6 +360,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.8
     },
+    "mixture_excess_over_single_neurons": [
+     0.062,
+     0.016,
+     -0.001,
+     0.026,
+     0.009,
+     0.027
+    ],
     "no_facet_share": [
      0.207,
      0.319,
@@ -376,6 +408,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.359
     },
+    "mixture_excess_over_single_neurons": [
+     0.399,
+     0.254,
+     0.132,
+     0.272,
+     0.119,
+     0.088
+    ],
     "no_facet_share": [
      0.001,
      0.008,
@@ -416,6 +456,14 @@
      "verdict_without_70m": "no clear trend",
      "spearman_rho_without_70m": -0.1
     },
+    "mixture_excess_over_single_neurons": [
+     0.098,
+     0.047,
+     0.062,
+     0.035,
+     0.022,
+     0.003
+    ],
     "no_facet_share": [
      0.201,
      0.243,
@@ -905,6 +953,152 @@
     0.617,
     0.729
    ]
+  },
+  "exploratory_after_review": {
+   "quarter": {
+    "pair_level_unrelated_mixed": {
+     "shares": [
+      0.553,
+      0.57,
+      0.61,
+      0.577,
+      0.543,
+      0.564
+     ],
+     "verdict": "no clear trend",
+     "spearman_rho": -0.143,
+     "verdict_without_70m": "no clear trend",
+     "spearman_rho_without_70m": -0.6
+    },
+    "v6_together_given_v5_together": [
+     0.521,
+     0.641,
+     0.76,
+     0.777,
+     0.797,
+     0.828
+    ],
+    "v6_together": [
+     0.212,
+     0.196,
+     0.268,
+     0.197,
+     0.221,
+     0.239
+    ],
+    "v6_flags_among_v5_flagged": [
+     0.593,
+     0.684,
+     0.602,
+     0.58,
+     0.483,
+     0.491
+    ],
+    "v6_flags_among_v5_unflagged": [
+     0.495,
+     0.474,
+     0.478,
+     0.421,
+     0.414,
+     0.396
+    ]
+   },
+   "middle": {
+    "pair_level_unrelated_mixed": {
+     "shares": [
+      0.558,
+      0.533,
+      0.639,
+      0.575,
+      0.599,
+      0.565
+     ],
+     "verdict": "no clear trend",
+     "spearman_rho": 0.429,
+     "verdict_without_70m": "no clear trend",
+     "spearman_rho_without_70m": 0.1
+    },
+    "v6_together_given_v5_together": [
+     0.703,
+     0.555,
+     0.759,
+     0.76,
+     0.756,
+     0.737
+    ],
+    "v6_together": [
+     0.331,
+     0.167,
+     0.26,
+     0.227,
+     0.236,
+     0.207
+    ],
+    "v6_flags_among_v5_flagged": [
+     0.667,
+     0.661,
+     0.703,
+     0.53,
+     0.669,
+     0.56
+    ],
+    "v6_flags_among_v5_unflagged": [
+     0.403,
+     0.423,
+     0.524,
+     0.452,
+     0.455,
+     0.432
+    ]
+   },
+   "three quarters": {
+    "pair_level_unrelated_mixed": {
+     "shares": [
+      0.547,
+      0.571,
+      0.525,
+      0.661,
+      0.56,
+      0.579
+     ],
+     "verdict": "no clear trend",
+     "spearman_rho": 0.486,
+     "verdict_without_70m": "no clear trend",
+     "spearman_rho_without_70m": 0.3
+    },
+    "v6_together_given_v5_together": [
+     0.625,
+     0.536,
+     0.493,
+     0.708,
+     0.671,
+     0.75
+    ],
+    "v6_together": [
+     0.288,
+     0.187,
+     0.138,
+     0.247,
+     0.154,
+     0.158
+    ],
+    "v6_flags_among_v5_flagged": [
+     0.643,
+     0.636,
+     0.517,
+     0.684,
+     0.619,
+     0.637
+    ],
+    "v6_flags_among_v5_unflagged": [
+     0.405,
+     0.447,
+     0.404,
+     0.499,
+     0.407,
+     0.426
+    ]
+   }
   }
  },
  "layers": [
@@ -1012,6 +1206,19 @@
     }
    },
    "exploratory_mean_share": 0.30175060365028755,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.5931558935361216,
+    "v6_flags_among_v5_unflagged": 0.49511213341000576,
+    "v6_together_given_v5_together": 0.5212719740578113,
+    "v6_together": 0.21157903321168628,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5534465534465535,
+     "interval": [
+      0.5309690309690309,
+      0.5749250749250749
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1167,6 +1374,19 @@
     }
    },
    "exploratory_mean_share": 0.25973012532010537,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6666666666666666,
+    "v6_flags_among_v5_unflagged": 0.4032012195121951,
+    "v6_together_given_v5_together": 0.7034007068210124,
+    "v6_together": 0.33134333041352354,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5579756566303652,
+     "interval": [
+      0.5323510570147342,
+      0.5803971812940423
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1322,6 +1542,19 @@
     }
    },
    "exploratory_mean_share": 0.2574720579955373,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6428571428571429,
+    "v6_flags_among_v5_unflagged": 0.40494011976047906,
+    "v6_together_given_v5_together": 0.6250173431791204,
+    "v6_together": 0.2884230535681284,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5465717981888745,
+     "interval": [
+      0.5219922380336351,
+      0.5711513583441138
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1477,6 +1710,19 @@
     }
    },
    "exploratory_mean_share": 0.25287718932794784,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6837606837606838,
+    "v6_flags_among_v5_unflagged": 0.4735391400220507,
+    "v6_together_given_v5_together": 0.641161918581781,
+    "v6_together": 0.19554488201530612,
+    "pair_level_unrelated_mixed": {
+     "share": 0.56982421875,
+     "interval": [
+      0.54881591796875,
+      0.591796875
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1632,6 +1878,19 @@
     }
    },
    "exploratory_mean_share": 0.3319293394719394,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6605504587155964,
+    "v6_flags_among_v5_unflagged": 0.42349726775956287,
+    "v6_together_given_v5_together": 0.5554928771090829,
+    "v6_together": 0.16737005739795918,
+    "pair_level_unrelated_mixed": {
+     "share": 0.533203125,
+     "interval": [
+      0.51025390625,
+      0.55372314453125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1787,6 +2046,19 @@
     }
    },
    "exploratory_mean_share": 0.29450253942768595,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6363636363636364,
+    "v6_flags_among_v5_unflagged": 0.44660194174757284,
+    "v6_together_given_v5_together": 0.5358762108799476,
+    "v6_together": 0.18737364477040816,
+    "pair_level_unrelated_mixed": {
+     "share": 0.57080078125,
+     "interval": [
+      0.55078125,
+      0.5927734375
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -1942,6 +2214,19 @@
     }
    },
    "exploratory_mean_share": 0.26902397397010785,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6017699115044248,
+    "v6_flags_among_v5_unflagged": 0.47804610318331503,
+    "v6_together_given_v5_together": 0.7601819900213201,
+    "v6_together": 0.26785594706632654,
+    "pair_level_unrelated_mixed": {
+     "share": 0.6103515625,
+     "interval": [
+      0.58787841796875,
+      0.63232421875
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2097,6 +2382,19 @@
     }
    },
    "exploratory_mean_share": 0.29258403331696187,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.7029702970297029,
+    "v6_flags_among_v5_unflagged": 0.5238353196099675,
+    "v6_together_given_v5_together": 0.7587205532742598,
+    "v6_together": 0.25954041772959185,
+    "pair_level_unrelated_mixed": {
+     "share": 0.63916015625,
+     "interval": [
+      0.61962890625,
+      0.662109375
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2252,6 +2550,19 @@
     }
    },
    "exploratory_mean_share": 0.42826137688520916,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.5168195718654435,
+    "v6_flags_among_v5_unflagged": 0.4044160371876816,
+    "v6_together_given_v5_together": 0.4930715684928041,
+    "v6_together": 0.137633131377551,
+    "pair_level_unrelated_mixed": {
+     "share": 0.525390625,
+     "interval": [
+      0.50438232421875,
+      0.546875
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2408,6 +2719,19 @@
     }
    },
    "exploratory_mean_share": 0.48993827884514884,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.5797101449275363,
+    "v6_flags_among_v5_unflagged": 0.420966865833786,
+    "v6_together_given_v5_together": 0.7767377824263317,
+    "v6_together": 0.19707788584183675,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5771484375,
+     "interval": [
+      0.55614013671875,
+      0.59912109375
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2564,6 +2888,19 @@
     }
    },
    "exploratory_mean_share": 0.4786282455113159,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.5297619047619048,
+    "v6_flags_among_v5_unflagged": 0.45159574468085106,
+    "v6_together_given_v5_together": 0.7601649405446874,
+    "v6_together": 0.22735132334183675,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5751953125,
+     "interval": [
+      0.55322265625,
+      0.59619140625
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2720,6 +3057,19 @@
     }
    },
    "exploratory_mean_share": 0.4281086722630697,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6838905775075987,
+    "v6_flags_among_v5_unflagged": 0.4985456660849331,
+    "v6_together_given_v5_together": 0.7082393187277094,
+    "v6_together": 0.2471564094387755,
+    "pair_level_unrelated_mixed": {
+     "share": 0.66064453125,
+     "interval": [
+      0.6396484375,
+      0.67969970703125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -2875,6 +3225,19 @@
     }
    },
    "exploratory_mean_share": 0.49709644519679114,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.4826086956521739,
+    "v6_flags_among_v5_unflagged": 0.4141914191419142,
+    "v6_together_given_v5_together": 0.7968446576464043,
+    "v6_together": 0.22115593112244897,
+    "pair_level_unrelated_mixed": {
+     "share": 0.54296875,
+     "interval": [
+      0.521484375,
+      0.564453125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -3031,6 +3394,19 @@
     }
    },
    "exploratory_mean_share": 0.5220754892785893,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6686746987951807,
+    "v6_flags_among_v5_unflagged": 0.45483528161530284,
+    "v6_together_given_v5_together": 0.7558797008433671,
+    "v6_together": 0.23570272640306122,
+    "pair_level_unrelated_mixed": {
+     "share": 0.59912109375,
+     "interval": [
+      0.57860107421875,
+      0.61964111328125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -3186,6 +3562,19 @@
     }
    },
    "exploratory_mean_share": 0.6167201345920358,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6186046511627907,
+    "v6_flags_among_v5_unflagged": 0.40667490729295425,
+    "v6_together_given_v5_together": 0.6712420832905047,
+    "v6_together": 0.1535056600765306,
+    "pair_level_unrelated_mixed": {
+     "share": 0.56005859375,
+     "interval": [
+      0.53955078125,
+      0.58349609375
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -3342,6 +3731,19 @@
     }
    },
    "exploratory_mean_share": 0.5442544112415884,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.49056603773584906,
+    "v6_flags_among_v5_unflagged": 0.3959694989106754,
+    "v6_together_given_v5_together": 0.8277873417721519,
+    "v6_together": 0.23927295918367347,
+    "pair_level_unrelated_mixed": {
+     "share": 0.56396484375,
+     "interval": [
+      0.54295654296875,
+      0.58497314453125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -3498,6 +3900,19 @@
     }
    },
    "exploratory_mean_share": 0.5481842608663964,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.5602836879432624,
+    "v6_flags_among_v5_unflagged": 0.43156790770844256,
+    "v6_together_given_v5_together": 0.7365920757820699,
+    "v6_together": 0.20728435905612244,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5654296875,
+     "interval": [
+      0.544921875,
+      0.58594970703125
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
@@ -3653,6 +4068,19 @@
     }
    },
    "exploratory_mean_share": 0.7294812999347066,
+   "exploratory_after_review": {
+    "v6_flags_among_v5_flagged": 0.6370757180156658,
+    "v6_flags_among_v5_unflagged": 0.4264264264264264,
+    "v6_together_given_v5_together": 0.7498773948208356,
+    "v6_together": 0.15765983737244899,
+    "pair_level_unrelated_mixed": {
+     "share": 0.5791015625,
+     "interval": [
+      0.55711669921875,
+      0.6005859375
+     ]
+    }
+   },
    "variants": {
     "with LayerNorm gain": {
      "unrelated_mixed": {
