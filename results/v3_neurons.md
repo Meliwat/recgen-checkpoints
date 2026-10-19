@@ -47,11 +47,11 @@ Help is the change in log-prob (nats) of the actual next token when the neuron i
 
 ## Neuron 1059: v1 packing-like, v2 packing-like, v3 no use found (facets 1-2)
 
-Facet-typical activation 1.439; patched into random text at that level, its median help is 0.0, KL 0.0004, sharpen cosine -0.005.
+Facet-typical activation 1.439; patched into random text at that level, its median help is 0.0, KL 0.00041, sharpen cosine -0.005.
 
 **Facet 0, legal: 'See' citation** (40 examples, 14 from v1): harmless, median help -0.001 (p = 0.9629), later predictions 0.0006 (harmless); reliability 0.913, generic share 0.184
 
-- probability: median KL 0.0008, moved 0.0154, sharpen cosine -0.038; raises ' People', ' id', ' United', ' P', ' Id', ' Dom', 'it', ' B'; lowers ',', ' Rule', ' see', ' 42', '1', ' Fed', ' Commonwealth', ' In'
+- probability: median KL 0.000754, moved 0.015447, sharpen cosine -0.038; raises ' People', ' id', ' United', ' P', ' Id', ' Dom', 'it', ' B'; lowers ',', ' Rule', ' see', ' 42', '1', ' Fed', ' Commonwealth', ' In'
 - promoted: 'EVER', 'ías', 'ización', 'ements', '⋯', ' Zoo', ' Ever', ' blo'
 - specific promoted: 'EVER', 'osis', '⋯', 'itive', ' друг', ' andere', 'ostic', 'osing'
 - specific demoted: 'ctrine', 'rons', 'Before', 'follow', 'mediately', 'enches', 'thems', 'uesday'
@@ -61,7 +61,7 @@ Facet-typical activation 1.439; patched into random text at that level, its medi
 
 **Facet 1, legal: 'See' citation (2)** (22 examples, 6 from v1): harmless, median help -0.0021 (p = 0.8987), later predictions 0.0004 (harmless); reliability 0.832, generic share 0.232
 
-- probability: median KL 0.0008, moved 0.015, sharpen cosine -0.078; raises ' id', ' Def', ' be', ' A', ' Id', ' light', 'con', ' Mor'; lowers ',', ' fru', ' pass', ' also', ' 5', ' Laws', ' 28', ' supra'
+- probability: median KL 0.000821, moved 0.014974, sharpen cosine -0.078; raises ' id', ' Def', ' be', ' A', ' Id', ' light', 'con', ' Mor'; lowers ',', ' fru', ' pass', ' also', ' 5', ' Laws', ' 28', ' supra'
 - promoted: '\\.', 'ización', '⋯', 'cels', ' Indy', '±', 'yset', 'ères'
 - specific promoted: '⋯', 'cels', ' genetic', 'idation', ' Indy', 'ères', ' ±', ' di'
 - specific demoted: 'enches', 'Before', 'avel', 'bread', 'ear', 'Sen', 'printed', 'appa'
@@ -71,7 +71,7 @@ Facet-typical activation 1.439; patched into random text at that level, its medi
 
 **Facet 2, travel: price/time ranges** (40 examples, 5 from v1): harmless, median help 0.0003 (p = 0.6656), later predictions -0.0024 (harmless); reliability 0.958, generic share 0.154
 
-- probability: median KL 0.0005, moved 0.0108, sharpen cosine -0.057; raises ';', '4', ' Tue', ' Apr', '9', '10', 'mid', '3'; lowers ' Mon', '6', '11', ')', '5', 'late', '8', ' Sat'
+- probability: median KL 0.000468, moved 0.010831, sharpen cosine -0.057; raises ';', '4', ' Tue', ' Apr', '9', '10', 'mid', '3'; lowers ' Mon', '6', '11', ')', '5', 'late', '8', ' Sat'
 - promoted: 'CP', 'OVID', 'RSP', 'Cos', 'overs', 'JD', 'RP', 'RSA'
 - specific promoted: 'RSA', 'OVID', 'JD', 'SRC', 'PCR', 'RSP', 'PSC', 'kins'
 - specific demoted: 'afe', ' You', ' AMERICA', ' Your', '"));', "'));", ' Would', 'iab'
@@ -85,11 +85,11 @@ Facet-typical activation 1.439; patched into random text at that level, its medi
 
 ## Neuron 1641: v1 packing-like, v2 packing-like, v3 no use found (facets 1-2)
 
-Facet-typical activation 1.359; patched into random text at that level, its median help is 0.0, KL 0.0003, sharpen cosine 0.039.
+Facet-typical activation 1.359; patched into random text at that level, its median help is 0.0, KL 0.000343, sharpen cosine 0.039.
 
 **Facet 0, periods in formulas/initials** (40 examples, 7 from v1): harmless, median help -0.0 (p = 0.8995), later predictions -0.0 (harmless); reliability 0.637, generic share 0.429
 
-- probability: median KL 0.0001, moved 0.0039, sharpen cosine 0.055; raises '15', '\xa0', '31', '30', '5', '39', '29', '4'; lowers '17', '16', '34', 'A', '0', '42', '3', '35'
+- probability: median KL 8.5e-05, moved 0.003948, sharpen cosine 0.055; raises '15', '\xa0', '31', '30', '5', '39', '29', '4'; lowers '17', '16', '34', 'A', '0', '42', '3', '35'
 - promoted: '³', '%"', '{})', ' canonical', "#'", ' leg', ' goddess', ' percent'
 - specific promoted: ' combination', ' rapid', ' combined', ' conjunction', ' comparison', ' overlap', ' ratio', ' cum'
 - specific demoted: '…]', ']{}.', ']{};', '\\]]{}', '”.', '81', ']]', '18'
@@ -99,7 +99,7 @@ Facet-typical activation 1.359; patched into random text at that level, its medi
 
 **Facet 1, license: 'distributed under'** (18 examples, 7 from v1): harmless, median help 0.0 (p = 0.2288), later predictions -0.0 (harmless); reliability 0.751, generic share 0.295
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.031; raises ' permission', ' my', ' this', ' express', ' explicit', ' consent', ' GNU', ' My'; lowers ' the', ' prior', ' these', ' our', ' written', ' your', ' terms', ' License'
+- probability: median KL 2e-06, moved 1.2e-05, sharpen cosine 0.031; raises ' permission', ' my', ' this', ' express', ' explicit', ' consent', ' GNU', ' My'; lowers ' the', ' prior', ' these', ' our', ' written', ' your', ' terms', ' License'
 - promoted: ' Aut', 'Aut', ' GENERATED', 'ing', 'notations', 'iable', 'pages', 'hed'
 - specific promoted: 'only', 'lied', 'onant', 'ONLY', 'Aut', 'Only', 'NI', 'them'
 - specific demoted: 'oder', 'uction', 'ema', ' Bomb', 'IRST', 'atten', 'xton', 'illin'
@@ -109,7 +109,7 @@ Facet-typical activation 1.359; patched into random text at that level, its medi
 
 **Facet 2, fiction dialogue** (40 examples, 4 from v1): harmless, median help 0.0005 (p = 0.2535), later predictions -0.0 (harmless); reliability 0.942, generic share 0.364
 
-- probability: median KL 0.0001, moved 0.0046, sharpen cosine 0.07; raises '"', ' She', ' down', ' “', ' the', 'He', ' He', ' I'; lowers '\n', 'Ver', 'M', ' over', ' all', 'The', 'Mal', ' so'
+- probability: median KL 0.000114, moved 0.004608, sharpen cosine 0.07; raises '"', ' She', ' down', ' “', ' the', 'He', ' He', ' I'; lowers '\n', 'Ver', 'M', ' over', ' all', 'The', 'Mal', ' so'
 - promoted: 'aler', 'intervention', ' especial', ' protested', ' Wonder', ' Interest', 'enderer', ' Nice'
 - specific promoted: 'aler', ' Product', ' Wonder', ' PARTICULAR', 'intervention', 'resis', 'asper', ' curiosity'
 - specific demoted: 'ition', 'cknow', ' apart', 'ifies', ' ourselves', '2', ' yourselves', '?**'
@@ -123,11 +123,11 @@ Facet-typical activation 1.359; patched into random text at that level, its medi
 
 ## Neuron 3656: v1 mixed from the start, v2 mixed from the start, v3 no use found (facets 0-2)
 
-Facet-typical activation 1.695; patched into random text at that level, its median help is 0.0, KL 0.0005, sharpen cosine 0.017.
+Facet-typical activation 1.695; patched into random text at that level, its median help is 0.0, KL 0.00051, sharpen cosine 0.017.
 
 **Facet 0, fiction: 'you'll find'** (40 examples, 8 from v1): harmless, median help 0.0063 (p = 0.2317), later predictions 0.0044 (harmless); reliability 0.927, generic share 0.316
 
-- probability: median KL 0.0009, moved 0.0151, sharpen cosine 0.024; raises ' a', ' himself', ' something', ' another', ' Kal', ' someone', ' myself', ' herself'; lowers ' the', ' him', ' it', ' his', ' them', ' her', ' me', ' he'
+- probability: median KL 0.00095, moved 0.015073, sharpen cosine 0.024; raises ' a', ' himself', ' something', ' another', ' Kal', ' someone', ' myself', ' herself'; lowers ' the', ' him', ' it', ' his', ' them', ' her', ' me', ' he'
 - promoted: 'fitting', 'SOL', ' sol', 'sol', 'rig', ' shelter', 'bered', 'orian'
 - specific promoted: ' shelter', 'rig', 'fitting', 'protected', 'PAR', ' refuge', 'lod', ' shelters'
 - specific demoted: 'amss', ' assertEquals', ' complaints', 'orld', ' violations', ' conflicts', ' controversy', ' suspicions'
@@ -137,7 +137,7 @@ Facet-typical activation 1.695; patched into random text at that level, its medi
 
 **Facet 1, fiction: 'found'** (15 examples, 6 from v1): harmless, median help -0.0077 (p = 0.3894), later predictions -0.0026 (harmless); reliability 0.855, generic share 0.27
 
-- probability: median KL 0.0016, moved 0.021, sharpen cosine 0.053; raises ' myself', ' a', ' ourselves', ' herself', ' another', ' something', ' someone', ' work'; lowers ' her', ' the', ' them', ' that', ' it', ' me', ' Mark', ' couch'
+- probability: median KL 0.001602, moved 0.021032, sharpen cosine 0.053; raises ' myself', ' a', ' ourselves', ' herself', ' another', ' something', ' someone', ' work'; lowers ' her', ' the', ' them', ' that', ' it', ' me', ' Mark', ' couch'
 - promoted: 'fitting', 'SOL', 'aced', 'rig', 'secured', ' secure', 'bered', ' sol'
 - specific promoted: 'rig', 'protected', 'aced', 'fitting', 'secure', 'cad', 'ré', 'artic'
 - specific demoted: ' assertEquals', ' Issue', ' issue', ' antican', ' 08', ' 07', 'IRST', ' Hos'
@@ -147,7 +147,7 @@ Facet-typical activation 1.695; patched into random text at that level, its medi
 
 **Facet 2, license: 'published by'** (14 examples, 6 from v1): harmless, median help -0.0 (p = 0.8613), later predictions 0.0 (harmless); reliability 0.655, generic share 0.366
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.035; raises '//', ' even', '*', ' WITHOUT', '  ', ' FOR', ' PROC', '*('; lowers ' BUT', '\n', ' *', ' the', ' more', ' or', 'even', 'the'
+- probability: median KL 6e-06, moved 3.3e-05, sharpen cosine 0.035; raises '//', ' even', '*', ' WITHOUT', '  ', ' FOR', ' PROC', '*('; lowers ' BUT', '\n', ' *', ' the', ' more', ' or', 'even', 'the'
 - promoted: 'oln', ' /**<', 'ronic', '\\\\\\\\', ' sql', 'iousness', 'ergus', ' Required'
 - specific promoted: 'trl', 'ividual', '\\\\\\\\', 'ellig', ' elig', ' privileges', '//!', ' errno'
 - specific demoted: 'com', 'is', 'om', 'an', 'o', '\x91', 'at', 'by'
@@ -161,11 +161,11 @@ Facet-typical activation 1.695; patched into random text at that level, its medi
 
 ## Neuron 3812: v1 mixed from the start, v2 mixed from the start, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.33; patched into random text at that level, its median help is -0.0001, KL 0.0003, sharpen cosine 0.013.
+Facet-typical activation 1.33; patched into random text at that level, its median help is -0.0001, KL 0.00034, sharpen cosine 0.013.
 
 **Facet 0, fiction: 'kill'** (40 examples, 6 from v1): harmless, median help 0.0006 (p = 0.4598), later predictions 0.0012 (harmless); reliability 0.773, generic share 0.602
 
-- probability: median KL 0.0005, moved 0.0104, sharpen cosine -0.007; raises '.', ',', ' smell', ' his', ' there', ' them', ',"', ' off'; lowers ' Sw', ' their', ' and', ' with', ' direction', ' Lisa', ' him', ' in'
+- probability: median KL 0.000487, moved 0.010414, sharpen cosine -0.007; raises '.', ',', ' smell', ' his', ' there', ' them', ',"', ' off'; lowers ' Sw', ' their', ' and', ' with', ' direction', ' Lisa', ' him', ' in'
 - promoted: 'ful', ' tables', ' hers', 'edic', 'ary', ' scenery', 'same', ':*'
 - specific promoted: 'ικ', ' roles', ' foli', ' hers', 'ymb', ' grades', 'ologically', 'omi'
 - specific demoted: 'ube', '969', ')[@', 'Patients', 'TW', 'ocur', '################', 'users'
@@ -175,7 +175,7 @@ Facet-typical activation 1.33; patched into random text at that level, its media
 
 **Facet 1, legal: paragraph numbers** (22 examples, 5 from v1): harmless, median help -0.0 (p = 0.0059), later predictions 0.0002 (harmless); reliability 0.923, generic share 0.333
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.082; raises ' and', ' the', ':', ' its', '.', ').', ' -', ' in'; lowers ' omitted', ' that', '     ', ');', '-', ' beyond', ' it', ' an'
+- probability: median KL 4e-06, moved 2.9e-05, sharpen cosine 0.082; raises ' and', ' the', ':', ' its', '.', ').', ' -', ' in'; lowers ' omitted', ' that', '     ', ');', '-', ' beyond', ' it', ' an'
 - promoted: 'best', 'arms', 'first', 'rest', ' tables', 'ert', ' objects', 'tables'
 - specific promoted: 'best', 'objects', ' best', 'hei', ' objects', 'leg', 'top', 'heads'
 - specific demoted: ' GS', ' unambig', ')*-', 'iotic', 'EXPORT', 'uran', ' Branch', 'uesday'
@@ -187,11 +187,11 @@ Facet-typical activation 1.33; patched into random text at that level, its media
 
 ## Neuron 510: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.717; patched into random text at that level, its median help is 0.0, KL 0.0005, sharpen cosine -0.01.
+Facet-typical activation 1.717; patched into random text at that level, its median help is 0.0, KL 0.00052, sharpen cosine -0.01.
 
 **Facet 0, facet 0** (40 examples, 7 from v1): harmless, median help 0.0002 (p = 0.889), later predictions 0.0002 (harmless); reliability 0.736, generic share 0.628
 
-- probability: median KL 0.001, moved 0.0168, sharpen cosine -0.004; raises ' seat', ' and', ' to', ' that', ' if', ' want', ' with', ' see'; lowers ' you', ' good', ',', ' great', ' questions', ' nice', ' I', ' of'
+- probability: median KL 0.000988, moved 0.016787, sharpen cosine -0.004; raises ' seat', ' and', ' to', ' that', ' if', ' want', ' with', ' see'; lowers ' you', ' good', ',', ' great', ' questions', ' nice', ' I', ' of'
 - promoted: 'rror', 'erent', 'locking', 'hydration', 'ahl', 'ity', 'rial', ' validity'
 - specific promoted: 'ahren', 'iv', 'isted', 'bed', ' ounces', 'reland', 'ived', 'epi'
 - specific demoted: 'hee', 'ませ', 'thren', 'LRQ', 'на', 'nar', ' WHEN', 'ío'
@@ -201,7 +201,7 @@ Facet-typical activation 1.717; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (22 examples, 5 from v1): harmless, median help 0.0 (p = 0.5661), later predictions 0.0001 (harmless); reliability 0.838, generic share 0.196
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.008; raises 'linux', 'string', ' on', 'sys', 'stdlib', 'signal', 'un', '\n'; lowers 'std', 'assert', 'fc', 'int', ' or', 'st', 'errno', ' license'
+- probability: median KL 1e-05, moved 3.8e-05, sharpen cosine 0.008; raises 'linux', 'string', ' on', 'sys', 'stdlib', 'signal', 'un', '\n'; lowers 'std', 'assert', 'fc', 'int', ' or', 'st', 'errno', ' license'
 - promoted: 'ietal', ' activ', ' ident', 'arda', ' activities', 'sites', ' replacements', 'ahead'
 - specific promoted: ' assertions', ' defaults', ' implementations', ' replacements', ' activ', ' videos', ' remov', 'arda'
 - specific demoted: ' reading', 'al', 'received', 'hin', 'amazon', ' Reading', 'usterity', 'rak'
@@ -213,11 +213,11 @@ Facet-typical activation 1.717; patched into random text at that level, its medi
 
 ## Neuron 2817: v1 packing-like, v2 packing-like, v3 no use found (facets 0-2)
 
-Facet-typical activation 1.48; patched into random text at that level, its median help is 0.0, KL 0.0004, sharpen cosine 0.024.
+Facet-typical activation 1.48; patched into random text at that level, its median help is 0.0, KL 0.000392, sharpen cosine 0.024.
 
 **Facet 0, facet 0** (40 examples, 7 from v1): harmless, median help 0.0001 (p = 0.0051), later predictions 0.0001 (harmless); reliability 0.882, generic share 0.553
 
-- probability: median KL 0.0001, moved 0.0022, sharpen cosine 0.047; raises ')', '  ', '^-', '-', '                     ', ';', '\n', '--'; lowers '^', 'album', ')\\', '   ', '    ', 'ol', ',', '                      '
+- probability: median KL 5.3e-05, moved 0.002165, sharpen cosine 0.047; raises ')', '  ', '^-', '-', '                     ', ';', '\n', '--'; lowers '^', 'album', ')\\', '   ', '    ', 'ol', ',', '                      '
 - promoted: 'itive', 'iero', 'adin', 'ieri', 'patient', 'PLIED', '名', 'iving'
 - specific promoted: 'itive', 'band', 'itives', 'thead', 'isson', 'adier', 'INION', 'IFN'
 - specific demoted: '!\\', "]'", ']",', ']{', 'rounds', 'ometers', ' *_', ' Down'
@@ -227,7 +227,7 @@ Facet-typical activation 1.48; patched into random text at that level, its media
 
 **Facet 1, facet 1** (40 examples, 6 from v1): harmless, median help -0.0 (p = 0.9629), later predictions -0.0001 (harmless); reliability 0.733, generic share 0.482
 
-- probability: median KL 0.0005, moved 0.0112, sharpen cosine 0.002; raises ' him', ' unjust', ' make', ' abuse', ' otherwise', ' probation', ' or', ' nothing'; lowers ' the', ' his', '-', ' err', ' clearly', ' a', 'iting', ' he'
+- probability: median KL 0.000509, moved 0.011239, sharpen cosine 0.002; raises ' him', ' unjust', ' make', ' abuse', ' otherwise', ' probation', ' or', ' nothing'; lowers ' the', ' his', '-', ' err', ' clearly', ' a', 'iting', ' he'
 - promoted: 'document', 'j', 'rile', 'fully', 'rug', 'ara', 'oco', 'antry'
 - specific promoted: 'document', 'amais', 'iol', 'olt', 'ament', 'ments', 'iu', 'o'
 - specific demoted: ' ideology', 'itarian', 'ASH', ' policy', ' command', 'AUTH', ' authority', 'cano'
@@ -237,7 +237,7 @@ Facet-typical activation 1.48; patched into random text at that level, its media
 
 **Facet 2, facet 2** (20 examples, 5 from v1): harmless, median help -0.0048 (p = 0.4749), later predictions 0.0051 (harmless); reliability 0.763, generic share 0.486
 
-- probability: median KL 0.001, moved 0.0177, sharpen cosine -0.029; raises ' it', ' and', ',', 'que', ' women', ' discrimination', ' even', ' or'; lowers '-', 'man', ' what', ' non', ' that', ' authority', ' like', ' inequ'
+- probability: median KL 0.001012, moved 0.017716, sharpen cosine -0.029; raises ' it', ' and', ',', 'que', ' women', ' discrimination', ' even', ' or'; lowers '-', 'man', ' what', ' non', ' that', ' authority', ' like', ' inequ'
 - promoted: 'quo', 'kie', 'ara', 'NY', 'abine', 'avage', 'avery', 'riv'
 - specific promoted: 'kie', 'quo', 'acs', 'avery', 'abine', 'vious', 'wers', 'pe'
 - specific demoted: ' dominance', 'ogen', ' values', ' homogeneity', '──', ' superiority', 'ogenetic', ' forward'
@@ -251,11 +251,11 @@ Facet-typical activation 1.48; patched into random text at that level, its media
 
 ## Neuron 3068: v1 packing-like, v2 packing-like, v3 too few examples (facets 0-2)
 
-Facet-typical activation 2.026; patched into random text at that level, its median help is 0.0, KL 0.0006, sharpen cosine 0.06.
+Facet-typical activation 2.026; patched into random text at that level, its median help is 0.0, KL 0.000612, sharpen cosine 0.06.
 
 **Facet 0, facet 0** (40 examples, 9 from v1): harmless, median help 0.0 (p = 1.0), later predictions 0.0 (harmless); reliability 0.664, generic share 0.626
 
-- probability: median KL 0.0007, moved 0.0109, sharpen cosine 0.069; raises '_', ' server', '\\', ' get', ' main', ')', '32', '::'; lowers 'error', ' *', ' len', '6', '\n', ' **', 'w', 'buffer'
+- probability: median KL 0.000673, moved 0.01086, sharpen cosine 0.069; raises '_', ' server', '\\', ' get', ' main', ')', '32', '::'; lowers 'error', ' *', ' len', '6', '\n', ' **', 'w', 'buffer'
 - promoted: 'INCLUDE', ' UN', 'ALT', 'nat', ' Un', ' nesting', 'United', ' glob'
 - specific promoted: 'inction', 'acion', 'sein', 'inn', 'stop', 'spring', 'oddsidemargin', 'Accessor'
 - specific demoted: '(#', 'ype', 'YPE', '/((-', 'orect', "...'", 'PY', 'WB'
@@ -265,7 +265,7 @@ Facet-typical activation 2.026; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (7 examples, 5 from v1): harmless, median help -0.0001 (p = 0.9375), later predictions 0.0038 (harmless); reliability 0.581, generic share 0.361
 
-- probability: median KL 0.0016, moved 0.0232, sharpen cosine 0.032; raises ' HD', ' 9', ' card', ' 480', ' 7', ' Titan', ' 460', ' 780'; lowers ' 10', ' G', ' R', ' 16', ' 580', ' GT', ' X', ' 8'
+- probability: median KL 0.001632, moved 0.023205, sharpen cosine 0.032; raises ' HD', ' 9', ' card', ' 480', ' 7', ' Titan', ' 460', ' 780'; lowers ' 10', ' G', ' R', ' 16', ' 580', ' GT', ' X', ' 8'
 - promoted: ' elif', ' Kon', 'kon', 'от', 'moz', 'eme', 'ál', ' Luxem'
 - specific promoted: 'olen', '()->', 'eme', 'blo', 'oby', 'ál', ' live', 'ez'
 - specific demoted: 'icode', 'iform', 'irectory', 'pires', 'ervice', 'owler', 'QUE', ' secre'
@@ -275,7 +275,7 @@ Facet-typical activation 2.026; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (7 examples, 5 from v1): harmless, median help 0.0 (p = 0.9375), later predictions 0.0087 (harmless); reliability 0.452, generic share 0.272
 
-- probability: median KL 0.001, moved 0.0096, sharpen cosine 0.116; raises ' component', '-', ' Native', ' Story', '/', ' native', '.', ' -'; lowers 'JS', ' app', ' App', 'Component', ':', 'js', ' Create', ' JS'
+- probability: median KL 0.00098, moved 0.009563, sharpen cosine 0.116; raises ' component', '-', ' Native', ' Story', '/', ' native', '.', ' -'; lowers 'JS', ' app', ' App', 'Component', ':', 'js', ' Create', ' JS'
 - promoted: "']['", ' full', '___', 'full', 'bootstrap', ' centered', "'?", ',{'
 - specific promoted: 'bootstrap', 'zent', "']['", 'xl', 'axon', 'vas', '*>(', 'ietz'
 - specific demoted: 'cies', 'onda', 'yland', ' Spacewatch', 'opot', 'orandum', 'Thursday', 'osto'
@@ -289,11 +289,11 @@ Facet-typical activation 2.026; patched into random text at that level, its medi
 
 ## Neuron 1528: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 2.141; patched into random text at that level, its median help is -0.0, KL 0.0007, sharpen cosine 0.011.
+Facet-typical activation 2.141; patched into random text at that level, its median help is -0.0, KL 0.000745, sharpen cosine 0.011.
 
 **Facet 0, 'Mendeleev'** (21 examples, 6 from v1): harms, median help -0.0291 (p = 0.0), later predictions 0.0009 (harmless); reliability 0.982, generic share 0.165
 
-- probability: median KL 0.0076, moved 0.0322, sharpen cosine 0.017; raises 'ley', "'s", ',', 'ck', '-', ' and', ' (', ':'; lowers 'le', 'lev', 'res', 'z', 'zi', 're', 'zes', 'j'
+- probability: median KL 0.007554, moved 0.03216, sharpen cosine 0.017; raises 'ley', "'s", ',', 'ck', '-', ' and', ' (', ':'; lowers 'le', 'lev', 'res', 'z', 'zi', 're', 'zes', 'j'
 - promoted: 'elen', 'ull', 'onen', 'urt', 'unction', 'lick', 'ports', 'haw'
 - specific promoted: 'haw', 'ports', 'aurant', 'avor', 'anded', 'Book', 'ull', 'unction'
 - specific demoted: 'g', 'gos', 'gia', 'dn', 'minimum', 'cs', 'gian', 'least'
@@ -303,7 +303,7 @@ Facet-typical activation 2.141; patched into random text at that level, its medi
 
 **Facet 1, dialogue: 'See you'** (28 examples, 5 from v1): harmless, median help -0.0005 (p = 0.7793), later predictions -0.0038 (harmless); reliability 0.8, generic share 0.516
 
-- probability: median KL 0.0006, moved 0.0117, sharpen cosine 0.023; raises ' and', ' I', ' another', ' of', ' ya', ',', ' this', ' if'; lowers '?"', '."', ' it', ' was', ' that', ' we', '..."', '!"'
+- probability: median KL 0.000562, moved 0.011679, sharpen cosine 0.023; raises ' and', ' I', ' another', ' of', ' ya', ',', ' this', ' if'; lowers '?"', '."', ' it', ' was', ' that', ' we', '..."', '!"'
 - promoted: ' or', '/,', ' eller', 'End', ' или', 'ker', 'nered', ' /**<'
 - specific promoted: 'ariju', 'stem', 'pi', 'ims', 'aim', 'thi', 'inea', 'rices'
 - specific demoted: 'ILE', 'ean', 'apore', 'e', 'VERTISEMENT', 'alty', 'oler', ' presence'
@@ -315,11 +315,11 @@ Facet-typical activation 2.141; patched into random text at that level, its medi
 
 ## Neuron 93: v1 packing-like, v2 packing-like, v3 no use found (facets 1-2)
 
-Facet-typical activation 1.534; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine 0.012.
+Facet-typical activation 1.534; patched into random text at that level, its median help is -0.0, KL 0.000381, sharpen cosine 0.012.
 
 **Facet 0, facet 0** (40 examples, 8 from v1): harmless, median help 0.0001 (p = 0.8264), later predictions -0.0008 (harmless); reliability 0.98, generic share 0.206
 
-- probability: median KL 0.0001, moved 0.0037, sharpen cosine -0.064; raises '-', 'f', ',', '50', ')', '70', 'ste', '–'; lowers '.', ';', 'tw', '90', '/', '100', '120', '60'
+- probability: median KL 7e-05, moved 0.003743, sharpen cosine -0.064; raises '-', 'f', ',', '50', ')', '70', 'ste', '–'; lowers '.', ';', 'tw', '90', '/', '100', '120', '60'
 - promoted: 'erdinand', 'ller', 'ös', 'documentclass', 'ogly', '’,', '’', 'nals'
 - specific promoted: '\u202f', 'pler', 'ller', 'erdinand', '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0', '’', 'oster', 'documentclass'
 - specific demoted: 'etti', '}"', 'ITEM', 'items', 'ardi', 'elements', '38', '36'
@@ -329,7 +329,7 @@ Facet-typical activation 1.534; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (40 examples, 7 from v1): harmless, median help 0.0023 (p = 0.0178), later predictions -0.0003 (harmless); reliability 0.66, generic share 0.56
 
-- probability: median KL 0.0003, moved 0.0076, sharpen cosine -0.015; raises ' from', ' of', ' the', ' in', ' at', ' found', ' were', ','; lowers ' on', '.', ' for', ' as', '3', ' would', ' warrant', ' to'
+- probability: median KL 0.000303, moved 0.007552, sharpen cosine -0.015; raises ' from', ' of', ' the', ' in', ' at', ' found', ' were', ','; lowers ' on', '.', ' for', ' as', '3', ' would', ' warrant', ' to'
 - promoted: 'gets', 'ds', 'ément', 'ze', 'istle', 'ss', 'rums', 'ি'
 - specific promoted: 'osphere', ' Premium', ',&', 'IDTH', 'IZE', 'kip', ':&', '\\_'
 - specific demoted: ' cytotox', 'ouses', 'onel', 'ovation', 'aler', 'ua', 'sts', 'annot'
@@ -339,7 +339,7 @@ Facet-typical activation 1.534; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (33 examples, 5 from v1): harmless, median help 0.0004 (p = 0.9578), later predictions -0.0002 (harmless); reliability 0.921, generic share 0.361
 
-- probability: median KL 0.0002, moved 0.0072, sharpen cosine -0.084; raises ')', ' for', ').', '),', ' robe', ' of', ' over', '-'; lowers ' per', ' to', ' wardrobe', ' across', '/', ' or', ';', ' a'
+- probability: median KL 0.000216, moved 0.007218, sharpen cosine -0.084; raises ')', ' for', ').', '),', ' robe', ' of', ' over', '-'; lowers ' per', ' to', ' wardrobe', ' across', '/', ' or', ';', ' a'
 - promoted: 'ller', 'erdinand', 'ocument', '––––––––', '--------------------', ',\\[', 'inally', 'alse'
 - specific promoted: ',\\[', '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0', '\u202f', '\\[[@', 'inho', '\xa0\xa0\xa0\xa0', 'inally', 'ller'
 - specific demoted: 'arguments', ' activities', ' events', 'Attr', 'Actions', ' arguments', 'IQ', ' transactions'
@@ -353,11 +353,11 @@ Facet-typical activation 1.534; patched into random text at that level, its medi
 
 ## Neuron 3707: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.407; patched into random text at that level, its median help is 0.0, KL 0.0003, sharpen cosine 0.011.
+Facet-typical activation 1.407; patched into random text at that level, its median help is 0.0, KL 0.000317, sharpen cosine 0.011.
 
 **Facet 0, travel: 'Top Sights'** (40 examples, 10 from v1): harmless, median help -0.0006 (p = 0.1387), later predictions 0.0028 (harmless); reliability 0.952, generic share 0.16
 
-- probability: median KL 0.0002, moved 0.0067, sharpen cosine 0.055; raises ' &', ' Oxford', ' in', ' a', ' sites', ' resist', ' for', ' main'; lowers '\n', '\n\n', ' the', ' camping', ' it', ' best', ' **', ' spring'
+- probability: median KL 0.000199, moved 0.006676, sharpen cosine 0.055; raises ' &', ' Oxford', ' in', ' a', ' sites', ' resist', ' for', ' main'; lowers '\n', '\n\n', ' the', ' camping', ' it', ' best', ' **', ' spring'
 - promoted: ' parap', ' age', '?!', 'scope', 'ât', 'ään', 'ynes', '?).'
 - specific promoted: ' age', ' parap', 'zeit', 'ynes', ' aged', 'scope', ' bands', ' depth'
 - specific demoted: 'IVER', 'iox', 'assen', 'ucer', ' Manufacturing', 'emas', 'OID', 'oo'
@@ -367,7 +367,7 @@ Facet-typical activation 1.407; patched into random text at that level, its medi
 
 **Facet 1, legal: citation commas** (40 examples, 8 from v1): harmless, median help 0.0001 (p = 0.2649), later predictions 0.0001 (harmless); reliability 0.55, generic share 0.502
 
-- probability: median KL 0.0008, moved 0.0147, sharpen cosine 0.032; raises ' p', ' 706', ' and', '.', '1', ' C', ' N', ' 28'; lowers ' pp', ' AS', ' (', ' 702', '\n\n', ' amend', ' District', ' VI'
+- probability: median KL 0.000809, moved 0.014724, sharpen cosine 0.032; raises ' p', ' 706', ' and', '.', '1', ' C', ' N', ' 28'; lowers ' pp', ' AS', ' (', ' 702', '\n\n', ' amend', ' District', ' VI'
 - promoted: 'llo', ' Said', '~', 'He', 'ellow', 'elig', 'lb', 'ubotu'
 - specific promoted: 'I', '~', '---|', 'llo', ' i', 'Dictionary', ' Hidden', 'ellow'
 - specific demoted: 'isel', 'anut', 'enin', 'cester', 'lish', 'anne', 'upe', 'ancell'
@@ -379,11 +379,11 @@ Facet-typical activation 1.407; patched into random text at that level, its medi
 
 ## Neuron 782: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.094; patched into random text at that level, its median help is -0.0, KL 0.0002, sharpen cosine 0.007.
+Facet-typical activation 1.094; patched into random text at that level, its median help is -0.0, KL 0.000244, sharpen cosine 0.007.
 
 **Facet 0, facet 0** (40 examples, 5 from v1): harmless, median help 0.0005 (p = 0.0185), later predictions 0.0 (harmless); reliability 0.719, generic share 0.63
 
-- probability: median KL 0.0001, moved 0.0046, sharpen cosine 0.011; raises ' waiver', ' U', ' its', ' Court', ' Instruction', ' a', '[', ' consecutive'; lowers ',', '\n', ' the', ' Chief', ' Inst', ' to', ' constructions', '.'
+- probability: median KL 0.000123, moved 0.004562, sharpen cosine 0.011; raises ' waiver', ' U', ' its', ' Court', ' Instruction', ' a', '[', ' consecutive'; lowers ',', '\n', ' the', ' Chief', ' Inst', ' to', ' constructions', '.'
 - promoted: 'zer', 'ings', 'Gra', 'STS', 'relations', 'inos', 'zes', 'ino'
 - specific promoted: 'íc', ' openness', 'erdinand', 'augh', 'Identity', 'grav', 'identity', ' reversible'
 - specific demoted: '++,', '++]', 'oche', 'lac', 'camp', 'UK', 'pec', ' /**<'
@@ -393,7 +393,7 @@ Facet-typical activation 1.094; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (11 examples, 4 from v1): harmless, median help 0.0002 (p = 0.8311), later predictions 0.0007 (harmless); reliability 0.603, generic share 0.335
 
-- probability: median KL 0.0003, moved 0.0113, sharpen cosine -0.071; raises '(', '            ', ' {', '(){', '#', '        ', ' (', '                '; lowers '()', '                   ', '\n', '                     ', '                    ', '                  ', ' not', ' ()'
+- probability: median KL 0.000336, moved 0.011264, sharpen cosine -0.071; raises '(', '            ', ' {', '(){', '#', '        ', ' (', '                '; lowers '()', '                   ', '\n', '                     ', '                    ', '                  ', ' not', ' ()'
 - promoted: 'otti', 'itudes', 'ι', 'γ', ' Tut', ' Tig', 'itude', 'ى'
 - specific promoted: 'ى', 'itudes', 'scene', 'itude', 'otti', 'uscular', 'idences', 'dip'
 - specific demoted: 'never', 'later', ' never', 'afka', ' toujours', 'isle', ' wreck', 'cig'
@@ -405,11 +405,11 @@ Facet-typical activation 1.094; patched into random text at that level, its medi
 
 ## Neuron 2976: v1 packing-like, v2 recursive generalization, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.977; patched into random text at that level, its median help is 0.0, KL 0.0007, sharpen cosine 0.048.
+Facet-typical activation 1.977; patched into random text at that level, its median help is 0.0, KL 0.000682, sharpen cosine 0.048.
 
 **Facet 0, facet 0** (24 examples, 7 from v1): harmless, median help 0.0001 (p = 0.4223), later predictions 0.0004 (harmless); reliability 0.65, generic share 0.499
 
-- probability: median KL 0.0025, moved 0.0161, sharpen cosine 0.046; raises 'った', 'ア', '�', 'ん', 'フ�', 'じ', '真', '�'; lowers 'ュ', '。', 'ど', 'う', 'り', 'って', 'び', '�'
+- probability: median KL 0.00251, moved 0.016149, sharpen cosine 0.046; raises 'った', 'ア', '�', 'ん', 'フ�', 'じ', '真', '�'; lowers 'ュ', '。', 'ど', 'う', 'り', 'って', 'び', '�'
 - promoted: 'ipes', '/*!', 'idium', 'ned', 'ncia', 'Footnote', 'TypeDef', ' hearsay'
 - specific promoted: ' apopt', '/*!', 'letcher', 'fle', '^](#', 'SEQU', 'idenote', "{'"
 - specific demoted: 'e', 'ilt', 'form', 'gate', 'er', 'itor', 'ру', 'pr'
@@ -419,7 +419,7 @@ Facet-typical activation 1.977; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (32 examples, 4 from v1): harmless, median help 0.0003 (p = 0.0498), later predictions 0.0001 (harmless); reliability 0.728, generic share 0.471
 
-- probability: median KL 0.0004, moved 0.0026, sharpen cosine 0.004; raises 'is', ' a', 'ine', 'ichen', 'inia', 'es', ' about', 'ate'; lowers 'ises', 'by', 'ë', 'ulent', ' some', 'ot', 'in', ' the'
+- probability: median KL 0.000415, moved 0.002563, sharpen cosine 0.004; raises 'is', ' a', 'ine', 'ichen', 'inia', 'es', ' about', 'ate'; lowers 'ises', 'by', 'ë', 'ulent', ' some', 'ot', 'in', ' the'
 - promoted: '){#', 'ipe', 'esta', 'esse', 'ipes', 'ätt', 'essa', 'ään'
 - specific promoted: 'FORMAT', 'äs', '****************************************************************', 'éné', 'ethanol', '********************************', 'esta', '){#'
 - specific demoted: 'roller', '__,', 'orms', ' nr', 'kins', 'folk', 'ctors', ' ",'
@@ -429,7 +429,7 @@ Facet-typical activation 1.977; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (19 examples, 5 from v1): harmless, median help 0.0482 (p = 0.0728), later predictions 0.0074 (harmless); reliability 0.876, generic share 0.259
 
-- probability: median KL 0.0048, moved 0.0417, sharpen cosine 0.069; raises 'en', 'im', 'inc', 'men', 'm', 'ki', 'य', 'it'; lowers 'mes', 'il', 'k', '�', 'ur', 'ime', 'kin', 'ili'
+- probability: median KL 0.004826, moved 0.041701, sharpen cosine 0.069; raises 'en', 'im', 'inc', 'men', 'm', 'ki', 'य', 'it'; lowers 'mes', 'il', 'k', '�', 'ur', 'ime', 'kin', 'ili'
 - promoted: 'Push', 'ncia', 'esy', 'BA', 'BP', 'Footnote', 'bare', ' booth'
 - specific promoted: '^-', 'Broad', 'BA', '80211', 'schemas', ' Corner', 'aird', '^.'
 - specific demoted: 'jsp', 'omas', 'ague', 'ctions', 'ame', '\x1d', 'iNdEx', '\x1e'
@@ -443,11 +443,11 @@ Facet-typical activation 1.977; patched into random text at that level, its medi
 
 ## Neuron 138: v1 packing-like, v2 packing-like, v3 too few examples (facets 1-2)
 
-Facet-typical activation 1.224; patched into random text at that level, its median help is -0.0001, KL 0.0003, sharpen cosine -0.012.
+Facet-typical activation 1.224; patched into random text at that level, its median help is -0.0001, KL 0.000343, sharpen cosine -0.012.
 
 **Facet 0, facet 0** (40 examples, 5 from v1): harmless, median help -0.0001 (p = 0.7146), later predictions -0.0003 (harmless); reliability 0.711, generic share 0.423
 
-- probability: median KL 0.0003, moved 0.0087, sharpen cosine -0.006; raises ' the', 'No', ' AND', ' from', ' an', '          ', ' a', ' its'; lowers ' his', ' pro', 'United', '.', '        ', ',', ' plaintiff', ' and'
+- probability: median KL 0.000308, moved 0.008674, sharpen cosine -0.006; raises ' the', 'No', ' AND', ' from', ' an', '          ', ' a', ' its'; lowers ' his', ' pro', 'United', '.', '        ', ',', ' plaintiff', ' and'
 - promoted: 'empre', 'vé', 'lé', '--------------------------------------------------------------------------------------------------------------------------------', 'ibo', 'maven', 'ordin', 'érie'
 - specific promoted: '---|---|---', 'aterial', 'vé', 'come', 'aring', ' amen', '|_', '------------------------------------------------------------------------'
 - specific demoted: 'numbered', 'ile', 'upp', 'onz', 'ioned', 'prototype', 'ordon', 'ounce'
@@ -457,7 +457,7 @@ Facet-typical activation 1.224; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (9 examples, 5 from v1): harmless, median help -0.0 (p = 0.8203), later predictions 0.0 (harmless); reliability 0.858, generic share 0.053
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.021; raises ' Neither', '/', ' neither', ' Both', 'Neither', ' All', ' Unless', ' Only'; lowers ' The', '/.', ' Redistributions', ' THE', '\n', '/,', '.', '/_'
+- probability: median KL 0.0, moved 2e-06, sharpen cosine 0.021; raises ' Neither', '/', ' neither', ' Both', 'Neither', ' All', ' Unless', ' Only'; lowers ' The', '/.', ' Redistributions', ' THE', '\n', '/,', '.', '/_'
 - promoted: 'izzard', 'izumab', '![**', 'isor', 'okin', ' 8000', ' 1913', 'untu'
 - specific promoted: 'izzard', 'izumab', '![**', 'okin', ' 1913', ' 8000', 'ision', 'isions'
 - specific demoted: 'well', 'ット', 'enia', ' criticism', 'mage', 'odot', 'HO', 'vez'
@@ -467,7 +467,7 @@ Facet-typical activation 1.224; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (40 examples, 5 from v1): harmless, median help -0.0033 (p = 0.0972), later predictions 0.0001 (harmless); reliability 0.797, generic share 0.587
 
-- probability: median KL 0.0004, moved 0.0098, sharpen cosine 0.026; raises '"', ' him', ' this', ' it', ' with', ',', ' can', ' the'; lowers '.', 'ed', 'Kal', ' Sw', ' an', 'D', ' a', ' I'
+- probability: median KL 0.000368, moved 0.009785, sharpen cosine 0.026; raises '"', ' him', ' this', ' it', ' with', ',', ' can', ' the'; lowers '.', 'ed', 'Kal', ' Sw', ' an', 'D', ' a', ' I'
 - promoted: 'lei', 'ening', 'rone', 'fefe', ' flavour', 'lé', 'EW', 'hm'
 - specific promoted: 'exports', '公', ' formation', ' of', 'SOCK', ' guarantee', ' total', ' we'
 - specific demoted: 'tone', 'icit', 'atile', '}{-', 'icer', ' behaviors', 'exe', 'anger'
@@ -481,11 +481,11 @@ Facet-typical activation 1.224; patched into random text at that level, its medi
 
 ## Neuron 2346: v1 packing-like, v2 packing-like, v3 too few examples (facets 0-1)
 
-Facet-typical activation 1.285; patched into random text at that level, its median help is 0.0, KL 0.0003, sharpen cosine 0.015.
+Facet-typical activation 1.285; patched into random text at that level, its median help is 0.0, KL 0.000259, sharpen cosine 0.015.
 
 **Facet 0, French/Portuguese words** (28 examples, 6 from v1): harmless, median help 0.0061 (p = 0.0857), later predictions -0.0013 (harmless); reliability 0.626, generic share 0.511
 
-- probability: median KL 0.0006, moved 0.012, sharpen cosine 0.02; raises ' dit', ' de', ' como', ' je', ' tu', ' on', ' ?', ' s'; lowers ' plus', 'vez', ' ne', 'ja', ' d', ' demand', 'u', 'h'
+- probability: median KL 0.000613, moved 0.012003, sharpen cosine 0.02; raises ' dit', ' de', ' como', ' je', ' tu', ' on', ' ?', ' s'; lowers ' plus', 'vez', ' ne', 'ja', ' d', ' demand', 'u', 'h'
 - promoted: 'm', 'lad', 'mand', 'l', 'les', 'mys', 'mant', 'la'
 - specific promoted: 'm', 'lag', 'rate', 'iels', 'able', 'mable', 'lad', 'emetery'
 - specific demoted: 'jen', 'uden', 'ци', 'que', 'QUE', ' errnoErr', 'iten', 'urop'
@@ -495,7 +495,7 @@ Facet-typical activation 1.285; patched into random text at that level, its medi
 
 **Facet 1, markup: 'color' attribute** (8 examples, 6 from v1): harmless, median help -0.0008 (p = 0.7422), later predictions -0.0008 (harmless); reliability 0.874, generic share 0.177
 
-- probability: median KL 0.0005, moved 0.0067, sharpen cosine 0.017; raises '="#', '=#', '=', '.', ' red', ' black', ' green', ' just'; lowers '="', ' =', '=[', 'Space', '=\\', '={', '="\\', "='"
+- probability: median KL 0.000541, moved 0.006699, sharpen cosine 0.017; raises '="#', '=#', '=', '.', ' red', ' black', ' green', ' just'; lowers '="', ' =', '=[', 'Space', '=\\', '={', '="\\', "='"
 - promoted: 'Doc', 'avo', 'Document', 'ARG', 'DEFINE', 'prus', 'Liter', ' reader'
 - specific promoted: 'prus', 'Doc', '){#', 'ffffffff', 'Document', 'avo', ' reader', 'mathchoice'
 - specific demoted: 'queue', 'ull', 'hop', 'op', 'criptor', 'ochrom', ' eff', ' queue'
@@ -505,7 +505,7 @@ Facet-typical activation 1.285; patched into random text at that level, its medi
 
 **Facet 2, decimal points** (34 examples, 5 from v1): harmless, median help 0.0 (p = 0.9808), later predictions 0.0 (harmless); reliability 0.734, generic share 0.44
 
-- probability: median KL 0.0003, moved 0.0067, sharpen cosine 0.052; raises '3', '1', '41', ' Chemical', ' Spect', '57', '56', ' Sort'; lowers '8', '9', ' Struct', ' Comput', ' Let', '6', '46', '44'
+- probability: median KL 0.000292, moved 0.00665, sharpen cosine 0.052; raises '3', '1', '41', ' Chemical', ' Spect', '57', '56', ' Sort'; lowers '8', '9', ' Struct', ' Comput', ' Let', '6', '46', '44'
 - promoted: 'eline', 'gl', 'ken', 'friendly', 'els', 've', 'mat', 'sale'
 - specific promoted: ' HOLDERS', 'opf', 'eline', 'от', 'aria', 'jab', 'rized', 'pocket'
 - specific demoted: 'OBJ', 'assis', 'orean', '9', '830', 'onucle', '930', ' Fern'
@@ -519,11 +519,11 @@ Facet-typical activation 1.285; patched into random text at that level, its medi
 
 ## Neuron 2570: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.65; patched into random text at that level, its median help is -0.0, KL 0.0005, sharpen cosine 0.051.
+Facet-typical activation 1.65; patched into random text at that level, its median help is -0.0, KL 0.000466, sharpen cosine 0.051.
 
 **Facet 0, facet 0** (33 examples, 17 from v1): harmless, median help 0.0 (p = 0.7509), later predictions 0.0002 (harmless); reliability 0.669, generic share 0.425
 
-- probability: median KL 0.0018, moved 0.0224, sharpen cosine 0.035; raises 's', ' voy', ' inform', 'erc', 'ont', 'uce', 'ub', 'pl'; lowers 'f', 'ett', 'p', 'm', 'vant', 'qu', 'ans', ' foi'
+- probability: median KL 0.00177, moved 0.022392, sharpen cosine 0.035; raises 's', ' voy', ' inform', 'erc', 'ont', 'uce', 'ub', 'pl'; lowers 'f', 'ett', 'p', 'm', 'vant', 'qu', 'ans', ' foi'
 - promoted: 'scribe', 'son', 'ERTYPE', ' CURI', 'NESS', 'Sup', 'Cop', 'equation'
 - specific promoted: ')}/\\', 'IGEN', 'Sup', 'igner', 'alion', 'binary', ' }_', '�'
 - specific demoted: 'ellen', 'ATTR', ' sport', 'wear', '**,**', ' confer', ' Rog', 'STRING'
@@ -533,7 +533,7 @@ Facet-typical activation 1.65; patched into random text at that level, its media
 
 **Facet 1, facet 1** (40 examples, 7 from v1): harmless, median help -0.001 (p = 0.8264), later predictions -0.0009 (harmless); reliability 0.74, generic share 0.652
 
-- probability: median KL 0.0003, moved 0.0102, sharpen cosine 0.054; raises ' that', ' voice', ' for', 'apt', ' if', ' think', ' breathe', 'unted'; lowers ' I', ' the', ' we', ' where', ' of', 'aped', ' her', ' telling'
+- probability: median KL 0.000348, moved 0.0102, sharpen cosine 0.054; raises ' that', ' voice', ' for', 'apt', ' if', ' think', ' breathe', 'unted'; lowers ' I', ' the', ' we', ' where', ' of', 'aped', ' her', ' telling'
 - promoted: '>;', 'Patient', ' CURI', 'SIG', ' differently', ' presume', 'FFER', ' recogn'
 - specific promoted: '\t', '-->', '»', 'irc', '?_', '</', ';}', '\u2002'
 - specific demoted: ' Publishers', 'string', 'ograf', 'mable', 'stringify', 'inals', ' Illustr', 'atum'
@@ -545,11 +545,11 @@ Facet-typical activation 1.65; patched into random text at that level, its media
 
 ## Neuron 2464: v1 packing-like, v2 packing-like, v3 no use found (facets 0-2)
 
-Facet-typical activation 2.023; patched into random text at that level, its median help is -0.0, KL 0.0007, sharpen cosine 0.028.
+Facet-typical activation 2.023; patched into random text at that level, its median help is -0.0, KL 0.000725, sharpen cosine 0.028.
 
 **Facet 0, dialogue: closing ?" ,"** (40 examples, 9 from v1): harmless, median help -0.0076 (p = 0.0031), later predictions -0.0017 (harmless); reliability 0.962, generic share 0.35
 
-- probability: median KL 0.0005, moved 0.0108, sharpen cosine 0.077; raises ' he', ' she', ' I', ' She', ' He', ' said', ' Rick', ' Kal'; lowers '\n', ' asked', ' The', ' was', ' "', ' demanded', ' they', ' Mal'
+- probability: median KL 0.000541, moved 0.010824, sharpen cosine 0.077; raises ' he', ' she', ' I', ' She', ' He', ' said', ' Rick', ' Kal'; lowers '\n', ' asked', ' The', ' was', ' "', ' demanded', ' they', ' Mal'
 - promoted: ' tying', ' bleeding', ' performing', 'chro', ' developing', 'RELEASE', ' capturing', ' releasing'
 - specific promoted: ' bleeding', ' tying', ' developing', ' emerging', ' flowering', ' capturing', ' bloom', ' falling'
 - specific demoted: 'well', 'meric', 'erge', ' Certainly', 'ison', 'NESS', 'sover', 'ries'
@@ -559,7 +559,7 @@ Facet-typical activation 2.023; patched into random text at that level, its medi
 
 **Facet 1, chemistry: alkyl/methyl** (8 examples, 6 from v1): harmless, median help 0.0736 (p = 0.1094), later predictions -0.0015 (harmless); reliability 0.875, generic share 0.315
 
-- probability: median KL 0.0033, moved 0.031, sharpen cosine 0.004; raises 'phosph', 'ene', ' groups', ' and', ' or', ' amine', ',', 'th'; lowers 'bor', '-', ' bor', ' hal', 'al', ' iod', ' group', 'amine'
+- probability: median KL 0.003287, moved 0.031, sharpen cosine 0.004; raises 'phosph', 'ene', ' groups', ' and', ' or', ' amine', ',', 'th'; lowers 'bor', '-', ' bor', ' hal', 'al', ' iod', ' group', 'amine'
 - promoted: ' ester', 'swick', ' waterm', ' esters', ' Games', ' valign', 'empre', ' play'
 - specific promoted: 'empre', 'spi', 'istics', 'LW', 'esti', 'uba', 'swick', ' esters'
 - specific demoted: 'augh', 'ower', 'Roll', 'state', 'equivalent', 'Tab', 'yll', 'équ'
@@ -569,7 +569,7 @@ Facet-typical activation 2.023; patched into random text at that level, its medi
 
 **Facet 2, chemistry: alkyl/ethyl** (36 examples, 5 from v1): harmless, median help -0.0002 (p = 0.7269), later predictions -0.0006 (harmless); reliability 0.81, generic share 0.526
 
-- probability: median KL 0.0007, moved 0.0104, sharpen cosine 0.027; raises 'hex', 'ened', ' groups', ' in', 'acet', 'ene', 'th', ' ('; lowers '-', ' carb', 'ld', 'transferase', ' of', ')', ' excitation', ' 2'
+- probability: median KL 0.000676, moved 0.01037, sharpen cosine 0.027; raises 'hex', 'ened', ' groups', ' in', 'acet', 'ene', 'th', ' ('; lowers '-', ' carb', 'ld', 'transferase', ' of', ')', ' excitation', ' 2'
 - promoted: ' ester', ' Games', 'swick', ' esters', ' valign', 'rette', 'ACE', 'garten'
 - specific promoted: 'ki', 'ificial', 'flix', 'propylene', 'ilers', 'isher', 'ii', ' lob'
 - specific demoted: 'augh', 'opy', 'aines', 'yon', 'ainer', 'Desc', 'Abstract', 'ross'
@@ -583,11 +583,11 @@ Facet-typical activation 2.023; patched into random text at that level, its medi
 
 ## Neuron 2918: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.93; patched into random text at that level, its median help is 0.0, KL 0.0008, sharpen cosine -0.006.
+Facet-typical activation 1.93; patched into random text at that level, its median help is 0.0, KL 0.00079, sharpen cosine -0.006.
 
 **Facet 0, legal: § and )(** (40 examples, 18 from v1): harmless, median help -0.0003 (p = 0.5537), later predictions 0.0 (harmless); reliability 0.563, generic share 0.361
 
-- probability: median KL 0.0016, moved 0.0223, sharpen cosine 0.028; raises '1', '2', ' 3', '250', '(', '5', ' general', ' 37'; lowers '3', '4', '\n\n', ' 42', '8', '20', ' 28', ' 8'
+- probability: median KL 0.001573, moved 0.022259, sharpen cosine 0.028; raises '1', '2', ' 3', '250', '(', '5', ' general', ' 37'; lowers '3', '4', '\n\n', ' 42', '8', '20', ' 28', ' 8'
 - promoted: "—'", '—"', '”—', '—', ')–(', '––', ')[(', '\u202f'
 - specific promoted: "—'", '—"', ' tyr', ')–(', ' Payment', 'inical', ' proto', 'validate'
 - specific demoted: 'WN', 'GN', 'rf', 'WV', 'ce', 'fort', 'horn', 'agem'
@@ -597,7 +597,7 @@ Facet-typical activation 1.93; patched into random text at that level, its media
 
 **Facet 1, travel: '£' before prices** (40 examples, 5 from v1): harms, median help -0.016 (p = 0.0208), later predictions -0.0048 (harmless); reliability 0.959, generic share 0.171
 
-- probability: median KL 0.001, moved 0.0182, sharpen cosine 0.129; raises '5', '25', '45', '18', '15', '19', '60', '20'; lowers '8', '7', '10', '12', '11', '4', '9', '3'
+- probability: median KL 0.001004, moved 0.018187, sharpen cosine 0.129; raises '5', '25', '45', '18', '15', '19', '60', '20'; lowers '8', '7', '10', '12', '11', '4', '9', '3'
 - promoted: '79', ',[', '74', ' **[', '72', '76', '75', '96'
 - specific promoted: '79', '85', '72', '96', '82', '84', '87', '75'
 - specific demoted: 'ata', 'roup', 'object', 'utes', 'ica', 'quest', 'unda', 'ervice'
@@ -609,11 +609,11 @@ Facet-typical activation 1.93; patched into random text at that level, its media
 
 ## Neuron 4012: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.437; patched into random text at that level, its median help is -0.0, KL 0.0003, sharpen cosine 0.036.
+Facet-typical activation 1.437; patched into random text at that level, its median help is -0.0, KL 0.000318, sharpen cosine 0.036.
 
 **Facet 0, facet 0** (34 examples, 6 from v1): harmless, median help -0.0007 (p = 0.4365), later predictions 0.0004 (harmless); reliability 0.741, generic share 0.428
 
-- probability: median KL 0.0005, moved 0.0091, sharpen cosine 0.02; raises 'ots', 'ket', 'r', 'êt', 't', 'riers', "'", 'ett'; lowers 're', 'ik', 'oux', 'aste', 'kom', 'ninger', 'res', 'k'
+- probability: median KL 0.000537, moved 0.00913, sharpen cosine 0.02; raises 'ots', 'ket', 'r', 'êt', 't', 'riers', "'", 'ett'; lowers 're', 'ik', 'oux', 'aste', 'kom', 'ninger', 'res', 'k'
 - promoted: 'ker', 'ts', ' themselves', 'kered', 'pendicular', 'fra', 'transform', 'chten'
 - specific promoted: 'ts', 'ader', 'te', 'bolt', 'gel', 'lin', 'bottom', 'bol'
 - specific demoted: 'inai', '/-/', 'す', 'ACK', ' pace', 'Americ', '.[@', 'Av'
@@ -623,7 +623,7 @@ Facet-typical activation 1.437; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (40 examples, 5 from v1): harmless, median help -0.0013 (p = 0.5578), later predictions 0.0 (harmless); reliability 0.842, generic share 0.41
 
-- probability: median KL 0.0004, moved 0.0116, sharpen cosine 0.051; raises ' stored', ' then', ' analyzed', ' purification', ' concentration', ' identification', ' lig', ' transferred'; lowers ' the', 'rac', ' culture', ' DNA', ' density', ' incubated', '/', ' ATP'
+- probability: median KL 0.000413, moved 0.011631, sharpen cosine 0.051; raises ' stored', ' then', ' analyzed', ' purification', ' concentration', ' identification', ' lig', ' transferred'; lowers ' the', 'rac', ' culture', ' DNA', ' density', ' incubated', '/', ' ATP'
 - promoted: 'iking', 'optic', 'enge', 'ippi', 'istas', 'iber', 'kered', 'ennes'
 - specific promoted: 'return', 'ood', 'nan', 'range', 'olding', 'rom', '}.', 'OD'
 - specific demoted: ' WHEN', ' quando', ' rebuild', 'LY', ')**', 'ruz', 'atform', 'createElement'
@@ -635,11 +635,11 @@ Facet-typical activation 1.437; patched into random text at that level, its medi
 
 ## Neuron 467: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.449; patched into random text at that level, its median help is 0.0, KL 0.0003, sharpen cosine 0.015.
+Facet-typical activation 1.449; patched into random text at that level, its median help is 0.0, KL 0.000306, sharpen cosine 0.015.
 
 **Facet 0, subtitles: opening quote** (40 examples, 8 from v1): harmless, median help 0.0 (p = 0.7954), later predictions -0.0004 (harmless); reliability 0.839, generic share 0.492
 
-- probability: median KL 0.0004, moved 0.0105, sharpen cosine -0.048; raises ' time', ' are', ' you', ' I', 'It', 'Oh', ' patient', 'Yeah'; lowers ' go', ' Ed', ' that', 'To', ' an', ' it', ' What', ' From'
+- probability: median KL 0.000359, moved 0.010475, sharpen cosine -0.048; raises ' time', ' are', ' you', ' I', 'It', 'Oh', ' patient', 'Yeah'; lowers ' go', ' Ed', ' that', 'To', ' an', ' it', ' What', ' From'
 - promoted: ' thereof', '-.', '-,', ']*', 'croft', 'soever', ',[@', '-$'
 - specific promoted: ' certainly', '-$', 'ws', 'dq', '-"', '-,', 'pw', 'wg'
 - specific demoted: ' Reading', ' Problems', ' Need', ' Ow', ' Want', ' Companies', ' Changes', 'zos'
@@ -649,7 +649,7 @@ Facet-typical activation 1.449; patched into random text at that level, its medi
 
 **Facet 1, 'Supplementary Figure'** (24 examples, 5 from v1): harmless, median help 0.0078 (p = 0.1688), later predictions 0.0007 (harmless); reliability 0.818, generic share 0.385
 
-- probability: median KL 0.0002, moved 0.0071, sharpen cosine 0.016; raises ' the', '(**', ' down', ' 3', ' 4', ' glucose', ' S', ' here'; lowers 'The', ' cisplatin', ' 1', ' MCL', 'SW', ' 2', ' provides', ' that'
+- probability: median KL 0.000245, moved 0.007058, sharpen cosine 0.016; raises ' the', '(**', ' down', ' 3', ' 4', ' glucose', ' S', ' here'; lowers 'The', ' cisplatin', ' 1', ' MCL', 'SW', ' 2', ' provides', ' that'
 - promoted: 'ου', 'obacter', ' now', ' Consortium', ' Freeman', 'cuador', '上', ' themselves'
 - specific promoted: 'iben', 'ena', 'enne', ' Wer', ' Wei', ' FW', 'ου', 'enin'
 - specific demoted: 'ised', 'orea', 'story', '68', '_[', 'izzard', 'itzer', '20'
@@ -661,11 +661,11 @@ Facet-typical activation 1.449; patched into random text at that level, its medi
 
 ## Neuron 3686: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.568; patched into random text at that level, its median help is 0.0, KL 0.0004, sharpen cosine 0.029.
+Facet-typical activation 1.568; patched into random text at that level, its median help is 0.0, KL 0.00044, sharpen cosine 0.029.
 
 **Facet 0, facet 0** (40 examples, 8 from v1): harmless, median help 0.0004 (p = 0.428), later predictions 0.0019 (harmless); reliability 0.695, generic share 0.488
 
-- probability: median KL 0.0004, moved 0.0087, sharpen cosine 0.012; raises 'a', ' the', ' E', 'i', ' benefits', 'La', '1970', ' is'; lowers 'Ct', 'b', ' testify', 'c', '1973', ' right', '1', ' D'
+- probability: median KL 0.000426, moved 0.008718, sharpen cosine 0.012; raises 'a', ' the', ' E', 'i', ' benefits', 'La', '1970', ' is'; lowers 'Ct', 'b', ' testify', 'c', '1973', ' right', '1', ' D'
 - promoted: ")',", 'insula', "'>", "').", 'ζ', ')</', '!}', 'ttp'
 - specific promoted: 'odot', ")',", "').", 'insula', 'φ', 'about', 'policy', 'Policy'
 - specific demoted: ' TCP', ' Jun', 'igate', ' Judge', ' Round', 'ésident', ' Ade', 'gue'
@@ -675,7 +675,7 @@ Facet-typical activation 1.568; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (40 examples, 4 from v1): harmless, median help 0.0053 (p = 0.3754), later predictions -0.0005 (harmless); reliability 0.977, generic share 0.102
 
-- probability: median KL 0.0013, moved 0.0214, sharpen cosine -0.006; raises ' Tue', ' Mon', ' Wed', '9', ' have', ' eyes', '10', ' Muse'; lowers ')', ';', ' Sun', ',', ' %', ' Fri', ' daily', ' visit'
+- probability: median KL 0.001331, moved 0.02142, sharpen cosine -0.006; raises ' Tue', ' Mon', ' Wed', '9', ' have', ' eyes', '10', ' Muse'; lowers ')', ';', ' Sun', ',', ' %', ' Fri', ' daily', ' visit'
 - promoted: 'ż', 'DTD', '<!--', 'iert', 'DT', '../', 'Docket', 'icaid'
 - specific promoted: 'ibo', 'hos', 'HT', 'oha', 'DLT', 'comput', 'DTD', 'ż'
 - specific demoted: 'move', 'ERTYPE', 'chell', 'lez', 'nett', 'CLUDING', 'ROW', ' move'
@@ -687,11 +687,11 @@ Facet-typical activation 1.568; patched into random text at that level, its medi
 
 ## Neuron 4071: v1 packing-like, v2 packing-like, v3 no use found (facets 0-2)
 
-Facet-typical activation 1.945; patched into random text at that level, its median help is 0.0, KL 0.0005, sharpen cosine 0.017.
+Facet-typical activation 1.945; patched into random text at that level, its median help is 0.0, KL 0.000522, sharpen cosine 0.017.
 
 **Facet 0, travel: hours dash** (40 examples, 15 from v1): harmless, median help -0.0003 (p = 0.6463), later predictions 0.0002 (harmless); reliability 0.973, generic share 0.036
 
-- probability: median KL 0.0016, moved 0.0214, sharpen cosine 0.04; raises '2', '3', '4', '8', '6', 'late', '5', ';'; lowers '11', '10', '1', ' 5', '12', 'Oct', ' 2', ' Oct'
+- probability: median KL 0.00164, moved 0.021391, sharpen cosine 0.04; raises '2', '3', '4', '8', '6', 'late', '5', ';'; lowers '11', '10', '1', ' 5', '12', 'Oct', ' 2', ' Oct'
 - promoted: 'uity', 'ository', 'ftime', 'body', ' moment', 'assic', 'ци', ' Inventory'
 - specific promoted: 'uity', 'ository', 'ftime', ' Inventory', ' moment', 'assic', 'enu', 'body'
 - specific demoted: ')**', 'Nor', ')', 'Tal', '")', ' Thr', 'OP', 'T'
@@ -701,7 +701,7 @@ Facet-typical activation 1.945; patched into random text at that level, its medi
 
 **Facet 1, license: '(at your option)'** (19 examples, 9 from v1): harmless, median help 0.0 (p = 0.3321), later predictions -0.0 (harmless); reliability 0.784, generic share 0.221
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine 0.041; raises ' your', ' YOUR', ' provided', ' “', ' give', ' intellectual', ' granted', ' the'; lowers '\n', ' grant', ' any', ' my', ' "', ' their', 'grant', ' for'
+- probability: median KL 9e-06, moved 4.1e-05, sharpen cosine 0.041; raises ' your', ' YOUR', ' provided', ' “', ' give', ' intellectual', ' granted', ' the'; lowers '\n', ' grant', ' any', ' my', ' "', ' their', 'grant', ' for'
 - promoted: 'oth', 'orp', ' litres', 'SON', ' Eden', ' Earl', 'othe', 'andra'
 - specific promoted: 'oth', ' English', 'othe', 'OLD', ' bgcolor', 'othy', 'unders', 'ours'
 - specific demoted: 'cias', 'theless', 'but', 'mask', 'eries', 'pins', 'egin', 'nexpected'
@@ -711,7 +711,7 @@ Facet-typical activation 1.945; patched into random text at that level, its medi
 
 **Facet 2, legal: 'motion for a new trial'** (40 examples, 8 from v1): harmless, median help 0.0001 (p = 0.8057), later predictions 0.0003 (harmless); reliability 0.562, generic share 0.445
 
-- probability: median KL 0.0003, moved 0.006, sharpen cosine 0.022; raises ' rehearing', 'tw', ' judgment', ' arbitrary', ' new', '.\'"', ' suppress', ' Ma'; lowers ' dismiss', 'mediate', ' hearing', ' Dismiss', ' directed', ' partial', ' writ', ' final'
+- probability: median KL 0.000261, moved 0.006003, sharpen cosine 0.022; raises ' rehearing', 'tw', ' judgment', ' arbitrary', ' new', '.\'"', ' suppress', ' Ma'; lowers ' dismiss', 'mediate', ' hearing', ' Dismiss', ' directed', ' partial', ' writ', ' final'
 - promoted: 'olin', 'azed', 'aires', 'équ', ' sentido', 'jo', 'NFTA', 'za'
 - specific promoted: 'en', ' conoc', 'idx', 'azi', 'agi', 'vg', 'uggest', 'atch'
 - specific demoted: 'rix', 'rica', '~-', 'rium', 'iku', 'ricia', '{},', 'ία'
@@ -725,11 +725,11 @@ Facet-typical activation 1.945; patched into random text at that level, its medi
 
 ## Neuron 4094: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.538; patched into random text at that level, its median help is 0.0, KL 0.0005, sharpen cosine 0.004.
+Facet-typical activation 1.538; patched into random text at that level, its median help is 0.0, KL 0.000465, sharpen cosine 0.004.
 
 **Facet 0, facet 0** (40 examples, 10 from v1): harmless, median help 0.0003 (p = 0.39), later predictions 0.0002 (harmless); reliability 0.446, generic share 0.56
 
-- probability: median KL 0.0002, moved 0.004, sharpen cosine -0.029; raises ' stated', ' where', ' Court', '.', ' was', ' Memorandum', ' from', 'als'; lowers ' to', ' set', ' findings', ' in', 'aled', 'hib', 'ighed', ' Opinion'
+- probability: median KL 0.000231, moved 0.004006, sharpen cosine -0.029; raises ' stated', ' where', ' Court', '.', ' was', ' Memorandum', ' from', 'als'; lowers ' to', ' set', ' findings', ' in', 'aled', 'hib', 'ighed', ' Opinion'
 - promoted: 'ity', 'NESS', 'aten', 'bbe', ' assertEquals', 'grily', 'iam', 'iab'
 - specific promoted: 'idos', 'idas', ' lugar', ' recip', 'iku', 'viv', 'ider', ' strand'
 - specific demoted: 'del', 'relim', 'aryng', 'od', ' subsequently', ' disclosures', ' then', 'supplementary'
@@ -739,7 +739,7 @@ Facet-typical activation 1.538; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (12 examples, 5 from v1): harmless, median help -0.005 (p = 0.0425), later predictions 0.0004 (harmless); reliability 0.761, generic share 0.395
 
-- probability: median KL 0.0004, moved 0.0057, sharpen cosine 0.001; raises ' function', 'be', ' <', " '<", ',', '(', 'bb', ' {'; lowers ' $.', ' (', ' $', ' $(', 'bt', 'ui', 'br', 'bm'
+- probability: median KL 0.000415, moved 0.005686, sharpen cosine 0.001; raises ' function', 'be', ' <', " '<", ',', '(', 'bb', ' {'; lowers ' $.', ' (', ' $', ' $(', 'bt', 'ui', 'br', 'bm'
 - promoted: ' discouraged', 'noop', 'ije', 'igue', '�', 'HAND', 'eness', 'NESS'
 - specific promoted: 'icates', 'ielle', 'ines', ' protects', ' contributed', 'icus', ' STATES', 'ocamp'
 - specific demoted: 'aul', 'EP', 'able', 'EOF', 'oku', 'EM', 'ку', 'course'
@@ -751,11 +751,11 @@ Facet-typical activation 1.538; patched into random text at that level, its medi
 
 ## Neuron 2442: v1 packing-like, v2 packing-like, v3 no use found (facets 1-2)
 
-Facet-typical activation 1.956; patched into random text at that level, its median help is -0.0, KL 0.0009, sharpen cosine 0.018.
+Facet-typical activation 1.956; patched into random text at that level, its median help is -0.0, KL 0.00088, sharpen cosine 0.018.
 
 **Facet 0, dialogue: commands** (40 examples, 8 from v1): harmless, median help -0.0017 (p = 0.1969), later predictions -0.0016 (harmless); reliability 0.845, generic share 0.336
 
-- probability: median KL 0.0012, moved 0.0181, sharpen cosine 0.025; raises ' it', ' the', ' this', ' in', ' here', '.', ' there', ' for'; lowers '."', ' on', ',', ' relax', ' and', ' you', 'é', ' up'
+- probability: median KL 0.001234, moved 0.01812, sharpen cosine 0.025; raises ' it', ' the', ' this', ' in', ' here', '.', ' there', ' for'; lowers '."', ' on', ',', ' relax', ' and', ' you', 'é', ' up'
 - promoted: ' VERY', ' firmly', 'vre', 'ONT', '/\u200b', '*((', ' tightly', '\\/'
 - specific promoted: '��', ' VERY', '*\\', ' firmly', ' EXPRESS', ' ONLY', ' imposs', ' exactly'
 - specific demoted: 'home', 'dash', ' commute', ' upgrade', ' learn', 'along', 'join', ' recharge'
@@ -765,7 +765,7 @@ Facet-typical activation 1.956; patched into random text at that level, its medi
 
 **Facet 1, cooking/lab: 'stir'** (23 examples, 7 from v1): harmless, median help -0.0054 (p = 0.7314), later predictions -0.0019 (harmless); reliability 0.861, generic share 0.36
 
-- probability: median KL 0.001, moved 0.0176, sharpen cosine 0.063; raises ' for', ' on', ' until', ' rod', ' in', ' every', ' into', ' and'; lowers '.', ' with', ' to', ' at', ' by', ' overnight', ' head', ' cream'
+- probability: median KL 0.000988, moved 0.01762, sharpen cosine 0.063; raises ' for', ' on', ' until', ' rod', ' in', ' every', ' into', ' and'; lowers '.', ' with', ' to', ' at', ' by', ' overnight', ' head', ' cream'
 - promoted: 'speed', 'bow', 'UES', ' gently', '**_', 'orno', ' speed', '"));'
 - specific promoted: 'imod', 'ej', 'speed', 'evin', '♪', ' speed', 'Motion', '|\\'
 - specific demoted: 'OPLE', 'your', ' yourselves', 'parable', 'insula', 'parse', 'Your', 'pile'
@@ -775,7 +775,7 @@ Facet-typical activation 1.956; patched into random text at that level, its medi
 
 **Facet 2, dialogue: commands (2)** (31 examples, 7 from v1): harmless, median help -0.0104 (p = 0.0664), later predictions -0.0003 (harmless); reliability 0.836, generic share 0.358
 
-- probability: median KL 0.0015, moved 0.0196, sharpen cosine 0.0; raises '."', ' move', ' for', ' on', ' a', ' this', ' in', ' and'; lowers ',', ' up', ' me', ' let', ' it', ' get', '?"', ' shoot'
+- probability: median KL 0.001507, moved 0.019636, sharpen cosine 0.0; raises '."', ' move', ' for', ' on', ' a', ' this', ' in', ' and'; lowers ',', ' up', ' me', ' let', ' it', ' get', '?"', ' shoot'
 - promoted: ' VERY', 'oire', 'ONT', 'vre', ' firmly', 'SUCCESS', 'ory', 'posite'
 - specific promoted: 'imod', 'TF', 'orate', '---|', ' VERY', '��', 'SR', '#:'
 - specific demoted: 'aines', ' expenses', 'cad', 'leman', ' checkout', ' repairs', ' dividends', 'auf'
@@ -789,11 +789,11 @@ Facet-typical activation 1.956; patched into random text at that level, its medi
 
 ## Neuron 2706: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.297; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine -0.001.
+Facet-typical activation 1.297; patched into random text at that level, its median help is -0.0, KL 0.000367, sharpen cosine -0.001.
 
 **Facet 0, fiction: 'surprised'** (40 examples, 12 from v1): harmless, median help -0.0007 (p = 0.6948), later predictions -0.0018 (harmless); reliability 0.91, generic share 0.446
 
-- probability: median KL 0.0003, moved 0.008, sharpen cosine 0.018; raises ' to', ' when', ',', ' I', ' that', ' she', ' interest', ' speaking'; lowers ' sign', '.', ' by', ' at', ' and', ' anything', ' you', '...'
+- probability: median KL 0.00025, moved 0.007963, sharpen cosine 0.018; raises ' to', ' when', ',', ' I', ' that', ' she', ' interest', ' speaking'; lowers ' sign', '.', ' by', ' at', ' and', ' anything', ' you', '...'
 - promoted: 'avanaugh', 'reams', "'))", '"))', 'etta', ' views', ' sights', 'utta'
 - specific promoted: ' sights', 'HECK', ' conclusions', ' review', ' observations', ' judgments', ' recollection', ' insight'
 - specific demoted: 'ing', 'protected', 'reated', 'ed', 'ect', 'able', 'omat', 'uffed'
@@ -803,7 +803,7 @@ Facet-typical activation 1.297; patched into random text at that level, its medi
 
 **Facet 1, numbers in math/stats** (40 examples, 5 from v1): harmless, median help 0.0 (p = 0.1831), later predictions -0.0 (harmless); reliability 0.857, generic share 0.375
 
-- probability: median KL 0.0001, moved 0.0021, sharpen cosine -0.087; raises '*', '5', '))/(', ' 5', '6', '2', '))/((', ' 0'; lowers '\n', '.', ' +', ' =', ' 6', '-', ' -', '/'
+- probability: median KL 5.5e-05, moved 0.002125, sharpen cosine -0.087; raises '*', '5', '))/(', ' 5', '6', '2', '))/((', ' 0'; lowers '\n', '.', ' +', ' =', ' 6', '-', ' -', '/'
 - promoted: 'ETHOD', "'),", '`)', "')", 'caster', "'-", 'casters', 'ilinear'
 - specific promoted: 'ilinear', 'ETHOD', 'annotations', '`)', '360', 'tle', '|{\\', 'vphantom'
 - specific demoted: '."', 'ank', 'among', ' Doe', '.\\"', '05', 'etic', ' weaker'
@@ -815,11 +815,11 @@ Facet-typical activation 1.297; patched into random text at that level, its medi
 
 ## Neuron 3282: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.544; patched into random text at that level, its median help is -0.0, KL 0.0003, sharpen cosine 0.005.
+Facet-typical activation 1.544; patched into random text at that level, its median help is -0.0, KL 0.000349, sharpen cosine 0.005.
 
 **Facet 0, travel: phone numbers** (40 examples, 5 from v1): harmless, median help 0.0003 (p = 0.2479), later predictions 0.0005 (harmless); reliability 0.917, generic share 0.209
 
-- probability: median KL 0.0007, moved 0.0124, sharpen cosine 0.069; raises ' 8', ' 2', '11', '12', ' 9', ' 4', ' 7', '10'; lowers '-', ' 00', '00', ' 0', ' 66', ' ', ' 67', ' 99'
+- probability: median KL 0.000688, moved 0.012449, sharpen cosine 0.069; raises ' 8', ' 2', '11', '12', ' 9', ' 4', ' 7', '10'; lowers '-', ' 00', '00', ' 0', ' 66', ' ', ' 67', ' 99'
 - promoted: '2', '1', ',', '[,', 'EMPT', 'United', ',[', '3'
 - specific promoted: '1', '2', 'X', 'United', 'PUBL', ',', '[,', '4'
 - specific demoted: 'ement', 'ament', ' Resolution', 'ilst', 'rophy', '======================', 'emente', 'imension'
@@ -829,7 +829,7 @@ Facet-typical activation 1.544; patched into random text at that level, its medi
 
 **Facet 1, fiction: 'behind her'** (40 examples, 5 from v1): harmless, median help 0.0039 (p = 0.5099), later predictions -0.0006 (harmless); reliability 0.826, generic share 0.465
 
-- probability: median KL 0.0007, moved 0.0132, sharpen cosine -0.026; raises '.', ',', ' and', 's', 'nia', ' that', ' tone', 'algia'; lowers 'ia', ' mood', 'rils', ' bed', ' face', ' well', ' raced', ' she'
+- probability: median KL 0.000679, moved 0.013153, sharpen cosine -0.026; raises '.', ',', ' and', 's', 'nia', ' that', ' tone', 'algia'; lowers 'ia', ' mood', 'rils', ' bed', ' face', ' well', ' raced', ' she'
 - promoted: 'verb', ' unlock', 'ANS', 'VEN', ' again', ' yourself', 'ords', ' itself'
 - specific promoted: ' ourselves', 'key', 'verb', ' unlock', ' yourself', 'gov', ' yourselves', 'avis'
 - specific demoted: 'toolt', 'Managed', 'itudes', 'FIG', 'USB', ' newest', ' tall', 'ICES'
@@ -841,11 +841,11 @@ Facet-typical activation 1.544; patched into random text at that level, its medi
 
 ## Neuron 2382: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.389; patched into random text at that level, its median help is 0.0, KL 0.0004, sharpen cosine 0.048.
+Facet-typical activation 1.389; patched into random text at that level, its median help is 0.0, KL 0.000376, sharpen cosine 0.048.
 
 **Facet 0, numbers in technical data** (40 examples, 5 from v1): harmless, median help 0.0 (p = 0.2317), later predictions -0.0002 (harmless); reliability 0.875, generic share 0.67
 
-- probability: median KL 0.0, moved 0.0016, sharpen cosine 0.014; raises 'M', 'A', '^', '6', '+,', ')\\<', '        ', 'C'; lowers 'D', '5', '^--', '.', '\n', '\t', '7', 'I'
+- probability: median KL 3.8e-05, moved 0.001566, sharpen cosine 0.014; raises 'M', 'A', '^', '6', '+,', ')\\<', '        ', 'C'; lowers 'D', '5', '^--', '.', '\n', '\t', '7', 'I'
 - promoted: 'vp', 'vt', 'oL', 'kel', ' NV', 'aine', ' Lemon', ' jul'
 - specific promoted: 'kov', 'hov', 'ku', ' another', 'uppose', ' 406', 'bourne', 'kh'
 - specific demoted: 'RESULTS', 'BS', 'SD', 'rd', 'IE', '®', 'RD', 'BC'
@@ -855,7 +855,7 @@ Facet-typical activation 1.389; patched into random text at that level, its medi
 
 **Facet 1, pregnancy/obstetrics** (13 examples, 5 from v1): harmless, median help -0.002 (p = 0.0171), later predictions -0.0029 (harmless); reliability 0.712, generic share 0.547
 
-- probability: median KL 0.0003, moved 0.0094, sharpen cosine 0.087; raises 's', ' units', ' Int', ' education', ' wards', ' unit', ' clinics', ' or'; lowers 'ian', ' and', '\n', 'ians', '-', ' explained', ' {#', ' Outcomes'
+- probability: median KL 0.000338, moved 0.009447, sharpen cosine 0.087; raises 's', ' units', ' Int', ' education', ' wards', ' unit', ' clinics', ' or'; lowers 'ian', ' and', '\n', 'ians', '-', ' explained', ' {#', ' Outcomes'
 - promoted: 'LE', 'FORMAT', 'LET', ' Le', ' Kur', 'reek', 'arine', 'le'
 - specific promoted: 'inese', 'leave', ' lazy', 'iners', 'FORMAT', 'inent', 'ropolitan', 'lei'
 - specific demoted: ' horiz', 'stem', ' SOFTWARE', 'sky', 'cul', 'ci', 'uy', 'rup'
@@ -867,11 +867,11 @@ Facet-typical activation 1.389; patched into random text at that level, its medi
 
 ## Neuron 2757: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.145; patched into random text at that level, its median help is -0.0, KL 0.0003, sharpen cosine 0.036.
+Facet-typical activation 1.145; patched into random text at that level, its median help is -0.0, KL 0.000311, sharpen cosine 0.036.
 
 **Facet 0, facet 0** (40 examples, 6 from v1): harmless, median help -0.0025 (p = 0.0153), later predictions -0.0003 (harmless); reliability 0.574, generic share 0.507
 
-- probability: median KL 0.0003, moved 0.0081, sharpen cosine 0.043; raises ' clear', ' reversal', ' or', ' doctrines', ' best', ' will', ' defined', ' counsel'; lowers ' weight', ' liable', ' classification', '\n', ' understood', ' reversing', ' attention', ' appellant'
+- probability: median KL 0.000282, moved 0.008062, sharpen cosine 0.043; raises ' clear', ' reversal', ' or', ' doctrines', ' best', ' will', ' defined', ' counsel'; lowers ' weight', ' liable', ' classification', '\n', ' understood', ' reversing', ' attention', ' appellant'
 - promoted: 'ism', 'imi', 'ike', 'MI', 'istic', 'Again', ' interrog', 'aye'
 - specific promoted: 'arian', 'arp', 'ite', 'iche', 'haw', 'itt', '…]', 'ikes'
 - specific demoted: 'face', 'faced', 'Face', 'FACE', ' face', 'resident', 'B', 'occo'
@@ -881,7 +881,7 @@ Facet-typical activation 1.145; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (20 examples, 5 from v1): harmless, median help 0.0 (p = 0.498), later predictions 0.0002 (harmless); reliability 0.693, generic share 0.394
 
-- probability: median KL 0.0002, moved 0.0047, sharpen cosine 0.02; raises 'Group', '>(', ' className', '="">', '="', '="\'', 'coll', '=""'; lowers '>', '="/', 'icon', '="../', '="../../', '>{', 'Collection', 'Template'
+- probability: median KL 0.000205, moved 0.004685, sharpen cosine 0.02; raises 'Group', '>(', ' className', '="">', '="', '="\'', 'coll', '=""'; lowers '>', '="/', 'icon', '="../', '="../../', '>{', 'Collection', 'Template'
 - promoted: 'imab', ' BGCOLOR', ' suppressed', ' suppress', 'ünd', ' surrounding', 'jä', ' scroll'
 - specific promoted: '!.', ')!', '!).', '!', 'alion', 'ages', '__.', ' scroll'
 - specific demoted: ' quo', 'gm', 'quet', 'WISE', 'Meet', 'iste', 'gay', 'integral'
@@ -893,11 +893,11 @@ Facet-typical activation 1.145; patched into random text at that level, its medi
 
 ## Neuron 2443: v1 mixed from the start, v2 mixed from the start, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.728; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine 0.024.
+Facet-typical activation 1.728; patched into random text at that level, its median help is -0.0, KL 0.000426, sharpen cosine 0.024.
 
 **Facet 0, legal: 'to' in rulings** (40 examples, 7 from v1): harmless, median help 0.0003 (p = 0.8995), later predictions 0.0025 (harmless); reliability 0.785, generic share 0.4
 
-- probability: median KL 0.0004, moved 0.0086, sharpen cosine -0.024; raises ' this', ' it', ' we', ' warrant', ' permit', ' a', ' justify', ' Accordingly'; lowers ' the', ' be', ' require', ' Plaintiff', ' See', ' reversal', ' dispute', ' show'
+- probability: median KL 0.00042, moved 0.008615, sharpen cosine -0.024; raises ' this', ' it', ' we', ' warrant', ' permit', ' a', ' justify', ' Accordingly'; lowers ' the', ' be', ' require', ' Plaintiff', ' See', ' reversal', ' dispute', ' show'
 - promoted: 'ires', 'rss', 'IRS', 'ources', 'idem', 'xsd', 'authorized', 'iens'
 - specific promoted: 'ources', 'rfloor', 'obb', 'iger', 'documentclass', 'idem', '======', 'supplementary'
 - specific demoted: 'ј', ' yourselves', 'auge', 'gregation', 'LY', ' Yet', ' eye', 'yet'
@@ -907,7 +907,7 @@ Facet-typical activation 1.728; patched into random text at that level, its medi
 
 **Facet 1, shell: heredoc/redirect** (14 examples, 6 from v1): harmless, median help 0.0121 (p = 0.4631), later predictions 0.0029 (harmless); reliability 0.609, generic share 0.377
 
-- probability: median KL 0.0014, moved 0.0158, sharpen cosine 0.049; raises ' E', ' ng', 'Char', '32', "'", '(', ' END', 'dev'; lowers 'EOF', 'Lower', 'ak', '($_', ' (!', ' display', 'END', 'CMD'
+- probability: median KL 0.001371, moved 0.015787, sharpen cosine 0.049; raises ' E', ' ng', 'Char', '32', "'", '(', ' END', 'dev'; lowers 'EOF', 'Lower', 'ak', '($_', ' (!', ' display', 'END', 'CMD'
 - promoted: 'irus', 'olip', 'ßen', 'ー�', '�', ' contig', 'isher', 'heres'
 - specific promoted: 'obuf', 'olip', 'ucht', 'atio', 'criptor', 'othal', 'RUPT', ' ky'
 - specific demoted: 'EDIT', 'odel', 'ro', 'section', 'iframe', 'boxes', 'tik', 'unden'
@@ -919,11 +919,11 @@ Facet-typical activation 1.728; patched into random text at that level, its medi
 
 ## Neuron 1391: v1 mixed from the start, v2 mixed from the start, v3 no use found (facets 0-2)
 
-Facet-typical activation 1.348; patched into random text at that level, its median help is -0.0, KL 0.0003, sharpen cosine -0.015.
+Facet-typical activation 1.348; patched into random text at that level, its median help is -0.0, KL 0.000305, sharpen cosine -0.015.
 
 **Facet 0, legal: S.Ct. pages** (40 examples, 6 from v1): harmless, median help -0.0008 (p = 0.0241), later predictions -0.0004 (harmless); reliability 0.74, generic share 0.549
 
-- probability: median KL 0.0003, moved 0.0077, sharpen cosine -0.08; raises ' (', '    ', ' defendant', ' .', ' harassment', ' government', ' request', '8'; lowers ',', ' the', '.', '                        ', ' to', '     ', ' plaintiff', ' United'
+- probability: median KL 0.000261, moved 0.007727, sharpen cosine -0.08; raises ' (', '    ', ' defendant', ' .', ' harassment', ' government', ' request', '8'; lowers ',', ' the', '.', '                        ', ' to', '     ', ' plaintiff', ' United'
 - promoted: 'ises', 'elijk', 'chos', 'hores', 'aries', 'ment', 'mas', 'ters'
 - specific promoted: 'empre', 'ionale', 'ises', 'iale', 'FREE', 'woke', 'STAND', 'icular'
 - specific demoted: '.]', ' Search', 'esti', '{(\\', ' Fin', ".'", '{}\\', ' U'
@@ -933,7 +933,7 @@ Facet-typical activation 1.348; patched into random text at that level, its medi
 
 **Facet 1, sports: 'defeated by/to'** (17 examples, 5 from v1): harmless, median help -0.002 (p = 0.6777), later predictions 0.0036 (harmless); reliability 0.545, generic share 0.376
 
-- probability: median KL 0.0004, moved 0.011, sharpen cosine -0.02; raises ' a', 'ensively', ' foul', ' W', ' for', ' V', ' players', ' Mar'; lowers ' the', ' game', ' it', ' Manchester', '-', ' Arsenal', ' Mitt', ' Liverpool'
+- probability: median KL 0.00038, moved 0.010977, sharpen cosine -0.02; raises ' a', 'ensively', ' foul', ' W', ' for', ' V', ' players', ' Mar'; lowers ' the', ' game', ' it', ' Manchester', '-', ' Arsenal', ' Mitt', ' Liverpool'
 - promoted: 'ment', 'gery', 'uate', 'uated', 'uates', 'ufact', 'ce', 'uality'
 - specific promoted: 'uate', ' Authority', 'gery', 'uction', 'ivation', 'ITERATION', 'ufact', 'sale'
 - specific demoted: 'roke', 'RL', 'enas', 'iets', 'PAT', 'enos', 'en', 'alam'
@@ -943,7 +943,7 @@ Facet-typical activation 1.348; patched into random text at that level, its medi
 
 **Facet 2, travel: '(GOOGLE MAP)'** (40 examples, 5 from v1): harmless, median help 0.0 (p = 0.1461), later predictions 0.0 (harmless); reliability 0.979, generic share 0.271
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine -0.041; raises ')', 'ading', 'ript', 'ard', ' v', ');', 'icki', 'm'; lowers ';', 'agons', 'rolling', 'on', ' 45', 'icker', 'arg', 'aid'
+- probability: median KL 0.0, moved 1e-06, sharpen cosine -0.041; raises ')', 'ading', 'ript', 'ard', ' v', ');', 'icki', 'm'; lowers ';', 'agons', 'rolling', 'on', ' 45', 'icker', 'arg', 'aid'
 - promoted: 'edom', 'itas', 'iles', 'igraphy', 'esp', 'ises', 'ility', 'zing'
 - specific promoted: 'igraphy', 'aryng', 'zin', 'eters', 'ila', 'iles', 'eth', 'zing'
 - specific demoted: 'vere', '\'">', '\'"', '"|', '       ', '"-', '\'?"', '"?"'
@@ -957,11 +957,11 @@ Facet-typical activation 1.348; patched into random text at that level, its medi
 
 ## Neuron 61: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.242; patched into random text at that level, its median help is -0.0, KL 0.0003, sharpen cosine 0.01.
+Facet-typical activation 1.242; patched into random text at that level, its median help is -0.0, KL 0.000253, sharpen cosine 0.01.
 
 **Facet 0, facet 0** (24 examples, 5 from v1): harmless, median help 0.0006 (p = 0.8774), later predictions 0.0023 (harmless); reliability 0.52, generic share 0.634
 
-- probability: median KL 0.0003, moved 0.0089, sharpen cosine -0.02; raises ' it', ' unconscious', ' one', ' prayer', ' article', ' with', ' and', ' have'; lowers ' too', ' for', ' be', ' I', ' he', ' are', ' in', ' consciousness'
+- probability: median KL 0.000308, moved 0.008885, sharpen cosine -0.02; raises ' it', ' unconscious', ' one', ' prayer', ' article', ' with', ' and', ' have'; lowers ' too', ' for', ' be', ' I', ' he', ' are', ' in', ' consciousness'
 - promoted: 'arson', 'bum', '@', 'riz', 'atted', 'rien', 'nered', 'ku'
 - specific promoted: 'ttp', 'atted', 'acia', 'asi', 'ae', 'iana', 'ont', 'ACE'
 - specific demoted: ' unrestricted', ' independent', '�', ' list', ' unrelated', ' forgot', ' other', ' freely'
@@ -971,7 +971,7 @@ Facet-typical activation 1.242; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (26 examples, 5 from v1): harmless, median help 0.0008 (p = 0.9007), later predictions -0.0005 (harmless); reliability 0.588, generic share 0.562
 
-- probability: median KL 0.0003, moved 0.0078, sharpen cosine -0.031; raises '\n\t\t\t\t', ' don', ' S', ' super', ' V', ' bool', '\n', ' no'; lowers '\n\t\t\t', 'return', 'unsigned', ' struct', ' want', '\n\t\t', 'j', ' do'
+- probability: median KL 0.000295, moved 0.00785, sharpen cosine -0.031; raises '\n\t\t\t\t', ' don', ' S', ' super', ' V', ' bool', '\n', ' no'; lowers '\n\t\t\t', 'return', 'unsigned', ' struct', ' want', '\n\t\t', 'j', ' do'
 - promoted: '///', '.*]{},', '@{', ' only', 'aska', ' shower', 'ishers', 'apper'
 - specific promoted: 'orin', 'avery', '■', ' shower', ' only', 'track', 'ishers', 'IE'
 - specific demoted: '"/', ')"', '"[', '"', '"(', ')', 'ako', '("'
@@ -983,11 +983,11 @@ Facet-typical activation 1.242; patched into random text at that level, its medi
 
 ## Neuron 4010: v1 packing-like, v2 recursive generalization, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.612; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine -0.016.
+Facet-typical activation 1.612; patched into random text at that level, its median help is -0.0, KL 0.000435, sharpen cosine -0.016.
 
 **Facet 0, facet 0** (40 examples, 8 from v1): harmless, median help 0.0 (p = 0.6085), later predictions -0.0 (harmless); reliability 0.752, generic share 0.51
 
-- probability: median KL 0.0003, moved 0.0094, sharpen cosine -0.003; raises 'e', ' no', ' leak', 'Ill', ' agar', ' \\~', ' rug', '1'; lowers 'al', ' poor', ' No', ' 25', ' caps', '\xa0', ' protein', ' \\#'
+- probability: median KL 0.000299, moved 0.009441, sharpen cosine -0.003; raises 'e', ' no', ' leak', 'Ill', ' agar', ' \\~', ' rug', '1'; lowers 'al', ' poor', ' No', ' 25', ' caps', '\xa0', ' protein', ' \\#'
 - promoted: 'auss', '*,', 'im', 'bris', 'agem', 'olis', '[/', ' Material'
 - specific promoted: 'elike', 'shape', 'kel', 'derived', 'ques', 'vector', ' text', ' nick'
 - specific demoted: 'unnumbered', '\r\n ', '>>>>', '.__', '\n ', '‑', '/-/', ' _________________________________'
@@ -997,7 +997,7 @@ Facet-typical activation 1.612; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (40 examples, 6 from v1): harmless, median help -0.0002 (p = 0.1119), later predictions 0.0003 (harmless); reliability 0.57, generic share 0.397
 
-- probability: median KL 0.0004, moved 0.0111, sharpen cosine 0.009; raises 'R', ' Van', '.', ' Jean', 'W', ',', ' At', ' David'; lowers 'Court', ' Civil', ' (', ' for', ' sub', '\n', ' Circuit', ' G'
+- probability: median KL 0.000429, moved 0.011148, sharpen cosine 0.009; raises 'R', ' Van', '.', ' Jean', 'W', ',', ' At', ' David'; lowers 'Court', ' Civil', ' (', ' for', ' sub', '\n', ' Circuit', ' G'
 - promoted: 'aland', 'EN', 'umn', '**_', '_**', 'en', 'alar', 'til'
 - specific promoted: 'EN', '_**', 'Pa', 'Jac', '**_', '"""', '�', 'Gary'
 - specific demoted: 'rogens', 'inib', 'ifying', 'naments', 'batim', 'rification', 'lining', 'ikov'
@@ -1009,11 +1009,11 @@ Facet-typical activation 1.612; patched into random text at that level, its medi
 
 ## Neuron 682: v1 mixed from the start, v2 mixed from the start, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.39; patched into random text at that level, its median help is -0.0001, KL 0.0004, sharpen cosine 0.013.
+Facet-typical activation 1.39; patched into random text at that level, its median help is -0.0001, KL 0.000418, sharpen cosine 0.013.
 
 **Facet 0, facet 0** (40 examples, 8 from v1): harmless, median help 0.0016 (p = 0.7146), later predictions 0.0027 (harmless); reliability 0.833, generic share 0.411
 
-- probability: median KL 0.0004, moved 0.0112, sharpen cosine 0.007; raises ' I', ' that', ' fault', ' what', ' her', "'d", ' he', ' would'; lowers ' was', ' to', ' the', ' an', ' it', ' voice', ' hit', ' something'
+- probability: median KL 0.00044, moved 0.011164, sharpen cosine 0.007; raises ' I', ' that', ' fault', ' what', ' her', "'d", ' he', ' would'; lowers ' was', ' to', ' the', ' an', ' it', ' voice', ' hit', ' something'
 - promoted: ' temptation', 'ţi', 'esk', ' recognizing', 'aware', 'es', 'vision', 'uum'
 - specific promoted: 'Accessor', ' glimpse', ' temptation', ' glance', ' query', 'query', ' allowing', 'than'
 - specific demoted: ' Excellence', ' PS', ' Handbook', 'coal', ' Pract', ' Phys', 'BN', 'RSP'
@@ -1023,7 +1023,7 @@ Facet-typical activation 1.39; patched into random text at that level, its media
 
 **Facet 1, facet 1** (40 examples, 6 from v1): harmless, median help 0.0014 (p = 0.3472), later predictions 0.0018 (harmless); reliability 0.974, generic share 0.059
 
-- probability: median KL 0.0008, moved 0.0133, sharpen cosine 0.01; raises '.', '5', '3', '4', '2', '1', '25', '85'; lowers '10', '45', '/', '50', '12', '35', '60', '-'
+- probability: median KL 0.000774, moved 0.013322, sharpen cosine 0.01; raises '.', '5', '3', '4', '2', '1', '25', '85'; lowers '10', '45', '/', '50', '12', '35', '60', '-'
 - promoted: ' 05', ' 06', ' case', 'achy', ' instance', ' 04', ' -', 'lay'
 - specific promoted: ' 06', 'achy', ' 05', ' 04', ' 07', 'ellate', ' instance', 'unn'
 - specific demoted: '425', '495', '380', '420', '499', '525', '470', '465'
@@ -1035,11 +1035,11 @@ Facet-typical activation 1.39; patched into random text at that level, its media
 
 ## Neuron 1228: v1 packing-like, v2 mixed from the start, v3 no use found (facets 2-3)
 
-Facet-typical activation 1.957; patched into random text at that level, its median help is 0.0001, KL 0.0006, sharpen cosine -0.01.
+Facet-typical activation 1.957; patched into random text at that level, its median help is 0.0001, KL 0.000608, sharpen cosine -0.01.
 
 **Facet 0, facet 0** (40 examples, 7 from v1): harmless, median help 0.0 (p = 0.4358), later predictions 0.0004 (harmless); reliability 0.892, generic share 0.35
 
-- probability: median KL 0.0001, moved 0.0006, sharpen cosine 0.019; raises 'rd', ' Cal', ' R', ' for', '81', ' Wash', ' Pa', ' Or'; lowers 'd', ' U', ' Md', ' F', ' Minn', ' to', ' N', ' A'
+- probability: median KL 5.6e-05, moved 0.000601, sharpen cosine 0.019; raises 'rd', ' Cal', ' R', ' for', '81', ' Wash', ' Pa', ' Or'; lowers 'd', ' U', ' Md', ' F', ' Minn', ' to', ' N', ' A'
 - promoted: 'ova', ' than', 'OVA', 'than', '----------------------------------------------------------------------', '/−', 'itum', 'gom'
 - specific promoted: 'gom', 'ova', '/−', ' clearance', ' TOP', '----------------------------------------', 'dra', ' protection'
 - specific demoted: 'ems', 'arp', ' Series', 'inian', 'arker', 'urns', 'ér', 'ad'
@@ -1049,7 +1049,7 @@ Facet-typical activation 1.957; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (8 examples, 5 from v1): harmless, median help 0.0031 (p = 0.1953), later predictions 0.0005 (harmless); reliability 0.805, generic share 0.304
 
-- probability: median KL 0.0002, moved 0.0044, sharpen cosine -0.032; raises '{', 'S', ' R', 'L', 'D', ' C', 'M', 'P'; lowers ' {', '}', 'C', ' H', ' A', ' N', ' P', ' F'
+- probability: median KL 0.000181, moved 0.004416, sharpen cosine -0.032; raises '{', 'S', ' R', 'L', 'D', ' C', 'M', 'P'; lowers ' {', '}', 'C', ' H', ' A', ' N', ' P', ' F'
 - promoted: 'imming', '×', 'ches', 'lement', 'ger', 'xiv', 'yll', ' xx'
 - specific promoted: 'xx', '×', 'lement', 'XX', 'eller', 'other', ' xx', 'eler'
 - specific demoted: 'raf', '/~', 'bows', 'PO', 'bane', 'akis', 'akan', ' steps'
@@ -1059,7 +1059,7 @@ Facet-typical activation 1.957; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (13 examples, 5 from v1): harmless, median help -0.0004 (p = 0.7354), later predictions -0.0011 (harmless); reliability 0.766, generic share 0.221
 
-- probability: median KL 0.0006, moved 0.0084, sharpen cosine -0.064; raises '\xa0', 'l', ' Lett', ' Rep', 'th', 'held', ' C', ' Supp'; lowers ' Rev', 'wal', ' U', 'we', 'berg', 'by', 'b', 'w'
+- probability: median KL 0.000623, moved 0.008406, sharpen cosine -0.064; raises '\xa0', 'l', ' Lett', ' Rep', 'th', 'held', ' C', ' Supp'; lowers ' Rev', 'wal', ' U', 'we', 'berg', 'by', 'b', 'w'
 - promoted: 'onel', 'ani', 'ALL', 'gart', 'avian', 'act', 'vis', 'hex'
 - specific promoted: 'vis', 'án', 'get', 'are', 'anchor', 'rett', 'rades', 'serial'
 - specific demoted: 'FFIR', ')[@', ')",', ' dim', ' fever', '$^{-', ")',", 'UX'
@@ -1069,7 +1069,7 @@ Facet-typical activation 1.957; patched into random text at that level, its medi
 
 **Facet 3, facet 3** (11 examples, 4 from v1): harmless, median help -0.0 (p = 0.5771), later predictions 0.0 (harmless); reliability 0.775, generic share 0.35
 
-- probability: median KL 0.0, moved 0.0005, sharpen cosine 0.01; raises '  ', ' C', ' F', ' or', ' be', ' also', ' Wash', ' have'; lowers '\n\n', ' In', '3', ' The', ' know', ' U', ' still', ','
+- probability: median KL 4.4e-05, moved 0.000465, sharpen cosine 0.01; raises '  ', ' C', ' F', ' or', ' be', ' also', ' Wash', ' have'; lowers '\n\n', ' In', '3', ' The', ' know', ' U', ' still', ','
 - promoted: ' than', 'ova', 'ana', '----------------------------------------------------------------------', 'OVA', 'ahoma', 'dra', 'uest'
 - specific promoted: 'dra', 'infall', 'ailable', ' win', ' Vegas', 'alc', ' chall', ' dra'
 - specific demoted: 'j', 'PI', 'paragraph', '_."', 'reng', 'omon', ' 355', 'Princ'
@@ -1079,7 +1079,7 @@ Facet-typical activation 1.957; patched into random text at that level, its medi
 
 **Facet 4, facet 4** (19 examples, 5 from v1): harmless, median help 0.0 (p = 0.5678), later predictions 0.0001 (harmless); reliability 0.703, generic share 0.273
 
-- probability: median KL 0.0003, moved 0.0062, sharpen cosine 0.027; raises 'Writer', 'stderr', 'path', '#', 'St', 'error', '    ', ' *'; lowers 'argv', '\n', 'err', 'Std', 'Write', 'Reader', 'set', 'exit'
+- probability: median KL 0.000321, moved 0.006168, sharpen cosine 0.027; raises 'Writer', 'stderr', 'path', '#', 'St', 'error', '    ', ' *'; lowers 'argv', '\n', 'err', 'Std', 'Write', 'Reader', 'set', 'exit'
 - promoted: '@', ' @', 'yler', '*^*', '*', 'thood', ' dest', ' *'
 - specific promoted: ' @', ' q', ' Q', ' ***', '@', ' i', ' 70', '[\\*](#'
 - specific demoted: 'planes', 'lemen', 'NOW', 'anyahu', 'suits', 'lish', ' Lebanon', 'gether'
@@ -1100,11 +1100,11 @@ Facet-typical activation 1.957; patched into random text at that level, its medi
 
 ## Neuron 1345: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.307; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine -0.011.
+Facet-typical activation 1.307; patched into random text at that level, its median help is -0.0, KL 0.000371, sharpen cosine -0.011.
 
 **Facet 0, fiction verbs** (40 examples, 11 from v1): harmless, median help -0.0029 (p = 0.536), later predictions -0.0001 (harmless); reliability 0.842, generic share 0.464
 
-- probability: median KL 0.0005, moved 0.0099, sharpen cosine -0.033; raises ' to', '.', ' with', ' her', ' nothing', ' that', ' as', ' this'; lowers ',', ' about', ' of', ' them', ' on', ' back', ' thought', ' over'
+- probability: median KL 0.000468, moved 0.009916, sharpen cosine -0.033; raises ' to', '.', ' with', ' her', ' nothing', ' that', ' as', ' this'; lowers ',', ' about', ' of', ' them', ' on', ' back', ' thought', ' over'
 - promoted: 'lands', ' hereafter', 'wise', ' therefrom', 'lier', ' tomorrow', 'other', 'heres'
 - specific promoted: 'ия', 'never', 'αι', 'izes', 'je', 'aneously', 'bin', 'izable'
 - specific demoted: 'WAIT', 'UP', 'otts', '+.', ' collected', 'arget', ' attent', 'ICE'
@@ -1114,7 +1114,7 @@ Facet-typical activation 1.307; patched into random text at that level, its medi
 
 **Facet 1, math expressions** (40 examples, 5 from v1): harmless, median help -0.0 (p = 0.7648), later predictions -0.0 (harmless); reliability 0.895, generic share 0.34
 
-- probability: median KL 0.0, moved 0.0, sharpen cosine -0.075; raises 'd', ' +', '0', 'v', '_', 'Differentiate', 'Find', ',\\'; lowers ',', 'What', ' -', '4', 'a', ' x', 'Suppose', 'k'
+- probability: median KL 1e-06, moved 3.4e-05, sharpen cosine -0.075; raises 'd', ' +', '0', 'v', '_', 'Differentiate', 'Find', ',\\'; lowers ',', 'What', ' -', '4', 'a', ' x', 'Suppose', 'k'
 - promoted: ' this', ' notice', ' pro', 'opin', '[])', ' dat', ' these', 'ruit'
 - specific promoted: 'CR', ' this', ' DE', ' state', ' CR', ' so', ' de', ','
 - specific demoted: ' pesso', 'fro', '~-', 'rapeut', '\'?"', 'queous', '+-+-', ' CONTRIBUTORS'
@@ -1126,11 +1126,11 @@ Facet-typical activation 1.307; patched into random text at that level, its medi
 
 ## Neuron 3370: v1 packing-like, v2 packing-like, v3 no use found (facets 0-2)
 
-Facet-typical activation 1.365; patched into random text at that level, its median help is 0.0, KL 0.0003, sharpen cosine 0.049.
+Facet-typical activation 1.365; patched into random text at that level, its median help is 0.0, KL 0.000335, sharpen cosine 0.049.
 
 **Facet 0, dialogue: 'Sure'** (34 examples, 7 from v1): harmless, median help 0.0015 (p = 0.5429), later predictions -0.0028 (harmless); reliability 0.892, generic share 0.459
 
-- probability: median KL 0.0002, moved 0.0065, sharpen cosine 0.089; raises ' thing', ',', ' yes', ' and', ' of', '..."', ' you', ' but'; lowers ' that', 'ly', '?"', ' it', '.', '."', ' L', ',"'
+- probability: median KL 0.000193, moved 0.00649, sharpen cosine 0.089; raises ' thing', ',', ' yes', ' and', ' of', '..."', ' you', ' but'; lowers ' that', 'ly', '?"', ' it', '.', '."', ' L', ',"'
 - promoted: 'onto', ']{})', 'emis', ' LINEAR', '$)', 'ename', 'mons', 'isc'
 - specific promoted: 'of', 'onto', 'mys', 'name', 'elli', ' lapse', ' name', '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
 - specific demoted: 'izers', ' ranges', 'VERTIS', ' Contributions', ' Should', 'Ns', ' Methods', ' lett'
@@ -1140,7 +1140,7 @@ Facet-typical activation 1.365; patched into random text at that level, its medi
 
 **Facet 1, dialogue: 'Sure' (2)** (40 examples, 6 from v1): harmless, median help 0.0016 (p = 0.1499), later predictions 0.0022 (harmless); reliability 0.861, generic share 0.512
 
-- probability: median KL 0.0002, moved 0.0085, sharpen cosine 0.026; raises ',', ' did', ' he', ' side', ' you', 'ine', ' let', 'We'; lowers ' do', 'ines', ' that', '?"', ' was', ' enough', ' I', ' then'
+- probability: median KL 0.000241, moved 0.008537, sharpen cosine 0.026; raises ',', ' did', ' he', ' side', ' you', 'ine', ' let', 'We'; lowers ' do', 'ines', ' that', '?"', ' was', ' enough', ' I', ' then'
 - promoted: 'uria', 'iani', 'ename', ' NAME', 'eni', 'omen', '$)', 'ora'
 - specific promoted: 'ora', ' NAME', 'orus', ' name', 'aran', 'eni', 'of', 'asso'
 - specific demoted: ' lett', '[[', ' Means', 'taire', 'means', 'eeper', 'rends', ' Gets'
@@ -1150,7 +1150,7 @@ Facet-typical activation 1.365; patched into random text at that level, its medi
 
 **Facet 2, Japanese/Chinese particles** (17 examples, 5 from v1): harmless, median help 0.0057 (p = 0.89), later predictions -0.001 (harmless); reliability 0.806, generic share 0.465
 
-- probability: median KL 0.0008, moved 0.0164, sharpen cosine 0.067; raises '大', '多', 'つ', '�', 'あ', '�', '�', '常'; lowers '好', '�', 'ある', 'する', 'の', '取', '\u3000', '�'
+- probability: median KL 0.000791, moved 0.016411, sharpen cosine 0.067; raises '大', '多', 'つ', '�', 'あ', '�', '�', '常'; lowers '好', '�', 'ある', 'する', 'の', '取', '\u3000', '�'
 - promoted: 'if', 'enary', 'idi', 'panic', 'ner', 'lines', 'ces', 'iani'
 - specific promoted: 'if', 'panic', 'each', 'z', 'stand', 'er', 'idi', 'ming'
 - specific demoted: 'andum', 'に', 'ikip', 'Pane', 'です', 'ゃ', 'Components', 'ensely'
@@ -1164,11 +1164,11 @@ Facet-typical activation 1.365; patched into random text at that level, its medi
 
 ## Neuron 2019: v1 packing-like, v2 packing-like, v3 no use found (facets 1-2)
 
-Facet-typical activation 1.45; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine 0.015.
+Facet-typical activation 1.45; patched into random text at that level, its median help is -0.0, KL 0.000366, sharpen cosine 0.015.
 
 **Facet 0, legal: '(holding'** (40 examples, 6 from v1): harmless, median help 0.0053 (p = 0.2016), later predictions 0.0018 (harmless); reliability 0.876, generic share 0.37
 
-- probability: median KL 0.0013, moved 0.0203, sharpen cosine 0.033; raises 'emphasis', 'en', 'per', 'CC', '2001', ' 1', 'up', 'affirm'; lowers 'citing', 'stating', '[', 'noting', '1979', 'finding', '2002', '1980'
+- probability: median KL 0.001297, moved 0.020347, sharpen cosine 0.033; raises 'emphasis', 'en', 'per', 'CC', '2001', ' 1', 'up', 'affirm'; lowers 'citing', 'stating', '[', 'noting', '1979', 'finding', '2002', '1980'
 - promoted: 'ikip', 'onymous', ' infinitely', 'oney', 'feit', 'nier', ' lips', 'onym'
 - specific promoted: 'pread', 'ten', 'feit', '!)', ' infinitely', ' stroke', ' alike', ' insufficient'
 - specific demoted: '\u2002', '---|---', 'Pars', 'Hal', 'odb', 'crystall', 'itas', 'ία'
@@ -1178,7 +1178,7 @@ Facet-typical activation 1.45; patched into random text at that level, its media
 
 **Facet 1, legal: parentheticals** (31 examples, 5 from v1): harmless, median help 0.0 (p = 0.5814), later predictions 0.0001 (harmless); reliability 0.883, generic share 0.406
 
-- probability: median KL 0.0006, moved 0.0139, sharpen cosine 0.025; raises 'quoting', 'internal', 'trial', 'per', 'HD', 'en', 'emphasis', 'pl'; lowers 'citing', '5', 'stating', 'con', 'citation', 'noting', 'finding', 'the'
+- probability: median KL 0.00059, moved 0.01391, sharpen cosine 0.025; raises 'quoting', 'internal', 'trial', 'per', 'HD', 'en', 'emphasis', 'pl'; lowers 'citing', '5', 'stating', 'con', 'citation', 'noting', 'finding', 'the'
 - promoted: 'ikip', ' lips', 'imal', ' encore', ' infinitely', 'term', 'scriber', 'onymous'
 - specific promoted: 'lik', ' lifes', 'imal', 'pread', 'yond', 'BASE', 'gan', ' slam'
 - specific demoted: 'ISHED', 'orel', 'ished', 'Hal', ' Cron', 'Pars', ' Olson', ' Cir'
@@ -1188,7 +1188,7 @@ Facet-typical activation 1.45; patched into random text at that level, its media
 
 **Facet 2, materials: timber/steel** (40 examples, 5 from v1): harmless, median help -0.0023 (p = 0.1461), later predictions 0.0007 (harmless); reliability 0.806, generic share 0.491
 
-- probability: median KL 0.0007, moved 0.0158, sharpen cosine -0.006; raises 'and', '-', 'burn', 'degree', 'frame', ' TV', ' display', ' gr'; lowers 'flo', 'cl', 'pan', 'wall', 'es', ' are', 'fired', '.'
+- probability: median KL 0.000722, moved 0.015827, sharpen cosine -0.006; raises 'and', '-', 'burn', 'degree', 'frame', ' TV', ' display', ' gr'; lowers 'flo', 'cl', 'pan', 'wall', 'es', ' are', 'fired', '.'
 - promoted: 'egen', 'ikip', 'even', 'letters', 'DEP', 'Shift', 'Lear', 'handle'
 - specific promoted: 'letters', 'letter', 'Letter', 'Delegate', 'arrows', ' forfeiture', 'Speed', 'egen'
 - specific demoted: 'rapy', 'ivable', 'ri', 'ran', 'riz', 'ovo', 'itic', 'opter'
@@ -1202,11 +1202,11 @@ Facet-typical activation 1.45; patched into random text at that level, its media
 
 ## Neuron 1814: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.712; patched into random text at that level, its median help is -0.0, KL 0.0004, sharpen cosine 0.007.
+Facet-typical activation 1.712; patched into random text at that level, its median help is -0.0, KL 0.000441, sharpen cosine 0.007.
 
 **Facet 0, math problems: 'What is/Let'** (40 examples, 12 from v1): harmless, median help -0.0002 (p = 0.0185), later predictions -0.0003 (harmless); reliability 0.917, generic share 0.249
 
-- probability: median KL 0.0001, moved 0.0047, sharpen cosine 0.027; raises ' o', ' t', ' z', ' i', ' f', ' w', ' h', ' l'; lowers ' s', ' d', ' 3', ' u', ' 2', ' 4', ' 5', ' a'
+- probability: median KL 7.9e-05, moved 0.004728, sharpen cosine 0.027; raises ' o', ' t', ' z', ' i', ' f', ' w', ' h', ' l'; lowers ' s', ' d', ' 3', ' u', ' 2', ' 4', ' 5', ' a'
 - promoted: ' 0', ' ¼', 'uty', ' \\%', '**.', ' phr', 'un', 'unt'
 - specific promoted: ' 0', ' "\\', 'unt', ' ¼', ' =\\', ' -*-', ' =', ' phr'
 - specific demoted: 'iary', 'oth', 'ettes', 'ette', 'orts', 'orting', 'generic', 'orters'
@@ -1216,7 +1216,7 @@ Facet-typical activation 1.712; patched into random text at that level, its medi
 
 **Facet 1, fiction: 'I thought'** (40 examples, 9 from v1): harmless, median help 0.0072 (p = 0.0034), later predictions -0.0002 (harmless); reliability 0.799, generic share 0.502
 
-- probability: median KL 0.0007, moved 0.0133, sharpen cosine -0.01; raises ' up', '?"', ' Mr', ',"', '."', ' exams', ' Cant', ' on'; lowers ' "', ' it', ' I', ' expecting', " '", '\n', ',', ' to'
+- probability: median KL 0.00065, moved 0.013315, sharpen cosine -0.01; raises ' up', '?"', ' Mr', ',"', '."', ' exams', ' Cant', ' on'; lowers ' "', ' it', ' I', ' expecting', " '", '\n', ',', ' to'
 - promoted: 'ause', 'ends', '%).', '%)', ' forever', 'ang', 'abl', 'leep'
 - specific promoted: 'please', ' literal', 'emat', 'ang', '.’', ")',", '_)', 'we'
 - specific demoted: 'pntd', 'pcbi', 'LLOW', ' Same', 'Same', 'iquity', 'eft', 'autre'
@@ -1228,11 +1228,11 @@ Facet-typical activation 1.712; patched into random text at that level, its medi
 
 ## Neuron 3915: v1 packing-like, v2 packing-like, v3 no use found (facets 0-3)
 
-Facet-typical activation 2.301; patched into random text at that level, its median help is 0.0, KL 0.0011, sharpen cosine -0.01.
+Facet-typical activation 2.301; patched into random text at that level, its median help is 0.0, KL 0.001092, sharpen cosine -0.01.
 
 **Facet 0, dialogue: 'Yeah'** (40 examples, 9 from v1): harmless, median help -0.0014 (p = 0.9417), later predictions -0.0007 (harmless); reliability 0.879, generic share 0.353
 
-- probability: median KL 0.0023, moved 0.02, sharpen cosine -0.089; raises '."', ',"', '.', 'Yes', ',”', ' think', ' but', '!”'; lowers ',', ' do', '?"', ' she', ' I', ' thing', ' as', ' guess'
+- probability: median KL 0.002258, moved 0.020011, sharpen cosine -0.089; raises '."', ',"', '.', 'Yes', ',”', ' think', ' but', '!”'; lowers ',', ' do', '?"', ' she', ' I', ' thing', ' as', ' guess'
 - promoted: '.”', '.“', ',”', '.’', 'yrus', '.\\"', '\u202f', '″'
 - specific promoted: '\u202f', '.“', '.”', '“', '----------------------------------------------------------------------------------------------------------------', '.\\"', ',”', '@"'
 - specific demoted: ' careful', 'otes', 'olved', ' verbs', 'pload', 'getText', 'ots', 'ota'
@@ -1242,7 +1242,7 @@ Facet-typical activation 2.301; patched into random text at that level, its medi
 
 **Facet 1, dialogue: 'Yeah' (2)** (25 examples, 6 from v1): harmless, median help 0.0027 (p = 0.9158), later predictions -0.0002 (harmless); reliability 0.818, generic share 0.35
 
-- probability: median KL 0.0015, moved 0.0223, sharpen cosine -0.087; raises '."', ',"', '.', ' as', 'Yes', 'Yeah', ' but', ' know'; lowers ' I', ',', ' all', ' the', '?"', ' your', 'No', ' yours'
+- probability: median KL 0.001524, moved 0.022317, sharpen cosine -0.087; raises '."', ',"', '.', ' as', 'Yes', 'Yeah', ' but', ' know'; lowers ' I', ',', ' all', ' the', '?"', ' your', 'No', ' yours'
 - promoted: 'aq', '--------------------------------------------------------------------------------------------------------------------------------', '@"', 'ostic', '----------------------------------------------------------------------------------------------------------------', ' Apparently', 'arcer', 'But'
 - specific promoted: '@"', '\u202f', ' &', '----------------------------------------------------------------------------------------------------------------', 'And', '--------------------------------------------------------------------------------------------------------------------------------', ':\\', '&'
 - specific demoted: ' careful', 'olved', 'hin', '>]', 'gated', ' pardon', ' forgiven', ' theirs'
@@ -1252,7 +1252,7 @@ Facet-typical activation 2.301; patched into random text at that level, its medi
 
 **Facet 2, code: aligned constants** (17 examples, 6 from v1): harmless, median help -0.0 (p = 0.6112), later predictions 0.0 (harmless); reliability 0.806, generic share 0.266
 
-- probability: median KL 0.0001, moved 0.0005, sharpen cosine -0.002; raises '    ', '  ', 'in', '     ', 'ti', 'art', 'ri', 'g'; lowers '      ', ' =', 't', ' V', '        ', 'tu', ' {', 'ov'
+- probability: median KL 8.6e-05, moved 0.000488, sharpen cosine -0.002; raises '    ', '  ', 'in', '     ', 'ti', 'art', 'ri', 'g'; lowers '      ', ' =', 't', ' V', '        ', 'tu', ' {', 'ov'
 - promoted: ' ],', '+}', 'loop', 'ishly', ' \\}', ' </', 'enough', ' ]'
 - specific promoted: ' ],', ' </', '\r\n\r\n ', 'reth', ' improvement', 'ishing', ' ]', '"}](#'
 - specific demoted: '.', '?', '?**', '.|', '.**', '.*', '*.', '**.'
@@ -1262,7 +1262,7 @@ Facet-typical activation 2.301; patched into random text at that level, its medi
 
 **Facet 3, tables: aligned columns** (40 examples, 6 from v1): harmless, median help -0.0 (p = 0.5185), later predictions -0.0 (harmless); reliability 0.884, generic share 0.351
 
-- probability: median KL 0.0001, moved 0.0017, sharpen cosine -0.019; raises '     ', '.', '    ', '   ', '       ', '3', ',', '  '; lowers '      ', ' it', '                        ', '-', '        ', '/', '2', ' \n\n'
+- probability: median KL 0.000119, moved 0.001736, sharpen cosine -0.019; raises '     ', '.', '    ', '   ', '       ', '3', ',', '  '; lowers '      ', ' it', '                        ', '-', '        ', '/', '2', ' \n\n'
 - promoted: 'iper', '�', 'ώ', 'imeter', 'Frames', 'ring', 'aho', 'etra'
 - specific promoted: 'imeter', '�', 'nem', 'himself', '\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0', 'ité', 'stop', 'eLife'
 - specific demoted: '.', '!', '!!', 'han', 'trl', ' Bl', 'velt', '~~'
@@ -1279,11 +1279,11 @@ Facet-typical activation 2.301; patched into random text at that level, its medi
 
 ## Neuron 4052: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.718; patched into random text at that level, its median help is -0.0, KL 0.0005, sharpen cosine -0.0.
+Facet-typical activation 1.718; patched into random text at that level, its median help is -0.0, KL 0.00052, sharpen cosine -0.0.
 
 **Facet 0, facet 0** (40 examples, 7 from v1): harmless, median help 0.0003 (p = 0.6273), later predictions -0.0002 (harmless); reliability 0.734, generic share 0.423
 
-- probability: median KL 0.0007, moved 0.0136, sharpen cosine 0.035; raises ' this', ' a', ' ex', ' under', ' Relief', ' on', ' to', ' relief'; lowers ' that', ' in', ' we', ' mistrial', ' the', ' evidence', ' it', ' his'
+- probability: median KL 0.000693, moved 0.013644, sharpen cosine 0.035; raises ' this', ' a', ' ex', ' under', ' Relief', ' on', ' to', ' relief'; lowers ' that', ' in', ' we', ' mistrial', ' the', ' evidence', ' it', ' his'
 - promoted: 'Power', 'arie', 'unless', 'oir', ' essential', 'arial', 'power', ' precedence'
 - specific promoted: 'Unless', 'Pb', 'Append', 'emer', 'FPar', 'Any', 'Conflict', ' quoting'
 - specific demoted: 'agues', 'iates', 'rich', 'yll', 'egan', 'documentclass', ' Plans', 'aign'
@@ -1293,7 +1293,7 @@ Facet-typical activation 1.718; patched into random text at that level, its medi
 
 **Facet 1, facet 1** (11 examples, 7 from v1): harmless, median help -0.0154 (p = 0.3203), later predictions -0.0062 (harmless); reliability 0.789, generic share 0.375
 
-- probability: median KL 0.0014, moved 0.022, sharpen cosine 0.021; raises 'id', 'input', 'a', ' style', 'class', 'd', 'ul', '['; lowers 'td', 'div', 'data', 'name', 'style', 'title', 'active', ' object'
+- probability: median KL 0.00145, moved 0.02199, sharpen cosine 0.021; raises 'id', 'input', 'a', ' style', 'class', 'd', 'ul', '['; lowers 'td', 'div', 'data', 'name', 'style', 'title', 'active', ' object'
 - promoted: 'wy', 'onas', 'riter', 'acs', 'on', 'ippets', ' Harper', 'uance'
 - specific promoted: 'uance', 'wy', 'gments', ' Nolan', 'clic', 'lys', 'ippets', '-'
 - specific demoted: '*^', 'ATIONAL', 'ational', ' somet', 'endant', 'OPER', '}?', 'ocrates'
@@ -1303,7 +1303,7 @@ Facet-typical activation 1.718; patched into random text at that level, its medi
 
 **Facet 2, facet 2** (13 examples, 5 from v1): harmless, median help 0.0104 (p = 0.4143), later predictions -0.0008 (harmless); reliability 0.749, generic share 0.438
 
-- probability: median KL 0.0009, moved 0.0165, sharpen cosine 0.018; raises 'background', 'left', 'right', 'display', ' class', 'next', 'width', ' data'; lowers 'top', 'font', 'margin', ' href', 'float', 'color', 'step', 'text'
+- probability: median KL 0.000867, moved 0.016474, sharpen cosine 0.018; raises 'background', 'left', 'right', 'display', ' class', 'next', 'width', ' data'; lowers 'top', 'font', 'margin', ' href', 'float', 'color', 'step', 'text'
 - promoted: 'unity', 'iegel', 'onitrile', 'rics', 'compact', 'ks', 'ogi', 'acy'
 - specific promoted: 'iegel', 'oyo', 'pts', 'uance', 'opan', 'exposed', 'compact', ' infinity'
 - specific demoted: 'enron', 'urer', '.";', '|\\', '”.', ']{};', ' pub', 'Month'
@@ -1317,11 +1317,11 @@ Facet-typical activation 1.718; patched into random text at that level, its medi
 
 ## Neuron 1710: v1 packing-like, v2 packing-like, v3 no use found (facets 0-1)
 
-Facet-typical activation 1.847; patched into random text at that level, its median help is -0.0002, KL 0.0007, sharpen cosine 0.003.
+Facet-typical activation 1.847; patched into random text at that level, its median help is -0.0002, KL 0.000743, sharpen cosine 0.003.
 
 **Facet 0, travel: prices** (40 examples, 25 from v1): harmless, median help -0.0035 (p = 0.5185), later predictions 0.0003 (harmless); reliability 0.974, generic share 0.144
 
-- probability: median KL 0.0005, moved 0.0122, sharpen cosine 0.118; raises '.', ')', ',', '),', ' return', ');', ').', ' &'; lowers '/', '-', '50', '00', ';', '40', '–', '30'
+- probability: median KL 0.000543, moved 0.012175, sharpen cosine 0.118; raises '.', ')', ',', '),', ' return', ');', ').', ' &'; lowers '/', '-', '50', '00', ';', '40', '–', '30'
 - promoted: ' simultaneous', ' combined', ' Sau', 'ults', ' pools', 'ourses', ' single', ' TOD'
 - specific promoted: ' Sau', 'ults', ' Ts', ' Trent', ' Tai', ' Ser', ' Fac', ' Tu'
 - specific demoted: '~\\', '...]', 'orc', '?!', 'empre', 'stats', '8', '83'
@@ -1331,7 +1331,7 @@ Facet-typical activation 1.847; patched into random text at that level, its medi
 
 **Facet 1, fiction: 'nodded/shrugged'** (40 examples, 6 from v1): harmless, median help -0.0004 (p = 0.4762), later predictions 0.0006 (harmless); reliability 0.922, generic share 0.417
 
-- probability: median KL 0.0006, moved 0.0115, sharpen cosine 0.005; raises ' and', ' at', ',', ' me', ' that', ' off', "'t", '."'; lowers '.', ' my', ' his', ' as', ' no', ' in', ' her', ' a'
+- probability: median KL 0.000562, moved 0.011513, sharpen cosine 0.005; raises ' and', ' at', ',', ' me', ' that', ' off', "'t", '."'; lowers '.', ' my', ' his', ' as', ' no', ' in', ' her', ' a'
 - promoted: ' discussion', ' debate', 'pts', 'urg', ' DIRECT', 'demand', 'graphs', ' torped'
 - specific promoted: ' Orders', ' accusation', ' charges', ' orders', ' discussion', ' torped', 'graphs', ' vengeance'
 - specific demoted: 'conc', 'concat', 'ipheral', '�', 'seud', 'itos', 'Add', 'figure'

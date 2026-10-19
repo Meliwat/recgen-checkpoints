@@ -9,7 +9,7 @@ from collections import Counter
 from dataclasses import dataclass
 
 import numpy as np
-from scipy.stats import wilcoxon
+from scipy.stats import spearmanr, wilcoxon
 
 from recgen.analyze import HAND_PICKED_PATH
 from recgen.config import RESULTS_DIR, SEED
@@ -25,6 +25,8 @@ from recgen.rubric_v3 import (
 
 TOP_TOKENS = 8
 REPORT_EXAMPLES = 3
+RESAMPLES = 5000
+SURE = 0.9  # next-token probability above which removing a neuron can barely help
 ABLATION = {"zero": 1, "mean": 2}  # variant rows in own_actual: 0 is the neuron as it is
 
 
@@ -135,8 +137,8 @@ def exploratory_facets(data, effects, facets_v3, k: int, corpus) -> list[dict]:
         moved = np.asarray(effects["delta_p"][r], dtype=np.float32).mean(axis=0)
         tv, kl, sharpen = np.median(data["probability_own"][r], axis=0)
         out.append({
-            "median_kl": round(float(kl), 4),
-            "median_tv": round(float(tv), 4),
+            "median_kl": round(float(kl), 6),
+            "median_tv": round(float(tv), 6),
             "median_sharpen": round(float(sharpen), 3),
             "probability_raised": [tok.decode([t]) for t in np.argsort(-moved)[:TOP_TOKENS]],
             "probability_lowered": [tok.decode([t]) for t in np.argsort(moved)[:TOP_TOKENS]],
@@ -193,6 +195,8 @@ def probability_summary(results) -> dict:
         "median_null_kl": float(np.median([r["null_median_kl"] for r in results])),
         "facets_with_kl_above_their_null": sum(f["median_kl"] > r["null_median_kl"] for r in results
                                                for f in r["facets"] if f["n"] >= MIN_EXAMPLES),
+        "facets_with_tv_above_their_null": sum(f["median_tv"] > r["null_median_tv"] for r in results
+                                               for f in r["facets"] if f["n"] >= MIN_EXAMPLES),
         "facets": len(facets),
         "median_facet_tv": float(np.median([f["median_tv"] for f in facets])),
         "median_null_tv": float(np.median([r["null_median_tv"] for r in results])),
@@ -201,6 +205,31 @@ def probability_summary(results) -> dict:
         "primary_pairs_sharpen_signs": Counter(f"{sign(a)}/{sign(b)}" if sign(a) >= sign(b) else f"{sign(b)}/{sign(a)}"
                                                for a, b in primary),
     }
+
+
+def control_spread(control: list[float], primary_scores: list[float]) -> dict:
+    """Exploratory: the negative control's spread, and where the best least-related pair sits in it.
+    The maximum of as many control scores as there are least-related pairs is resampled."""
+    control, top = np.array(control), max(primary_scores)
+    rng = np.random.default_rng(SEED)
+    maxima = np.array([rng.choice(control, len(primary_scores), replace=False).max() for _ in range(RESAMPLES)])
+    return {"n": len(control), "median_score": float(np.median(control)),
+            "95th_percentile": float(np.percentile(control, 95)),
+            "share_at_or_above_same_job": float(np.mean(control >= SAME_JOB)),
+            "top_least_related_score": top, "share_at_or_above_top": float(np.mean(control >= top)),
+            "median_max_of_as_many_draws": float(np.median(maxima)),
+            "share_of_draws_whose_max_beats_top": float(np.mean(maxima > top))}
+
+
+def per_example_help(data) -> dict:
+    """Exploratory: help on single examples, and how it depends on how sure the model already is."""
+    actual = data["own_actual"][:, :, 0]
+    help_, sure = actual[:, 0] - actual[:, 1], np.exp(actual[:, 0]) > SURE
+    return {"median_abs": float(np.median(np.abs(help_))), "share_positive": float(np.mean(help_ > 0)),
+            "mean": float(help_.mean()), "spearman_with_log_prob": float(spearmanr(help_, actual[:, 0])[0]),
+            f"share_with_next_token_probability_above_{SURE}": float(sure.mean()),
+            "median_abs_when_sure": float(np.median(np.abs(help_[sure]))),
+            "median_abs_otherwise": float(np.median(np.abs(help_[~sure])))}
 
 
 def label_counts(results, hand_picked: set[int]) -> dict:
@@ -222,7 +251,7 @@ def main() -> None:
     for k, r in enumerate(results):
         n = r["neuron"]
         null_tv, null_kl, null_sharpen = np.median(data["probability_null"][:, k], axis=0)
-        r.update(null_median_kl=round(float(null_kl), 4), null_median_tv=round(float(null_tv), 4),
+        r.update(null_median_kl=round(float(null_kl), 6), null_median_tv=round(float(null_tv), 6),
                  null_median_sharpen=round(float(null_sharpen), 3))
         r.update(hand_picked=n in hand_picked, v1_label=v1[n]["label"], v2_label=v2[n]["v2_label"],
                  typical_activation=round(float(data["typical"][k]), 3), mean_activation=round(float(data["means"][k]), 4),
@@ -259,8 +288,8 @@ def main() -> None:
             "median_score_primary_pairs_both_reliable": float(np.median(
                 [p["score"] for p in primary_pairs if p["both_reliable"]])),
             "positive_control_scores": sorted(positive),
-            "negative_control": {"n": len(control), "median_score": float(np.median(control)),
-                                 "share_at_or_above_same_job": float(np.mean(np.array(control) >= SAME_JOB))},
+            "negative_control": control_spread(control, [p["score"] for p in primary_pairs if p["both_reliable"]]),
+            "per_example_help": per_example_help(data),
             "later_use_of_facets_harmless_on_next_token": Counter(
                 f["later_use"] for r in results for f in r["facets"] if f["use"] == HARMLESS and f["n"] >= MIN_EXAMPLES),
             "median_help_by_use": {u: float(np.median([f["median_help"] for r in results for f in r["facets"]
