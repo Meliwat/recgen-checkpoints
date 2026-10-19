@@ -265,7 +265,7 @@ def main() -> None:
                 f["later_use"] for r in results for f in r["facets"] if f["use"] == HARMLESS and f["n"] >= MIN_EXAMPLES),
             "median_help_by_use": {u: float(np.median([f["median_help"] for r in results for f in r["facets"]
                                                        if f["use"] == u and f["n"] >= MIN_EXAMPLES]))
-                                   for u in {f["use"] for r in results for f in r["facets"] if f["n"] >= MIN_EXAMPLES}},
+                                   for u in sorted({f["use"] for r in results for f in r["facets"] if f["n"] >= MIN_EXAMPLES})},
             "median_null_help": float(np.median([r["null_median_help"] for r in results])),
             "probability": probability_summary(results),
         },

@@ -133,8 +133,8 @@
     "harmless": 93
    },
    "median_help_by_use": {
-    "harms": -0.02255,
-    "harmless": 0.0
+    "harmless": 0.0,
+    "harms": -0.02255
    },
    "median_null_help": 0.0,
    "probability": {
