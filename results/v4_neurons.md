@@ -55,8 +55,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 510: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 13000, forms over [2000, 8000]
-- facet 1, facet 1: v1 emergence 34000, forms over [256, 8000]
+- facet 0: v1 emergence 13000, forms over [2000, 8000]
+- facet 1: v1 emergence 34000, forms over [256, 8000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 256 to 8000, peak 0.09 vs threshold 0.231: not adjacent at formation, not adjacent at the end
@@ -64,9 +64,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 2817: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 21000, forms over [2000, 5000]
-- facet 1, facet 1: v1 emergence 8000, forms over [1000, 5000]
-- facet 2, facet 2: v1 emergence 13000, forms over [2000, 5000]
+- facet 0: v1 emergence 21000, forms over [2000, 5000]
+- facet 1: v1 emergence 8000, forms over [1000, 5000]
+- facet 2: v1 emergence 13000, forms over [2000, 5000]
 - least-related pair: 0-2
 
 - mlp 0-1: window 1000 to 5000, peak 0.03 vs threshold 0.1: not adjacent at formation, not adjacent at the end
@@ -78,9 +78,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 3068: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [128, 13000]
-- facet 1, facet 1: v1 emergence 8000, forms over [3000, 8000]
-- facet 2, facet 2: v1 emergence 21000, forms over [1000, 13000]
+- facet 0: v1 emergence 34000, forms over [128, 13000]
+- facet 1: v1 emergence 8000, forms over [3000, 8000]
+- facet 2: v1 emergence 21000, forms over [1000, 13000]
 - least-related pair: 0-2
 
 - mlp 0-1: window 128 to 13000, peak 0.08 vs threshold 0.15: not adjacent at formation, not adjacent at the end
@@ -101,9 +101,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 93: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [5000, 34000]
-- facet 1, facet 1: v1 emergence 34000, forms over [2000, 34000]
-- facet 2, facet 2: v1 emergence 21000, forms over [8000, 21000]
+- facet 0: v1 emergence 34000, forms over [5000, 34000]
+- facet 1: v1 emergence 34000, forms over [2000, 34000]
+- facet 2: v1 emergence 21000, forms over [8000, 21000]
 - least-related pair: 1-2
 
 - mlp 0-1: window 2000 to 34000, peak 0.03 vs threshold 0.143: not adjacent at formation, not adjacent at the end
@@ -124,8 +124,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 782: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 21000, forms over [256, 5000]
-- facet 1, facet 1: v1 emergence 8000, forms over [128, 3000]
+- facet 0: v1 emergence 21000, forms over [256, 5000]
+- facet 1: v1 emergence 8000, forms over [128, 3000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 128 to 5000, peak 0.07 vs threshold 0.15: not adjacent at formation, not adjacent at the end
@@ -133,9 +133,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 2976: v1 packing-like, v2 recursive generalization, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 8000, forms over [256, 8000]
-- facet 1, facet 1: v1 emergence 21000, forms over [2000, 8000]
-- facet 2, facet 2: v1 emergence 34000, forms over [2000, 34000]
+- facet 0: v1 emergence 8000, forms over [256, 8000]
+- facet 1: v1 emergence 21000, forms over [2000, 8000]
+- facet 2: v1 emergence 34000, forms over [2000, 34000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 256 to 8000, peak 0.11 vs threshold 0.143: not adjacent at formation, adjacent at the end
@@ -147,9 +147,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 138: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [13000, 21000]
-- facet 1, facet 1: v1 emergence 55000, forms over [34000, 55000]
-- facet 2, facet 2: v1 emergence 55000, forms over [21000, 34000]
+- facet 0: v1 emergence 34000, forms over [13000, 21000]
+- facet 1: v1 emergence 55000, forms over [34000, 55000]
+- facet 2: v1 emergence 55000, forms over [21000, 34000]
 - least-related pair: 1-2
 
 - mlp 0-1: window 13000 to 55000, peak 0.01 vs threshold 0.08: not adjacent at formation, not adjacent at the end
@@ -175,8 +175,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 2570: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 2000, forms over [256, 2000]
-- facet 1, facet 1: v1 emergence 21000, forms over [128, 8000]
+- facet 0: v1 emergence 2000, forms over [256, 2000]
+- facet 1: v1 emergence 21000, forms over [128, 8000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 128 to 8000, peak 0.06 vs threshold 0.223: not adjacent at formation, not adjacent at the end
@@ -207,8 +207,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 4012: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 13000, forms over [256, 3000]
-- facet 1, facet 1: v1 emergence 8000, forms over [128, 8000]
+- facet 0: v1 emergence 13000, forms over [256, 3000]
+- facet 1: v1 emergence 8000, forms over [128, 8000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 128 to 8000, peak 0.03 vs threshold 0.17: not adjacent at formation, not adjacent at the end
@@ -225,8 +225,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 3686: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [1000, 8000]
-- facet 1, facet 1: v1 emergence 8000, forms over [2000, 5000]
+- facet 0: v1 emergence 34000, forms over [1000, 8000]
+- facet 1: v1 emergence 8000, forms over [2000, 5000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 1000 to 8000, peak 0.04 vs threshold 0.131: not adjacent at formation, not adjacent at the end
@@ -248,8 +248,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 4094: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 21000, forms over [512, 5000]
-- facet 1, facet 1: v1 emergence 8000, forms over [2000, 5000]
+- facet 0: v1 emergence 21000, forms over [512, 5000]
+- facet 1: v1 emergence 8000, forms over [2000, 5000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 512 to 5000, peak 0.06 vs threshold 0.14: not adjacent at formation, not adjacent at the end
@@ -298,8 +298,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 2757: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [1000, 2000]
-- facet 1, facet 1: v1 emergence 13000, forms over [1000, 13000]
+- facet 0: v1 emergence 34000, forms over [1000, 2000]
+- facet 1: v1 emergence 13000, forms over [1000, 13000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 1000 to 13000, peak 0.04 vs threshold 0.111: not adjacent at formation, not adjacent at the end
@@ -330,8 +330,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 61: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 13000, forms over [128, 8000]
-- facet 1, facet 1: v1 emergence 34000, forms over [2000, 13000]
+- facet 0: v1 emergence 13000, forms over [128, 8000]
+- facet 1: v1 emergence 34000, forms over [2000, 13000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 128 to 13000, peak 0.07 vs threshold 0.18: not adjacent at formation, not adjacent at the end
@@ -339,8 +339,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 4010: v1 packing-like, v2 recursive generalization, v4 recursive generalization (heads: recursive generalization)
 
-- facet 0, facet 0: v1 emergence 13000, forms over [2000, 8000]
-- facet 1, facet 1: v1 emergence 3000, forms over [2000, 3000]
+- facet 0: v1 emergence 13000, forms over [2000, 8000]
+- facet 1: v1 emergence 3000, forms over [2000, 3000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 2000 to 8000, peak 0.14 vs threshold 0.12: adjacent at formation, adjacent at the end
@@ -348,8 +348,8 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 682: v1 mixed from the start, v2 mixed from the start, v4 mixed from the start (heads: mixed from the start)
 
-- facet 0, facet 0: v1 emergence 34000, forms over [512, 34000]
-- facet 1, facet 1: v1 emergence 34000, forms over [2000, 13000]
+- facet 0: v1 emergence 34000, forms over [512, 34000]
+- facet 1: v1 emergence 34000, forms over [2000, 13000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 512 to 34000, peak 0.04 vs threshold 0.22: not adjacent at formation, not adjacent at the end
@@ -357,11 +357,11 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 1228: v1 packing-like, v2 mixed from the start, v4 mixed from the start (heads: mixed from the start)
 
-- facet 0, facet 0: v1 emergence 3000, forms over [1000, 5000]
-- facet 1, facet 1: v1 emergence 21000, forms over [5000, 21000]
-- facet 2, facet 2: v1 emergence 3000, forms over [2000, 5000]
-- facet 3, facet 3: v1 emergence 3000, forms over [512, 5000]
-- facet 4, facet 4: v1 emergence 5000, forms over [512, 5000]
+- facet 0: v1 emergence 3000, forms over [1000, 5000]
+- facet 1: v1 emergence 21000, forms over [5000, 21000]
+- facet 2: v1 emergence 3000, forms over [2000, 5000]
+- facet 3: v1 emergence 3000, forms over [512, 5000]
+- facet 4: v1 emergence 5000, forms over [512, 5000]
 - least-related pair: 2-3
 
 - mlp 0-1: window 1000 to 21000, peak 0.06 vs threshold 0.12: not adjacent at formation, not adjacent at the end
@@ -454,9 +454,9 @@ For each facet pair: the formation window (steps), the largest driver overlap in
 
 ## Neuron 4052: v1 packing-like, v2 packing-like, v4 packing-like (heads: packing-like)
 
-- facet 0, facet 0: v1 emergence 13000, forms over [512, 5000]
-- facet 1, facet 1: v1 emergence 34000, forms over [2000, 13000]
-- facet 2, facet 2: v1 emergence 34000, forms over [3000, 21000]
+- facet 0: v1 emergence 13000, forms over [512, 5000]
+- facet 1: v1 emergence 34000, forms over [2000, 13000]
+- facet 2: v1 emergence 34000, forms over [3000, 21000]
 - least-related pair: 0-1
 
 - mlp 0-1: window 512 to 13000, peak 0.05 vs threshold 0.163: not adjacent at formation, not adjacent at the end

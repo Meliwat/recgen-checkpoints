@@ -44,7 +44,7 @@ def plot_hand_picked(results, v1_rows, hand_picked, path) -> None:
         ax.axis("off")
     fig.suptitle("Least-related facet pair: share of top-100 upstream MLP drivers in common, by training step\n"
                  "adjacent at formation if the peak inside the window beats the threshold", fontsize=10)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0, 1, 0.97))  # leave room for the two-line title
     fig.savefig(path, dpi=110)
     plt.close(fig)
 

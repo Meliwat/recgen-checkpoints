@@ -1,6 +1,6 @@
 import numpy as np
 
-from recgen.analyze_v4 import evaluate_pair, neuron_results
+from recgen.analyze_v4 import evaluate_pair, exploratory_stats, neuron_results
 from recgen.rubric import PACKING_LIKE, RECURSIVE_GENERALIZATION
 from recgen.rubric_v4 import STEPS
 
@@ -55,3 +55,27 @@ def test_evaluate_pair_ignores_overlap_outside_the_window():
     null = [np.zeros(T)] * 20
     assert not evaluate_pair(series, null, (2, 4))["adjacent"]
     assert evaluate_pair(series, null, (0, 4))["adjacent"]
+
+
+def test_exploratory_stats_on_one_hand_built_neuron():
+    window = [STEPS[0], STEPS[4]]  # five checkpoints
+    series = [0.2, 0.0, 0.2, 0.0, 0.0] + [0.0] * (T - 5)
+    null_p95 = [0.1] * T
+    results = [{
+        "neuron": 1,
+        "formation_windows": [[STEPS[0], STEPS[3]], [STEPS[1], STEPS[4]]],  # overlapping, facet 1 starts later
+        "emergence_steps": [STEPS[3], STEPS[6]],
+        "mlp": {"pairs": {"0-1": {"window": window, "series": series, "null_p95_series": null_p95,
+                                  "v2_adjacent": False, "adjacent": False}}},
+        "heads": {"pairs": {"0-1": {"window": window, "series": [1.0] * (T - 1) + [0.05], "null_p95_series": null_p95,
+                                    "v2_adjacent": False, "adjacent": True}}},
+    }]
+    rise = {"mlp_neurons": 1.0, "attention_heads": 3.0, "embedding": 0.0}
+    steps = [{"rises": {(1, 0): rise, (1, 1): rise}} for _ in range(T)]
+    stats = exploratory_stats(results, steps, {1: {"facet_similarities": {"0-1": -0.1}}})
+    assert stats["least_related_windows_overlapping"] == 1
+    assert stats["least_related_formation_order_vs_v1"] == {"same order as v1": 1}
+    assert stats["unrelated_in_window_checkpoints_above_step_null_p95"] == "2 of 5"
+    assert stats["least_related_checkpoints_above_step_null_p95"] == {1: 2}
+    assert stats["heads_adjacent_at_formation_not_at_end_by_heads"] == ["1 0-1"]
+    assert stats["pooled_source_share_by_step"]["attention_heads"][str(STEPS[0])] == 0.75

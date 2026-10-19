@@ -45,6 +45,32 @@ def test_heads_add_up_to_v2s_attention_term_minus_its_bias(tiny_model, corpus):
     np.testing.assert_allclose(cap["part_mlp_neurons"], v2["mlp neurons"], atol=1e-4)
 
 
+def test_changing_one_heads_weights_moves_only_that_heads_term(tiny_model, corpus):
+    """Independent of how capture slices the output projection: GPTNeoX groups query_key_value's
+    output rows by head, so perturbing head 2's rows in layer 1 can change only head 2's
+    term in that layer (and nothing in layer 0). Terms are compared before dividing by the
+    LayerNorm scale, which the perturbation changes for every term alike."""
+
+    def raw_heads():
+        cap = capture(tiny_model, corpus, EXAMPLES, NEURONS, layer=LAYER)
+        return cap["heads"] * cap["sigma"][:, None, None, None]
+
+    before = raw_heads()
+    qkv = tiny_model.gpt_neox.layers[1].attention.query_key_value
+    rows = slice(2 * 3 * 4, 3 * 3 * 4)  # head 2 of 4; hidden 16, so 4 dims per head, times q, k, v
+    original = qkv.weight[rows].clone()
+    with torch.no_grad():
+        qkv.weight[rows] += torch.randn_like(original)
+    try:
+        after = raw_heads()
+    finally:
+        with torch.no_grad():
+            qkv.weight[rows] = original
+    np.testing.assert_allclose(after[:, 0], before[:, 0], atol=1e-5)
+    np.testing.assert_allclose(after[:, 1, [0, 1, 3]], before[:, 1, [0, 1, 3]], atol=1e-5)
+    assert np.abs(after[:, 1, 2] - before[:, 1, 2]).max() > 1e-2
+
+
 def test_a_single_head_term_matches_ablating_that_head_directly(tiny_model, corpus):
     """Zeroing head 2 of layer 1 before the output projection removes exactly its direct term
     from the next layer's input, so the term should equal the change in the linearized readout."""

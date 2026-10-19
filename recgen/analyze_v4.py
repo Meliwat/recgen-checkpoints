@@ -35,7 +35,8 @@ def step_summary(step: int, candidates: list[dict]) -> dict:
     rows = {(c["neuron"], f): [row[(w, p)] for w, p, _ in facet] for c in candidates for f, facet in enumerate(c["facets"])}
     shifts = {key: scaled[r].mean(axis=0) - scaled[n_facet:].mean(axis=0) for key, r in rows.items()}
     head_shifts = {key: heads[r].mean(axis=0) - heads[n_facet:].mean(axis=0) for key, r in rows.items()}
-    summary = {"mlp": {}, "heads": {}, "gains": {}, "shares": {}, "reconstruction_error": float(data["reconstruction_error"])}
+    summary = {"mlp": {}, "heads": {}, "gains": {}, "rises": {}, "shares": {},
+               "reconstruction_error": float(data["reconstruction_error"])}
     for k, n in enumerate(neurons):
         for key in rows:
             summary["mlp"][n, key] = drivers(shifts[key] * coefficients[:, k], TOP_UNITS)
@@ -44,6 +45,7 @@ def step_summary(step: int, candidates: list[dict]) -> dict:
         k = neurons.index(n)
         summary["gains"][n, f] = float(np.median(data["pre"][r, k]) - np.median(data["pre"][n_facet:, k]))
         rise = {p: float(data[f"part_{p}"][r, k].mean() - data[f"part_{p}"][n_facet:, k].mean()) for p in PARTS}
+        summary["rises"][n, f] = rise
         summary["shares"][n, f] = {p: v / sum(rise.values()) for p, v in rise.items()}
     return summary
 
@@ -156,6 +158,54 @@ def summarize(results: list[dict], steps: list[dict], v1_rows: dict) -> dict:
     return summary
 
 
+def exploratory_stats(results: list[dict], steps: list[dict], v1_rows: dict) -> dict:
+    """Not pre-registered: checks added after an independent review of the first v4 results."""
+    least = {r["neuron"]: least_related_pair(v1_rows[r["neuron"]]) for r in results}
+    # Does v4's formation timing agree with v1's emergence order for the least-related pair?
+    order, concurrent = Counter(), 0
+    for r in results:
+        i, j = map(int, least[r["neuron"]].split("-"))
+        wi, wj = r["formation_windows"][i], r["formation_windows"][j]
+        concurrent += wi[0] <= wj[1] and wj[0] <= wi[1]
+        ei, ej = r["emergence_steps"][i], r["emergence_steps"][j]
+        if ei != ej:
+            earlier, later = (wi, wj) if ei < ej else (wj, wi)
+            order["v1-later facet starts forming first" if later[0] < earlier[0]
+                  else "both start at the same checkpoint" if later[0] == earlier[0] else "same order as v1"] += 1
+    # Uncorrected: in-window checkpoints where an unrelated pair beats that checkpoint's null 95th percentile.
+    beats, tests = 0, 0
+    for r in results:
+        for p in r["mlp"]["pairs"].values():
+            if p["v2_adjacent"] or not p.get("window"):
+                continue
+            for t in range(STEPS.index(p["window"][0]), STEPS.index(p["window"][1]) + 1):
+                beats += p["series"][t] > p["null_p95_series"][t]
+                tests += 1
+    least_above = {r["neuron"]: sum(s > q for s, q in zip(p["series"], p["null_p95_series"]))
+                   for r in results for p in [r["mlp"]["pairs"][least[r["neuron"]]]]}
+    # Head drivers judged at the end by heads too, instead of by v2's MLP adjacency.
+    heads_formation_not_end = [f"{r['neuron']} {k}" for r in results for k, p in r["heads"]["pairs"].items()
+                               if p.get("window") and p["adjacent"] and p["series"][-1] <= p["null_p95_series"][-1]]
+    # Pooled source shares: each source's summed rise over all facets, over the summed total rise.
+    pooled = {part: {} for part in ("mlp_neurons", "attention_heads", "embedding")}
+    nonpositive = {}
+    for step, s in zip(STEPS, steps):
+        rises = list(s["rises"].values())
+        total = sum(sum(rise.values()) for rise in rises)
+        for part in pooled:
+            pooled[part][str(step)] = round(sum(rise[part] for rise in rises) / total, 3)
+        nonpositive[str(step)] = sum(sum(rise.values()) <= 0 for rise in rises)
+    return {
+        "least_related_windows_overlapping": concurrent,
+        "least_related_formation_order_vs_v1": order,
+        "unrelated_in_window_checkpoints_above_step_null_p95": f"{beats} of {tests}",
+        "least_related_checkpoints_above_step_null_p95": {n: c for n, c in least_above.items() if c},
+        "heads_adjacent_at_formation_not_at_end_by_heads": heads_formation_not_end,
+        "pooled_source_share_by_step": pooled,
+        "facets_with_nonpositive_rise_by_step": nonpositive,
+    }
+
+
 def write_report(results: list[dict], hand_picked: dict, v1_rows: dict) -> None:
     lines = ["# v4 results per neuron\n",
              "For each facet pair: the formation window (steps), the largest driver overlap inside it (peak), "
@@ -163,11 +213,11 @@ def write_report(results: list[dict], hand_picked: dict, v1_rows: dict) -> None:
              "adjacent at formation and at the final checkpoint (v2). MLP-neuron drivers are the primary measure.\n"]
     for r in results:
         n = r["neuron"]
-        names = hand_picked.get(str(n), {}).get("facets") or [f"facet {i}" for i in range(len(r["emergence_steps"]))]
+        names = hand_picked.get(str(n), {}).get("facets")
         lines.append(f"## Neuron {n}: v1 {r['v1_label']}, v2 {r['v2_label']}, v4 {r['mlp']['label']} "
                      f"(heads: {r['heads']['label']})\n")
-        lines += [f"- facet {i}, {name}: v1 emergence {s}, forms over {w}" for i, (name, s, w)
-                  in enumerate(zip(names, r["emergence_steps"], r["formation_windows"]))]
+        lines += [f"- facet {i}{', ' + names[i] if names else ''}: v1 emergence {s}, forms over {w}"
+                  for i, (s, w) in enumerate(zip(r["emergence_steps"], r["formation_windows"]))]
         lines.append(f"- least-related pair: {least_related_pair(v1_rows[n])}\n")
         for kind in KINDS:
             for key, p in r[kind]["pairs"].items():
@@ -192,6 +242,7 @@ def main() -> None:
     results = [neuron_results(c["neuron"], len(c["facets"]), facet_keys, steps, v1_rows[c["neuron"]], v2_rows[c["neuron"]])
                for c in candidates]
     summary = summarize(results, steps, v1_rows)
+    summary["exploratory"] = exploratory_stats(results, steps, v1_rows)
     (RESULTS_DIR / "classification_v4.json").write_text(json.dumps({"summary": summary, "neurons": results}, indent=1))
     write_report(results, hand_picked, v1_rows)
     print(json.dumps(summary, indent=1))
