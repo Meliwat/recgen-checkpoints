@@ -83,7 +83,8 @@ def checks_figure(v6: list[dict], x: np.ndarray) -> None:
     axes[1].set_ylim(0, None)
     axes[0].legend(fontsize=6, ncol=2, loc="upper center")
     axes[2].legend(fontsize=7)
-    fig.suptitle("Detector checks: solid lines are the network-native detector, dashed lines MiniLM", fontsize=10)
+    fig.suptitle("Detector checks. Left and middle: solid lines are the network-native detector, dashed lines MiniLM",
+                 fontsize=10)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "v6_checks.png", dpi=110)
     plt.close(fig)
