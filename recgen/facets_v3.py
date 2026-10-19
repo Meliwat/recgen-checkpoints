@@ -40,6 +40,9 @@ def enlarged_facets(candidate: dict, corpus: np.ndarray, window_max: np.ndarray,
 
 
 def main() -> None:
+    if FACETS_V3_PATH.exists():
+        print(f"{FACETS_V3_PATH.name}: already built")
+        return
     corpus = load_corpus()
     candidates = json.loads((RESULTS_DIR / "candidates.json").read_text())
     data = np.load(window_maxima_path(FINAL_STEP))
