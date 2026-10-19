@@ -16,7 +16,7 @@ from recgen.config import RESULTS_DIR, SEED
 from recgen.corpus import load_corpus
 from recgen.facets import display_text, tokenizer
 from recgen.facets_v3 import FACETS_V3_PATH
-from recgen.outputs import EFFECTS_PATH, OUTPUTS_PATH, facet_examples
+from recgen.outputs import DELTA_P_PATH, EFFECTS_PATH, OUTPUTS_PATH, PROBABILITY_PATH, facet_examples
 from recgen.rubric_v3 import (
     ASSIGN_MIN, HARMLESS, HELPS, LABELS, MIN_EXAMPLES, MIN_HELP, MIN_RELIABILITY, ONE_JOB, SAME_JOB,
     SENSITIVITY_ASSIGN_MIN, SENSITIVITY_MIN_HELP, Signatures, least_related_pair, pair_label, shared_job, spearman_brown,
@@ -44,7 +44,10 @@ SENSITIVITY = {"mean ablation": Variant(ablation="mean"),
 def load(facets_v3):
     data = dict(np.load(OUTPUTS_PATH))
     assert data["examples"].tolist() == [list(e) for e in facet_examples(facets_v3)], "outputs were recorded for other facets"
+    probability = np.load(PROBABILITY_PATH)
+    data.update(probability_own=probability["own"], probability_null=probability["null"])
     effects = {kind: np.load(path, mmap_mode="r") for kind, path in EFFECTS_PATH.items()}
+    effects["delta_p"] = np.load(DELTA_P_PATH, mmap_mode="r")
     return data, effects
 
 
@@ -129,7 +132,14 @@ def exploratory_facets(data, effects, facets_v3, k: int, corpus) -> list[dict]:
             _, _, w, p = data["examples"][i]
             examples.append({"text": display_text(corpus, w, p), "next": tok.decode(corpus[w, p + 1:p + 2]),
                              "help": round(float(helps(data, [i], "zero")[0]), 3)})
+        moved = np.asarray(effects["delta_p"][r], dtype=np.float32).mean(axis=0)
+        tv, kl, sharpen = np.median(data["probability_own"][r], axis=0)
         out.append({
+            "median_kl": round(float(kl), 4),
+            "median_tv": round(float(tv), 4),
+            "median_sharpen": round(float(sharpen), 3),
+            "probability_raised": [tok.decode([t]) for t in np.argsort(-moved)[:TOP_TOKENS]],
+            "probability_lowered": [tok.decode([t]) for t in np.argsort(moved)[:TOP_TOKENS]],
             "later_use": use(later),
             "median_later_help": round(float(np.median(later)), 4),
             "promoted": [tok.decode([t]) for t in np.argsort(-mean_effect)[:TOP_TOKENS]],
@@ -172,6 +182,27 @@ def negative_control(data, effects, facets_v3, results: list[dict]) -> list[floa
     return scores
 
 
+def probability_summary(results) -> dict:
+    """Exploratory: how much the neuron changes the next-token prediction on its facets, against
+    the same neuron patched into random text, and whether it sharpens the existing prediction."""
+    facets = [f for r in results for f in r["facets"] if f["n"] >= MIN_EXAMPLES]
+    sign = lambda x: int(np.sign(x))
+    primary = [[r["facets"][int(f)]["median_sharpen"] for f in r["primary_pair"].split("-")] for r in results]
+    return {
+        "median_facet_kl": float(np.median([f["median_kl"] for f in facets])),
+        "median_null_kl": float(np.median([r["null_median_kl"] for r in results])),
+        "facets_with_kl_above_their_null": sum(f["median_kl"] > r["null_median_kl"] for r in results
+                                               for f in r["facets"] if f["n"] >= MIN_EXAMPLES),
+        "facets": len(facets),
+        "median_facet_tv": float(np.median([f["median_tv"] for f in facets])),
+        "median_null_tv": float(np.median([r["null_median_tv"] for r in results])),
+        "median_facet_sharpen": float(np.median([f["median_sharpen"] for f in facets])),
+        "median_null_sharpen": float(np.median([r["null_median_sharpen"] for r in results])),
+        "primary_pairs_sharpen_signs": Counter(f"{sign(a)}/{sign(b)}" if sign(a) >= sign(b) else f"{sign(b)}/{sign(a)}"
+                                               for a, b in primary),
+    }
+
+
 def label_counts(results, hand_picked: set[int]) -> dict:
     count = lambda rs: {label: n for label in LABELS if (n := sum(r["label"] == label for r in rs))}
     return {"all": count(results), "hand_picked": count([r for r in results if r["neuron"] in hand_picked])}
@@ -190,6 +221,9 @@ def main() -> None:
     sensitivity = {name: label_counts(run(variant), hand_picked) for name, variant in SENSITIVITY.items()}
     for k, r in enumerate(results):
         n = r["neuron"]
+        null_tv, null_kl, null_sharpen = np.median(data["probability_null"][:, k], axis=0)
+        r.update(null_median_kl=round(float(null_kl), 4), null_median_tv=round(float(null_tv), 4),
+                 null_median_sharpen=round(float(null_sharpen), 3))
         r.update(hand_picked=n in hand_picked, v1_label=v1[n]["label"], v2_label=v2[n]["v2_label"],
                  typical_activation=round(float(data["typical"][k]), 3), mean_activation=round(float(data["means"][k]), 4),
                  null_median_help=round(float(np.median(data["null_actual"][:, k, 0, 0] - data["null_actual"][:, k, 1, 0])), 4))
@@ -233,6 +267,7 @@ def main() -> None:
                                                        if f["use"] == u and f["n"] >= MIN_EXAMPLES]))
                                    for u in {f["use"] for r in results for f in r["facets"] if f["n"] >= MIN_EXAMPLES}},
             "median_null_help": float(np.median([r["null_median_help"] for r in results])),
+            "probability": probability_summary(results),
         },
     }
     (RESULTS_DIR / "classification_v3.json").write_text(
@@ -262,11 +297,15 @@ def write_report(results, hand_picked) -> None:
         lines.append(f"## Neuron {n}: v1 {r['v1_label']}, v2 {r['v2_label']}, v3 {r['label']} "
                      f"(facets {r['primary_pair']})\n")
         lines.append(f"Facet-typical activation {r['typical_activation']}; patched into random text at that level, "
-                     f"its median help is {r['null_median_help']}.\n")
+                     f"its median help is {r['null_median_help']}, KL {r['null_median_kl']}, sharpen cosine "
+                     f"{r['null_median_sharpen']}.\n")
         for i, (name, f) in enumerate(zip(names, r["facets"])):
             lines.append(f"**Facet {i}, {name}** ({f['n']} examples, {f['n_v1']} from v1): {f['use']}, median help "
                          f"{f['median_help']} (p = {f['help_p']}), later predictions {f['median_later_help']} "
                          f"({f['later_use']}); reliability {f['reliability']}, generic share {f['generic_share']}\n")
+            lines.append(f"- probability: median KL {f['median_kl']}, moved {f['median_tv']}, sharpen cosine "
+                         f"{f['median_sharpen']}; raises {', '.join(repr(t) for t in f['probability_raised'])}; "
+                         f"lowers {', '.join(repr(t) for t in f['probability_lowered'])}")
             lines.append(f"- promoted: {', '.join(repr(t) for t in f['promoted'])}")
             lines.append(f"- specific promoted: {', '.join(repr(t) for t in f['specific_promoted'])}")
             lines.append(f"- specific demoted: {', '.join(repr(t) for t in f['specific_demoted'])}")
