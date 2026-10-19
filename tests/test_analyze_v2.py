@@ -32,3 +32,10 @@ def test_chance_labels_for_a_staggered_pair_follow_the_false_positive_rate():
     labels = chance_labels([3, 5], rate=0.05)
     assert labels[RECURSIVE_GENERALIZATION] == 0.05
     assert labels[PACKING_LIKE] == 0.95
+
+
+def test_order_agreement_compares_threshold_free_timing_with_v1_order():
+    from recgen.analyze_v2 import order_agreement
+    v1_neurons = [{"neuron": 1, "emergence_steps": [3000, 8000, 13000]}]
+    half_steps = {(1, 0): 2000, (1, 1): 2000, (1, 2): None}
+    assert order_agreement(v1_neurons, half_steps) == {"tied": 1, "no rise": 2}

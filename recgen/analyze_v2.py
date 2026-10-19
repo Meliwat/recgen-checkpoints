@@ -12,13 +12,13 @@ import numpy as np
 
 from recgen.analyze import HAND_PICKED_PATH
 from recgen.attribution import ATTRIBUTION_PATH
-from recgen.bridges import BRIDGES_PATH, dense_path, facet_examples, window_steps
+from recgen.bridges import BRIDGES_PATH, dense_path, facet_examples, later_facet_pairs, needed_steps, window_steps
 from recgen.config import CHECKPOINT_STEPS, RESULTS_DIR, SEED
 from recgen.rubric import RECURSIVE_GENERALIZATION, tokens_related
 from recgen.rubric_v2 import (
     BRIDGE_LEADS, BRIDGE_WITH_OR_AFTER, NO_BRIDGE_RESPONSE, NULL_PERCENTILE, SENSITIVITY_NULL_PERCENTILE,
     SENSITIVITY_TOP_UNITS, TOP_UNITS, WINDOW_TOO_SHORT, adjacency, bridge_lead, bridge_outcome, classify,
-    drivers, null_threshold, overlap,
+    crossing, drivers, null_threshold, overlap,
 )
 
 OUTCOME_ORDER = [BRIDGE_LEADS, BRIDGE_WITH_OR_AFTER, NO_BRIDGE_RESPONSE, WINDOW_TOO_SHORT]
@@ -121,6 +121,7 @@ def adjacency_results(candidates, v1):
             "emergence_steps": r["emergence_steps"],
             "adjacency_threshold": round(primary["threshold"], 3),
             "null_median": round(float(np.median(primary["null"])), 3),
+            "null_overlaps": [round(x, 3) for x in primary["null"]],
             "driver_overlaps": {f"{i}-{j}": round(float(overlaps[TOP_UNITS][i, j]), 3)
                                 for i in range(n_facets) for j in range(i + 1, n_facets)},
             "split_half_overlaps": [round(split_half_overlap(att, rows, background, n, f, TOP_UNITS, rng), 3)
@@ -152,11 +153,16 @@ def pair_gains(pair: dict, facet_row: dict) -> dict[str, np.ndarray]:
     return {name: np.array(g) for name, g in gains.items()}
 
 
+def dense_facet_rows(candidates) -> dict[tuple[int, int], list[int]]:
+    """Rows of each facet's examples in the dense recordings, keyed (neuron, facet)."""
+    row = {e: i for i, e in enumerate(facet_examples(candidates))}
+    return {(c["neuron"], f): [row[(w, p)] for w, p, _ in facet]
+            for c in candidates for f, facet in enumerate(c["facets"])}
+
+
 def bridge_results(candidates):
     pairs = json.loads(BRIDGES_PATH.read_text())
-    row = {e: i for i, e in enumerate(facet_examples(candidates))}
-    facet_row = {(c["neuron"], f): [row[(w, p)] for w, p, _ in facet]
-                 for c in candidates for f, facet in enumerate(c["facets"])}
+    facet_row = dense_facet_rows(candidates)
     results = []
     for pair in pairs:
         gains = pair_gains(pair, facet_row)
@@ -170,6 +176,31 @@ def bridge_results(candidates):
             "placebo_lead": bridge_lead(gains["facet"], gains["placebo"]),
         })
     return results
+
+
+def preactivation_half_steps(candidates, steps: list[int]) -> dict[tuple[int, int], int | None]:
+    """Exploratory, a threshold-free emergence time: the checkpoint from which each facet's
+    pre-activation gain over the pool stays above half its value at the last recorded checkpoint."""
+    facet_row = dense_facet_rows(candidates)
+    gains = {key: [] for key in facet_row}
+    for step in steps:
+        data = np.load(dense_path(step))
+        neurons = data["neurons"].tolist()
+        baseline = np.median(data["pool"].astype(np.float32), axis=0)
+        facet = data["facet"].astype(np.float32)
+        for (n, f), rows in facet_row.items():
+            k = neurons.index(n)
+            gains[n, f].append(np.median(facet[rows, k]) - baseline[k])
+    return {key: None if (i := crossing(np.array(g))) is None else steps[i] for key, g in gains.items()}
+
+
+def order_agreement(v1_neurons, half_steps) -> Counter:
+    """For each pair v1 calls staggered (A emerged first), whether pre-activation timing agrees."""
+    order = Counter()
+    for pair in later_facet_pairs(v1_neurons):
+        a, b = half_steps[pair["neuron"], pair["a"]], half_steps[pair["neuron"], pair["b"]]
+        order["no rise" if None in (a, b) else "same order" if a < b else "tied" if a == b else "reversed"] += 1
+    return order
 
 
 def later_facets_with_bridge(bridges) -> dict[str, int]:
@@ -196,8 +227,10 @@ def write_report(neurons, bridges, hand_picked) -> None:
         n = r["neuron"]
         names = hand_picked.get(str(n), {}).get("facets") or [f"facet {i}" for i in range(len(r["emergence_steps"]))]
         lines.append(f"## Neuron {n}: v1 {r['v1_label']}, v2 {r['v2_label']}\n")
-        lines += [f"- facet {i}, {name}: emerges at step {s}, split-half overlap {h}"
-                  for i, (name, s, h) in enumerate(zip(names, r["emergence_steps"], r["split_half_overlaps"]))]
+        lines += [f"- facet {i}, {name}: emerges at step {s} (pre-activation gain half-way at {half}), "
+                  f"split-half overlap {h}"
+                  for i, (name, s, half, h) in enumerate(zip(names, r["emergence_steps"], r["preactivation_half_steps"],
+                                                             r["split_half_overlaps"]))]
         lines.append(f"- threshold {r['adjacency_threshold']} (null median {r['null_median']}); overlaps "
                      + ", ".join(f"{k}: {v}" for k, v in r["driver_overlaps"].items()) + "\n")
         for b in by_pair.get(n, []):
@@ -210,12 +243,20 @@ def write_report(neurons, bridges, hand_picked) -> None:
     (RESULTS_DIR / "v2_neurons.md").write_text("\n".join(lines))
 
 
+def median_share(bridges, name: str, at: int = -1) -> float:
+    """Median over pairs of a gain, as a share of the later facet's own gain at its emergence."""
+    return round(float(np.median([b["gains"][name][at] / b["gains"]["facet"][-1] for b in bridges])), 3)
+
+
 def main() -> None:
     candidates = json.loads((RESULTS_DIR / "candidates.json").read_text())
     v1 = json.loads((RESULTS_DIR / "classification.json").read_text())
     hand_picked = json.loads(HAND_PICKED_PATH.read_text())
     neurons, variants, reconstruction_error = adjacency_results(candidates, v1)
     bridges = bridge_results(candidates)
+    half_steps = preactivation_half_steps(candidates, needed_steps(json.loads(BRIDGES_PATH.read_text())))
+    for r in neurons:
+        r["preactivation_half_steps"] = [half_steps[r["neuron"], f] for f in range(len(r["emergence_steps"]))]
     hand = [r for r in neurons if r["hand_picked"]]
     summary = {
         "reconstruction_error": reconstruction_error,
@@ -235,6 +276,11 @@ def main() -> None:
                                           for label in variants[f"top {TOP_UNITS}, null {NULL_PERCENTILE}th"]},
             "pair_adjacency_v1_vs_v2": Counter(f"v1 {'adjacent' if a['v1'] else 'not'}, v2 {'adjacent' if a['v2'] else 'not'}"
                                                for r in neurons for a in r["adjacent_pairs"].values()),
+            "median_bridge_gain_share": median_share(bridges, "bridge"),
+            "median_placebo_gain_share": median_share(bridges, "placebo"),
+            "bridge_gain_above_placebo": sum(b["gains"]["bridge"][-1] > b["gains"]["placebo"][-1] for b in bridges),
+            "median_later_facet_gain_share_when_earlier_emerges": median_share(bridges, "facet", at=0),
+            "staggered_pairs_in_preactivation_timing": order_agreement(v1["neurons"], half_steps),
         },
         "bridge_outcomes": Counter(b["bridge"] for b in bridges),
         "placebo_outcomes": Counter(b["placebo"] for b in bridges),
