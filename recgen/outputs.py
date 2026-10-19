@@ -10,6 +10,8 @@ Run as a script at the final checkpoint, for every traced neuron:
   neuron is also patched there to its facet-typical activation and to zero (negative control);
 - N_NULL random contexts: the neuron patched to its facet-typical activation, to zero and to
   its mean. The mean effect is its generic push.
+Exploratory, added after the logit-space results: how much probability each facet example's
+ablation moves (record_probabilities).
 """
 
 import copy
@@ -28,6 +30,9 @@ from recgen.rubric_v3 import LATER_PREDICTIONS, N_NULL
 
 OUTPUTS_PATH = DATA_DIR / f"step{FINAL_STEP}_v3_outputs.npz"
 EFFECTS_PATH = {kind: DATA_DIR / f"step{FINAL_STEP}_v3_effects_{kind}.npy" for kind in ("zero", "mean")}
+PROBABILITY_PATH = DATA_DIR / f"step{FINAL_STEP}_v3_probability.npz"
+DELTA_P_PATH = DATA_DIR / f"step{FINAL_STEP}_v3_delta_p.npy"
+N_PROBABILITY_NULL = 128  # random contexts for the exploratory probability check
 CHUNK = LATER_PREDICTIONS + 1  # tokens run per variant; their predictions are p+1 to p+CHUNK
 GROUP = 24  # variants per forward pass; each holds a copy of the prefix's keys and values
 
@@ -167,23 +172,68 @@ def control_summary(effects_zero, examples, control_sum, control_count, generic_
     return {"control_dots": dots, "control_gram": gram, "control_generic": with_generic, "control_count": control_count}
 
 
+def prediction_change(lp: torch.Tensor, vocab: int) -> dict[str, torch.Tensor]:
+    """How the next-token prediction changes from lp[1] (neuron changed) to lp[0]: probability
+    moved, its total variation and KL divergence, and the cosine between the logit change and the
+    prediction's own centered log-probs (positive: the neuron sharpens what is already predicted)."""
+    p = lp.exp()
+    delta = centered(lp[0, :vocab] - lp[1, :vocab])
+    own = centered(lp[0, :vocab])
+    return {"delta_p": (p[0] - p[1])[:vocab], "tv": 0.5 * (p[0] - p[1]).abs().sum(),
+            "kl": (p[0] * (lp[0] - lp[1])).sum(), "sharpen": delta @ own / (delta.norm() * own.norm())}
+
+
+def record_probabilities(model, corpus, facets_v3, contexts, typical, vocab: int) -> None:
+    """Exploratory, added after the logit-space results: the change in next-token probabilities
+    at each facet example (as is minus zero-ablated), and at random contexts (patched to the
+    facet-typical activation minus zero) for reference."""
+    neurons = [r["neuron"] for r in facets_v3]
+    examples = facet_examples(facets_v3)
+    setter = NeuronSetter(model)
+    delta_p = np.lib.format.open_memmap(DELTA_P_PATH, mode="w+", dtype=np.float16, shape=(len(examples), vocab))
+    own = np.zeros((len(examples), 3), np.float32)  # tv, kl, sharpen
+    for i, (k, _, w, p) in enumerate(examples):
+        lp = variant_logprobs(model, setter, corpus[w], p, [None, (neurons[k], 0.0)], chunk=1)[:, 0]
+        change = prediction_change(lp, vocab)
+        delta_p[i] = change.pop("delta_p").cpu().numpy()
+        own[i] = [v.item() for v in change.values()]
+    null = np.zeros((len(contexts), len(neurons), 3), np.float32)
+    for r, (w, p) in enumerate(contexts):
+        variants = [v for j, n in enumerate(neurons) for v in ((n, float(typical[j])), (n, 0.0))]
+        lp = variant_logprobs(model, setter, corpus[w], p, variants, chunk=1)[:, 0]
+        for j in range(len(neurons)):
+            change = prediction_change(lp[2 * j:2 * j + 2], vocab)
+            change.pop("delta_p")
+            null[r, j] = [v.item() for v in change.values()]
+    setter.handle.remove()
+    delta_p.flush()
+    np.savez(PROBABILITY_PATH, own=own, null=null)
+
+
 def main() -> None:
-    if OUTPUTS_PATH.exists():
-        print(f"{OUTPUTS_PATH.name}: already recorded")
+    need_outputs, need_probabilities = not OUTPUTS_PATH.exists(), not PROBABILITY_PATH.exists()
+    if not (need_outputs or need_probabilities):
+        print(f"{OUTPUTS_PATH.name}, {PROBABILITY_PATH.name}: already recorded")
         return
     corpus = load_corpus()
     candidates = json.loads((RESULTS_DIR / "candidates.json").read_text())
     facets_v3 = json.loads(FACETS_V3_PATH.read_text())
     neurons = [r["neuron"] for r in facets_v3]
     typical = np.array([np.median([e[2] for facet in r["facets"] for e in facet]) for r in facets_v3])
-    means = mean_activations(neurons)
     contexts = null_contexts(candidates, len(corpus), N_NULL, np.random.default_rng(SEED))
+    vocab = len(tokenizer())
     with checkpoint(FINAL_STEP) as model:
-        examples, own_actual, null_actual, generic, control = record(
-            model, corpus, facets_v3, contexts, typical, means, vocab=len(tokenizer()))
-    np.savez(OUTPUTS_PATH, examples=np.array(examples), neurons=np.array(neurons), typical=typical, means=means,
-             contexts=np.array(contexts), own_actual=own_actual, null_actual=null_actual, generic=generic, **control)
-    print(f"{len(examples)} facet examples and {len(contexts)} null contexts recorded")
+        if need_outputs:
+            means = mean_activations(neurons)
+            examples, own_actual, null_actual, generic, control = record(
+                model, corpus, facets_v3, contexts, typical, means, vocab)
+            np.savez(OUTPUTS_PATH, examples=np.array(examples), neurons=np.array(neurons), typical=typical,
+                     means=means, contexts=np.array(contexts), own_actual=own_actual, null_actual=null_actual,
+                     generic=generic, **control)
+            print(f"{len(examples)} facet examples and {len(contexts)} null contexts recorded")
+        if need_probabilities:
+            record_probabilities(model, corpus, facets_v3, contexts[:N_PROBABILITY_NULL], typical, vocab)
+            print(f"{PROBABILITY_PATH.name}: recorded")
 
 
 if __name__ == "__main__":

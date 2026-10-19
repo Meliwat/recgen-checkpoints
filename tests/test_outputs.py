@@ -55,3 +55,14 @@ def test_null_contexts_avoid_facet_windows_and_leave_room_for_the_next_tokens():
     contexts = null_contexts(candidates, n_windows=10, n=7, rng=np.random.default_rng(0))
     assert sorted(w for w, _ in contexts) == [1, 2, 4, 6, 7, 8, 9]
     assert all(32 <= p and p + 5 < 512 for _, p in contexts)
+
+
+def test_prediction_change_measures_moved_probability_and_sharpening():
+    from recgen.outputs import prediction_change
+    as_is = torch.log_softmax(torch.tensor([2.0, 1.0, 0.0, -1.0]), dim=0)
+    flatter = torch.log_softmax(torch.tensor([1.0, 0.5, 0.0, -0.5]), dim=0)  # the same logits, halved
+    change = prediction_change(torch.stack([as_is, flatter]), vocab=4)
+    p, q = as_is.exp(), flatter.exp()
+    torch.testing.assert_close(change["tv"], 0.5 * (p - q).abs().sum())
+    torch.testing.assert_close(change["kl"], (p * (as_is - flatter)).sum())
+    torch.testing.assert_close(change["sharpen"], torch.tensor(1.0))  # the neuron only sharpens
