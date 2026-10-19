@@ -126,7 +126,7 @@ def shared_token_rates(neurons: dict, corpus: np.ndarray, rng) -> dict:
 def write_report(stats, per_neuron, corpus) -> None:
     lines = ["# v5 results per model\n",
              f"Share of sampled neurons that are unrelated mixed (2+ facets, least-related similarity below 0.1) and "
-             f"that have 2+ facets of any kind, with 95% bootstrap intervals. Then, for the {PRIMARY_DEPTH} layer, "
+             f"that have 2+ facets of any kind, with 95% bootstrap intervals. Then, at each depth, "
              f"{EXAMPLE_NEURONS} randomly chosen unrelated-mixed neurons with two examples per facet.\n"]
     for model in MODELS:
         lines.append(f"## pythia-{model}\n")
@@ -138,15 +138,18 @@ def write_report(stats, per_neuron, corpus) -> None:
                          f"{s['unrelated_mixed_share']:.3f} ({lo:.3f} to {hi:.3f}) | "
                          f"{s['multi_facet_share']:.3f} ({mlo:.3f} to {mhi:.3f}) |")
         lines.append("")
-        neurons = per_neuron[model, PRIMARY_DEPTH]
-        mixed = sorted(n for n, r in neurons.items() if unrelated_mixed(r["n_facets"], r["least_related_similarity"]))
-        shown = rng_for(model, PRIMARY_DEPTH).choice(mixed, size=min(EXAMPLE_NEURONS, len(mixed)), replace=False)
-        for n in sorted(int(x) for x in shown):
-            r = neurons[n]
-            lines.append(f"**Neuron {n}** ({r['n_facets']} facets, least-related similarity {r['least_related_similarity']:.2f})\n")
-            for i, facet in enumerate(r["facets"]):
-                lines += [f"- facet {i}: {a:.2f} `{display_text(corpus, w, p)}`" for w, p, a in facet[:2]]
-            lines.append("")
+        for depth in DEPTHS:
+            neurons = per_neuron[model, depth]
+            mixed = sorted(n for n, r in neurons.items() if unrelated_mixed(r["n_facets"], r["least_related_similarity"]))
+            shown = rng_for(model, depth).choice(mixed, size=min(EXAMPLE_NEURONS, len(mixed)), replace=False)
+            lines.append(f"### {depth} depth\n")
+            for n in sorted(int(x) for x in shown):
+                r = neurons[n]
+                lines.append(f"**Neuron {n}** ({r['n_facets']} facets, least-related similarity "
+                             f"{r['least_related_similarity']:.2f})\n")
+                for i, facet in enumerate(r["facets"]):
+                    lines += [f"- facet {i}: {a:.2f} `{display_text(corpus, w, p)}`" for w, p, a in facet[:2]]
+                lines.append("")
     (RESULTS_DIR / "v5_models.md").write_text("\n".join(lines))
 
 
