@@ -293,6 +293,70 @@ Below, "unrelated" means not adjacent at the end by v2's driver test, and "relat
 
 `run_v4.sh` needs v1's and v2's `results/` and `data/corpus.npy`. From scratch it takes about an hour on an M1 Pro: it downloads 14 checkpoints one at a time, deletes each after use, and caches 3.0 GB in `data/v4/`. With that cache, it reruns in about 5 minutes.
 
+## v5 results
+
+v1 to v4 studied 40 neurons in one layer of one small model. The essay expects bigger models to have narrower neurons, so fewer mixed-looking ones. v5 asks whether that holds: it runs v1's facet detector, unchanged, on six Pythia sizes trained on the same data in the same order. The rules are in [`recgen/rubric_v5.py`](recgen/rubric_v5.py), committed (`58fefef`) before any model was recorded. No earlier file or result changed.
+
+### v5 method
+
+1. **Models and layers.** Pythia 70M, 160M, 410M, 1B, 1.4B and 2.8B, all in float16. 6.9B doesn't fit in this laptop's 16 GB. At each size, three layers: a quarter, half and three quarters of the way through (layer `int(depth * layers)`). The middle layer is primary.
+2. **Neurons.** In each layer, near-dead neurons (peak below half the layer's median peak) and dense ones (v1's rule) are dropped, and 2,048 of the rest are sampled with a fixed seed, all of them in 70M.
+3. **Measure.** v1's facet detector on the same 2.1M-token corpus: each neuron's 50 strongest windows, embedded with the sentence model and clustered. The primary measure is the share of sampled neurons that are **unrelated mixed**: 2 or more facets whose least-related pair has centroid similarity below 0.1. The secondary measure is the share with 2 or more facets of any kind, v1's selection criterion. Each share gets a 95% bootstrap interval over neurons.
+4. **Verdict** on the primary measure at the middle layer: "fits the essay" if the share falls with size (Spearman correlation with size rank at most -0.8) and 2.8B's interval lies entirely below 70M's; "against the essay" for the mirror image; otherwise "no clear trend". The other depths and the secondary measure get the same test, reported beside it.
+
+As a check, the 410M middle layer is v1's layer 12: v5 finds 2+ facets in 25.3% of its neurons, against v1's 24.9% with float32 and v1's eligibility rule.
+
+### What v5 found
+
+![Share of mixed-looking neurons by model size, at three depths](results/figures/v5_scale.png)
+
+| Unrelated mixed | 70M | 160M | 410M | 1B | 1.4B | 2.8B | Spearman | Verdict |
+|---|---|---|---|---|---|---|---|---|
+| **middle (primary)** | **16.0%** | **10.6%** | **9.9%** | **8.2%** | **8.1%** | **6.9%** | **-1.00** | **fits the essay** |
+| quarter | 13.1% | 11.4% | 11.0% | 10.1% | 11.2% | 10.4% | -0.71 | no clear trend |
+| three quarters | 13.6% | 14.5% | 15.9% | 16.1% | 21.0% | 18.7% | +0.94 | against the essay |
+
+Exact intervals and the secondary measure are in [`results/v5_models.md`](results/v5_models.md) and [`results/classification_v5.json`](results/classification_v5.json).
+
+1. **At the middle layer, mixed-looking neurons get steadily rarer with size, as the essay predicts.** The unrelated-mixed share falls at every step, from 16.0% (14.0 to 17.7%) in 70M to 6.9% (5.8 to 8.1%) in 2.8B. The share with 2+ facets of any kind falls too, from 41% to 22% (Spearman -0.94, also "fits the essay").
+2. **At other depths it doesn't.** A quarter of the way in, the share drifts down only slightly (13.1% to 10.4%). Three quarters of the way in, it rises (13.6% to 18.7%, with a peak of 21.0% at 1.4B), and the pre-registered test calls that "against the essay". The secondary measure there shows no clear trend.
+3. **The deep-layer rise isn't explained by next-token prediction** (exploratory). Late-layer neurons often predict the next token, and a neuron that predicts the same token after a legal citation and in fiction would look mixed to an input-side detector. But at three-quarters depth, an unrelated-mixed neuron's two least-related facets share their most common next token only 1 to 3% of the time, about the same as facets of different neurons (0 to 1%), and no more often than at middle depth. They share an activating token 1 to 8% of the time at any depth.
+4. **Some "unrelated mixed" neurons are one job that the detector splits** (exploratory, from reading the three random examples per model and depth in [`results/v5_models.md`](results/v5_models.md)).
+   - 2.8B middle neuron 3791 fires on spelling pieces: "rag|azzi" and "rig|uarda" in Italian, "Rag|lan" and "flag|stone" in English place names. That's the essay's "iy → diy" kind of growth.
+   - 2.8B deep neuron 4166 fires on articles: "the" in English legal and news text, "un" and "des" in French fiction.
+   - Others look genuinely mixed, such as 2.8B middle neuron 9176 ("stepped" in fiction vs numbers in math problems) and 1.4B deep neuron 6657 (legal text vs "b|end" in TikZ diagrams).
+   - So absolute shares overstate how much real mixing there is. Comparisons across sizes are fairer, because every size goes through the same detector and corpus.
+
+### What this does and doesn't show
+
+- **It's the clearest support for the essay in this repo.** At the middle layer, where v1 to v4 found their mixed neurons, the share of mixed-looking neurons falls steadily from 70M to 2.8B. v1 to v4 found no evidence of recursive generalization beyond chance in the most mixed of those neurons; v5 suggests such neurons are a shrinking minority as models grow.
+- **The trend depends on depth.** Deep layers go the other way, and nothing here explains why. The detector's blind spots may differ by depth: if deep neurons in bigger models track features that cut across genres and languages, like the article neuron above, the detector would count more of them as mixed. That's a guess, not something v5 tested.
+- **It measures how mixed neurons look, not why.** v5 counts neurons whose strongest examples split into unrelated groups. It doesn't say whether they got that way by packing, branching or anything else.
+
+### What's still shaky
+
+- **One detector.** The sentence model splits a concept by genre or language and can't see relations the network uses (point 4). Its errors could change with size or depth, which would bias the trend.
+- **Six sizes, one family, one corpus.** A Spearman correlation over six points is coarse, and the largest model is 2.8B, far below the trillion-parameter models the essay discusses. The 2.1M-token corpus is the same Pile sample for every size.
+- **Relative depth is approximate.** `int(depth * layers)` puts the "middle" of a 6-layer and a 32-layer model at different functional points, and the trend reverses between the middle and three-quarters layers, so the choice of layer matters.
+- **Sampling.** 2,048 neurons per layer (70M: all 1,546 to 2,002 eligible). Intervals cover neuron sampling, not the choice of corpus or detector settings.
+- **Precision.** v5 runs every size in float16, v1 to v4 ran 410M in float32. The 410M check above agrees to within 0.4 points.
+
+### v5 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v5.py`](recgen/rubric_v5.py) | Pre-registered models, depths, eligibility, measures and verdict |
+| [`recgen/sweep.py`](recgen/sweep.py) | Window maxima at three depths of each Pythia size |
+| [`results/classification_v5.json`](results/classification_v5.json) | Verdicts, per-layer shares and intervals, facet counts, per-neuron facets and similarities, shared-token rates |
+| [`results/v5_models.md`](results/v5_models.md) | Per model: shares by depth, and three random unrelated-mixed neurons per depth with examples |
+| [`results/figures/v5_scale.png`](results/figures/v5_scale.png) | Shares by model size and depth |
+
+```bash
+./run_v5.sh
+```
+
+`run_v5.sh` needs only `data/corpus.npy`. From scratch it takes about 2 hours on an M1 Pro: it downloads the six models one at a time (about 12 GB in all), deletes each after use, and caches 2.3 GB in `data/v5/`, including sentence embeddings of 918,218 example contexts. With that cache, it reruns in a few minutes.
+
 ## Files
 
 | Path | What it is |
