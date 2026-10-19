@@ -224,6 +224,68 @@ These readings are separate from the labels. They use the tokens whose probabili
 
 `run_v3.sh` needs v1's `results/` and `data/` and v2's `results/classification_v2.json`. From scratch it takes about an hour on an M1 Pro: it downloads the final checkpoint once, deletes it after use, and caches 0.9 GB in `data/`. With that cache, it reruns in 30 seconds and gives identical results.
 
+## v4 results
+
+v2 judged adjacency at the final checkpoint, which can't see two facets that grew out of shared circuitry and separated afterwards. v4 measures v2's driver overlaps at all 14 checkpoints after initialization and asks whether two facets shared drivers *while they formed*. It also splits attention into its 192 heads, because v2's MLP-neuron drivers covered only about a quarter of a facet's rise. The rules are in [`recgen/rubric_v4.py`](recgen/rubric_v4.py), committed (`7b4f2ce`) before any checkpoint was recorded. No v1, v2 or v3 file or result changed.
+
+### v4 method
+
+1. **Recording.** At each checkpoint from step 128 to 143k, the same facet examples and background text as v2, run through layer 12. Each pre-activation splits exactly into direct terms: upstream MLP neurons, the 192 attention heads, the token embedding, and biases. The terms add back up within 5e-5 at every checkpoint, and at the final checkpoint v4's MLP driver overlaps match v2's exactly.
+2. **Formation window.** A facet's gain is the neuron's median pre-activation on its examples minus its median on background text. The facet forms from the checkpoint after which its gain stays above 25% of its final value to the one after which it stays above 75%. A pair's window spans both facets' windows; for the least-related pairs it runs a median of step 512 to 13k.
+3. **Adjacency at formation.** A pair is adjacent at formation if its largest driver overlap inside its window beats the 95th percentile of the same statistic for null pairs (each of the two facets against every other traced neuron's facets, read through this neuron's weights, over the same window). Taking the window's maximum on both sides keeps the false-positive rate near 5% however long the window is. MLP-neuron drivers (top 100, as in v2) are the primary measure; head drivers (top 5 of 192) are reported beside them.
+4. **Branched then separated:** adjacent at formation but not at the end (v2). That's the recursive-generalization signature v2 couldn't see.
+
+### What v4 found
+
+| Label (all 40) | v1 | v2 | v4, MLP drivers | v4, head drivers | Expected by chance (v4, MLP) |
+|---|---|---|---|---|---|
+| recursive generalization | 0 | 2 | 1 | 1 | 0.9 |
+| one origin, timing unresolved | 0 | 0 | 0 | 0 | 0.1 |
+| packing-like | 35 | 32 | 33 | 32 | 30.3 |
+| mixed from the start | 5 | 6 | 6 | 7 | 8.6 |
+
+The 23 hand-picked neurons are 19 packing-like and 4 mixed from the start by MLP drivers, as in v2 (18 and 5 by head drivers).
+
+![Driver overlap of each hand-picked neuron's least-related facet pair over training](results/figures/v4_formation_overlap.png)
+
+1. **No facet pair branched then separated.** By MLP drivers, 0 of 68 unrelated pairs were adjacent at formation, where the null's false-positive rate predicts 3.1. By head drivers it's 0 against 1.4. The least-related pair's overlap peaks at a median 0.05 inside its window, against a median threshold of 0.14. For the hand-picked neurons it stays mostly between 0.00 and 0.05 all through training. The largest single-checkpoint values are 0.12 (2918 at step 256, below its threshold of 0.15, and 3656 at step 128, before its window opens), and none is sustained.
+2. **The test can see sharing when it's there.** 17 of 18 pairs that v2 calls adjacent at the end are also adjacent at formation by MLP drivers. Head drivers are blunter: 9 of 18.
+3. **Recursive generalization stays at chance.** Neuron 4010 (scientific vs legal citations) is labeled recursive generalization by both measures, as in v2. But v2 found its facet 0's driver signature unstable (8% split-half overlap), and its two facets are arguably one job. Neuron 2976, v2's other case, drops to packing-like. Its facets 0 and 1 share more drivers at the end (0.13) than at any checkpoint while forming (peak 0.11, below its threshold of 0.143), so they came together later rather than branching apart. It's the only pair that's adjacent at the end but not at formation.
+4. **A facet's support moves from MLP neurons to attention during training** (exploratory). Of a facet's rise over background, upstream MLP neurons carry a median 89% at step 128 and 65% at 1k, attention heads overtake them between 2k and 3k, and by the end heads carry 77% and MLP neurons 25%. The token embedding stays near zero. Early on, these neurons respond mostly to what upstream MLP neurons compute at the same token; later, mostly to what attention brings in from other tokens.
+
+![Median share of a facet's rise by source, over training](results/figures/v4_sources.png)
+
+### What this does and doesn't show
+
+- **It closes the gap v2 left.** Across timing (v1), drivers at the end (v2) and drivers while forming (v4), these 40 neurons' unrelated facets show no sign of having grown out of each other. They were attached separately. v3's output test couldn't decide either way.
+- **It doesn't show why they share a neuron.** "Attached separately" fits the essay's packing picture, but v4 doesn't test the packing mechanism (unrelated things placed together because they rarely collide), and there are other possibilities. For example, v1 point 4's repurposed neurons keep an old job as a leftover facet.
+- **It doesn't contradict the essay's main claim.** The essay is about most neurons, and these are the 40 most mixed-looking of 4,096 in one layer of a small model, which the essay itself expects to be messier. What this tests is its explanation for the mixed ones: in this sample, recursive generalization doesn't account for them.
+
+### What's still shaky
+
+- **Top-100 overlap is coarse.** Sharing below a facet's top 100 MLP drivers, or through indirect paths (an early neuron acting through later ones), is invisible.
+- **Head drivers are a weak probe,** and they carry most of the rise after step 2k. Top 5 of 192 heads catches only 9 of 18 related pairs, so shared circuitry that lives in attention could be missed. Comparing what the heads attend to and which features they move would be finer.
+- **Early training is hard to read.** At steps 128 to 512 the null's 95th percentile reaches 0.25, so brief sharing very early would need a large overlap to show.
+- **The grid is log-spaced.** Formation windows span several checkpoints, but a short shared phase between two of them could be missed. Pythia has a checkpoint every 1,000 steps.
+- **Facets are defined by their final examples.** A branch whose early form fired on different text than its final examples wouldn't show up in these overlaps.
+- **Scope is unchanged:** one layer of one model, 40 neurons selected with the sentence model.
+
+### v4 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v4.py`](recgen/rubric_v4.py) | Pre-registered formation windows and adjacency at formation |
+| [`recgen/formation.py`](recgen/formation.py) | Attribution at each checkpoint, with attention split by head |
+| [`results/classification_v4.json`](results/classification_v4.json) | v1, v2 and v4 labels; per pair: windows, overlap series, null thresholds, branched-then-separated; source shares by step |
+| [`results/v4_neurons.md`](results/v4_neurons.md) | Per neuron: formation windows and each pair's test |
+| [`results/figures/`](results/figures/) `v4_*.png` | Least-related pair overlap over training, label counts, source shares |
+
+```bash
+./run_v4.sh
+```
+
+`run_v4.sh` needs v1's and v2's `results/` and `data/corpus.npy`. From scratch it takes about an hour on an M1 Pro: it downloads 14 checkpoints one at a time, deletes each after use, and caches 3.0 GB in `data/v4/`. With that cache, it reruns in about 5 minutes.
+
 ## Files
 
 | Path | What it is |
