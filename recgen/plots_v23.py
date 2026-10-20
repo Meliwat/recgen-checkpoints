@@ -15,10 +15,12 @@ from recgen.plots import FIGURES_DIR
 QUARTILE_NAMES = ["Q1 (weakest)", "Q2", "Q3", "Q4 (strongest)"]
 
 
-def rate_with_error(values: list[bool]) -> tuple[float, float]:
-    """Share and its binomial 95% half-width (descriptive)."""
-    p = float(np.mean(values))
-    return p, 1.96 * np.sqrt(p * (1 - p) / len(values))
+def rate_with_error(values: list[bool], z: float = 1.96) -> tuple[float, list[float]]:
+    """Share and its Wilson 95% interval as distances below and above the share (descriptive)."""
+    n, p = len(values), float(np.mean(values))
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return p, [max(p - (centre - half), 0.0), max(centre + half - p, 0.0)]  # clip rounding below 0 at p = 0 or 1
 
 
 def plot(rows: list[dict], path) -> None:
@@ -31,11 +33,11 @@ def plot(rows: list[dict], path) -> None:
     width = 0.8 / len(series)
     for i, (name, get) in enumerate(series.items()):
         rates = [rate_with_error([get(r) for r in rows if r["quartile"] == k]) for k in range(4)]
-        axes[0].bar(x + (i - 1) * width, [p for p, _ in rates], width, yerr=[e for _, e in rates], capsize=3, label=name)
+        axes[0].bar(x + (i - 1) * width, [p for p, _ in rates], width, yerr=np.array([e for _, e in rates]).T, capsize=3, label=name)
     axes[0].set_xticks(x, QUARTILE_NAMES, fontsize=8)
     axes[0].set_ylim(0, 1.45)
     axes[0].set_ylabel("share of neurons")
-    axes[0].set_title("Pre-registered: by peak quartile (50 neurons each, binomial 95% bars)", fontsize=10)
+    axes[0].set_title("Pre-registered: by peak quartile (50 neurons each, Wilson 95% bars)", fontsize=10)
     axes[0].legend(fontsize=8, loc="upper right")
 
     for k in range(4):
@@ -67,7 +69,7 @@ def plot(rows: list[dict], path) -> None:
         rates = [rate_with_error([r["mlp"]["least_unrelated"] for r in rows if r["quartile"] == k and r["unrelated_mixed"] == flag])
                  for k in range(4)]
         counts = [sum(r["quartile"] == k and r["unrelated_mixed"] == flag for r in rows) for k in range(4)]
-        axes[3].bar(x + (i - 0.5) * 0.4, [p for p, _ in rates], 0.4, yerr=[e for _, e in rates], capsize=3,
+        axes[3].bar(x + (i - 0.5) * 0.4, [p for p, _ in rates], 0.4, yerr=np.array([e for _, e in rates]).T, capsize=3,
                     label=f"{name} (n = {', '.join(map(str, counts))})")
     axes[3].set_xticks(x, QUARTILE_NAMES, fontsize=8)
     axes[3].set_ylim(0, 1.3)

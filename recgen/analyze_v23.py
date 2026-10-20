@@ -15,7 +15,10 @@ from recgen.analyze_v13 import final_adjacency
 from recgen.candidates_v13 import load_candidates as load_v13_candidates
 from recgen.candidates_v13 import v13_path
 from recgen.candidates_v23 import RECORDING_PATH, V23_DIR, layer_quartiles, load_candidates
+from scipy.stats import spearmanr
+
 from recgen.config import RESULTS_DIR, SEED
+from recgen.corpus import load_corpus
 from recgen.rubric_v2 import TOP_UNITS, drivers, overlap
 from recgen.rubric_v23 import (
     DEPTH, MIN_FACETS, MODEL, STEP, control_reading, facet_count_strata, facet_size_strata, neuron_measures,
@@ -216,6 +219,41 @@ def source_shares(final: dict, rows: list[dict]) -> dict:
             for part in ("mlp_neurons", "attention_heads")}
 
 
+def reader_margin_check(rows: list[dict]) -> dict:
+    """Exploratory, added after review: the reader's continuous measure (v6's least-related centroid similarity
+    minus its unrelated level; higher means more related), its Spearman with the driver margin, and the primary
+    measure by quartile within terciles of it, combined as in C1."""
+    v6 = json.loads((RESULTS_DIR / "classification_v6.json").read_text())["neurons"][f"{MODEL} {DEPTH}"]
+    reader = np.array([v6[str(r["neuron"])]["least_related_similarity"] - v6[str(r["neuron"])]["unrelated_level"] for r in rows])
+    q = np.array([r["quartile"] for r in rows])
+    least = column(rows, "mlp", "least_unrelated")
+    strata = np.digitize(reader, np.quantile(reader, [1 / 3, 2 / 3]))
+    return {"spearman_reader_margin_driver_margin": round(float(spearmanr(reader, column(rows, "mlp", "margin")).statistic), 3),
+            "median_reader_margin_by_quartile": [round(float(np.median(reader[q == k])), 3) for k in range(4)],
+            "by_tercile": {str(t): {"top_rate": round(float(least[(strata == t) & (q == 3)].mean()), 3), "top_n": int(np.sum((strata == t) & (q == 3))),
+                                    "rest_rate": round(float(least[(strata == t) & (q < 3)].mean()), 3), "rest_n": int(np.sum((strata == t) & (q < 3)))}
+                           for t in range(3)},
+            "P1_within_reader_margin_terciles": top_minus_rest(q, least, rng_for(401), strata)}
+
+
+def token_check(candidates: list[dict], rows: list[dict], corpus: np.ndarray) -> dict:
+    """Exploratory, added after review (v13's token confound): how often the least pair's two facets share an
+    activating token, and the primary measure by quartile among least pairs that share none."""
+    tokens = {(c["neuron"], f): {int(corpus[w, p]) for w, p, _ in facet} for c in candidates for f, facet in enumerate(c["facets"])}
+    shared = np.array([bool(tokens[r["neuron"], int(a)] & tokens[r["neuron"], int(b)])
+                       for r in rows for a, b in [r["mlp"]["least_pair"].split("-")]])
+    q = np.array([r["quartile"] for r in rows])
+    least = column(rows, "mlp", "least_unrelated")
+    return {"least_pair_shares_a_token_by_quartile": [round(float(shared[q == k].mean()), 3) for k in range(4)],
+            "least_pair_unrelated_without_shared_token_by_quartile": [round(float(least[(q == k) & ~shared].mean()), 3) for k in range(4)]}
+
+
+def threshold_ties(rows: list[dict]) -> dict:
+    """Exploratory, added after review: least pairs whose overlap equals the threshold (unrelated under v2's rule)."""
+    return {kind: [sum(r[kind]["least_overlap"] == r[kind]["threshold"] for r in rows if r["quartile"] == k) for k in range(4)]
+            for kind in KINDS}
+
+
 def background_overlap(candidates: list[dict]) -> dict:
     """How many of v13's background positions, and of their windows, hold v23 facet examples."""
     examples = np.load(RECORDING_PATH)["examples"]
@@ -252,7 +290,10 @@ def main() -> None:
                "v13_check": v13_check(rows),
                "exploratory_after_results": {"reader_split": reader_split(rows),
                                              "split_half_reliability": reliability_check(rows, split_half_reliability(candidates)),
-                                             "source_shares_by_quartile": source_shares(final, rows)}}
+                                             "source_shares_by_quartile": source_shares(final, rows)},
+               "exploratory_after_review": {"reader_margin": reader_margin_check(rows),
+                                            "shared_tokens": token_check(candidates, rows, load_corpus()),
+                                            "least_pairs_tied_with_threshold_by_quartile": threshold_ties(rows)}}
     (RESULTS_DIR / "classification_v23.json").write_text(json.dumps({"summary": summary, "neurons": rounded(rows)}, indent=1))
     print(json.dumps(summary, indent=1))
 
