@@ -49,6 +49,12 @@ counted; paired comparisons use units both readers labeled.
 Before the main run, a pilot on units outside v8's sample (pythia-160m, not in MODELS) checks the
 tools and estimates cost. Any change it prompts (the tool budget or the sample sizes, for cost) is
 committed before the first reading of a v8 unit, and listed in the README.
+
+Added after the pilot, before any v8 unit was read: a second arm, SECOND_AGENT_MODEL, a larger
+model closer to the essay's auditors. It reads the same units (and the same RETEST units) with
+the same prompt and tools, and gets questions 1 to 7 too, plus its gain over the first agent
+(paired, same rule). The first agent's gain over one-shot Haiku stays the primary question, since
+only that comparison holds the model fixed.
 """
 
 import json
@@ -69,6 +75,7 @@ BOOTSTRAP = 2000
 INTERVAL = 95
 
 AGENT_MODEL = "haiku"
+SECOND_AGENT_MODEL = "sonnet"
 ATTEMPTS = 3
 MAX_TOOL_CALLS = 8
 MIN_TOOL_CALLS = 4  # asked for in the prompt, not enforced; tool use is reported
