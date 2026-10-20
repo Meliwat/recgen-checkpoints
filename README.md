@@ -1402,6 +1402,91 @@ Its rules are in [`recgen/rubric_v16_addendum.py`](recgen/rubric_v16_addendum.py
 
 `run_v16.sh` needs v6's `data/v6/` recordings, `results/v7_llm_answers.json`, v7's Haiku cache in `data/v7/llm/` (for the thinking split), v10's Sonnet cache in `data/v10/sonnet/` and the `claude` CLI signed in. The readings are cached in `data/v16/` (not committed), and every CLI call's reported cost is logged in `data/v16/spend.jsonl` (the addendum's in `data/v16/concurrent/`). With the cache, it makes no CLI calls and reruns in about 3.5 minutes, mostly the bootstraps. From scratch, the 7,440 readings took about 3 hours 15 minutes and the addendum's 3,600 about 1 hour 30 minutes, six at a time. Labels will differ somewhat, because the readers aren't deterministic (point 7).
 
+## v17 results
+
+v12 confirmed that neurons with a larger peak activation are flagged unrelated mixed much less, by the network reader and by Haiku, and that most of this is shared with coherence: how alike a neuron's 50 strongest examples are in the network's representation. Its review's main objection was that the flag and coherence describe the top-50 sample, not the neuron, and the decisive test, reading examples from a fixed band of each neuron's own range, wasn't run. v17 runs it at the middle layer of all six sizes and asks two things:
+
+- **Across neurons:** at the same fraction of each neuron's own peak, do weak neurons still look more mixed and less coherent than strong ones?
+- **Within a neuron:** do examples below the top 50 look more mixed than the top 50? The toy model of superposition predicts that a neuron's largest activations are clean and its smaller ones more polysemantic ([Elhage et al. 2022](https://transformer-circuits.pub/2022/toy_model/index.html), section "Computation in Superposition", subsection "Superposition vs Sparsity").
+
+The rules are in [`recgen/rubric_v17.py`](recgen/rubric_v17.py), committed (`88b042e`) before any recording or reading, and not amended. No earlier file or result changed.
+
+### v17 method
+
+1. **Band.** A neuron's band windows are those whose window maximum is at least 0.40 and below 0.60 of its peak, leaving out its own top-50 windows so the two samples never share a window (the top 50 reached into the band in 12 to 77 neurons per model). Per neuron, 50 band windows are drawn uniformly without replacement (seed `[0, 17, 0, model index, neuron id]`), one example per window at the window's strongest position, as for the top 50. Neurons with fewer than 50 band windows are excluded: 27 of 11,801 (1 to 11 per model, all in the strongest peak quartile) and 2 of v12's 600 fresh neurons.
+2. **Network reader.** The residual stream entering the layer at the band positions is recorded the way v6 recorded the top 50 (LayerNorm-normalized, float16) and read by v6's detector unchanged: v6's random-position mean and null, its thresholds, and the neuron's input direction projected out. Per neuron it gives a band flag and band coherence (v6's top-pair percentile: the median similarity of the 50 examples, ranked against the neuron's null of random positions). The same code recomputes every neuron's top-50 flag, facet count and coherence from v6's recordings, and they match v6's published values exactly (coherence to the four decimals v6 published). Activations rebuilt from the stored residuals match v5's window maxima within 0.0043 (median band activation 1.2 to 1.6).
+3. **Haiku.** v12's 600 fresh neurons, each shown as its 50 band examples with v7's prompt and CLI (marked token, no activations, seeded order), so each has a top-50 reading (v12's) and a band reading (v17's). 30 band units were read a second time. As a drift check, the same 30 neurons' top-50 prompts, byte-identical to v12's, were read again.
+4. **Tests, per reader and measure** (network flag, network coherence, Haiku flag):
+   - **T1, within neuron:** band minus top 50, paired by neuron, each model's mean averaged over the six models, with a bootstrap interval.
+   - **T2, magnitude in the band:** v12's H1 on band values (the strongest peak quartile minus the other three, interval below 0, Spearman negative in at least 5 of 6 models), sign reversed for coherence; and the same statistic on the same neurons' top 50, with a paired interval for the difference.
+   - **Verdict:** "persists below the top" if T2 holds in the band; "top-50 specific" if the band statistic's interval includes 0 and the paired difference's excludes it; otherwise "unclear".
+5. **Caveat, written into the rules before any result.** Up to half of all windows fall in a weak neuron's band, so its band examples approach random positions. Diffuse examples form fewer facets, and the network reader's flag needs two, so its flag could fall in the band even where the examples look more varied. Coherence is co-primary for that reason, and as a reference the detector also reads 50 of v6's random positions per neuron.
+6. **Secondary, pre-registered, not in the verdict:** v12's H2 regression on band flags (S1), and its least-squares version on band coherence (S2), with v12's covariates (log peak, peakedness, density, and the band examples' token purity). They ask whether how wide the band is explains a band effect.
+
+The optional second band (0.20 to 0.40 of peak) wasn't run: it would have added about 1.8 GB of residuals while the disk had 17 GB free and other runs were downloading models. The 658 Haiku readings all returned a valid label: 2.6M input tokens, which the CLI reported as $0.78. Recording took 87 minutes for the six models, one at a time, including downloads.
+
+### What v17 found
+
+![Top 50 against the band, by peak quartile](results/figures/v17_band.png)
+
+**T2, the magnitude effect** (strongest peak quartile minus the rest, in points; models in the expected direction):
+
+| Reader, measure | Neurons | Top 50, by peak quartile | Band, by peak quartile | Strongest minus rest: top 50 | Band | Band minus top 50 | Verdict |
+|---|---|---|---|---|---|---|---|
+| network, flag | 11,774 | 56% / 55% / 49% / 28% | 13% / 26% / 35% / 40% | -25.6 (-27.5 to -23.6), 6/6 | +15.3 (+13.3 to +17.2), 0/6 | +40.8 (+38.2 to +43.4) | unclear |
+| network, coherence | 11,774 | 72.8 / 79.3 / 85.2 / 93.2 | 58.7 / 62.0 / 66.7 / 78.2 | +14.1 (+13.7 to +14.5), 6/6 | +15.7 (+15.3 to +16.2), 6/6 | +1.6 (+1.2 to +2.1) | **persists below the top** |
+| Haiku, flag | 598 | 59% / 50% / 44% / 13% | 55% / 55% / 49% / 29% | -38.3 (-45.9 to -31.1), 6/6 | -24.1 (-32.5 to -15.2), 6/6 | +14.2 (+5.6 to +22.9) | **persists below the top** |
+
+**T1, within neuron** (band minus top 50, mean over models):
+
+| Reader, measure | Band minus top 50 (95% interval) | By model | Reading |
+|---|---|---|---|
+| network, flag | -18.2 points (-19.4 to -17.1) | -5.7 to -31.1 | band looks less mixed |
+| network, coherence | -16.2 percentile points (-16.4 to -16.1) | -15.5 to -18.3 | band looks more mixed |
+| Haiku, flag | +5.5 points (+0.8 to +10.0) | 0 to +11 | band looks more mixed |
+
+The rest of the numbers are in [`results/classification_v17.json`](results/classification_v17.json). Points 1 to 3, 5 and 6 report the pre-registered tests, checks and reference, with descriptive breakdowns by quartile. The facet counts in point 4 were added after a first look at 70M's band flags, and the flag among neurons with 2+ facets after seeing all results; both are exploratory.
+
+1. **At the same fraction of their own peak, strong neurons' examples are still more alike.** The coherence gap between the strongest quartile and the rest is 15.7 percentile points in the band, slightly more than the top 50's 14.1 (where the strongest quartile, at 93.2, is near the ceiling, which may compress the top-50 gap), and log peak correlates with band coherence in every model (Spearman +0.61 to +0.73). Every quartile's band examples are less coherent than its top 50, and the weakest quartile's (58.7) come close to random positions (50.0).
+2. **Haiku's effect persists below the top at about two thirds of its top-50 size.** On the same 598 neurons, Haiku flags the strongest quartile 24 points less than the rest in the band, against 38 in the top 50, and the Spearman correlation is negative in all six models in both (-0.11 to -0.27 in the band).
+3. **Controlling for density doesn't remove either effect.** A weak neuron's band is much wider: the median neuron of the weakest quartile has 44 to 53% of all windows in its band, the strongest 15 to 25%. Band width isn't a covariate itself, but density (the share of windows at or above half the peak) tracks it closely. With density, peakedness and band token purity in the regression, log peak's coefficient stays clearly in the expected direction for Haiku (-0.58, -1.02 to -0.25; v12's top-50 H2 gave -0.94, not directly comparable, see below) and for coherence (+8.4 percentile points of band coherence per standard deviation of log peak, +8.1 to +8.7). For the network flag it is reversed (+0.22, +0.17 to +0.28), as in T2.
+4. **The network flag can't be read below the top, as the rules warned.** Its band flag rate rises with peak (13% to 40%), the reverse of the top 50. That is consistent with weak neurons' band examples mostly forming fewer than the two facets the flag needs (exploratory): in the band, 39% of the weakest quartile's neurons have no facet, 39% one and 22% two or more, against 3%, 17% and 79% in the strongest quartile. 50 random positions per neuron get a flag 3% of the time. Among neurons whose band examples do form 2+ facets, the strongest quartile is flagged 9.8 points less than the rest (-12.5 to -7.3, 5 of 6 models), against 25.7 points less in the top 50 (exploratory; conditioning on the facet count selects neurons differently by quartile).
+5. **Within a neuron, examples below the top look somewhat more mixed to coherence and Haiku** (the network flag says the opposite, see point 4). Band examples are 16 percentile points less coherent than the same neuron's top 50 in every model, and Haiku calls them unrelated jobs 5.5 points more often (+0.8 to +10.0), an effect small enough that drift in Haiku since v12's readings could account for part of it (point 6). Haiku's increase sits mostly in the strongest quartile (13% to 29%, +16 points); in the weakest it's -4 points (59% to 55%). Haiku calls 43% of band units one job, against 48% of the same neurons' top 50, sometimes naming a broad pattern such as "mid-sentence tokens in formal or technical prose" (24 of the 259 one-job band replies mention "mid-sentence").
+6. **Haiku's checks.** Read a second time, 30 band units get the same label 73% of the time and the same flag 77% (kappa 0.51). The 30 re-read top-50 prompts agree with v12's readings on 83% of flags (kappa 0.67), with a flag rate of 47% then and 50% now, so there's no sign of large drift since v12, though 30 units can't rule out a few points.
+
+### What this does and doesn't show
+
+- **The magnitude effect isn't only a property of the top-50 sample.** For coherence and for Haiku, it holds at a fixed fraction of each neuron's own range, well below its top 50, in all six models. That partly answers v12's main objection for those two readers (the next point is why only partly).
+- **It doesn't say weak neurons are more polysemantic.** The same fraction of the peak isn't the same selectivity: a weak neuron's band holds two to three times as many windows as a strong neuron's, and its examples sit close to random text. A neuron that is simply tuned more broadly would look exactly like this. Controlling for density leaves the effect (point 3), but density is one summary of the activation distribution, not a match on selectivity.
+- **The toy-model prediction gets weak support.** Examples below the top are much less coherent than the top 50 and slightly more often called unrelated by Haiku, mostly for strong neurons. But lower coherence below the top would follow from any neuron becoming less selective at lower activations, polysemantic or not, so this doesn't single out superposition.
+- **The network reader's flag is a top-of-range measure.** It needs groups of at least five similar examples, which diffuse samples don't form (point 4). Below the top, coherence is the usable network measure.
+
+### What's still shaky
+
+- **Fraction of peak isn't matched selectivity.** The peak is one window, and the band's width differs two- to threefold between the weakest and strongest quartiles. A band defined by rank (for example, each neuron's windows ranked 500 to 1,000) would match how selective the sample is instead; it wasn't run.
+- **Haiku's within-neuron effect is small** (+5.5 points, interval from +0.8) next to its retest noise (kappa 0.51 on band units), and the top-50 readings come from v12, made earlier from another working directory with possibly another CLI version (both rounds resolved to `claude-haiku-5-5`). The drift check (+3 points on 30 neurons) can't rule out drift of that size.
+- **Coherence is measured in the network's own representation,** against the same null for the top 50 and the band. For weak neurons' band examples it sits near the null, where small differences in the null matter more.
+- **One depth and one band.** The middle layer only, the band 0.4 to 0.6 of peak, and the 598 fresh neurons for Haiku. The 27 excluded neurons are all in the strongest quartile, about 1% of it.
+- **S1 and S2 use the band examples' token purity,** not the top 50's as v12's H2 did, so their coefficients aren't directly comparable with v12's.
+- **Haiku runs through the `claude` CLI,** which adds a little hidden context: the working directory, the platform, the date and an account notice. It includes nothing that says whether a unit is a band or a top-50 sample.
+
+### v17 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v17.py`](recgen/rubric_v17.py) | Pre-registered band, sampling, readers, T1, T2, verdict rule and secondary analyses |
+| [`recgen/band_v17.py`](recgen/band_v17.py) | Band selection, deterministic from v5's window maxima and v6's top-50 examples |
+| [`recgen/record_v17.py`](recgen/record_v17.py), [`recgen/read_v17.py`](recgen/read_v17.py) | Normalized residuals at the band positions, with the rebuild check; Haiku band readings, retests and the drift check through v7's cached reader, with a $25 spend guard |
+| [`recgen/analyze_v17.py`](recgen/analyze_v17.py), [`recgen/plots_v17.py`](recgen/plots_v17.py) | Both readers on the top 50, band and random reference, the tests and checks; the figure |
+| [`results/classification_v17.json`](results/classification_v17.json), [`results/v17_llm_answers.json`](results/v17_llm_answers.json) | Results with per-neuron band readings; every Haiku reading with its prompt hash and cost |
+| `tests/test_rubric_v17.py`, `tests/test_band_v17.py`, `tests/test_read_v17.py`, `tests/test_analyze_v17.py` | Tests for the rules, the band, the spend guard and the analysis |
+
+```bash
+./run_v17.sh
+```
+
+`run_v17.sh` needs `data/corpus.npy`, v5's and v6's caches and results, and v12's Haiku answers. From scratch it records the six models one at a time (about 90 minutes on this laptop's MPS, including downloading about 12 GB, each deleted after use), caches 1.6 GB in `data/v17/`, and makes 658 Haiku readings (about 30 minutes, four at a time). With those caches, it makes no model calls, reruns in about five minutes and leaves `git status` clean.
+
 ## Files
 
 | Path | What it is |
