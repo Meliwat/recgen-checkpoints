@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 
-from recgen import analyze_v21
+from recgen import analyze_v21, plots_v21
 from recgen.analyze_v16 import POOL, baselines
 from recgen.analyze_v21 import (
     OPUS_E3, OPUS_V7, analyze, primary, retests, rows_a, rows_b, series_stats, tool_use, v14_agent, versus,
@@ -148,3 +148,15 @@ def test_analyze_runs_end_to_end():
     assert result["checks"][OPUS_E3] == {"units": len(answers["arm_a"][OPUS_E3]["first"]), "same prompt": 24 * 2}
     assert result["exploratory"]["label_moves"]["arm A: v7 rubric -> E3"]["real"] == {"B -> A": 24}
     assert result["usage"][ARM_B]["cost_usd"] == 4.2 and result["tool_use"][ARM_B]["all"]["readings"] == 36
+
+
+def test_figure_draws_from_the_analysis(tmp_path, monkeypatch):
+    answers, v7_answers, v16, v14, ids_b = fake(
+        {OPUS_E3: {"real": "A", POOL: "C"}, OPUS_V7: {"real": "B", POOL: "C"}}, {"real": "A", POOL: "C", "related": "A"},
+        {"real": "B", POOL: "C", "related": "A"})
+    result = analyze(answers, v7_answers, v16, None, v14, ids_b, np.random.default_rng(0))
+    (tmp_path / "classification_v21.json").write_text(json.dumps(result))
+    monkeypatch.setattr(plots_v21, "RESULTS_DIR", tmp_path)
+    monkeypatch.setattr(plots_v21, "FIGURES_DIR", tmp_path / "figures")
+    plots_v21.main()
+    assert (tmp_path / "figures" / "v21_opus_essay.png").stat().st_size > 10_000

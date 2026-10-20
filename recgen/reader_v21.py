@@ -65,7 +65,7 @@ def spent() -> float:
     if SPEND_LOG.exists():
         total += sum(json.loads(line).get("cost_usd") or 0.0 for line in SPEND_LOG.read_text().splitlines() if line.strip())
     if B_DIR.exists():
-        total += sum(json.loads(f.read_text())["cost_usd"] for f in B_DIR.rglob("*.json"))
+        total += sum(json.loads(f.read_text())["cost_usd"] for f in sorted(B_DIR.rglob("*.json")))
     return total
 
 
