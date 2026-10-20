@@ -22,7 +22,7 @@ from recgen.record_v17 import v17_path
 from recgen.rubric_v5 import MODELS
 from recgen.rubric_v6 import MERGE_PERCENTILE, cohen_kappa, embed, pair_similarities, percentile_rank, token_purity
 from recgen.rubric_v7 import UNRELATED_JOBS
-from recgen.rubric_v12 import h2, quartiles
+from recgen.rubric_v12 import h1, h2, quartiles
 from recgen.rubric_v17 import BAND_SIZE, DEPTH, MIXED_SIGN, ols_coefficients, reference_rng, rng_for, t1, t2
 from recgen.sweep_v6 import v6_path
 
@@ -164,6 +164,16 @@ def facet_counts(rows: list[dict]) -> dict:
     return out
 
 
+def flag_given_groups(rows: list[dict], sample: str, purpose: int) -> dict:
+    """Exploratory, added after seeing the results: v12's H1 on the network flag among neurons whose sample
+    has 2+ facets, the only ones that can be flagged. The subsets differ between samples, so this isn't
+    paired, and conditioning on the facet count selects neurons differently by quartile."""
+    subset = [r for r in rows if r[f"{sample}_n_facets"] >= 2]
+    return {"n": len(subset),
+            "by_quartile": [float(np.mean([r[f"{sample}_flag"] for r in subset if r["quartile"] == q])) for q in range(4)],
+            "h1": h1(by_model(subset, "log_peak", "quartile", f"{sample}_flag"), rng_for(MODELS[0], purpose))}
+
+
 def model_range(rows: list[dict], value) -> list[list[float]]:
     """By peak quartile, the range over models of the median of value(row)."""
     medians = [[float(np.median([value(r) for r in rows if r["model"] == model and r["quartile"] == q])) for model in MODELS]
@@ -200,6 +210,8 @@ def main() -> None:
                       "seconds": sum(r["seconds"] for r in recording.values())},
         "haiku_checks": haiku_checks(haiku, v12_answers, v17_answers),
         "exploratory_network_facets_by_quartile": facet_counts(included),
+        "exploratory_network_flag_given_two_plus_facets": {sample: flag_given_groups(included, sample, 50 + k)
+                                                           for k, sample in enumerate(("top", "band"))},
         "neurons": {model: {str(r["neuron"]): [r["band_flag"], r["band_n_facets"], round(r["band_coherence"], 2)]
                             for r in included if r["model"] == model} for model in MODELS},
     }
@@ -220,6 +232,10 @@ def main() -> None:
     for key, r in results["secondary"].items():
         print(f"{key}: log peak {r['log_peak']['coefficient']:+.3f} {[round(x, 3) for x in r['log_peak']['interval']]}, "
               f"density {r['density']['coefficient']:+.3f} {[round(x, 3) for x in r['density']['interval']]}, holds {r['holds']}")
+    for sample, r in results["exploratory_network_flag_given_two_plus_facets"].items():
+        print(f"exploratory, network flag among neurons with 2+ {sample} facets (n={r['n']}): "
+              f"by quartile {[round(x, 3) for x in r['by_quartile']]}, top minus rest {r['h1']['top_minus_rest']:+.3f} "
+              f"{[round(x, 3) for x in r['h1']['interval']]}, {r['h1']['models_negative']}/6 negative")
     print(json.dumps({k: results[k] for k in ("exclusions", "band_share_of_windows", "recording", "haiku_checks")}, indent=1))
 
 

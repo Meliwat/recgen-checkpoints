@@ -77,3 +77,13 @@ def test_facet_counts_by_quartile():
     out = facet_counts(rows)
     assert out["top"]["two_plus"] == [1.0] * 4 and out["band"]["no_facet"] == [1.0, 0.0, 1.0, 0.0]
     assert out["reference"]["mean"] == [0.0] * 4
+
+
+def test_flag_given_groups_keeps_neurons_with_two_plus_facets():
+    from recgen.analyze_v17 import flag_given_groups
+
+    rows = [{"model": model, "quartile": q, "log_peak": float(q), "band_n_facets": 2 if i % 2 else 1,
+             "band_flag": float(q < 3 and i % 2)} for model in MODELS for q in range(4) for i in range(20)]
+    out = flag_given_groups(rows, "band", 0)
+    assert out["n"] == len(MODELS) * 40 and out["by_quartile"] == [1.0, 1.0, 1.0, 0.0]
+    assert out["h1"]["top_minus_rest"] == -1.0
