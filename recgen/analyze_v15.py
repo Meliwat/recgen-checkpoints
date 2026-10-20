@@ -192,6 +192,32 @@ def descriptive(rows: dict, answers: dict) -> dict:
             "total cost_usd": round(sum(r["cost_usd"] for r in readings.values()), 2)}
 
 
+def post_hoc(answers: dict) -> dict:
+    """Post hoc, added after seeing the results. (1) One-neuron oracle: the simulation score a prediction
+    would get if it tracked one pool neuron perfectly (that neuron's window maxima) and ignored the other,
+    for the better and the worse of the two. A real neuron's oracle scores 1. (2) Mean true and predicted
+    values by stratum and unit type. (3) Units each simulator never scored, by unit type."""
+    units = list(answers["units"].values())
+    oracle = {}
+    for g in ("pooled 50/50", "related"):
+        pairs = [sorted(pearson([h["neuron_values"][k] for h in u["held_out"]], [h["value"] for h in u["held_out"]])
+                        for k in (0, 1)) for u in units if u["group"] == g]
+        oracle[g] = {"better neuron": round(float(np.mean([b for _, b in pairs])), 3),
+                     "worse neuron": round(float(np.mean([w for w, _ in pairs])), 3), "units": len(pairs)}
+    strata = {}
+    for g in GROUPS:
+        strata[g] = {}
+        for stratum in sorted({h["stratum"] for u in units for h in u["held_out"]}):
+            true = [h["value"] for u in units if u["group"] == g for h in u["held_out"] if h["stratum"] == stratum]
+            predicted = {arm: [x for u in units if u["group"] == g and (p := predictions(u["first"], arm)) is not None
+                               for h, x in zip(u["held_out"], p) if h["stratum"] == stratum] for arm in ARMS}
+            strata[g][stratum] = {"mean true": round(float(np.mean(true)), 2),
+                                  **{f"mean predicted, {arm}": round(float(np.mean(v)), 2) for arm, v in predicted.items()}}
+    missing = {arm: {g: sum(u["group"] == g and predictions(u["first"], arm) is None for u in units) for g in GROUPS}
+               for arm in ARMS}
+    return {"one-neuron oracle": oracle, "values by stratum": strata, "unscored units": missing}
+
+
 def analyze(answers: dict, v8_auc: dict) -> dict:
     rows = unit_rows(answers)
     rng = np.random.default_rng([15, 99])
@@ -207,7 +233,8 @@ def analyze(answers: dict, v8_auc: dict) -> dict:
              "disjunction (exploratory)": disjunction_stats(rows),
              "retest": retest_stats(rows, rng),
              "peak (exploratory)": peak_stats(rows, rng),
-             "descriptive": descriptive(rows, answers)}
+             "descriptive": descriptive(rows, answers),
+             "post hoc": post_hoc(answers)}
     stats["verdict"] = stats["primary"]["verdict"]
     return {"summary": stats, "units": rows}
 

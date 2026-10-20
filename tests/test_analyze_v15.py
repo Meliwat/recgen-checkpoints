@@ -1,6 +1,6 @@
 import numpy as np
 
-from recgen.analyze_v15 import analyze, unit_rows
+from recgen.analyze_v15 import analyze, post_hoc, unit_rows
 from recgen.rubric_v8 import MODELS
 from recgen.rubric_v15 import DETECTS, NO_DETECTION, RANDOM_STRATUM, TOP_STRATA
 
@@ -30,7 +30,8 @@ def fake_answers(pools_covered: bool) -> dict:
             unit_id = f"{model}:{group.split()[0]}:{i}"
             units[unit_id] = {
                 "model": model, "group": group, "neuron_ids": [i], "log_peak": [float(i)], "retested": i in (0, 4),
-                "held_out": [{"value": t, "stratum": s, "driver": d} for t, s, d in zip(truth, strata, drivers)],
+                "held_out": [{"value": t, "stratum": s, "driver": d, "neuron_values": [t, 0.0] if d == 0 else [0.0, t]}
+                             for t, s, d in zip(truth, strata, drivers)],
                 "first": {**reading(predicted, "dates or times" if group != "real" else "dates"),
                           "judge": {"parsed": group != "real", "attempts": [{}], "models": ["j"], "cost_usd": 0.0,
                                     "input_tokens": 1, "output_tokens": 1}}}
@@ -72,3 +73,11 @@ def test_units_without_valid_predictions_are_left_out_and_counted():
     s = analyze(answers, V8_AUC)["summary"]
     assert s["other simulator"]["haiku"]["units"] == s["primary"]["units"] - 1
     assert s["descriptive"]["readings"]["simulator haiku, first"]["without a valid reply"] == 1
+
+
+def test_post_hoc_oracle_scores_one_neuron_against_the_pool():
+    out = post_hoc(fake_answers(pools_covered=True))
+    oracle = out["one-neuron oracle"]["pooled 50/50"]
+    assert 0 < oracle["worse neuron"] < oracle["better neuron"] < 1 and oracle["units"] == 12
+    assert out["values by stratum"]["real"][RANDOM_STRATUM]["mean true"] < 2
+    assert out["unscored units"]["haiku"]["real"] == 0
