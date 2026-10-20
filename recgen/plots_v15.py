@@ -39,7 +39,7 @@ def scores_panel(ax, units: dict, arm: str) -> None:
 def auc_panel(ax, summary: dict, v8_auc: dict) -> None:
     rows = [(f"score, {ARM_NAMES[arm]} simulator (v15)",
              (summary["primary"] if arm == "sonnet" else summary["other simulator"][arm]), True) for arm in ARMS]
-    rows += [(f"labels: {V8_NAMES[r]}", v8_auc[r], False) for r in V8_READERS]
+    rows += [(f"{'flag' if r in ('minilm', 'network') else 'labels'}: {V8_NAMES[r]}", v8_auc[r], False) for r in V8_READERS]
     y = np.arange(len(rows))[::-1]
     for yy, (name, stats, ours) in zip(y, rows):
         point = stats["auc, real over pooled 50/50"] if ours else stats["mean_over_models"]
@@ -52,7 +52,7 @@ def auc_panel(ax, summary: dict, v8_auc: dict) -> None:
     ax.set_yticks(y, [name for name, *_ in rows], fontsize=8)
     ax.set_xlim(0.35, 1.0)
     ax.set_xlabel("AUC separating 50/50 pools from real neurons\n(mean over 70M, 410M, 2.8B; 95% interval)")
-    ax.set_title("Score vs v8's label readers, same units", fontsize=10)
+    ax.set_title("Score vs v8's readers, same units", fontsize=10)
 
 
 def main() -> None:
