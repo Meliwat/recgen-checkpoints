@@ -73,3 +73,13 @@ def test_v17_band_ranks_rank_v17s_windows_with_v20s_ranking(tmp_path, monkeypatc
     monkeypatch.setattr(analyze_v20, "band_examples", lambda model: {"neurons": np.array([0, 1]), "keys": keys,
                                                                       "included": np.array([True, False])})
     assert v17_band_ranks("70m").tolist() == [[3, 4], [0, 0]]
+
+
+def test_facets_by_quartile_skips_neurons_without_the_sample():
+    from recgen.analyze_v20 import facets_by_quartile
+
+    rows = [{"quartile": q, "top_n_facets": 2, "band_n_facets": q % 2, "band2_n_facets": None if q == 0 else 3,
+             "v17_n_facets": 0} for q in range(4) for _ in range(3)]
+    out = facets_by_quartile(rows)
+    assert out["top"]["two_plus"] == [1.0] * 4 and out["band"]["no_facet"] == [1.0, 0.0, 1.0, 0.0]
+    assert np.isnan(out["band2"]["two_plus"][0]) and out["band2"]["two_plus"][1:] == [1.0] * 3

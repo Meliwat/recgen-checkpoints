@@ -11,7 +11,7 @@ import json
 import numpy as np
 
 from recgen.analyze_v12 import haiku_rows
-from recgen.analyze_v17 import by_model, haiku_checks, label_shares, network_rows
+from recgen.analyze_v17 import by_model, flag_given_groups, haiku_checks, label_shares, network_rows
 from recgen.band_v17 import band_examples
 from recgen.band_v20 import rank_band_examples, ranked
 from recgen.config import RESULTS_DIR
@@ -173,6 +173,17 @@ def secondary(rows: list[dict], measure: str, purpose: int) -> dict:
     return h2(regression_rows, rng) if measure == "flag" else ols_coefficients(regression_rows, rng)
 
 
+def facets_by_quartile(rows: list[dict]) -> dict:
+    """Exploratory, added after seeing the results: by peak quartile, the network reader's shares of neurons with no
+    facet and with 2+ facets in each sample. The flag needs 2+ facets, so diffuse examples can lower it (v17's caveat)."""
+    out = {}
+    for sample in ("top", "band", "band2", "v17"):
+        present = with_value(rows, f"{sample}_n_facets")
+        counts = [np.array([r[f"{sample}_n_facets"] for r in present if r["quartile"] == q]) for q in range(4)]
+        out[sample] = {"no_facet": [float(np.mean(c == 0)) for c in counts], "two_plus": [float(np.mean(c >= 2)) for c in counts]}
+    return out
+
+
 def main() -> None:
     corpus = load_corpus()
     v6 = json.loads((RESULTS_DIR / "classification_v6.json").read_text())["neurons"]
@@ -228,6 +239,10 @@ def main() -> None:
                       "seconds": sum(r["seconds"] for r in recording.values()),
                       "stored_bytes": sum(path(m).stat().st_size for m in MODELS for path in (v20_path, second_band_path))},
         "haiku_checks": checks,
+        "exploratory_network_facets_by_quartile": facets_by_quartile(included),
+        "exploratory_network_flag_given_two_plus_facets": {
+            sample: flag_given_groups(with_value(included, f"{sample}_n_facets"), sample, 300 + k)
+            for k, sample in enumerate(("top", "band", "band2"))},
         "neurons": {model: {str(r["neuron"]): [r["band_flag"], r["band_n_facets"], round(r["band_coherence"], 2)]
                             + ([r["band2_flag"], int(r["band2_n_facets"]), round(r["band2_coherence"], 2)] if r["band2_included"] else [])
                             for r in included if r["model"] == model} for model in MODELS},
@@ -258,7 +273,12 @@ def report(results: dict) -> None:
     for key, r in results["secondary"].items():
         print(f"{key}: log peak {r['log_peak']['coefficient']:+.3f} {interval(r['log_peak']['interval'])}, "
               f"density {r['density']['coefficient']:+.3f} {interval(r['density']['interval'])}, holds {r['holds']}")
-    print(json.dumps({k: results[k] for k in ("selectivity", "exclusions", "recording", "haiku_checks")}, indent=1))
+    for sample, r in results["exploratory_network_flag_given_two_plus_facets"].items():
+        print(f"exploratory, network flag among neurons with 2+ {sample} facets (n={r['n']}): by quartile "
+              f"{[round(x, 3) for x in r['by_quartile']]}, top minus rest {r['h1']['top_minus_rest']:+.3f} "
+              f"{interval(r['h1']['interval'])}, {r['h1']['models_negative']}/6 negative")
+    print(json.dumps({k: results[k] for k in ("selectivity", "exclusions", "recording", "haiku_checks",
+                                              "exploratory_network_facets_by_quartile")}, indent=1))
 
 
 if __name__ == "__main__":
