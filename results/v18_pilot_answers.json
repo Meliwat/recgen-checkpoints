@@ -1,0 +1,793 @@
+{
+ "agent": "claude-opus-5-5",
+ "cli_version": "2.1.296 (Claude Code)",
+ "simulator": "claude-sonnet-5-5",
+ "judge": "claude-haiku-5-5",
+ "units": {
+  "160m:real::0": {
+   "id": "160m:real::0",
+   "model": "160m",
+   "kind": "real",
+   "group": "real",
+   "retested": false,
+   "held_out_ranks": [
+    69,
+    74,
+    77,
+    127,
+    137,
+    167,
+    174,
+    190,
+    198,
+    203,
+    204,
+    209,
+    212,
+    213,
+    226,
+    234,
+    255,
+    261,
+    272,
+    280,
+    366,
+    421,
+    448,
+    490,
+    514,
+    536,
+    836,
+    840,
+    973,
+    1112,
+    1167,
+    1170,
+    1195,
+    1230,
+    1718,
+    1745,
+    1886,
+    1930,
+    1954,
+    1979,
+    2328,
+    2330,
+    2524,
+    2528,
+    2666,
+    2725,
+    2858,
+    2924,
+    2936,
+    3158,
+    3497,
+    3510,
+    3514,
+    3559,
+    3678,
+    3680,
+    3744,
+    3857,
+    3863,
+    4019
+   ],
+   "first": {
+    "agent": {
+     "id": "160m:real::0",
+     "prompt_sha256": "0975f6d9486370bebe3fd56aeb2cfa6940360104e46bd50d98edf1bd0b285a6b",
+     "label": "A",
+     "description": "Tokens within personal names, strongest at the end of a first name, initial, middle name or quoted nickname just before the surname. Common in citations, author lists and cast lists.",
+     "confidence": "high",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.1432002,
+       "tool_calls": 8,
+       "reply": "This unit fires inside people's names. It peaks on the last piece of the first name, initial or nickname, right before the surname.\n\n1. **Candidate:** tokens inside personal names, strongest where the name continues into a surname.\n2. **Tests that fired:**\n   - Closing quote after a nickname: 7.2 at the quote after \"Molly\" in Mary \"Molly\" Jones.\n   - Middle name: 7.1 on \"Allan\" in Steven Allan Spielberg.\n   - Japanese given names, about 4.5.\n   - Initials in a reference list, 4\u20135.\n   - Hyphenated Asian given names: 5.3 on \"oon\" in Ji-Hoon.\n   - Spanish compound names: 5.4 on \"Jos\u00e9\".\n3. **Tests that stayed near zero (0.2\u20130.4):** place names, a ship name, a museum name (\"The Mary Rose museum\", which contains a first name), a company name, a quoted nickname that is not part of a full name, and plain text. A lone first name at the start of a sentence gave only 2.7, and a pet name (\"Rex\") 2.3.\n4. **Ranked examples 51\u201370, 300\u2013319 and 480\u2013499:** all are people's names. They come from the same mix of sources as the top 50: citations, cast lists, `@author` lines, news quotes and index entries. Lower ranks often fire on surnames too. A few weaker ones fire on usernames or on a speaker label like \"AJ:\".\n\nThe pattern held at every rank I read, so I see no reason to revise it.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens within personal names, strongest at the end of a first name, initial, middle name or quoted nickname just before the surname. Common in citations, author lists and cast lists.\", \"confidence\": \"high\"}\n```"
+      }
+     ],
+     "cost_usd": 0.1432002,
+     "input_tokens": 55693,
+     "output_tokens": 1796,
+     "num_turns": 9,
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "tools_offered": [
+      "mcp__probe__activation",
+      "mcp__probe__examples"
+     ],
+     "reply": "This unit fires inside people's names. It peaks on the last piece of the first name, initial or nickname, right before the surname.\n\n1. **Candidate:** tokens inside personal names, strongest where the name continues into a surname.\n2. **Tests that fired:**\n   - Closing quote after a nickname: 7.2 at the quote after \"Molly\" in Mary \"Molly\" Jones.\n   - Middle name: 7.1 on \"Allan\" in Steven Allan Spielberg.\n   - Japanese given names, about 4.5.\n   - Initials in a reference list, 4\u20135.\n   - Hyphenated Asian given names: 5.3 on \"oon\" in Ji-Hoon.\n   - Spanish compound names: 5.4 on \"Jos\u00e9\".\n3. **Tests that stayed near zero (0.2\u20130.4):** place names, a ship name, a museum name (\"The Mary Rose museum\", which contains a first name), a company name, a quoted nickname that is not part of a full name, and plain text. A lone first name at the start of a sentence gave only 2.7, and a pet name (\"Rex\") 2.3.\n4. **Ranked examples 51\u201370, 300\u2013319 and 480\u2013499:** all are people's names. They come from the same mix of sources as the top 50: citations, cast lists, `@author` lines, news quotes and index entries. Lower ranks often fire on surnames too. A few weaker ones fire on usernames or on a speaker label like \"AJ:\".\n\nThe pattern held at every rank I read, so I see no reason to revise it.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens within personal names, strongest at the end of a first name, initial, middle name or quoted nickname just before the surname. Common in citations, author lists and cast lists.\", \"confidence\": \"high\"}\n```",
+     "messages": [
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "References: J. Smith and K. Brown. A study of graphs.",
+         "Cast: Mary \"Molly\" Jones as the mother",
+         "We thank Dr. Hiroshi Tanaka for helpful comments.",
+         "The weather today is sunny and warm with a light breeze.",
+         "The function returns a list of integers sorted by value."
+        ]
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 51,
+        "count": 20
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 300,
+        "count": 20
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Authors: A. B. Johnson, C. D. Lee, and E. F. Wang.",
+         "The city of New York is large and busy.",
+         "John went to the store yesterday.",
+         "Professor Elizabeth Anne Whitfield gave the lecture.",
+         "The company Procter & Gamble announced earnings."
+        ]
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "We visited San Francisco and Los Angeles last summer.",
+         "The ship Queen Mary sailed from Southampton.",
+         "Directed by Steven Allan Spielberg, starring Tom Hanks.",
+         "Her nickname was \"Bunny\" at school.",
+         "See Smith (2004) and Jones et al. (2010)."
+        ]
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 480,
+        "count": 20
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Signed, Maria Jos\u00e9 Garc\u00eda L\u00f3pez",
+         "Thanks to Wei-Ming Chen and Ji-Hoon Park.",
+         "Mr. Kowalski arrived late.",
+         "The Mary Rose museum opens at nine.",
+         "Cast: Jack \"The Ripper\" Smith as himself"
+        ]
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "@author Jonathan Q. Public <jq@example.com>",
+         "The dog named Rex barked at Fido.",
+         "Ludwig van Beethoven composed nine symphonies."
+        ]
+       }
+      },
+      {
+       "text": "This unit fires inside people's names. It peaks on the last piece of the first name, initial or nickname, right before the surname.\n\n1. **Candidate:** tokens inside personal names, strongest where the name continues into a surname.\n2. **Tests that fired:**\n   - Closing quote after a nickname: 7.2 at the quote after \"Molly\" in Mary \"Molly\" Jones.\n   - Middle name: 7.1 on \"Allan\" in Steven Allan Spielberg.\n   - Japanese given names, about 4.5.\n   - Initials in a reference list, 4\u20135.\n   - Hyphenated Asian given names: 5.3 on \"oon\" in Ji-Hoon.\n   - Spanish compound names: 5.4 on \"Jos\u00e9\".\n3. **Tests that stayed near zero (0.2\u20130.4):** place names, a ship name, a museum name (\"The Mary Rose museum\", which contains a first name), a company name, a quoted nickname that is not part of a full name, and plain text. A lone first name at the start of a sentence gave only 2.7, and a pet name (\"Rex\") 2.3.\n4. **Ranked examples 51\u201370, 300\u2013319 and 480\u2013499:** all are people's names. They come from the same mix of sources as the top 50: citations, cast lists, `@author` lines, news quotes and index entries. Lower ranks often fire on surnames too. A few weaker ones fire on usernames or on a speaker label like \"AJ:\".\n\nThe pattern held at every rank I read, so I see no reason to revise it.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens within personal names, strongest at the end of a first name, initial, middle name or quoted nickname just before the surname. Common in citations, author lists and cast lists.\", \"confidence\": \"high\"}\n```"
+      }
+     ],
+     "tool_calls": [
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "References: J. Smith and K. Brown. A study of graphs.",
+         "Cast: Mary \"Molly\" Jones as the mother",
+         "We thank Dr. Hiroshi Tanaka for helpful comments.",
+         "The weather today is sunny and warm with a light breeze.",
+         "The function returns a list of integers sorted by value."
+        ]
+       },
+       "answer": "Text 1, strongest 3.3 at [[.]]: References: J.[[ Smith|1.9]][[ and|1.3]][[ K|3.2]][[.|3.3]][[ Brown|1.5]]. A study of graphs.\nText 2, strongest 7.2 at [[\"]]: Cast:[[ Mary|1.6]] \"[[M|4.0]][[olly|4.4]][[\"|7.2]][[ Jones|4.2]] as the mother\nText 3, strongest 4.7 at [[aka]]: We thank[[ Dr|2.7]].[[ Hiro|4.5]][[shi|4.6]][[ Tan|1.4]][[aka|4.7]] for helpful comments.\nText 4, strongest 0.3 at [[.]]: The weather today is sunny and warm with a light breeze.\nText 5, strongest 0.3 at [[.]]: The function returns a list of integers sorted by value.\n\n(15 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 51,
+        "count": 20
+       },
+       "answer": "rank 51 (7.0):  of the character, but layers him with a unashamed hunger for affection that makes him irresistible. Farz[[ana]] Dua Ela\nrank 52 (7.0):  Journal of Heuristics, 20:39\u201374, 2014.CrossRef\u23ce\u23ceM. Prais and C[[.]]C. Ribe\nrank 53 (7.0): zky, S., et al. [*Science*]{} [**319**]{}, 295 (2008). Gong, M., Q[[ian]], Y., Yan\nrank 54 (7.0):  Serpico.\u23ceJeffrey Schulman (argued), Wolin & Rosen, Chicago, IL, Donald Hub[[ert]], Hubert,\nrank 55 (6.9): \u23ce\u23cewomen writers and, 227\u23ce\u23cePavli\u0107, Ed, 300\u23ce\u23cePaz, Octav[[io]], 337\u23ce\u23ce\nrank 56 (6.9):  the F-14A Variable-Sweep Transition Flight Expirement Airplane - Phase 2\u23ceLawrence C[[.]] Freudinger and Michael\nrank 57 (6.9):  British comedy series _Blackadder_.\u23ce\u23ceThe castle is set in parklands designed by Lancelot 'Capability[[']] Brown. The wood\nrank 58 (6.9): , and contributing to publications such as Canadian Business and Business Insider.<|endoftext|>**Zhang X, Bao S, L[[ai]] D, Rapkins\nrank 59 (6.9):  200 copies of his table printed and sent them to chemists in Russia and the rest of Europe. Nicolai Alexandrov[[ich]] Menshutkin\nrank 60 (6.9):  Wolsey. Integer programming . Wiley, New York, 1998. MATH\u23ce\u23ceQ. Wu and J.-K[[.]] Hao. A\nrank 61 (6.9):  as well. The flash-lamp was invented and patented on November 7, 1899 by New York City resident Joshua Lion[[el]] Cowen.\u23ce\nrank 62 (6.9):  idea of turning the Icelandic nation into one big genome database. Everyone thought this was a fabulous idea, and K\u00e1[[ri]] quickly got the backing\nrank 63 (6.9):  and funded by Pfizer Inc.\u23ce\u23ceThe authors thank the study participants, as well as the investigators: Dr J[[K]] Maniar, J\nrank 64 (6.9):     Australia.\u23ceauthor:\u23ce- 'Alice C. Niemeyer'\u23ce- 'Cheryl E[[.]] Praeger'\u23ce\nrank 65 (6.8): ett , 93:66\u201371, 2013.\u23ce\u23ceG.A. Kochenberger, B.A[[.]] McCarl, and\nrank 66 (6.8): exParameters;\u23ce\u23ce/**\u23ce * PacketKexDhGexRequestOld.\u23ce * \u23ce * @author[[ Christian]] Plattner\u23ce\nrank 67 (6.8):  is simple, and imitative of the quaint quiet style of that\u23ce  period.\u23ce\u23ce\u23ceBY MRS.[[ A]]USTIN.\u23ce\nrank 68 (6.8):  responses that can be differentiated from those associated with non-deceptive answers. The polygraph was invented in 1921 by John[[ Augustus]] Larson, a\nrank 69 (6.8):  204, 10 Garc\u00eda Mu\u00f1oz, A., Zapatero Osorio, M. R., Bar[[rena]], R., Mont\nrank 70 (6.8):  Senior Cir-\u23cecuit Judge.\u23ce\u23ce\u23ceDismissed by unpublished per curiam opinion.\u23ce\u23ce\u23ceDarryl A[[.]] Babb, Appellant\n\n(14 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 300,
+        "count": 20
+       },
+       "answer": "rank 300 (5.6):  Judd, dodging free, sped down the middle of the\u23ceunprotected court.\u23ce\u23ceHazel[[ Wayne]] watched him with fascinated\nrank 301 (5.6):  family only really.\" \"I got you this.\" \"It's not the baby's present, I gave that to Tr[[ish]].\" \"I saw\nrank 302 (5.6): \u23ce\"That's an, um, interesting story, Captain,\" Moses replied. \"By the way, this is Jamie[[ Ian]] MacCallister.\nrank 303 (5.6):  held in Thailand. She also won the gold medal in the women's 4\u00d7100 metre relay with teammates Dute[[e]] Chand, Srab\nrank 304 (5.6):  M. Gordin, _Historical Studies in the Physical Sciences_ , 32, 183-196, 2001; M[[.]] Gordin, _\nrank 305 (5.6): \u23ce\u23cerepetition of, 195\u23ce\u23cemultiples of constant differences, 51\u23ce\u23ceNagaoka, Hant[[aro]], 164\nrank 306 (5.6): Posted by Shamrock on Wednesday, Jun 6, 2012 9:39 AM (EDT):\u23ce\u23ce@Cec[[i]]\u2026Why is it\nrank 307 (5.6):  This is, generally speaking, not possible with discrete data. For example, see the work of Cooley, Nych[[ka]] and Naveau\nrank 308 (5.6):  factors such as grazing [@pone.0092177-Toth1], [@pone.0092177-Vie[[jo]]2], [@pone\nrank 309 (5.6):  people with the surname include:\u23ce\u23ceLarry Rakestraw (born 1942), American football player\u23cePau[[lette]] Rakestraw\nrank 310 (5.6):  a hundred lead pellet wounds in their scalps, necks, backs, buttocks and thighs. One man, John[[ Will]]ard, lived for\nrank 311 (5.6):  como professora na mesma universidade em que se formou (Foto: Reprodu\u00e7\u00e3o/Facebook/Lu[[ana]] Coutinho)\nrank 312 (5.6): . Rptr. 311].)[5]\u23ceThe orders appealed from are affirmed.\u23ceCompton, J., and Beach[[,]] J., concurred\nrank 313 (5.6):  kernel of $E_{N,r}$ and restricted even period polynomials, which was first discovered by Baumard and[[ S]]chneps [@s\nrank 314 (5.6):  and notations for $\\mathcal{N}=2$ gauged supergravity [@Andrianopoli:1996vr; @[[And]]rianopoli:\nrank 315 (5.6):  employed a homography technique to create a 2D map with accurate object position, using several surveillance cameras. Dias and[[ Jorge]] \\[[@B68-\nrank 316 (5.6):  return the same data.\u23ce\u23ceThe first person to write about these issues, as far as I know, was Fred[[ Brooks]] in the Mythical\nrank 317 (5.6): (s) and do not necessarily reflect the views of CIGI or its Board of Directors.\u23ce\u23ceBess[[ma]] Momani is\nrank 318 (5.6): ian. He is a professor of theoretical statistics and mathematics in the Indian Statistical Institute, Kolkata.\u23ce\u23ceCh[[aud]]huri obtained his\nrank 319 (5.6):  the 15th day of April, two thousand eleven.\u23ce\u23cePRESENT:\u23ce         DENNIS JACO[[BS]],\u23ce              Chief\n\n(13 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Authors: A. B. Johnson, C. D. Lee, and E. F. Wang.",
+         "The city of New York is large and busy.",
+         "John went to the store yesterday.",
+         "Professor Elizabeth Anne Whitfield gave the lecture.",
+         "The company Procter & Gamble announced earnings."
+        ]
+       },
+       "answer": "Text 1, strongest 5.4 at [[ Lee]]: Authors: A.[[ B|3.2]][[.|4.5]][[ Johnson|3.9]][[,|2.9]][[ C|2.6]][[.|5.1]][[ D|4.3]][[.|4.1]][[ Lee|5.4]][[,|3.5]][[ and|3.6]][[ E|4.0]][[.|4.2]][[ F|3.5]][[.|3.7]][[ Wang|3.5]].\nText 2, strongest 0.3 at [[.]]: The city of New York is large and busy.\nText 3, strongest 2.7 at [[John]]: [[John|2.7]] went to the store yesterday.\nText 4, strongest 5.4 at [[ Elizabeth]]: Professor[[ Elizabeth|5.4]][[ Anne|5.3]][[ Whit|2.8]][[field|4.9]] gave the lecture.\nText 5, strongest 0.2 at [[.]]: The company Procter & Gamble announced earnings.\n\n(12 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "We visited San Francisco and Los Angeles last summer.",
+         "The ship Queen Mary sailed from Southampton.",
+         "Directed by Steven Allan Spielberg, starring Tom Hanks.",
+         "Her nickname was \"Bunny\" at school.",
+         "See Smith (2004) and Jones et al. (2010)."
+        ]
+       },
+       "answer": "Text 1, strongest 0.3 at [[.]]: We visited San Francisco and Los Angeles last summer.\nText 2, strongest 0.3 at [[.]]: The ship Queen Mary sailed from Southampton.\nText 3, strongest 7.1 at [[ Allan]]: Directed by[[ Steven|5.8]][[ Allan|7.1]][[ Spiel|2.2]][[berg|1.5]], starring[[ Tom|3.6]][[ H|3.2]][[anks|2.7]].\nText 4, strongest 0.4 at [[unny]]: Her nickname was \"Bunny\" at school.\nText 5, strongest 1.6 at [[ and]]: See Smith (2004)[[ and|1.6]] Jones et al. (2010).\n\n(11 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 480,
+        "count": 20
+       },
+       "answer": "rank 480 (5.2):  the victim while scapegoating\u23cenon-Jews for their crimes against humanity.\u23ce\u23ceCurt Mayn[[ard]]\u23ce\u23ce\"On\nrank 481 (5.2):  it does quote from and paraphrase substantially Blood of My Blood, its purpose is to criticize and comment on Ms.[[ Raw]]lings' earliest work\nrank 482 (5.2): \u23ceERIC: Do you have any advice for me? About what to focus on or what to expect?\u23ce\u23ce\u23ce\u23ce\u23ce\u23ce[[AJ]]: Don\u2019t\nrank 483 (5.2): \u23ceRe: if Tannehill had stayed in school, he'd be going #1 in April\u23ce\u23cewklo[[iber]]13 wrote:\u23ce\nrank 484 (5.2):  miss scott.\" \"This is mr.\" \"Round.\" \"Short round.\" \"My name is indiana j[[ones]].\" \"Dr.\nrank 485 (5.2):  known as \"hot documents\" or \"the hot documents file.\" From these so-called \"hot documents\", Special Agent[[ Gregory]] also compiled a table\nrank 486 (5.2): , ORB-SLAM2 \\[[@B148-sensors-20-02641]\\] was used for localization. X[[iao]] et al. \\[[@\nrank 487 (5.2):  the posterior epiblast for induction of the PS, where mesoderm cells are generated [@pone.0063378-[[Liu]]1]. This fact\nrank 488 (5.2): \r\u23cewas more evidence here than encouragement by appellant Bell so as to constitute him a party, if in\r\u23cefact[[ Luis]] Ramirez was the primary\nrank 489 (5.2):  which they fed to their leader. Mining foreman Taylor called in the Enforcers to help. However, Ann G[[ora]] managed to sneak in\nrank 490 (5.2):  to R. Millikan, October 28, 1919, Lewis Archive, University of California, Berkeley, as cited in R[[.]]E. Kohler\nrank 491 (5.2): Check out 9to5Google on YouTube for more news:<|endoftext|>Gustavo Ca\u00f1ete\u23ce\u23ceGustavo[[ Ca]]\u00f1ete (born\nrank 492 (5.2):  podem deixar S\u00e3o Janu\u00e1rio: o zagueiro Henr\u00edquez, os meio-campistas[[ Richard]] e Guar\u00edn\nrank 493 (5.2): \u201cMaliki is behaving like the head of a corporation and not a political list,\u201d said Baha al-Ara[[ji]], a senior official\nrank 494 (5.2):  shows.\u23ce\u23ceThough attorney-client privilege would ordinarily protect such communications, Chief U.S. District Judge Beryl[[ How]]ell ruled last year\nrank 495 (5.2): Rinnalch's rather barbaric family has never approved of our friendship, and nor has my First Minister Xak[[than]]\u2014\" Malveria\nrank 496 (5.2):  it had taught to them, during the Battle of England.\" \"The head of the aerial defense, general Kammh[[uber]], it created an\nrank 497 (5.2): ?\u23ce\u23ce\u201cCould they make it so I can eat the flu like a hamburger?\u201d\u23ce\u23ceMary Pin[[za]]\u23ce\u2013 Unemployed\nrank 498 (5.2):  our world better, and to make it a better place to live in\u201d. Rosa Parks, Marie Curie, Malala[[ Y]]ousafzai\nrank 499 (5.2):  career Hirschfeld found great success with relatively little resistance. Alden was born in Dallas, Texas to Glen and Tr[[aci]] Hirschfeld but\n\n(10 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Signed, Maria Jos\u00e9 Garc\u00eda L\u00f3pez",
+         "Thanks to Wei-Ming Chen and Ji-Hoon Park.",
+         "Mr. Kowalski arrived late.",
+         "The Mary Rose museum opens at nine.",
+         "Cast: Jack \"The Ripper\" Smith as himself"
+        ]
+       },
+       "answer": "Text 1, strongest 5.4 at [[ Jos\u00e9]]: Signed,[[ Maria|2.9]][[ Jos\u00e9|5.4]][[ Garc|2.9]][[\u00eda|3.6]][[ L|2.0]][[\u00f3|2.7]][[pez|3.0]]\nText 2, strongest 5.3 at [[oon]]: Thanks to[[ Wei|3.1]]-[[M|2.5]][[ing|5.2]][[ Chen|3.3]] and[[ Ji|3.4]][[-|2.5]][[H|3.8]][[oon|5.3]][[ Park|4.6]].\nText 3, strongest 3.7 at [[ki]]: Mr.[[ K|3.4]][[ow|2.6]]als[[ki|3.7]] arrived late.\nText 4, strongest 0.3 at [[.]]: The Mary Rose museum opens at nine.\nText 5, strongest 5.3 at [[\"]]: Cast:[[ Jack|1.5]] \"[[The|1.3]] Ripper[[\"|5.3]][[ Smith|2.8]] as himself\n\n(9 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "@author Jonathan Q. Public <jq@example.com>",
+         "The dog named Rex barked at Fido.",
+         "Ludwig van Beethoven composed nine symphonies."
+        ]
+       },
+       "answer": "Text 1, strongest 4.2 at [[ Jonathan]]: @author[[ Jonathan|4.2]][[ Q|3.5]]. Public <[[jq|2.8]]@example.com>\nText 2, strongest 2.3 at [[ Rex]]: The dog named[[ Rex|2.3]] barked at F[[ido|1.8]].\nText 3, strongest 2.9 at [[ Be]]: Lud[[wig|1.2]][[ van|2.8]][[ Be|2.9]][[eth|1.3]][[oven|2.4]] composed nine symphonies.\n\n(8 tool calls left)"
+      }
+     ]
+    },
+    "simulation": {
+     "parsed": [
+      1.0,
+      0.0,
+      6.0,
+      2.0,
+      0.0,
+      5.0,
+      3.0,
+      6.0,
+      0.0,
+      0.0,
+      6.0,
+      3.0,
+      1.0,
+      0.0,
+      4.0,
+      3.0,
+      5.0,
+      4.0,
+      3.0,
+      4.0,
+      2.0,
+      6.0,
+      5.0,
+      5.0,
+      0.0,
+      0.0,
+      4.0,
+      4.0,
+      6.0,
+      5.0,
+      5.0,
+      2.0,
+      4.0,
+      5.0,
+      3.0,
+      4.0,
+      3.0,
+      0.0,
+      0.0,
+      0.0,
+      4.0,
+      5.0,
+      5.0,
+      4.0,
+      6.0,
+      0.0,
+      6.0,
+      4.0,
+      0.0,
+      3.0,
+      6.0,
+      1.0,
+      4.0,
+      0.0,
+      5.0,
+      2.0,
+      6.0,
+      5.0,
+      3.0,
+      4.0
+     ],
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.019181999999999998,
+       "reply": "[1,0,6,2,0,5,3,6,0,0,6,3,1,0,4,3,5,4,3,4,2,6,5,5,0,0,4,4,6,5,5,2,4,5,3,4,3,0,0,0,4,5,5,4,6,0,6,4,0,3,6,1,4,0,5,2,6,5,3,4]"
+      }
+     ],
+     "cost_usd": 0.019181999999999998,
+     "input_tokens": 4489,
+     "output_tokens": 123,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "2badfcf9527706a78bed11e2d212ff2b8d9a31c8b5eca1c4101d937edff134fe",
+     "reply": "[1,0,6,2,0,5,3,6,0,0,6,3,1,0,4,3,5,4,3,4,2,6,5,5,0,0,4,4,6,5,5,2,4,5,3,4,3,0,0,0,4,5,5,4,6,0,6,4,0,3,6,1,4,0,5,2,6,5,3,4]"
+    },
+    "judge": {
+     "parsed": false,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0002753,
+       "reply": "{\"unrelated_patterns\": false}"
+      }
+     ],
+     "cost_usd": 0.0002753,
+     "input_tokens": 945,
+     "output_tokens": 173,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "45e7a07f06379ce27d47f22ad808aea6fc6405b0b20d53909d2e2da141446665",
+     "reply": "{\"unrelated_patterns\": false}"
+    }
+   }
+  },
+  "160m:pooled:50/50:1947-1365": {
+   "id": "160m:pooled:50/50:1947-1365",
+   "model": "160m",
+   "kind": "pooled",
+   "group": "pooled 50/50",
+   "retested": false,
+   "held_out_ranks": [
+    54,
+    77,
+    95,
+    96,
+    105,
+    147,
+    154,
+    165,
+    166,
+    169,
+    184,
+    206,
+    229,
+    232,
+    233,
+    246,
+    254,
+    273,
+    281,
+    299,
+    391,
+    507,
+    632,
+    844,
+    1123,
+    1177,
+    1193,
+    1199,
+    1276,
+    1303,
+    1430,
+    1493,
+    1565,
+    1636,
+    1638,
+    1711,
+    1727,
+    1731,
+    1945,
+    1967,
+    2014,
+    2018,
+    2076,
+    2266,
+    2277,
+    2493,
+    2523,
+    2556,
+    2619,
+    2659,
+    3138,
+    3315,
+    3394,
+    3526,
+    3585,
+    3600,
+    3653,
+    3785,
+    3885,
+    4008
+   ],
+   "first": {
+    "agent": {
+     "id": "160m:pooled:50/50:1947-1365",
+     "prompt_sha256": "f44770867cc86d9c334ae5a2ad55b2fb20b91b33c1629799d9339cec4856609d",
+     "label": "A",
+     "description": "Tokens in formulaic reference/boilerplate text that precede a specifier, ID or name: abbreviation dots (Pat./No./Ref./cat. no./i.e.), ref-type markup, line breaks after captions/acknowledgments, route words (signposted, via).",
+     "confidence": "medium",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.21250400000000003,
+       "tool_calls": 10,
+       "reply": "I'd call this one pattern (A), though a broad one, and I'm only moderately confident. The unit fires on formulaic, reference-style text, and its strongest activations usually land just before an ID, number, code or place name. I used 9 of my 16 tool calls.\n\n**What fires strongly in my tests:**\n- **Abbreviation dots and lead-in words:** \"cat. no.\" (7.7), \"Protocol No.\" (5.5), \"U.S. Pat. No.\" (4.9), \"Nr.\" (5.2) and \"i.e.\" (4.4).\n- **Route directions:** \"signposted\" is the strongest trigger I found (8.4, and 7.2 in a shorter sentence). \"via\" before a place name reached 5.5.\n- **Citation markup:** the hyphen in `{ref-type=\"fig\"}` reached 3.7\u20134.5. That is well below the 8+ it reaches in the given snippets, even when I wrote a longer passage.\n- **The line break after a funding statement:** 5.2 in a full acknowledgments block. The line break after a figure caption only reached 1.7 on its own, so these line-break hits seem to need more of the surrounding document.\n\n**What stays quiet:** ordinary prose and code stay near zero. Narrative text gives weak, scattered activity, about 2\u20133 at most.\n\n**Ranked examples:** ranks 51\u2013500 fit the same picture. They include patent numbers, \"Ser. No.\", \"ed.\", bus routes and directions, `#define` lines, the end of `</node>`-style XML tags, and line breaks after captions and acknowledgments.\n\n**The weak point:** some top examples are word endings with no obvious reference context, such as \"Down[loaded]\", \"c[ume]\", \"drum[mers]\" and \"croqu[ettes]\". The unit also has low-level background activity on most text, which is why I kept confidence at medium.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens in formulaic reference/boilerplate text that precede a specifier, ID or name: abbreviation dots (Pat./No./Ref./cat. no./i.e.), ref-type markup, line breaks after captions/acknowledgments, route words (signposted, via).\", \"confidence\": \"medium\"}\n```"
+      }
+     ],
+     "cost_usd": 0.21250400000000003,
+     "input_tokens": 96980,
+     "output_tokens": 3419,
+     "num_turns": 11,
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "tools_offered": [
+      "mcp__probe__activation",
+      "mcp__probe__examples"
+     ],
+     "reply": "I'd call this one pattern (A), though a broad one, and I'm only moderately confident. The unit fires on formulaic, reference-style text, and its strongest activations usually land just before an ID, number, code or place name. I used 9 of my 16 tool calls.\n\n**What fires strongly in my tests:**\n- **Abbreviation dots and lead-in words:** \"cat. no.\" (7.7), \"Protocol No.\" (5.5), \"U.S. Pat. No.\" (4.9), \"Nr.\" (5.2) and \"i.e.\" (4.4).\n- **Route directions:** \"signposted\" is the strongest trigger I found (8.4, and 7.2 in a shorter sentence). \"via\" before a place name reached 5.5.\n- **Citation markup:** the hyphen in `{ref-type=\"fig\"}` reached 3.7\u20134.5. That is well below the 8+ it reaches in the given snippets, even when I wrote a longer passage.\n- **The line break after a funding statement:** 5.2 in a full acknowledgments block. The line break after a figure caption only reached 1.7 on its own, so these line-break hits seem to need more of the surrounding document.\n\n**What stays quiet:** ordinary prose and code stay near zero. Narrative text gives weak, scattered activity, about 2\u20133 at most.\n\n**Ranked examples:** ranks 51\u2013500 fit the same picture. They include patent numbers, \"Ser. No.\", \"ed.\", bus routes and directions, `#define` lines, the end of `</node>`-style XML tags, and line breaks after captions and acknowledgments.\n\n**The weak point:** some top examples are word endings with no obvious reference context, such as \"Down[loaded]\", \"c[ume]\", \"drum[mers]\" and \"croqu[ettes]\". The unit also has low-level background activity on most text, which is why I kept confidence at medium.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens in formulaic reference/boilerplate text that precede a specifier, ID or name: abbreviation dots (Pat./No./Ref./cat. no./i.e.), ref-type markup, line breaks after captions/acknowledgments, route words (signposted, via).\", \"confidence\": \"medium\"}\n```",
+     "messages": [
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "See U.S. Pat. No. 5,123,456 and Ref. 343/CNBS for details (incl. appendices).",
+         "as shown previously ([Figure 2](#F2){ref-type=\"fig\"}).",
+         "Take the A91 (signposted St Andrews) towards the coast.",
+         "We thank J. Smith for helpful discussions.\n\nConflict of interest",
+         "The cat sat on the mat and looked out of the window."
+        ]
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 51,
+        "count": 20
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 200,
+        "count": 20
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Buses 39, 39A and 39B stop in town. Take bus 12 via Merrivale to Princetown.",
+         "Antibody was purchased from Abcam (cat. no. ab12345) and used at 1:1000.",
+         "#define FOO 1\n#define BAR 2\n#define BAZ 3",
+         "She smiled and walked home slowly, thinking about the day.",
+         "Results are shown in Figure 3. The cells grew faster under hypoxia."
+        ]
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "![Western blot analysis of protein levels. Data are mean \u00b1 SD. \\*\\*P\\<0.01.](ncomms9468-f5){#f5}\n\nTo determine whether",
+         "This work was supported by NASA under contract NAS 5-26555.\n\n[99]{}",
+         "Approved by the Ethics Committee (Ref. 2019/45) and Protocol No. 12.",
+         "The weather was nice and we went to the beach with the kids.",
+         "I downloaded it and played it all night, signposted or not."
+        ]
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 400,
+        "count": 20
+       }
+      },
+      {
+       "tool": "examples",
+       "input": {
+        "start": 100,
+        "count": 20
+       }
+      },
+      {
+       "text": "I've tested several ideas against the unit. My leading candidate is that it fires on formulaic or reference-style text, just before an ID, number or name. I'm running a few more contrast tests."
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Many fruits, e.g. apples and pears, i.e. pome fruits, are grown here.",
+         "From the station, follow the A1 north, then turn left onto the B6355 towards Gifford.",
+         "Strains used: E. coli ATCC 25922 and S. aureus ATCC 29213 (Sigma, St. Louis, MO).",
+         "I love you so much, mom said, and I hugged her tightly.",
+         "Philosophy asks deep questions about knowledge and the nature of reality."
+        ]
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Cells treated with drug showed reduced viability ([Figure 3A](#F3){ref-type=\"fig\"}), and apoptosis increased ([Figure 3B](#F3){ref-type=\"fig\"}), as also shown in ([Supplementary Figure 2](#sup1){ref-type=\"supplementary-material\"}).",
+         "Continue on the A921 as far as Kirkcaldy, then take the faster A915 (signposted St Andrews) as far as Largo.",
+         "In U.S. Pat. No. 4,123,456 and U.S. Pat. No. 5,234,567, a device is disclosed.",
+         "def foo(x):\n    return x + 1\n\nprint(foo(2))",
+         "Once upon a time there lived a king who had three daughters."
+        ]
+       }
+      },
+      {
+       "tool": "activation",
+       "input": {
+        "texts": [
+         "Acknowledgments\n\nWe thank D. Harrer, M. Paulsen and J. St\u00f6hler for many helpful comments. This work was supported by NSF grant AST-1602583.\n\nConflict of interest\n\nNone declared.",
+         "The kit (Cat# 17491, Qiagen) was used; see ref. 12 and Nr. 1\u201310, ed. Gallimard.",
+         "He went outside, looked at the sky, and sighed deeply because it was raining."
+        ]
+       }
+      },
+      {
+       "text": "I'd call this one pattern (A), though a broad one, and I'm only moderately confident. The unit fires on formulaic, reference-style text, and its strongest activations usually land just before an ID, number, code or place name. I used 9 of my 16 tool calls.\n\n**What fires strongly in my tests:**\n- **Abbreviation dots and lead-in words:** \"cat. no.\" (7.7), \"Protocol No.\" (5.5), \"U.S. Pat. No.\" (4.9), \"Nr.\" (5.2) and \"i.e.\" (4.4).\n- **Route directions:** \"signposted\" is the strongest trigger I found (8.4, and 7.2 in a shorter sentence). \"via\" before a place name reached 5.5.\n- **Citation markup:** the hyphen in `{ref-type=\"fig\"}` reached 3.7\u20134.5. That is well below the 8+ it reaches in the given snippets, even when I wrote a longer passage.\n- **The line break after a funding statement:** 5.2 in a full acknowledgments block. The line break after a figure caption only reached 1.7 on its own, so these line-break hits seem to need more of the surrounding document.\n\n**What stays quiet:** ordinary prose and code stay near zero. Narrative text gives weak, scattered activity, about 2\u20133 at most.\n\n**Ranked examples:** ranks 51\u2013500 fit the same picture. They include patent numbers, \"Ser. No.\", \"ed.\", bus routes and directions, `#define` lines, the end of `</node>`-style XML tags, and line breaks after captions and acknowledgments.\n\n**The weak point:** some top examples are word endings with no obvious reference context, such as \"Down[loaded]\", \"c[ume]\", \"drum[mers]\" and \"croqu[ettes]\". The unit also has low-level background activity on most text, which is why I kept confidence at medium.\n\n```json\n{\"label\": \"A\", \"description\": \"Tokens in formulaic reference/boilerplate text that precede a specifier, ID or name: abbreviation dots (Pat./No./Ref./cat. no./i.e.), ref-type markup, line breaks after captions/acknowledgments, route words (signposted, via).\", \"confidence\": \"medium\"}\n```"
+      }
+     ],
+     "tool_calls": [
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "See U.S. Pat. No. 5,123,456 and Ref. 343/CNBS for details (incl. appendices).",
+         "as shown previously ([Figure 2](#F2){ref-type=\"fig\"}).",
+         "Take the A91 (signposted St Andrews) towards the coast.",
+         "We thank J. Smith for helpful discussions.\n\nConflict of interest",
+         "The cat sat on the mat and looked out of the window."
+        ]
+       },
+       "answer": "Text 1, strongest 7.3 at [[.]]: See U.[[S|1.2]]. Pat[[.|1.4]][[ No|4.6]]. 5,123,456[[ and|2.3]] Ref[[.|2.9]] 343/CNBS for details (in[[cl|1.9]][[.|7.3]] append[[ices|3.2]][[).|1.4]]\nText 2, strongest 3.8 at [[-]]: as shown previously ([Figure 2](#F2){ref[[-|3.8]]type=\"fig\"}).\nText 3, strongest 7.2 at [[posted]]: Take the A91 (sign[[posted|7.2]] St[[ Andrews|1.6]][[)|1.8]] towards the coast.\nText 4, strongest 1.0 at [[ Smith]]: We thank J.[[ Smith|1.0]] for helpful discussions.\u23ce\u23ceConflict of interest\nText 5, strongest 0.8 at [[ window]]: The cat sat on the mat and looked out of the window.\n\n(15 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 51,
+        "count": 20
+       },
+       "answer": "rank 51 (8.1): 05), and SQW M treatment decreased the ATP-induced contractions ([Figure 6D,E](#F6){ref[[-]]type=\"fig\"}).\nrank 52 (8.1):  detected in each tumor, including point mutations (such as the example depicted in Figure\u00a0 [4](#F4){ref[[-]]type=\"fig\"}\nrank 53 (8.0): e Sacrae I, Teil 1 SWV 257\u2013266 / 10 lateinische Konzerte (Nr[[.]] 1\u201310)\nrank 54 (8.0): \u0394C cells at 7\u00a0h\u00a0p.i.](cdd462f4){#cdd462f4}[[\u23ce]]\u23ce![**Fig.\nrank 55 (8.0): * = 0.0009. NTC, nontargeting control.](mtna201538f5){#fig5}[[\u23ce]]\u23ce![**HTT\nrank 56 (8.0): three daily Monday to Saturday) A year-round service, which runs from Tavistock to Princetown,[[ via]] Merrivale;\nrank 57 (8.0): write>\u23ce    <read><delim>\\x3e</delim><match><pcre>.*?90 B[[ >]]</pcre></\nrank 58 (8.0): , anything, to get it.\u23ce\u23ceSo folks whatever we can each do to convert our healthy poll numbers into ACT[[UAL]] votes cast should our\nrank 59 (8.0): 3 C/U' vs 'All'). By contrast, for 200 genes with the preferred bases at all positions, ie[[.]] A~-3~\nrank 60 (8.0):  lung transplantation (SLT).\u23ce\u23ce(TIFF)\u23ce\u23ce###### \u23ce\u23ceClick here for additional data file.[[\u23ce]]\u23ce###### \"Values\nrank 61 (8.0): -less plating, and polishing the inter-connect to form a planar top surface.\u23ceIn U.S. Pat[[.]] No. 5,\nrank 62 (8.0): \u23ce_Les Mille et Une Nuits_ , abr\u00e9g\u00e9s par V. Charpentier, \u00e9d[[.]] \u00c9cole des\nrank 63 (8.0): , six daily Monday to Saturday) to Land's End; 1 goes via Sennen, while the 1A travels[[ via]] Treen and P\nrank 64 (8.0): , a double order-picker arrangement, each acting independently of the other to perform its function. U.S. Pat[[.]] No. 3,\nrank 65 (8.0): define F_TX_IMM_ACK    V_TX_IMM_ACK(1U)\u23ce\u23ce[[#]]define S_TX\nrank 66 (7.9): ){ref-type=\"fig\"}), as well as based on ROS induction ([Supplementary Figure S2](#sup1){ref[[-]]type=\"supplementary-\nrank 67 (7.9):  SPIE Publications).](sensors-15-26039-g017){#sensors-15-26039-f017}[[\u23ce]]\u23ce\nrank 68 (7.9): S), located at Kojarena, near Geraldton, Western Australia,\u23ce the Shoal Bay Receiving Station,[[ located]] at Shoal Bay\nrank 69 (7.9):  *M. edulis* (EduN).\u23ce\u23ce###### \u23ce\u23ceClick here for additional data file.[[\u23ce]]\u23ce10.\nrank 70 (7.9): 780584;,\u23ce   0.000000;0.619644;-0.784883;,\u23ce[[   ]]0.000000;\n\n(14 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 200,
+        "count": 20
+       },
+       "answer": "rank 200 (7.2):  (MR/S01165X/1, MR/S005021/1, and G0601943).[[\u23ce]]\u23ceData Availability\nrank 201 (7.2):  showed spontaneous metastasis in 3 out of 4 mice (75%; Fig. [8b, c](#Fig8){ref[[-]]type=\"fig\"}).\nrank 202 (7.2): .18) 1,298,693\u23ce  Downloads of previous major release[^c^](#t007fn003){[[ref]]-type=\"table\nrank 203 (7.2): , or the ability to concentrate the most useful 6% of coconut oil in a non-oxygen atmosphere (i.e[[.]] Brain Octane Oil\nrank 204 (7.2): ) were observed. Evaluation of the theoretical pH--solubility profile (Fig. [3](#Fig3){ref[[-]]type=\"fig\"})\nrank 205 (7.2):  via Hope (10 minutes) and Tideswell (25 minutes)\u23ce\u23ceA **Buxton** Buses 68[[ and]] 173; \u00a33\nrank 206 (7.2): , and also if the reads in the zero frame are at least 50% of the reads in all three frames (ie[[.]] -c15-\nrank 207 (7.2): .E.; Supervision, B.M. All authors have read and agreed to the published version of the manuscript.[[\u23ce]]\u23ceThe study was\nrank 208 (7.2): -------------------------------------------\u23ce\u23ceThe optical consensus maps generated by map assembler were aligned to the *in silico* restriction map ([[generated]] from build 35 human\nrank 209 (7.2):  bookshops stock the map, too).\u23ce\u23ce8Getting There & Away\u23ce\u23ceBuses 39, 39A[[ and]] 39B stop in\nrank 210 (7.2):       0.015      0.649\u23ce  20       0.044      0.036      0.023      [[0]].017\u23ce\u23ce\nrank 211 (7.2):  take bus 110 from Birmingham Corporation St to Fazeley (\u00a310, one hour, every 20 minutes hourly on Sunday)[[ and]] walk the last 15\nrank 212 (7.2): . it's a great ride and a little different for me as i'm usually on road bikes or vintage three-spe[[eds]]. it's a\nrank 213 (7.2): -32, an established marker for striatal neuron viability^[@bib48]^ (**[Figure 7](#fig7){ref[[-]]type=\"fig\"}**).\nrank 214 (7.1):  which by definition correspond to $(4,3;n)$ colorings (respectively in colors 1 and 3, and in[[ colors]] 1 and 2).\nrank 215 (7.1): -lysine dimer; MOLD, methylglyoxal-lysine dimer.](549fig4){#F4}[[\u23ce]]\u23ceYang et al\nrank 216 (7.1):  (wherever applicable) and Service Tax would apply.\u23ce\u23ce* In terms of CAR issued by DGCA file no[[.]] 23-16/\nrank 217 (7.1):  NYC Half Marathon course has changed from previous years. For the first time this year the course starts in Prospect Park Brooklyn and[[ ends]] in Central Park.\nrank 218 (7.1):  before. The subjects of the search warrant were the tractor and related equipment and the barn area. Gov't Exh.[[ Nos]]. 10(o\nrank 219 (7.1): , California.)\u23ce\u23ceHere is an actual scene from the second act of the mission play entitled La Senora Dance,[[ written]] by California historian John\n\n(13 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Buses 39, 39A and 39B stop in town. Take bus 12 via Merrivale to Princetown.",
+         "Antibody was purchased from Abcam (cat. no. ab12345) and used at 1:1000.",
+         "#define FOO 1\n#define BAR 2\n#define BAZ 3",
+         "She smiled and walked home slowly, thinking about the day.",
+         "Results are shown in Figure 3. The cells grew faster under hypoxia."
+        ]
+       },
+       "answer": "Text 1, strongest 5.5 at [[ via]]: Buses 39[[,|4.5]] 39A[[ and|3.7]] 39B stop[[ in|2.2]] town.[[ Take|2.5]] bus 12[[ via|5.5]] Merriv[[ale|2.1]][[ to|3.3]] Princetown[[.|2.7]]\nText 2, strongest 7.7 at [[.]]: Antibody was purchased from Ab[[cam|2.1]][[ (|1.6]]cat.[[ no|6.1]][[.|7.7]] ab12345[[)|3.5]] and used at 1:1000.\nText 3, strongest 0.1 at [[\u23ce]]: #define FOO 1\u23ce#define BAR 2\u23ce#define BAZ 3\nText 4, strongest 1.1 at [[ thinking]]: She smiled and walked home slowly,[[ thinking|1.1]] about the day.\nText 5, strongest 0.7 at [[ hypoxia]]: Results are shown in Figure 3. The cells grew faster under hypoxia.\n\n(12 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "![Western blot analysis of protein levels. Data are mean \u00b1 SD. \\*\\*P\\<0.01.](ncomms9468-f5){#f5}\n\nTo determine whether",
+         "This work was supported by NASA under contract NAS 5-26555.\n\n[99]{}",
+         "Approved by the Ethics Committee (Ref. 2019/45) and Protocol No. 12.",
+         "The weather was nice and we went to the beach with the kids.",
+         "I downloaded it and played it all night, signposted or not."
+        ]
+       },
+       "answer": "Text 1, strongest 1.7 at [[\u23ce]]: ![Western blot analysis of protein levels. Data are mean \u00b1 SD. \\*\\*P\\<0.01.](ncomms9468-f5){#f5}[[\u23ce|1.7]]\u23ceTo determine whether\nText 2, strongest 4.1 at [[ supported]]: This work was[[ supported|4.1]] by NASA under[[ contract|2.0]] NAS 5-26555.[[\u23ce|2.0]]\u23ce[[[99|1.7]]]{}\nText 3, strongest 5.5 at [[.]]: Appro[[ved|1.8]][[ by|1.1]] the Ethics Committee (Ref. 2019/45[[)|1.2]][[ and|1.7]][[ Protocol|2.1]][[ No|5.4]][[.|5.5]] 12.\nText 4, strongest 2.1 at [[ to]]: The weather was nice and we[[ went|1.8]][[ to|2.1]] the beach with the kids.\nText 5, strongest 6.6 at [[posted]]: I[[ downloaded|3.5]][[ it|2.1]] and played[[ it|1.4]][[ all|2.2]] night[[,|2.3]] sign[[posted|6.6]][[ or|1.4]] not.\n\n(11 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 400,
+        "count": 20
+       },
+       "answer": "rank 400 (6.7):  Willie Gardner (previously in Hot Valves), and ex-PVC2 members, bassist Russell Webb, keyboard[[ist]] Billy McIsaac\nrank 401 (6.7):  applications.\u23ce\u23ce(b) The purpose of the general exemption from sections (d), (e)(4)(G[[),]] (f)(1\nrank 402 (6.6): , idx: 0x246},\u23ce\t239: {cur: 0x66, idx: 0x3f[[},]]\u23ce\t240:\nrank 403 (6.6):  individuals who are unable to handle the spa cover without the assistance of another individual.\u23ceThe Perry patent, U.S[[.]] Pat. No.\nrank 404 (6.6): \u23ceLancaster's imposing castle was originally built in 1150. Later additions include the **Well Tower** , more[[ commonly]] known as the W\nrank 405 (6.6):  pretty happy with the direction I was taking this client's home.\u23ce\u23ceShe hated it and I had to re-[[do]] everything. I lost\nrank 406 (6.6):  has to decent on earth and clean the sinners, he would ask for two days, one for India and the other[[ for]] the rest of the\nrank 407 (6.6):  fund \u201cblockages we are experiencing in the USA are due to the Bush/Clinton & Rothchilds & Roc[[ke]]feller crime families\nrank 408 (6.6): , Hamburg, Germany), to the nearest decimal in centimetres. The Seca 803 digital weighing scale (Sec[[a]], Hamburg, Germany\nrank 409 (6.6): 4) format, which I hadn't heard of before. Its format seems to be somewhat discussed at, e.g[[.,]] https://www.\nrank 410 (6.6):  east of Plandome \u23ceRoad on the corner of Onderdonk Ave. and Northern Boulevard, next door[[ to]] the historic Quaker\nrank 411 (6.6):  or large, as seen for example, in [Figure 8](#brainsci-03-01374-f008){ref[[-]]type=\"fig\"}\nrank 412 (6.6):  father's age = 38.07 years, child's age = 42.21 months) and 36 mother--child dy[[ads]] (21 boys,\nrank 413 (6.6):  aminoguanidine reacts with a dicarbonyl compound to form a triazine.](549fig1){#F1}[[\u23ce]]\u23ceAGE inhibitors {#\nrank 414 (6.6):  in attendance wore African attire and Kaamilya and Hasseena made Jamaican Jerk Chicken, potato croqu[[ettes]], green beans and\nrank 415 (6.6):  at Appalachian State University and shut down an Election Day precinct there. Forsyth County is considering shut[[tering]] early voting at Winston\nrank 416 (6.6):  Musso. But most notably, forming what became his signature group, a trio with bassist Mario Pavone and drum[[mers]] Steve Johns and later\nrank 417 (6.6):  pre-study and post-study known conditions.\u23ce\u23ceDescription\u23ce\u23ceThis application is a continuation of application Ser.[[ No]]. 491,455\nrank 418 (6.6): 114, idx: 0x0},\u23ce\t388: {cur: 0x83, idx: 0x25[[},]]\u23ce\t389:\nrank 419 (6.6):  merge and become almost circular. The size of the cells is comparable to the height of the entire envelope, i.e[[.]] a few pressure scale\n\n(10 tool calls left)"
+      },
+      {
+       "tool": "examples",
+       "arguments": {
+        "start": 100,
+        "count": 20
+       },
+       "answer": "rank 100 (7.7): \u23ce        <item quantity=\"other\">%d \u5206\u9418</item>\u23ce    </plurals[[>]]\u23ce    <!-- Features\nrank 101 (7.7):  and the increasing population is buying less food per capita? This is Japanese-style deflation. The following BEA-[[generated]] chart shows CURRENT\nrank 102 (7.7):  from R-squared = 39% to 50% ([Table 6](#pone.0150345.t006){ref[[-]]type=\"table\"}).\nrank 103 (7.7):  chain activity to oxidative phosphorylation.](pone.0062400.g007){#pone-0062400-g007}[[\u23ce]]\u23ceTime to Un\nrank 104 (7.7):  Bridge (five minutes), Brockhole Visitor Centre (seven minutes), Ambleside (\u00a36.30, 15 minutes[[),]] Grasmere (\u00a3\nrank 105 (7.7): uting, shopping, and medical services are just around the corner with Loop 1604 just 5 short miles away, and H[[wy]] 281 less than three\nrank 106 (7.7): usepackage{wasysym} \u23ce                \\usepackage{amsfonts} \u23ce                \\usepackage{amssymb} \u23ce                \\usepackage{amsbsy[[}]]\u23ce                \\usepackage\nrank 107 (7.7):  up Princes\u2019 Gate Mews are close to Hyde Park and Harrods and just a stone\u2019s throw[[ from]] South Kensington\nrank 108 (7.6):  transcription-quantitative PCR.\u23ce\u23ceCompeting interests\u23ce===================\u23ce\u23ceThe authors declare that they have no competing interests.[[\u23ce]]\u23ceAuthors\\' contributions\nrank 109 (7.6):  @ Double Door\u23ceIt's the Music Conference Networking Reception presented by Double Door and Yellow Phone Music ...hosted[[ by]] David Silbough\nrank 110 (7.6):  expression of MMP-9/TIMP-1 was perceived in macrophages within the atherosclerotic plaques \\[[@B128-ijms-[[21]]-03946]\\].\nrank 111 (7.6): \u00a0=\u00a03, *P*\u00a0\\>\u00a00.05; Fig. [2](#Fig2){ref[[-]]type=\"fig\"},\nrank 112 (7.6):  minutes, nine daily\u23ce\u23ceTrain\u23ce\u23ceThe train station is about half a mile southeast of the centre on Railway T[[ce]]. Services include the\nrank 113 (7.6):  through the roof exponentially with this series (the first game had two hours of cinematics, with the sequels each[[ having]] three hours), and\nrank 114 (7.6): -35, *S. acidiscabies* ATTC 49003, *S. avermitilis* ATT[[C]] 31267, *\nrank 115 (7.6):  application, targeting BCL2 with venetoclax is a promising strategy for the treatment of DH-DPL.[[\u23ce]]\u23ceSupplementary Material\u23ce\nrank 116 (7.6):  with function and remodeling of left ventricular (LV) as well as cardiovascular death or heart failure \\[[@B150-ijms-[[21]]-03946]\\].\nrank 117 (7.6): sightseeing.com; adult/child \u00a312/7)\u23ce\u23ceOpen-top double-decker tours,[[ departing]] every 30 to 60\nrank 118 (7.6):  episode of every season to critics, this review was posted right after airing. Won\u2019t happen again. Future rec[[aps]] will mostly likely be\nrank 119 (7.6):  own and will show us their\u23cecards. \"\u23ce\u23ce\"Protocol 12, from the very curious forgery, Prot[[ocols]]\u23ceof the Lear\n\n(9 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Many fruits, e.g. apples and pears, i.e. pome fruits, are grown here.",
+         "From the station, follow the A1 north, then turn left onto the B6355 towards Gifford.",
+         "Strains used: E. coli ATCC 25922 and S. aureus ATCC 29213 (Sigma, St. Louis, MO).",
+         "I love you so much, mom said, and I hugged her tightly.",
+         "Philosophy asks deep questions about knowledge and the nature of reality."
+        ]
+       },
+       "answer": "Text 1, strongest 4.4 at [[.]]: Many fruits, e.g[[.|2.1]] apples and pears[[,|1.1]] i.[[e|2.1]][[.|4.4]] pome[[ fruits|1.7]], are grown here.\nText 2, strongest 3.4 at [[ then]]: From the station, follow the A1 north,[[ then|3.4]] turn left[[ onto|2.2]] the B6[[355|2.7]][[ towards|2.5]] Gifford.\nText 3, strongest 4.9 at [[ and]]: Strains used: E. coli ATCC 25922[[ and|4.9]] S. aureus ATCC 29[[213|1.9]][[ (|1.3]]Sigma[[,|1.4]] St. Louis, MO).\nText 4, strongest 3.2 at [[ and]]: I love you so much[[,|2.9]] mom[[ said|1.8]][[,|1.3]][[ and|3.2]][[ I|1.1]] hugged her tightly.\nText 5, strongest 0.3 at [[ questions]]: Philosophy asks deep questions about knowledge and the nature of reality.\n\n(8 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Cells treated with drug showed reduced viability ([Figure 3A](#F3){ref-type=\"fig\"}), and apoptosis increased ([Figure 3B](#F3){ref-type=\"fig\"}), as also shown in ([Supplementary Figure 2](#sup1){ref-type=\"supplementary-material\"}).",
+         "Continue on the A921 as far as Kirkcaldy, then take the faster A915 (signposted St Andrews) as far as Largo.",
+         "In U.S. Pat. No. 4,123,456 and U.S. Pat. No. 5,234,567, a device is disclosed.",
+         "def foo(x):\n    return x + 1\n\nprint(foo(2))",
+         "Once upon a time there lived a king who had three daughters."
+        ]
+       },
+       "answer": "Text 1, strongest 4.5 at [[-]]: Cells[[ treated|2.1]] with drug showed reduced viability ([Figure 3[[A|1.1]]](#F3){ref[[-|3.7]]type=\"[[fig|1.3]]\"}), and apoptosis increased ([[[Figure|3.1]] 3B](#F3){[[ref|3.5]][[-|4.5]][[type|3.4]][[=\"|3.7]]fig\"}), as also shown in ([Supplementary Figure 2](#sup1){[[ref|1.9]][[-|4.0]][[type|2.2]]=\"[[supplementary|4.3]][[-|4.0]]material\"}).\nText 2, strongest 8.4 at [[posted]]: Continue on the A[[9|1.5]][[21|2.1]] as far as Kirkcal[[dy|2.2]][[,|2.1]][[ then|1.8]][[ take|1.7]] the[[ faster|2.7]] A[[915|1.2]][[ (|1.1]]sign[[posted|8.4]] St[[ Andrews|2.1]][[)|2.5]] as[[ far|2.6]] as L[[argo|3.3]].\nText 3, strongest 4.9 at [[ No]]: In U.[[S|2.0]]. Pat[[.|2.0]][[ No|4.1]]. 4,123,456[[ and|1.2]] U[[.|3.0]][[S|4.2]][[.|3.9]] Pat[[.|3.9]][[ No|4.9]]. 5,234,[[567|1.1]], a device is disclosed.\nText 4, strongest 0.1 at [[ 1]]: def foo(x):\u23ce    return x + 1\u23ce\u23ceprint(foo(2))\nText 5, strongest 2.5 at [[ time]]: Once[[ upon|1.1]] a[[ time|2.5]] there lived a king[[ who|1.1]][[ had|1.8]] three daughters.\n\n(7 tool calls left)"
+      },
+      {
+       "tool": "activation",
+       "arguments": {
+        "texts": [
+         "Acknowledgments\n\nWe thank D. Harrer, M. Paulsen and J. St\u00f6hler for many helpful comments. This work was supported by NSF grant AST-1602583.\n\nConflict of interest\n\nNone declared.",
+         "The kit (Cat# 17491, Qiagen) was used; see ref. 12 and Nr. 1\u201310, ed. Gallimard.",
+         "He went outside, looked at the sky, and sighed deeply because it was raining."
+        ]
+       },
+       "answer": "Text 1, strongest 5.2 at [[\u23ce]]: Acknowledgments\u23ce\u23ceWe thank D. Har[[rer|1.8]][[,|2.1]] M. Paul[[sen|2.2]][[ and|1.2]] J. St[[\u00f6|1.8]][[hler|1.2]] for many helpful[[ comments|2.3]].[[ This|1.5]][[ work|1.2]] was[[ supported|4.4]] by NSF[[ grant|1.8]] AST-1602583.[[\u23ce|5.2]]\u23ceConflict of interest\u23ce\u23ceNone declared[[.|1.0]]\nText 2, strongest 5.2 at [[.]]: The kit (Cat[[#|2.2]] 17[[491|3.5]][[,|3.6]] Qiagen) was used[[;|1.0]][[ see|1.3]] ref. 12[[ and|2.6]] N[[r|1.5]][[.|5.2]] 1\u201310[[,|1.9]] ed[[.|2.8]] Gallim[[ard|1.3]].\nText 3, strongest 2.5 at [[ it]]: He went outside, looked at the sky,[[ and|1.4]] sighed deeply because[[ it|2.5]] was raining.\n\n(6 tool calls left)"
+      }
+     ]
+    },
+    "simulation": {
+     "parsed": [
+      0.0,
+      0.0,
+      0.0,
+      6.0,
+      0.0,
+      1.0,
+      2.0,
+      0.0,
+      2.0,
+      0.0,
+      0.0,
+      5.0,
+      8.0,
+      5.0,
+      0.0,
+      3.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      2.0,
+      0.0,
+      8.0,
+      0.0,
+      4.0,
+      7.0,
+      2.0,
+      3.0,
+      0.0,
+      0.0,
+      8.0,
+      6.0,
+      3.0,
+      1.0,
+      5.0,
+      8.0,
+      0.0,
+      3.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      8.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      6.0,
+      0.0,
+      0.0,
+      2.0,
+      8.0,
+      0.0,
+      0.0
+     ],
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.018306,
+       "reply": "[0,0,0,6,0,1,2,0,2,0,0,5,8,5,0,3,0,0,0,0,1,0,0,2,0,8,0,4,7,2,3,0,0,8,6,3,1,5,8,0,3,0,0,0,0,0,0,8,0,0,0,1,0,6,0,0,2,8,0,0]"
+      }
+     ],
+     "cost_usd": 0.018306,
+     "input_tokens": 4270,
+     "output_tokens": 123,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "382f62c45a732b8a82691a2afd4a85c26b3b07c4ff37b607de6f436f95ca72c0",
+     "reply": "[0,0,0,6,0,1,2,0,2,0,0,5,8,5,0,3,0,0,0,0,1,0,0,2,0,8,0,4,7,2,3,0,0,8,6,3,1,5,8,0,3,0,0,0,0,0,0,8,0,0,0,1,0,6,0,0,2,8,0,0]"
+    },
+    "judge": {
+     "parsed": false,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0003616,
+       "reply": "{\"unrelated_patterns\": false}"
+      }
+     ],
+     "cost_usd": 0.0003616,
+     "input_tokens": 984,
+     "output_tokens": 330,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "c387677deb8e2896acfb8481357edc7a77aa623c1e5d345c146f7e6be7932974",
+     "reply": "{\"unrelated_patterns\": false}"
+    }
+   }
+  }
+ }
+}
