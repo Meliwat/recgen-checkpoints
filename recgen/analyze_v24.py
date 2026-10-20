@@ -3,7 +3,7 @@ rubric and E3, say about 100 random-text units, beside 100 real neurons and 100 
 same run.
 
 Reads results/v24_answers.json (from recgen.reader_v24) and, for the checks against earlier rounds of the same
-prompts, v20's random-text readings (branch v20, through git), v7's Haiku answers, v10's Sonnet cache
+prompts, v20's random-text readings (results/v20_posthoc_llm_answers.json), v7's Haiku answers, v10's Sonnet cache
 (data/v10/sonnet/, read only), v16's answers and v21's answers. A unit's size and group come from its id. A unit
 a series never labeled is left out of that series and, pairwise, out of paired comparisons.
 """
