@@ -227,9 +227,11 @@ def reader_margin_check(rows: list[dict]) -> dict:
     reader = np.array([v6[str(r["neuron"])]["least_related_similarity"] - v6[str(r["neuron"])]["unrelated_level"] for r in rows])
     q = np.array([r["quartile"] for r in rows])
     least = column(rows, "mlp", "least_unrelated")
+    flagged = np.array([r["unrelated_mixed"] for r in rows])
     strata = np.digitize(reader, np.quantile(reader, [1 / 3, 2 / 3]))
     return {"spearman_reader_margin_driver_margin": round(float(spearmanr(reader, column(rows, "mlp", "margin")).statistic), 3),
             "median_reader_margin_by_quartile": [round(float(np.median(reader[q == k])), 3) for k in range(4)],
+            "median_reader_margin_unflagged_by_quartile": [round(float(np.median(reader[(q == k) & ~flagged])), 3) for k in range(4)],
             "by_tercile": {str(t): {"top_rate": round(float(least[(strata == t) & (q == 3)].mean()), 3), "top_n": int(np.sum((strata == t) & (q == 3))),
                                     "rest_rate": round(float(least[(strata == t) & (q < 3)].mean()), 3), "rest_n": int(np.sum((strata == t) & (q < 3)))}
                            for t in range(3)},
