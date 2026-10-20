@@ -1,12 +1,12 @@
 """Apply the pre-registered v14 rules (recgen/rubric_v14.py): the Opus agent beside v8's two agents
 and v7's three readers, on the same units, with v8's machinery (recgen/analyze_v8).
 
-Reads results files only: the Opus agent's readings (results/v14_agent_answers.json, from
+Reads results files: the Opus agent's readings (results/v14_agent_answers.json, from
 recgen.agent_v14), v8's agents' readings (results/v8_agent_answers.json), and v7's per-unit flags,
-labels and replies (results/classification_v7.json, results/v7_llm_answers.json), and, for one post-hoc check, the file
-times of the Opus agent's cached readings in data/v14/. Writes results/classification_v14.json. A
-unit a reader never labeled is left out of that reader's rates and of the paired comparisons that
-use it, and counted.
+labels and replies (results/classification_v7.json, results/v7_llm_answers.json). One post-hoc check
+also reads the file times of the Opus agent's cached readings in data/v14/. Writes
+results/classification_v14.json. A unit a reader never labeled is left out of that reader's rates
+and of the paired comparisons that use it, and counted.
 """
 
 import json
