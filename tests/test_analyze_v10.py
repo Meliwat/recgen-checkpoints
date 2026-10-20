@@ -100,3 +100,12 @@ def test_agreement_is_kappa_on_real_neurons_per_model_and_overall():
 def test_label_shares_on_real_neurons():
     shares = label_shares(rows_with(readers(SEPARATING, WEAK)), "haiku")
     assert shares["all"] == {"A": 0.9, "B": 0.0, "C": 0.1} and np.isclose(sum(shares["70m"].values()), 1)
+
+
+def test_exploratory_excess_by_mix_and_majority_vote():
+    from recgen.analyze_v10 import exploratory_stats
+
+    out = exploratory_stats(rows_with(readers(SEPARATING, SEPARATING, WEAK)))
+    assert abs(out["excess_by_mix"]["sonnet"]["pooled 70/30"]["excess"] - 0.4) < 1e-9
+    # two of three readers separate, so the majority flags what they flag
+    assert abs(out["majority_of_three_excess"]["excess"] - 0.7) < 1e-9

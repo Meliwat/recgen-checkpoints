@@ -85,11 +85,11 @@ def v7_tests(rows: dict, reader: str) -> dict | None:
                                        "labels": s["llm_labels"], "missing": s["llm_missing"]} for s in stats}}
 
 
-def reader_excess(rows: dict, reader: str, seed: int, flag=None) -> dict:
+def reader_excess(rows: dict, reader: str, seed: int, flag=None, pooled_group: str = "pooled 50/50") -> dict:
     """The pre-registered over-all-models 50/50 excess for one reader, on the units it labeled."""
     pooled, real = [], []
     for m in MODELS:
-        pooled.append([v for v in flags_of(rows[m], reader, "pooled 50/50", flag) if v is not None])
+        pooled.append([v for v in flags_of(rows[m], reader, pooled_group, flag) if v is not None])
         real.append([v for v in flags_of(rows[m], reader, "real", flag) if v is not None])
     return {**excess_interval(pooled, real, rng(seed)), "units": sum(map(len, pooled)) + sum(map(len, real))}
 
@@ -170,6 +170,19 @@ def usage(answers: dict) -> dict:
             "cost_usd_by_cli": round(sum(a.get("cost_usd") or 0 for a in done), 2)}
 
 
+def exploratory_stats(rows: dict) -> dict:
+    """Not pre-registered: checks added after seeing the v10 results. Each reader's excess at the other
+    two mixes, and a majority vote of the three language-model readers (flag if two or more flag)."""
+    out = {"excess_by_mix": {}}
+    for i, reader in enumerate(ALL_READERS):
+        out["excess_by_mix"][reader] = {g: reader_excess(rows, reader, 80 + 2 * i + k, pooled_group=g)
+                                        for k, g in enumerate(("pooled 70/30", "pooled 90/10"))}
+    voted = {m: [{**r, "majority": None if any(r[x] is None for x in LLM_READERS) else sum(r[x] for x in LLM_READERS) >= 2}
+                 for r in model_rows] for m, model_rows in rows.items()}
+    out["majority_of_three_excess"] = reader_excess(voted, "majority", 95)
+    return out
+
+
 def summarize(rows: dict, answers: dict) -> dict:
     retests = {reader: retest(answers[reader], 10 + i) for i, reader in enumerate(LLM_READERS)}
     summary = {"main": {}, "secondary_multiple_jobs": {}, "excess": {}, "excess_multiple_jobs": {}, "v7_tests": {},
@@ -244,6 +257,7 @@ def main() -> None:
     answers = load_answers()
     rows = unit_rows(MiniLM(corpus), answers)
     summary = summarize(rows, answers)
+    summary["exploratory"] = exploratory_stats(rows)
     keep = ("id", "group", "neuron_ids", "shared_window", "minilm", "network") + \
         tuple(x for reader in LLM_READERS for x in (reader, f"{reader}_label"))
     units_out = {m: [{k: r[k] for k in keep} for r in model_rows] for m, model_rows in rows.items()}
