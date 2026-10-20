@@ -933,6 +933,56 @@
      0.45,
      0.394
     ]
+   },
+   "reader_dependence_with_full_samples": {
+    "quarter": {
+     "outcome": "reader-dependent",
+     "sensitive": [
+      "network",
+      "llm"
+     ],
+     "corroborated_by": {
+      "network": []
+     },
+     "verdicts": {
+      "minilm": "no clear trend",
+      "network": "fits the essay",
+      "llm": "no clear trend"
+     }
+    },
+    "middle": {
+     "outcome": "reader-dependent",
+     "sensitive": [
+      "network",
+      "llm"
+     ],
+     "corroborated_by": {
+      "minilm": []
+     },
+     "verdicts": {
+      "minilm": "fits the essay",
+      "network": "no clear trend",
+      "llm": "no clear trend"
+     }
+    },
+    "three quarters": {
+     "outcome": "reader-dependent",
+     "sensitive": [
+      "network",
+      "llm"
+     ],
+     "corroborated_by": {
+      "minilm": [
+       "llm"
+      ],
+      "llm": []
+     },
+     "verdicts": {
+      "minilm": "against the essay",
+      "network": "no clear trend",
+      "llm": "against the essay"
+     }
+    }
    }
   }
  },
