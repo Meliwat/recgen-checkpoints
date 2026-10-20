@@ -1,7 +1,7 @@
 import numpy as np
 
 from recgen.analyze_v8 import gain, kappas, unit_rows
-from recgen.analyze_v14 import AGENTS, READERS, one_job_shares, prompts_match, tool_use
+from recgen.analyze_v14 import AGENTS, READERS, label_changes, one_job_shares, prompts_match, tool_use
 from recgen.rubric_v8 import AGENT_MODEL as HAIKU, MODELS, SECOND_AGENT_MODEL as SONNET
 from recgen.rubric_v14 import AGENT_MODEL as OPUS, AGENT_NAME
 
@@ -71,3 +71,16 @@ def test_tool_use_reports_mean_and_most_tool_calls_per_agent():
     assert out["sonnet agent"]["mean tool calls, all first readings"] == 3.0
     assert out[AGENT_NAME]["most tool calls"] == 6
     assert out[AGENT_NAME]["tool use"]["real"]["share reading past rank 50"] == 1.0
+
+
+def test_label_changes_count_each_pair_of_labels_per_group():
+    answers, v7_units = fake_inputs()
+    out = label_changes(unit_rows(answers, v7_units, AGENTS), "sonnet agent", AGENT_NAME)
+    assert out == {"real": {"A->A": 6, "A->B": 6}, "pooled 50/50": {"B->C": 12}}
+
+
+def test_tool_use_reports_whether_the_budget_bound():
+    answers, v7_units = fake_inputs()
+    answers[OPUS]["first"]["70m:real::0"] = record("A", calls=8)
+    out = tool_use(unit_rows(answers, v7_units, AGENTS), answers)
+    assert out[AGENT_NAME]["share using all 8"] == round(1 / 24, 3) and out["sonnet agent"]["share using all 8"] == 0

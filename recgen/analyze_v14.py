@@ -9,6 +9,7 @@ and of the paired comparisons that use it, and counted.
 """
 
 import json
+from collections import Counter
 
 import numpy as np
 
@@ -20,7 +21,7 @@ from recgen.analyze_v8 import (
     specificity, unit_rows,
 )
 from recgen.config import RESULTS_DIR
-from recgen.rubric_v8 import MODELS, parse_answer
+from recgen.rubric_v8 import MAX_TOOL_CALLS, MODELS, parse_answer
 from recgen.rubric_v14 import AGENT_MODEL, AGENT_NAME, PRIMARY, SECONDARY
 
 AGENTS = {**analyze_v8.AGENTS, AGENT_NAME: AGENT_MODEL}
@@ -58,6 +59,20 @@ def tool_use(rows: dict, answers: dict) -> dict:
         first = answers[arm]["first"].values()
         out[agent]["mean tool calls, all first readings"] = round(float(np.mean([len(r["tool_calls"]) for r in first])), 2)
         out[agent]["most tool calls"] = max(len(r["tool_calls"]) for r in first)
+        # Post hoc, added after seeing the results: whether the budget bound.
+        out[agent][f"share using all {MAX_TOOL_CALLS}"] = round(float(np.mean([len(r["tool_calls"]) >= MAX_TOOL_CALLS
+                                                                                for r in first])), 3)
+    return out
+
+
+def label_changes(rows: dict, a: str, b: str) -> dict:
+    """Post hoc, added after seeing the results: per unit group, how many units each pair of labels
+    (reader a's, then reader b's) covers, as "A->B" counts."""
+    out = {}
+    for group in ("real", "pooled 50/50"):
+        pairs = Counter(f"{u['labels'][a]}->{u['labels'][b]}" for model_rows in rows.values() for u in model_rows
+                        if u["group"] == group and u["labels"][a] is not None and u["labels"][b] is not None)
+        out[group] = dict(sorted(pairs.items()))
     return out
 
 
@@ -84,6 +99,7 @@ def main() -> None:
         "rates": rates(rows, READERS),
         "catch_all_one_job": catch_all(rows, patterns),
         "prompts_match_v8": prompts_match(answers),
+        "post_hoc": {"label changes, sonnet agent to opus agent": label_changes(rows, "sonnet agent", AGENT_NAME)},
     }
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]
     (RESULTS_DIR / "classification_v14.json").write_text(json.dumps({"summary": stats, "units": rows}, indent=1))
