@@ -18,7 +18,7 @@ from recgen.agent_v8 import ANSWERS_PATH as V8_ANSWERS_PATH
 from recgen.agent_v14 import ANSWERS_PATH
 from recgen.analyze_v8 import (
     LABEL_RANK, MEASURES, agent_use, auc, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference,
-    rates, retest, specificity, unit_rows,
+    rates, readings_of, retest, specificity, unit_rows,
 )
 from recgen.config import RESULTS_DIR
 from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
@@ -133,6 +133,22 @@ def shared_unrelated(rows: dict, a: str, b: str) -> dict:
     return out
 
 
+def reading_stats(answers: dict) -> dict:
+    """Post hoc, added after an independent review: per agent, over all its readings (retests included),
+    the deepest rank of the ranked list it asked for, and its output tokens and CLI-reported cost per
+    reading."""
+    out = {}
+    for agent, arm in AGENTS.items():
+        records = readings_of(answers, arm)
+        requests = [c["arguments"] for r in records for c in r["tool_calls"] if c["tool"] == "examples"]
+        out[agent] = {"readings": len(records),
+                      "deepest rank asked for": max((int(x.get("start", 1)) + int(x.get("count", 1)) - 1 for x in requests),
+                                                    default=None),
+                      "output tokens per reading": round(float(np.mean([r["output_tokens"] for r in records])), 1),
+                      "cost per reading, USD": round(float(np.mean([r["cost_usd"] for r in records])), 4)}
+    return out
+
+
 def main() -> None:
     answers = load_answers()
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
@@ -163,8 +179,12 @@ def main() -> None:
             "label shares": label_shares(rows),
             f"label AUC, {PRIMARY[0]} minus {PRIMARY[1]}": label_auc_difference(rows, *PRIMARY, review_rng),
             f"C labels, {PRIMARY[0]} and {PRIMARY[1]}": shared_unrelated(rows, *PRIMARY),
+            "per reading": reading_stats(answers),
         },
     }
+    per_reading = stats["post_hoc_after_review"]["per reading"]
+    stats["post_hoc_after_review"][f"cost per reading, {PRIMARY[0]} over {PRIMARY[1]}"] = round(
+        per_reading[PRIMARY[0]]["cost per reading, USD"] / per_reading[PRIMARY[1]]["cost per reading, USD"], 2)
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]
     (RESULTS_DIR / "classification_v14.json").write_text(json.dumps({"summary": stats, "units": rows}, indent=1))
     print(json.dumps({k: stats[k] for k in ("verdict", "gains", "prompts_match_v8")}, indent=1))
