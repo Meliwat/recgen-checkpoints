@@ -826,6 +826,115 @@ Everything in these tables was pre-registered or listed in the rubric before any
 
 `run_v21.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/v7_llm_answers.json`, `results/v8_agent_answers.json`, `results/v16_answers.json`, v10's Sonnet cache in `data/v10/sonnet/`, v14's Opus agent cache in `data/v14/` (read only) and the `claude` CLI signed in. The readings are cached in `data/v21/` (not committed), and arm A's CLI costs are logged in `data/v21/spend.jsonl`. With the cache, it loads no Pythia model, makes no CLI calls and reruns in a few minutes. From scratch, the 2,190 readings took about 85 minutes, six at a time, with each Pythia model downloaded, used and deleted. Labels will differ somewhat, because Opus isn't deterministic (point 7).
 
+## v24 results
+
+v20 found, in a post hoc check, that Haiku calls 76% of units made of 50 random corpus positions "unrelated jobs" under v7's rubric, more than the roughly two thirds it gives known 50/50 pools of two random neurons in v7, so that label partly tracks how diffuse a set of snippets is. v24 makes random text a pre-registered negative control for all three one-shot readers and both rubrics: what do Haiku, Sonnet and Opus say about pure random text under v7's A/B/C rubric and under the essay's E3? If a reader calls a sizable share of random text one job, or one main job, its one-job share of real neurons (and any share like the essay's ~90%) has to be read against that floor. And where real neurons sit between random text and known pools, on each label, says something about what the labels measure.
+
+Like v16 and v21, this tests one-shot readers of Pythia's strongest snippets, not the essay's audit, which reads Qwen3-32B neuron poles with investigating agents.
+
+The rules are in [`recgen/rubric_v24.py`](recgen/rubric_v24.py), committed (`749029c`) before any reading. A pilot of 12 readings came next (two per series, on a pythia-160m quarter-depth real neuron and a random-text unit built with another seed, both outside the sample; `f57bf05`): all 12 replies parsed and the projected cost was about $18, so nothing was amended. The analysis code was committed (`3f863db`) while the run was in progress, before I had looked at any v24 label (a dry run on the partial cache printed only counts). No earlier file or result changed; v24 only adds files, and imports v7's, v16's and v21's code unchanged.
+
+### v24 method
+
+1. **Units (300, at the middle layer):**
+   - **Random text:** v20's 100 random-text units, rebuilt exactly. Each is 50 of v6's 1,024 random corpus positions (one per window, the same positions for every size), drawn with v20's seed, with the token at the random position marked. All 100 v7-rubric prompts hash to v20's, which the runner checks before reading. The size a random-text unit is filed under (16 or 17 per size) only sets its seed and its stratum: the text doesn't depend on the model.
+   - **Anchor:** 100 of v7's real neurons and 100 of its 50/50 pools of two random neurons, a seeded draw with the same counts per size (17 for 70M to 1B, 16 for 1.4B and 2.8B).
+
+   Every unit is shown exactly as v7 shows it: 50 snippets in a seeded order, the firing token marked, no activation values.
+2. **Six series:** three readers by two rubrics. The readers are `claude-haiku-5-5`, `claude-sonnet-5-5` and `claude-opus-5-5`, by full id; the CLI reported the same ids for every reading. The rubrics are v7's prompt exactly (A one job, B related jobs, C unrelated jobs) and v16's E3 prompt exactly (A one main job, often with small related offshoots; B two related jobs; C not yet understood). Every anchor prompt hashes to v7's or v16's prompt for the same unit. The CLI settings are v21 arm A's and v16's: CLI 2.1.296, v7's system prompt and flags with only the model changed, prompt caching off, no effort override, run in the repo folder.
+3. **One run.** All 1,800 first readings in one seeded random order, the six series interleaved, six at a time, so every comparison between readers and rubrics is concurrent. Then 30 retest units (10 per group, the same for every series) were read a second time in every series.
+4. **Pre-registered outcomes, per series:**
+   - **P1, the floor:** the share of random-text units called A (one job, or one main job). "Sizable floor" if its 95% interval starts at 10% or more; "no sizable floor" if it ends below 10%.
+   - **P2:** the share of random text called C (unrelated jobs under v7's rubric, not yet understood under E3). Under E3, C is the right answer for random text.
+   - **P3:** the A, B and C shares of the 100 real neurons and 100 pools, read in the same run.
+   - **P4 and P5, position:** the gaps real minus random and pools minus random, and the position of real neurons, p = (real - random) / (pools - random), on the A share and on the C share. p is defined only if the pools' gap from random text has an interval that excludes 0. The readings, fixed in advance: p's interval includes 1, "real neurons like known pools" (the label separates structured sets from structureless text, but not one job from two, so it tracks diffuseness); above 1, "real neurons beyond known pools" (it separates one job from two, at least partly; 1/p is the part of the way from random text to real neurons that pools cover); within 0 to 1, real neurons look more like random text than pools do; undefined, pools can't be told from random text on that label.
+   - **P6:** label AUCs (A < B < C): random text over real neurons, random text over pools, and pools over real neurons (v16's and v21's detection measure).
+
+   Secondary: E3 minus v7's rubric per reader, paired on the same units, in each group's A share (does E3's room for offshoots raise the floor too?); a floor-corrected one-job share, (real - random) / (1 - random); retest kappas; Haiku's v7-rubric readings of the random text against v20's readings of the same prompts; the anchor units against earlier rounds of the same prompts (v7, v10, v16, v21); cost and tokens.
+5. **Statistics** are v16's: "over sizes" is the mean over the six sizes, with 95% bootstrap intervals that resample units within each size and group; comparisons between series on the same units are paired.
+6. **Spend guard:** $30 of CLI-reported cost over every v24 call, pilot included, with v16's guard.
+
+All 1,980 readings (1,800 first readings and 180 retests) returned a valid label on the first try, in 45 minutes. The CLI reported $0.49 for Haiku, $6.77 for Sonnet and $12.92 for Opus, plus $0.11 for the pilot: $20.28 in all, under the $30 guard, which never stopped a reading. Every reading, with the reader's stated patterns, the resolved model id, tokens (thinking tokens included), cost and the prompt's SHA-256, is in [`results/v24_answers.json`](results/v24_answers.json).
+
+### What v24 found
+
+![Random text, real neurons and known pools under each reader and rubric](results/figures/v24_random_text.png)
+
+**Shares (the same 100 random-text units, 100 real neurons and 100 50/50 pools in every row, all read in one run).** Under v7's rubric C is "unrelated jobs"; under E3 it's "not yet understood".
+
+| Reader and rubric | Random text called one (main) job (95% interval) | Random text in C | Real neurons: one (main) job | Real neurons in C | 50/50 pools: one (main) job | 50/50 pools in C | Floor (P1) |
+|---|---|---|---|---|---|---|---|
+| **Haiku, v7 rubric** | **24% (16 to 33)** | 74% (66 to 82) | 55% (46 to 65) | 39% (29 to 48) | 22% (15 to 30) | 69% (60 to 78) | **sizable floor** |
+| Haiku, E3 | 1% (0 to 3) | 99% (97 to 100) | 40% (31 to 49) | 59% (49 to 68) | 18% (11 to 25) | 82% (74 to 89) | no sizable floor |
+| Sonnet, v7 rubric | 0% (0 to 0) | 97% (93 to 100) | 5% (1 to 10) | 42% (33 to 51) | 0% (0 to 0) | 65% (56 to 74) | no sizable floor |
+| Sonnet, E3 | 0% (0 to 0) | 100% (100 to 100) | 35% (26 to 44) | 36% (27 to 45) | 14% (8 to 21) | 48% (39 to 57) | no sizable floor |
+| Opus, v7 rubric | 0% (0 to 0) | 100% (100 to 100) | 39% (30 to 48) | 38% (29 to 47) | 8% (3 to 14) | 71% (62 to 79) | no sizable floor |
+| Opus, E3 | 0% (0 to 0) | 100% (100 to 100) | 57% (48 to 66) | 33% (24 to 42) | 40% (30 to 49) | 44% (35 to 54) | no sizable floor |
+
+**Where real neurons sit, and how well the labels separate the groups.** p = (real - random) / (pools - random): 1 means real neurons look like known pools, above 1 that they sit farther from random text than pools do. The AUCs rank labels A < B < C.
+
+| Reader and rubric | p on one (main) job | Pre-registered reading | p on C | Pre-registered reading | Label AUC: random text over real neurons | Random text over pools | Pools over real neurons |
+|---|---|---|---|---|---|---|---|
+| Haiku, v7 rubric | undefined | pools look like random text | undefined | pools look like random text | 0.67 (0.61 to 0.74) | **0.52 (0.46 to 0.58)** | 0.67 (0.60 to 0.73) |
+| Haiku, E3 | 2.26 (1.39 to 4.15) | real neurons beyond known pools | 2.32 (1.44 to 4.21) | real neurons beyond known pools | 0.70 (0.65 to 0.74) | 0.59 (0.55 to 0.63) | 0.61 (0.55 to 0.67) |
+| Sonnet, v7 rubric | undefined | pools look like random text | 1.72 (1.26 to 2.51) | real neurons beyond known pools | 0.77 (0.72 to 0.82) | 0.66 (0.61 to 0.71) | 0.62 (0.56 to 0.69) |
+| Sonnet, E3 | 2.50 (1.55 to 4.65) | real neurons beyond known pools | 1.23 (0.98 to 1.57) | real neurons like known pools | 0.82 (0.77 to 0.86) | 0.76 (0.71 to 0.81) | 0.60 (0.53 to 0.67) |
+| Opus, v7 rubric | 4.93 (2.75 to 11.88) | real neurons beyond known pools | 2.14 (1.58 to 3.10) | real neurons beyond known pools | 0.81 (0.76 to 0.85) | 0.64 (0.60 to 0.69) | 0.70 (0.64 to 0.76) |
+| Opus, E3 | 1.42 (1.06 to 1.93) | real neurons beyond known pools | 1.19 (0.96 to 1.51) | real neurons like known pools | 0.83 (0.79 to 0.88) | 0.78 (0.73 to 0.83) | 0.58 (0.51 to 0.65) |
+
+**E3 minus v7's rubric (secondary, paired on the same units), points of one-(main-)job share:**
+
+| Reader | Random text | Real neurons | 50/50 pools |
+|---|---|---|---|
+| Haiku | -23 (-32 to -15) | -15 (-25 to -5) | -4 (-14 to +7) |
+| Sonnet | 0 (0 to 0) | +30 (+21 to +40) | +14 (+7 to +21) |
+| Opus | 0 (0 to 0) | +18 (+10 to +26) | +32 (+23 to +42) |
+
+Everything in these tables was pre-registered. Point 7's patterns and examples were listed in the rubric as exploratory; the 1/p values in point 4 are arithmetic on the pre-registered p, done after seeing the results. All numbers are in [`results/classification_v24.json`](results/classification_v24.json).
+
+1. **Only Haiku under v7's rubric has a floor (P1).** It calls 24% (16 to 33) of random-text units one job, about as often as known pools (22%), so its one-job share of real neurons (55% here, 47% in v7) has to be read against a floor of about a quarter. Floor-corrected, (real - random) / (1 - random), it's 41% (25 to 54). Every other series calls 0 to 1% of random text one (main) job: Sonnet and Opus called none of the 100 random-text units one (main) job under either rubric, and Haiku under E3 called one.
+2. **Under E3, every reader files random text as "not yet understood" (P2).** Haiku 99%, Sonnet and Opus 100%. So the essay's third category is used as defined when there is nothing to understand, and E3 sets no floor: the one-main-job shares of real neurons (35 to 57% here) aren't lifted by structureless text being called one main job. Under v7's rubric, Sonnet and Opus call 97 to 100% of random text unrelated jobs, 29 to 32 points more than known pools (65 to 71%), so for them C rises with how diffuse a set is, beyond two-neuron mixing. Haiku's 74% is within noise of its pools' 69%.
+3. **Haiku's v7 labels can't tell known pools from random text (P5, P6).** On both its one-job and its unrelated-jobs share, pools sit within noise of random text (gaps -2, -13 to +10, and -5, -17 to +7 points), so p is undefined on both, and its label AUC for random text over pools is 0.52 (0.46 to 0.58). Real neurons differ from both (AUC 0.67 against each). By the pre-registered reading, Haiku's v7 labels treat a two-neuron mixture like structureless text. That fits v20's reading that its C partly tracks diffuseness, and adds that its A doesn't separate the two either. Under E3, Haiku does separate them (0.59, 0.55 to 0.63; p 2.3 on both shares).
+4. **For Sonnet and Opus, E3 moves known pools away from random text, toward real neurons (P5).** On the one-(main-)job share, real neurons sit beyond pools in every series where p is defined (it isn't for Haiku under v7's rubric, point 3, or for Sonnet under v7's rubric, which calls neither pools nor random text one job). How far pools get from random text toward real neurons (1/p) depends on the rubric: under v7's rubric, Opus's pools cover 20% of the way (p 4.93); under E3, 70% (p 1.42). On "not yet understood" under E3, Sonnet's and Opus's real neurons sit as far from random text as pools do (p 1.23 and 1.19, intervals including 1): by the pre-registered reading, that label separates structured sets from structureless text but not one job from two. Under v7's rubric their C share puts real neurons beyond pools (p 1.72 and 2.14).
+5. **Random text is the easiest case to separate, and known pools look more like real neurons than like random text to the stronger readers (P6).** Every series separates random text from real neurons (AUC 0.67 to 0.83, highest for Opus). For Sonnet and Opus, the labels separate random text from real neurons better than known pools from real neurons (0.77 to 0.83 against 0.58 to 0.70), and under E3 they separate random text from pools (0.76, 0.78) better than pools from real neurons (0.60, 0.58).
+6. **E3 doesn't raise the floor (secondary).** Paired on the same units, E3 adds 0 points to Sonnet's and Opus's one-main-job share of random text, and takes 23 points from Haiku's (24% to 1%). For real neurons and pools it moves the shares as v16 and v21 found: Sonnet +30 and +14 points, Opus +18 and +32 (v21's "inflates cleanliness without discrimination" for Opus: the pools rise at least as much), Haiku -15 and -4. So the one-main-job label E3 adds goes to sets with structure, such as two coherent groups of examples, and never to structureless ones.
+7. **What a one-job call on random text looks like (exploratory).** Haiku's 24 one-job answers under v7's rubric name one broad pattern (1.08 patterns on average): for example "mid-sentence positions inside an unfinished phrase or clause, where the next token is needed to complete a grammatical unit". Its one E3 call names subword fragments that the next token completes. Under E3, one-main-job answers for real neurons and pools list about 3 patterns (2.7 to 3.7 on average), as in v16 and v21; under v7's rubric, 1.0 to 1.2.
+8. **Checks against earlier rounds of the same prompts (secondary).** Haiku's v7-rubric readings of the random text match v20's: 24% against 23% one job and 74% against 76% unrelated jobs (paired differences +1, -10 to +12, and -2, -13 to +9 points), with the same label on 65% of units. On the anchor units, each series gives the same label as the earlier round (v7, v10, v16 or v21) for 71.5 to 84% of units, and the one-(main-)job shares differ within noise, except Haiku under E3, which calls 12 points fewer real neurons one main job than v16 did (-12, -19 to -5), and Opus under v7's rubric, which calls 5 points more pools one job than v21 did (+1 to +10). Every anchor prompt hashes to the earlier round's. Read twice, the 30 retest units get the same label 70 to 90% of the time (flag kappa 0.43 to 0.86, intervals 0.3 to 1.0 wide). Mean thinking tokens per reading: Haiku 683 (v7 rubric) and 435 (E3), Sonnet 78 and 155, Opus 77 and 87.
+
+### What this does and doesn't show
+
+- **Random text sets no floor under the essay's scheme.** None of these readers calls structureless text one main job under E3 (1 of 300 readings), and all of them call it "not yet understood". So the one-main-job shares of real neurons from one-shot readers under E3 (35 to 57% here, 33 to 58% in v16 and v21) aren't inflated that way, and with readers like these a share like the essay's ~90% couldn't come from a random-text floor either. The negative control passes; it's the positive control (known pools, 14 to 40% one main job) that E3 fails, as v21 found.
+- **Haiku under v7's rubric is the exception.** It calls a quarter of random text one job, with a broad catch-all pattern, and its labels don't tell known pools from random text. Its v7-rubric one-job shares in earlier versions include that floor, and its unrelated-jobs flag is, as v20 suspected, partly a diffuseness flag. Its E3 labels, and the stronger readers' labels under either rubric, don't have this problem.
+- **What the labels measure, for the stronger readers.** For Sonnet and Opus, wherever known pools differ from random text, they sit between it and real neurons, so the labels respond both to whether a set has structure and to whether it has one job. How much of each depends on the rubric. Under v7's rubric, Opus's one-job label is mostly about one job against two (pools 20% of the way from random text to real neurons). Under E3, both Sonnet's and Opus's "not yet understood" puts pools and real neurons at the same distance from random text, and Opus's one-main-job label puts pools 70% of the way. So under the essay's scheme, the strongest reader's labels mostly say whether a set has structure, and less whether it has one job or two. A one-main-job share under E3 is then closer to "has a describable structure" than to "is one thing", which fits v21's finding that E3 lets two unrelated groups pass as a main job with offshoots.
+- **It doesn't test the essay's audit.** Random text is the easiest negative control, and passing it says the labels aren't given away, not that they're right about real neurons. The essay reads Qwen3-32B neuron poles with investigating agents; v24 reads Pythia's strongest snippets once.
+
+### What's still shaky
+
+- **100 units per group.** Shares have intervals of about ±9 points, and p, a ratio, has skewed intervals (Opus, v7 rubric, one job: 2.75 to 11.88). The "like known pools" readings for Sonnet and Opus under E3 rest on intervals that only just include 1 (0.98 and 0.96 at their low ends), from gaps of about 11 points between real neurons and pools.
+- **One kind of random text.** Each unit is 50 random positions from one 2.1M-token corpus, one per window, so many marked tokens are mid-word pieces, whitespace or punctuation in unrelated contexts. That makes it the easiest negative control. A harder one, such as random positions on one common token or random examples matched to a neuron's token mix, could draw more one-job calls. The sizes random-text units are filed under only set their seeds.
+- **E3's C share is at its ceiling on random text** (99 to 100%), so positions on C under E3 compare real neurons and pools against a fixed 100%.
+- **The thresholds are mine.** The 10% floor and the reading bands for p were fixed before reading, but chosen, not derived.
+- **Shares move between rounds.** Against earlier rounds of the same prompts, Haiku's E3 share of real neurons is 12 points lower than v16's, so a reader's absolute shares shift between days by about that much; the comparisons within v24 are concurrent.
+- **Readers at the CLI's default effort,** where Sonnet and Opus think about 80 to 155 tokens per reading. **The CLI adds its own context** to each call, the same for every unit, and runs in the repo folder, as in v16 and v21.
+- **Scope:** one-shot readers, the middle layer of six Pythia sizes, 50 snippets per unit without activations.
+
+### v24 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v24.py`](recgen/rubric_v24.py) | Pre-registered question, units, series, reading order, outcomes and how each reads, spend guard and pilot |
+| [`recgen/reader_v24.py`](recgen/reader_v24.py) | Rebuilds v20's random-text units and checks their prompts against v20's (read from branch `v20` through git), draws the anchor units, and runs the pilot and the six series through v16's reader with the spend guard and a spend log |
+| [`recgen/analyze_v24.py`](recgen/analyze_v24.py), [`recgen/plots_v24.py`](recgen/plots_v24.py) | Shares, floor, gaps, position, AUCs, E3 against v7's rubric, retests, earlier rounds, cost, exploratory checks; the figure |
+| [`results/v24_answers.json`](results/v24_answers.json) | Every v24 reading, the pilot's included: label, reply with the stated patterns, model id, tokens, cost and the prompt's SHA-256 |
+| [`results/classification_v24.json`](results/classification_v24.json) | All statistics, and every unit's labels in the six series and in the earlier rounds of the same prompts |
+| `tests/test_rubric_v24.py`, `tests/test_reader_v24.py`, `tests/test_analyze_v24.py` | Tests for the rules, the runner and the analysis |
+
+```bash
+./run_v24.sh
+```
+
+`run_v24.sh` needs v6's `data/v6/` recordings, the `v20` branch in this repository (for v20's random-text answers), `results/v7_llm_answers.json`, `results/v16_answers.json`, `results/v21_answers.json`, v10's Sonnet cache in `data/v10/sonnet/` (read only) and the `claude` CLI signed in. The readings are cached in `data/v24/` (not committed), with every CLI call's reported cost in `data/v24/spend.jsonl`. With the cache, it makes no CLI calls, reruns in about two minutes and leaves `git status` clean. From scratch, the 1,980 readings took about 45 minutes, six at a time, after a one-minute pilot. Labels will differ somewhat, because the readers aren't deterministic (point 8).
+
 ## Files
 
 | Path | What it is |
