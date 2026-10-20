@@ -8,10 +8,10 @@ from recgen.rubric_v7 import DEPTH, MIXES, POOL_SIZE, RETEST, pool_rows, random_
 from recgen.sweep_v6 import v6_path
 
 
-def build_units(model: str) -> list[dict]:
+def build_units(model: str, depth: str = DEPTH) -> list[dict]:
     """Every unit of one model: id, kind, mix, the sampled neurons it pools, and its example rows
     (into v6's recording) and positions (window, position)."""
-    data = np.load(v6_path(model, DEPTH))
+    data = np.load(v6_path(model, depth))
     keys, rows = data["keys"], data["example_rows"]
     directions = data["weights"].astype(np.float64) * data["gain"].astype(np.float64)
     units = []
