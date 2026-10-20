@@ -35,14 +35,14 @@ LABEL_RANK = {"A": 0, "B": 1, "C": 2}
 CATCH_ALL_WORDS = ("predictab", "formulaic", "fixed", "templat", "boilerplate", "continuation")
 
 
-def unit_rows(answers: dict, v7_units: dict) -> dict[str, list[dict]]:
+def unit_rows(answers: dict, v7_units: dict, agents: dict = AGENTS) -> dict[str, list[dict]]:
     """Each v8 unit of each model with every reader's label and flags (None where a reader gave no label)."""
     by_id = {u["id"]: u for model_units in v7_units.values() for u in model_units}
     rows = {model: [] for model in MODELS}
     for unit_id in answers[AGENT_MODEL]["first"]:
         unit = by_id[unit_id]
         labels = {"haiku": unit["llm_label"],
-                  **{name: answers[arm]["first"].get(unit_id, {}).get("label") for name, arm in AGENTS.items()}}
+                  **{name: answers[arm]["first"].get(unit_id, {}).get("label") for name, arm in agents.items()}}
         rows[unit["model"]].append({
             "id": unit_id, "model": unit["model"], "group": unit["group"], "neuron_ids": unit["neuron_ids"],
             "shared_window": unit["shared_window"], "labels": labels,
@@ -81,24 +81,29 @@ def gain(rows: dict, measure: str, a: str, b: str, rng) -> dict:
             "units": int(sum(len(p) + len(q) for p, q in first))}
 
 
-def one_job(rows: dict, rng, group: str = "real") -> dict:
+def one_job_difference(units: list[dict], a: str, b: str, rng) -> dict:
+    """Reader a's one-job share minus reader b's, paired on the units both labeled, with a bootstrap interval."""
+    both = [u for u in units if u["labels"][a] is not None and u["labels"][b] is not None]
+    d = np.array([(u["labels"][a] == ONE_JOB) - (u["labels"][b] == ONE_JOB) for u in both], float)
+    draws = [d[rng.integers(0, len(d), len(d))].mean() for _ in range(BOOTSTRAP)]
+    return {"difference": round(float(d.mean()), 3),
+            "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]}
+
+
+def one_job(rows: dict, rng, group: str = "real", agents: dict = AGENTS) -> dict:
     """The share of a group's units (real neurons, in the rubric) each language-model reader calls one
     job, and each agent's paired difference from one-shot Haiku."""
     real = [u for model_rows in rows.values() for u in model_rows if u["group"] == group]
     out = {}
-    for r in LLM_READERS:
+    for r in ("haiku", *agents):
         labeled = [u for u in real if u["labels"][r] is not None]
         share = np.array([u["labels"][r] == ONE_JOB for u in labeled])
         low, high = bootstrap_interval(share, rng)
         out[r] = {"share": round(float(share.mean()), 3), "interval": [round(low, 3), round(high, 3)],
                   "per_model": {m: round(float(np.mean([u["labels"][r] == ONE_JOB for u in labeled if u["model"] == m])), 3)
                                 for m in MODELS}}
-    for agent in AGENTS:
-        both = [u for u in real if u["labels"][agent] is not None and u["labels"]["haiku"] is not None]
-        d = np.array([(u["labels"][agent] == ONE_JOB) - (u["labels"]["haiku"] == ONE_JOB) for u in both], float)
-        draws = [d[rng.integers(0, len(d), len(d))].mean() for _ in range(BOOTSTRAP)]
-        out[f"{agent} minus haiku"] = {"difference": round(float(d.mean()), 3),
-                                       "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]}
+    for agent in agents:
+        out[f"{agent} minus haiku"] = one_job_difference(real, agent, "haiku", rng)
     return out
 
 
@@ -119,7 +124,7 @@ def label_auc(rows: dict, reader: str, rng) -> dict:
     """Post hoc: how well a reader's labels (A < B < C, or a detector's flag) rank pools above real
     neurons, whatever its threshold: the mean over models of the AUC, with a bootstrap interval."""
     def score(u):
-        return LABEL_RANK.get(u["labels"][reader]) if reader in LLM_READERS else int(u["flag"][reader])
+        return LABEL_RANK.get(u["labels"][reader]) if reader in u["labels"] else int(u["flag"][reader])
 
     per_model = []
     for model in MODELS:
@@ -135,7 +140,7 @@ def catch_all(rows: dict, patterns: dict) -> dict:
     """Post hoc: the share of one-job (A) answers whose stated pattern uses a catch-all word such as
     "predictable" or "formulaic", for real neurons and for pools. A crude keyword count."""
     out = {}
-    for reader in LLM_READERS:
+    for reader in patterns:
         out[reader] = {}
         for g in ("real", "pooled 50/50"):
             ones = [u["id"] for m in MODELS for u in rows[m] if u["group"] == g and u["labels"][reader] == ONE_JOB]
@@ -144,12 +149,12 @@ def catch_all(rows: dict, patterns: dict) -> dict:
     return out
 
 
-def kappas(rows: dict) -> dict:
+def kappas(rows: dict, agents: dict = AGENTS, readers: tuple[str, ...] = READERS) -> dict:
     """Cohen's kappa on real neurons between each agent and every other reader, over all models and per model."""
     out = {}
-    for agent in AGENTS:
-        for other in READERS:
-            if other == agent or (other in AGENTS and other < agent):
+    for agent in agents:
+        for other in readers:
+            if other == agent or (other in agents and other < agent):
                 continue
             pairs = {m: [(u["flag"][agent], u["flag"][other]) for u in rows[m] if u["group"] == "real"
                          and u["flag"][agent] is not None and u["flag"][other] is not None] for m in MODELS}
@@ -160,9 +165,9 @@ def kappas(rows: dict) -> dict:
     return out
 
 
-def retest(answers: dict, rng) -> dict:
+def retest(answers: dict, rng, agents: dict = AGENTS) -> dict:
     out = {}
-    for agent, arm in AGENTS.items():
+    for agent, arm in agents.items():
         pairs = [(answers[arm]["first"][k]["label"], v["label"], k) for k, v in answers[arm]["retest"].items()]
         pairs = [p for p in pairs if p[0] is not None and p[1] is not None]
         first, second = (np.array([p[i] == UNRELATED_JOBS for p in pairs]) for i in (0, 1))
@@ -176,11 +181,11 @@ def retest(answers: dict, rng) -> dict:
     return out
 
 
-def rates(rows: dict) -> dict:
+def rates(rows: dict, readers: tuple[str, ...] = READERS) -> dict:
     out = {}
     for i, model in enumerate(MODELS):
         out[model] = {}
-        for j, r in enumerate(READERS):
+        for j, r in enumerate(readers):
             out[model][r] = {}
             for g in GROUPS:
                 flags = np.array([u["flag"][r] for u in rows[model] if u["group"] == g and u["flag"][r] is not None], bool)
@@ -194,41 +199,44 @@ def readings_of(answers: dict, arm: str) -> list[dict]:
     return [r for part in answers[arm].values() for r in part.values()]
 
 
+def agent_use(group_of: dict[str, str], answers: dict, arm: str) -> dict:
+    """One agent's tool use, flag rate by confidence, labels and the cost of its readings."""
+    first = answers[arm]["first"]
+    tools = {}
+    for g in GROUPS:
+        records = [first[k] for k in first if group_of[k] == g]
+        calls = [r["tool_calls"] for r in records]
+        tools[g] = {
+            "mean tool calls": round(float(np.mean([len(c) for c in calls])), 2),
+            f"share with at least {MIN_TOOL_CALLS}": round(float(np.mean([len(c) >= MIN_TOOL_CALLS for c in calls])), 3),
+            "share writing test text": round(float(np.mean([any(x["tool"] == "activation" for x in c) for c in calls])), 3),
+            "share reading past rank 50": round(float(np.mean([any(x["tool"] == "examples" and int(
+                x["arguments"].get("start", 1)) + int(x["arguments"].get("count", 1)) > 51 for x in c) for c in calls])), 3),
+            "mean test texts": round(float(np.mean([sum(len(x["arguments"].get("texts") or []) for x in c
+                                                        if x["tool"] == "activation") for c in calls])), 2)}
+    by_confidence = {}
+    for g in ("real", "pooled 50/50"):
+        for level in ("low", "medium", "high"):
+            labels = [first[k]["label"] for k in first if group_of[k] == g and first[k]["confidence"] == level]
+            if labels:
+                by_confidence[f"{g}, {level}"] = {"n": len(labels),
+                                                  "flag rate": round(float(np.mean([x == UNRELATED_JOBS for x in labels])), 3)}
+    records = readings_of(answers, arm)
+    return {"tool use": tools, "flag rate by confidence": by_confidence,
+            "labels": {g: dict(Counter(first[k]["label"] for k in first if group_of[k] == g)) for g in GROUPS},
+            "readings": len(records), "without a label": sum(r["label"] is None for r in records),
+            "with retries": sum(len(r["attempts"]) > 1 for r in records),
+            "all offered both tools": all(len(r["tools_offered"]) == 2 for r in records if r["label"]),
+            "models used": sorted({m for r in records for m in r["models"]}),
+            "cost_usd": round(sum(r["cost_usd"] for r in records), 2),
+            "input_tokens": sum(r["input_tokens"] for r in records),
+            "output_tokens": sum(r["output_tokens"] for r in records)}
+
+
 def exploratory(rows: dict, answers: dict) -> dict:
     """Listed in the rubric before the run: tool use, confidence, and the cost of the readings."""
     group_of = {u["id"]: u["group"] for model_rows in rows.values() for u in model_rows}
-    out = {}
-    for agent, arm in AGENTS.items():
-        first = answers[arm]["first"]
-        tools = {}
-        for g in GROUPS:
-            records = [first[k] for k in first if group_of[k] == g]
-            calls = [r["tool_calls"] for r in records]
-            tools[g] = {
-                "mean tool calls": round(float(np.mean([len(c) for c in calls])), 2),
-                f"share with at least {MIN_TOOL_CALLS}": round(float(np.mean([len(c) >= MIN_TOOL_CALLS for c in calls])), 3),
-                "share writing test text": round(float(np.mean([any(x["tool"] == "activation" for x in c) for c in calls])), 3),
-                "share reading past rank 50": round(float(np.mean([any(x["tool"] == "examples" and int(
-                    x["arguments"].get("start", 1)) + int(x["arguments"].get("count", 1)) > 51 for x in c) for c in calls])), 3),
-                "mean test texts": round(float(np.mean([sum(len(x["arguments"].get("texts") or []) for x in c
-                                                            if x["tool"] == "activation") for c in calls])), 2)}
-        by_confidence = {}
-        for g in ("real", "pooled 50/50"):
-            for level in ("low", "medium", "high"):
-                labels = [first[k]["label"] for k in first if group_of[k] == g and first[k]["confidence"] == level]
-                if labels:
-                    by_confidence[f"{g}, {level}"] = {"n": len(labels),
-                                                      "flag rate": round(float(np.mean([x == UNRELATED_JOBS for x in labels])), 3)}
-        records = readings_of(answers, arm)
-        out[agent] = {"tool use": tools, "flag rate by confidence": by_confidence,
-                      "labels": {g: dict(Counter(first[k]["label"] for k in first if group_of[k] == g)) for g in GROUPS},
-                      "readings": len(records), "without a label": sum(r["label"] is None for r in records),
-                      "with retries": sum(len(r["attempts"]) > 1 for r in records),
-                      "all offered both tools": all(len(r["tools_offered"]) == 2 for r in records if r["label"]),
-                      "models used": sorted({m for r in records for m in r["models"]}),
-                      "cost_usd": round(sum(r["cost_usd"] for r in records), 2),
-                      "input_tokens": sum(r["input_tokens"] for r in records),
-                      "output_tokens": sum(r["output_tokens"] for r in records)}
+    out = {agent: agent_use(group_of, answers, arm) for agent, arm in AGENTS.items()}
     both = [u for model_rows in rows.values() for u in model_rows
             if u["flag"]["haiku agent"] is not None and u["flag"]["sonnet agent"] is not None]
     out["agents agree, kappa on all units"] = round(cohen_kappa(*np.array([(u["flag"]["haiku agent"], u["flag"]["sonnet agent"])
