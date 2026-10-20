@@ -67,7 +67,7 @@ def haiku_rows(answers: dict, corpus: np.ndarray) -> list[dict]:
     return rows
 
 
-def test(rows: list[dict], reader: str, purpose: int) -> dict:
+def reader_tests(rows: list[dict], reader: str, purpose: int) -> dict:
     groups = []
     for model in MODELS:
         r = [x for x in rows if x["model"] == model]
@@ -89,9 +89,9 @@ def main() -> None:
         rows = [r for model in MODELS for r in detector_rows(model, depth, v5, v6, corpus)]
         target = "held_out" if depth in HELD_OUT_DEPTHS else "discovery"
         for k, reader in enumerate(("network", "minilm")):
-            results[target][f"{reader}, {depth}"] = test(rows, reader, 10 * d + 2 * k)
+            results[target][f"{reader}, {depth}"] = reader_tests(rows, reader, 10 * d + 2 * k)
     answers = json.loads(ANSWERS_PATH.read_text())
-    results["held_out"][f"haiku, {HAIKU_DEPTH} (fresh neurons)"] = test(haiku_rows(answers, corpus), "haiku", 90)
+    results["held_out"][f"haiku, {HAIKU_DEPTH} (fresh neurons)"] = reader_tests(haiku_rows(answers, corpus), "haiku", 90)
     (RESULTS_DIR / "classification_v12.json").write_text(json.dumps(results, indent=1))
     for part in ("held_out", "discovery"):
         print(part)
