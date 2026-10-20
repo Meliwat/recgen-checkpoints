@@ -43,6 +43,7 @@ def excess_panel(ax, a: dict) -> None:
     corpus_legend(ax, "upper left")
     ax.set_xticks(range(len(READERS)), [NAMES[r] for r in READERS])
     ax.set_xlim(-0.5, 2.9)
+    ax.set_ylim(-10, 50)  # headroom for the legend
     ax.set_ylabel("50/50 pools minus real neurons,\nflagged (points, mean over models)")
     ax.set_title("(a) Who sees two pooled neurons?", fontsize=10, loc="left")
 
@@ -62,7 +63,7 @@ def haiku_panel(ax, c: dict) -> None:
             fontsize=7, color=MUTED, va="center")
     corpus_legend(ax, "upper left")
     ax.set_xticks(range(len(MODELS)), [f"GPT-2 {SIZES[m]}" for m in MODELS])
-    ax.set_xlim(-0.6, 3.1)
+    ax.set_xlim(-0.6, 3.5)
     ax.set_ylim(0, 70)
     ax.set_ylabel("real neurons flagged unrelated mixed (%)")
     ax.set_title(f"(c) Haiku on the same real neurons: {100 * c['change']:+.0f} points", fontsize=10, loc="left")
