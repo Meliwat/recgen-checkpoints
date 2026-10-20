@@ -528,6 +528,68 @@ Points 1 to 3 and 5 include exploratory checks (the over-all-models effect, the 
 
 `run_v7.sh` needs v6's `data/v6/` recordings, v5's MiniLM embeddings, and the `claude` CLI signed in. Haiku's answers are cached in `data/v7/` (not committed) and collected in `results/v7_llm_answers.json`. With the cache, it makes no model calls and reruns in about a minute. From scratch, the 1,860 readings take about 45 minutes, six at a time. Their labels will differ somewhat, because Haiku isn't deterministic (point 5).
 
+## v13 results
+
+v1 to v4 tested recursive generalization on 40 neurons of Pythia-410m layer 12 that the sentence model (MiniLM) called mixed, with MiniLM's facets. v7 and v9 then showed that MiniLM barely sees mixing, so those neurons may not have been mixed in the network's own terms. v13 reruns v4's formation-time test on 40 neurons the network-native reader (v6) calls unrelated mixed, with the facets that reader finds. The rules are in [`recgen/rubric_v13.py`](recgen/rubric_v13.py), committed (`8b80902`) before any v13 recording. v4's attribution helpers gained an optional output path, with their defaults and tests unchanged. No earlier result changed.
+
+### v13 method
+
+1. **Neurons and facets.** 40 neurons, drawn with a fixed seed from the 1,109 of v6's 2,048 sampled neurons at 410M layer 12 that v6 flags unrelated mixed. Facets are v6's clusters (5 or more examples) of each neuron's 50 strongest examples in the network's own representation: 2 to 5 per neuron, 142 in all, most of them small (median about 8 examples).
+2. **Recording.** v4's attribution (direct terms from every upstream MLP neuron and attention head, with the LayerNorm scale frozen) at v4's 14 checkpoints from step 128 to 143k, on every facet example and v4's background text. The terms add back up within 6.3e-5 at every checkpoint.
+3. **Tests, as in v4:** each facet's formation window; adjacency at formation against the null of other neurons' facets read through this neuron's weights (window maximum, 95th percentile); MLP drivers primary, head drivers beside them; labels; and "branched then separated" (adjacent at formation, not at the end) counted against its chance expectation. Two changes, both pre-registered: a facet's emergence time is the start of its formation window, and adjacency at the end is v2's rule computed from v13's own final checkpoint.
+
+### What v13 found
+
+![Labels, v4 and v13](results/figures/v13_labels.png)
+
+| | v4 (MiniLM facets) | v13 (network facets), MLP drivers | v13, head drivers |
+|---|---|---|---|
+| recursive generalization | 1 (0.9 by chance) | 1 (0.2) | 0 (0.0) |
+| one origin, timing unresolved | 0 | 1 (0.1) | 0 |
+| packing-like | 33 | 27 (26.3) | 27 (26.2) |
+| mixed from the start | 6 | 11 (13.5) | 13 (13.8) |
+| unrelated pairs branched then separated | 0 of 68 (3.1 by chance) | **10 of 144 (6.4)** | 3 of 144 (2.7) |
+| related pairs adjacent at formation (positive control) | 17 of 18 | **26 of 55** | 8 of 55 |
+
+Points 3 and 4 are exploratory, added after seeing the counts.
+
+1. **Labels match chance.** One neuron is labeled recursive generalization by MLP drivers (0.2 expected by chance) and none by head drivers. The rest split between packing-like and mixed from the start about as chance predicts.
+2. **More unrelated pairs branched then separated than in v4, but within chance.** 10 of 144 by MLP drivers, against 6.4 expected from each pair's null; 3 of 144 by head drivers, against 2.7. If each pair crossed its threshold only at its own null's false-positive rate, independently, 10 or more would happen with probability 0.11 (0.52 for 3 or more by heads). Pairs within a neuron share facets, so that's approximate.
+3. **The clearest case is two facets on the same token.** Neuron 769's facets 0 and 2 share 92% of their top 100 upstream MLP drivers at step 128, still 13% to 18% from step 2k to 34k (the null's 95th percentile is about 0.06), and 7% at the end. Both fire on a hyphen: one in number ranges and scores ("41-44", "4-3"), the other inside web addresses and class names. Early in training a neuron's drivers follow the input token, so facets on the same token share drivers early whatever they later become. Of the 144 unrelated pairs, this is the only one whose two facets have the same most common activating token. The other 143 give 9 branched then separated against 6.3 expected (probability 0.18). Seven of those nine exceed their threshold by at most 0.05, at one or two checkpoints. 2379 (facets 0 and 2) stays about 0.02 above it for four checkpoints. 3017 (facets 2 and 3) stays near 0.10 through step 89k and drops to 0.06 only at the final checkpoint, so its separation rests on one checkpoint (figure below).
+4. **The positive control is weaker than v4's.** Only 26 of 55 related pairs (adjacent at the end by v2's rule) are adjacent at formation by MLP drivers, against 17 of 18 in v4, and 8 of 55 by head drivers. v13's facets are smaller than v4's, which makes each facet's top-100 driver set noisier, but this wasn't tested. So v13's test is less sensitive than v4's.
+
+![Pairs that branched then separated](results/figures/v13_branched.png)
+
+### What this does and doesn't show
+
+- **Selecting neurons and facets with the network's own reader doesn't reveal recursive generalization.** Labels match chance, and branched-then-separated pairs are within chance. The one striking trajectory is explained by a shared token. So v4's null result wasn't only a consequence of MiniLM's facets.
+- **"Branched then separated" can come from token identity, not shared circuitry.** A neuron's early drivers follow the input token, so two facets on the same token look adjacent early and separate as context comes to matter. A formation-time test should hold the token fixed or exclude same-token pairs, a confound reported for polysemanticity metrics more generally ([Ait Hou and Hwa 2026](https://arxiv.org/abs/2604.00443)).
+- **It's weak evidence against recursive generalization.** The positive control catches only about half the related pairs (point 4), and, as in v4, it covers sharing that lasts, not a brief shared phase. A modest rate of branching could be missed.
+
+### What's still shaky
+
+- **The rules weren't written blind to v4,** whose design and results they reuse. The token reading (point 3) is post hoc.
+- **Small facets.** Most v13 facets have 5 to 10 examples, so their top-100 driver sets and gains are noisier than v4's.
+- **The network reader splits facets partly by token** (v6 point 7), so a pair's facets can be a split of one job by word form. Same-token pairs are rare here (1 of 144), but near-synonyms or related tokens aren't handled.
+- **Everything else from v4 still applies:** top-100 overlap is coarse, head drivers are a blunt probe, early checkpoints are noisy, the grid is log-spaced, and facets are defined by their final examples.
+- **Adjacency at the end uses only the final checkpoint,** so a dip there can turn a lasting pair into "branched then separated" (3017, point 3).
+- **Scope:** one layer of one model, 40 neurons.
+
+### v13 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v13.py`](recgen/rubric_v13.py) | Pre-registered neurons, facets and tests |
+| [`recgen/candidates_v13.py`](recgen/candidates_v13.py), [`recgen/record_v13.py`](recgen/record_v13.py) | The 40 neurons and their network-native facets; v4's recording at 14 checkpoints |
+| [`recgen/analyze_v13.py`](recgen/analyze_v13.py), [`recgen/plots_v13.py`](recgen/plots_v13.py) | v4's tests on v13's recordings, the exploratory checks; the figures |
+| [`results/candidates_v13.json`](results/candidates_v13.json), [`results/classification_v13.json`](results/classification_v13.json) | Neurons and facet examples; labels, pairs, windows, overlap series, null thresholds |
+
+```bash
+./run_v13.sh
+```
+
+`run_v13.sh` needs v6's `data/v6/` recordings and results, and v4's results. From scratch it takes about 70 minutes on an M1 Pro: it downloads 14 checkpoints one at a time, deletes each after use, and caches 4.5 GB in `data/v13/`. With that cache, the analysis reruns in about 15 minutes.
+
 ## Files
 
 | Path | What it is |
