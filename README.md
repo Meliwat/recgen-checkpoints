@@ -806,7 +806,7 @@ Everything in these tables was pre-registered or listed in the rubric before any
 - **One wording of the essay's scheme.** E3 is v16's paraphrase around the essay's phrase "one main job, often with small related offshoots". A wording that limited offshoots (say, to a few snippets) might stop pools passing as one main job. "TWO RELATED JOBS" also says two.
 - **Opus at the CLI's default effort.** One-shot Opus thought about 110 tokens per reading. A higher effort setting could change both shares and AUCs; this is Opus as the CLI runs it by default.
 - **Small arm B samples.** 120 real neurons and 120 pools give intervals of about ±8 points on shares and ±0.06 on the AUC, so arm B's AUC difference (-0.044) can't be told from 0, though it's the same size as arm A's.
-- **30 retest units per arm** give kappa intervals about 0.5 wide.
+- **30 retest units per arm** give kappa intervals 0.4 to 0.6 wide.
 - **Earlier caveats carry over:** pools mix two neurons' strongest examples; the CLI adds its own text to each call (and, in arm A, runs in the repo folder, as in v16); arm B's test texts are short and their first token is marked; the middle layer only, and Pythia 70M to 2.8B.
 
 ### v21 files and reproduce
