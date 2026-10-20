@@ -49,12 +49,14 @@ def neuron_readings(layer: Layer, band_z: np.ndarray, band_rows: np.ndarray, ref
             "reference": read_examples(embed(layer.z[reference_rows], mean, direction), null)}
 
 
-def network_rows(model: str, published: dict, corpus: np.ndarray) -> tuple[list[dict], dict]:
+def network_rows(model: str, published: dict, corpus: np.ndarray, recorded_path=None,
+                 band: dict | None = None) -> tuple[list[dict], dict]:
     """Every sampled neuron at DEPTH with v12's covariates and the network reader on its three samples,
-    checked against v6's published top-50 results; and the layer's recording facts."""
+    checked against v6's published top-50 results; and the layer's recording facts. The band recording and
+    selection default to v17's (v20 passes its rank band's)."""
     layer = Layer(model, DEPTH)
-    recorded = np.load(v17_path(model))
-    band = band_examples(model)
+    recorded = np.load(recorded_path or v17_path(model))
+    band = band_examples(model) if band is None else band
     assert np.array_equal(recorded["neurons"], layer.neurons) and np.array_equal(band["neurons"], layer.neurons)
     band_z, band_rows = recorded["z"], recorded["band_rows"]
     assert np.array_equal(recorded["keys"][band_rows[band["included"]]], band["keys"][band["included"]])
