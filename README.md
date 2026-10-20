@@ -783,6 +783,102 @@ uv run python -m recgen.analyze_v10
 uv run python -m recgen.plots_v10
 ```
 
+## v11 results
+
+v7 compared its three readers only at the middle layer. The other depths are where the earlier detectors disagree most. With MiniLM, v5's share of mixed-looking neurons rises with size at three quarters (13.6% to 18.7%) and drifts down at a quarter. v6's network reader loses power at three quarters in bigger models. v11 repeats v7's design, unchanged, at the quarter and three-quarters depths of the same six sizes. It asks two questions: does each depth's scale trend depend on the reader, as the middle layer's does, and how does each reader's power change with depth? The rules are in [`recgen/rubric_v11.py`](recgen/rubric_v11.py), committed (`908adce`) before any v11 reading. No earlier file or result changed.
+
+### v11 method
+
+1. **Unchanged from v7:** per model and depth, 100 real neurons, 150 pools of two random neurons (50 each at 50/50, 70/30 and 90/10) and 50 pools of two related neurons; the three readers; Haiku's blind prompt and CLI flags; and v7's four tests (power, specificity, agreement and scale). At each depth the same seeded draws pick indices into that depth's sample of v5/v6's neurons, so at the middle depth v11's code rebuilds v7's units exactly (a test checks this for all six sizes). v7's readings stand in for the middle depth.
+2. **Main measure of power:** the over-all-models excess, the mean over the six models of the 50/50 pools' flag rate minus the real neurons', with a 95% bootstrap interval. v7 added it after review because its per-model power test was nearly impossible to pass.
+3. **Depth comparison:** for each reader and each pair of depths, the difference in excess, with a 95% interval from independent bootstrap draws. The depths differ if the interval excludes zero. There are nine comparisons (three pairs, three readers), so the table also says whether each difference survives a Bonferroni correction.
+4. **Reader dependence of the scale trend,** per depth. A reader is *sensitive* if its excess interval lies above zero. A reader's trend ("fits" or "against" the essay) is *corroborated* if another sensitive reader gives the same verdict. A depth is "reader-dependent" if some trend isn't corroborated. By this rule the middle layer is reader-dependent: MiniLM "fits", and the two sensitive readers see no trend.
+5. **Retest:** 10 units per model and depth (120 in all) were read by Haiku a second time.
+6. **Checks:** on real neurons, v11's MiniLM and network flags must equal v5's and v6's (they do, for all 1,200 real neurons), and Haiku must resolve to the model v7 used (it does, `claude-haiku-5-5`).
+
+Of the 3,720 readings (3,600 units and 120 retests), all but one returned a valid label: 14.5M input tokens, which the CLI reported as $4.55 of quota. Haiku's safety filter refused one real 2.8B neuron at three quarters. As the rules say, it drops out of Haiku's rates, and it is also left out of v7's post-review checks, which assume every unit has a label. Every answer is in [`results/v11_llm_answers.json`](results/v11_llm_answers.json).
+
+### What v11 found
+
+![Three readers at three depths](results/figures/v11_readers.png)
+
+| Depth | Reader | Power (models of 6) | 50/50 pools over real, over all models (95% interval) | Real flagged, 70M → 2.8B | Scale verdict (Spearman) | Full-sample verdict (v5, v6), 70M → 2.8B |
+|---|---|---|---|---|---|---|
+| quarter | MiniLM | 0 | -1 (-6 to +3) | 10% → 14% | no clear trend (+0.68) | no clear trend, 13.1% → 10.4% |
+| | network | 1 | +16 (+9 to +23) | 50% → 46% | no clear trend (-0.66) | **fits the essay, 50.8% → 40.6%** |
+| | Haiku | 1 | +17 (+11 to +24) | 28% → 47% | no clear trend (+0.55) | |
+| middle (v7) | MiniLM | 0 | +3 (-1 to +8) | 17% → 3% | fits the essay (-1.00) | fits the essay, 16.0% → 6.9% |
+| | network | 4 | +22 (+16 to +29) | 42% → 44% | no clear trend (+0.12) | no clear trend, 44.5% → 44.0% |
+| | Haiku | 2 | +21 (+14 to +28) | 38% → 46% | no clear trend (+0.68) | |
+| three quarters | MiniLM | 0 | 0 (-5 to +6) | 16% → 19% | no clear trend (+0.72) | against the essay, 13.6% → 18.7% |
+| | network | 3 | +16 (+9 to +23) | 49% → 61% | no clear trend (+0.43) | no clear trend, 43.7% → 46.6% |
+| | Haiku | 3 | +26 (+19 to +33) | **21% → 43%** | **against the essay (+0.83)** | |
+
+The first six columns are v11's units: 100 real neurons and 50 pools of each kind per model. v11's MiniLM and network flags on real neurons are exactly v5's and v6's, so the last column gives the same readers' verdicts on v5's full samples of about 2,048 neurons per model. Haiku has no full sample. The middle rows are v7's flags, with the interval redrawn under v11's seed (v7 reported +16 to +28 and +14 to +27).
+
+Points 2 to 6 include exploratory checks. The verdicts without 70M, the pools' own flag-rate trend and Haiku's "one job" shares were added after seeing the results. The comparison with the full-sample verdicts was added after an independent review of them.
+
+![Each reader's power by depth and size](results/figures/v11_power.png)
+
+1. **No change in power with depth was detected.** Over all models, the network reader separates 50/50 pools from real neurons by +16, +22 and +16 points at the quarter, middle and three-quarters depths, and Haiku by +17, +21 and +26. MiniLM doesn't separate them at any depth (-1, +3 and 0). None of the nine depth differences has an interval that excludes zero:
+
+   | Reader | quarter minus middle | three quarters minus middle | quarter minus three quarters |
+   |---|---|---|---|
+   | MiniLM | -4 (-11 to +1) | -3 (-10 to +4) | -1 (-8 to +5) |
+   | network | -6 (-15 to +3) | -6 (-16 to +2) | 0 (-9 to +9) |
+   | Haiku | -4 (-13 to +6) | +5 (-5 to +15) | -8 (-18 to +1) |
+
+   But the sensitive readers' intervals reach 15 to 18 points from zero, against effects of only 16 to 26 points, so sizable changes can't be ruled out. The closest to a difference is Haiku, 8 points weaker at a quarter than at three quarters.
+2. **At three quarters, only Haiku's rate passes the trend test, and the network reader's full sample doesn't back it.** Haiku's share of real neurons flagged rises from 21% to 43%, which the rule calls "against the essay". On v11's 100 neurons per model, MiniLM (Spearman +0.72) and the network reader (+0.43) also rise without passing. On their full samples, MiniLM rises ("against the essay") and the network reader is flat (Spearman +0.26). Its apparent rise here comes from 61% at 2.8B, against 46.6% in the full sample. So the two readers that detect pooling disagree: Haiku rises and the network reader doesn't. By the pre-registered rule this depth is "reader-dependent", the same outcome as the middle layer. Without 70M, Haiku's Spearman is exactly 0.8 and its intervals separate, so it passes by exact arithmetic, though the code's floating-point value lands a hair under and calls it no clear trend.
+3. **At a quarter, no reader shows a trend on v11's neurons, and on the full samples the two sensitive readers point opposite ways.** All three verdicts here are "no clear trend". But the network reader, which detects pooling at this depth (+16), falls with size on its full sample ("fits the essay"). On v11's 100 neurons per model it only goes from 50% to 46%, and MiniLM even moves the other way from its full sample (10% to 14%, against 13.1% to 10.4%). So 100 neurons per model can't resolve declines of this size. Haiku rises instead (28% to 47%, Spearman +0.55). It fails the test mainly because the rise is uneven: its 70M and 2.8B intervals touch (20 to 37% and 37 to 57%).
+4. **Haiku flags more real neurons in bigger models at every depth.** Its Spearman with size is +0.55 at a quarter, +0.68 at the middle and +0.83 at three quarters. Its share of "one job" labels on real neurons falls at every depth, from 70M to 2.8B: 59% to 41%, 53% to 42%, and 64% to 39%. So its three-quarters verdict is the strongest case of a general tendency, not something specific to deep layers. With the full-sample verdicts for MiniLM and the network reader, the pre-registered rule calls every depth reader-dependent, the quarter included.
+5. **At three quarters, both sensitive readers' power may fall with size, but this is descriptive and thin.** Per model, the network reader's excess falls from +33 at 70M to -19 at 2.8B (Spearman -0.71), and Haiku's from +33 to +7 (-0.66). The rubric reports this without a test. With six models, a Spearman correlation needs about ±0.89 to stand out from noise, and the network reader's middle depth already reaches -0.60. Its -19 at 2.8B is also inflated by the subsample's high real rate: against the full sample's 46.6%, it would be about -5. v6's larger check of the network reader (500 pools) gave a fall from 40 points to 9 at this depth.
+6. **For Haiku, that fall comes from real neurons, not pools.** Haiku's flag rate on 50/50 pools at three quarters stays between 50% and 74% with no trend (Spearman +0.15), while its rate on real neurons rises toward it. The network reader's pool rate falls instead (82% to 42%, Spearman -0.71), which looks more like lost sensitivity. In the examples shown in [`results/v11_models.md`](results/v11_models.md), Haiku's "unrelated" calls on 2.8B's deep neurons name genres. For neuron 1935 it lists a UK travel guide, arithmetic problems, software license text, court filings and news. So Haiku's deep-layer rise has two readings that v11 can't tell apart. Big models' deep neurons may really be about as mixed as two random neurons pooled. Or their strongest examples span genres in a way this reader takes for mixing.
+7. **The other v7 results repeat at both depths.**
+   - **Specificity:** Haiku flags related pools at least 20 points less than 50/50 pools in 6 of 6 models at a quarter and 5 of 6 at three quarters, so it passes at both. The network reader passes at a quarter (5 of 6) and fails at three quarters (4 of 6). MiniLM fails at both (0 of 6). v7's post-review checks repeat too: related pools again often share a window (39% and 49% of them, against 14% and 17% of random 50/50 pools). Haiku flags those less (19% against 28% at a quarter, 20% against 34% at three quarters). So this control is still easier than intended.
+   - **Agreement on real neurons:** kappa between Haiku and the network reader is 0.24 to 0.45 per model at a quarter and -0.02 to 0.33 at three quarters (lowest at 2.8B). MiniLM's kappas with either reader stay between -0.02 and 0.19. As in v7's post-review check, MiniLM's flags pick out a more mixed subset. Haiku flags 49% of the neurons MiniLM flags at a quarter and 35% of the rest, and 45% against 31% at three quarters.
+   - **Retest:** read a second time, 70% of units get the same label and 80% the same flag at a quarter (kappa 0.59, interval 0.39 to 0.78), and 63% and 73% at three quarters (kappa 0.47, 0.23 to 0.67). That is a little steadier than v7's middle layer (kappa 0.37), with overlapping intervals.
+   - **Labels:** Haiku calls 52 to 55% of real neurons one job and 34 to 36% unrelated jobs, against 47% and 43% at the middle layer. It rarely says "related jobs" at any depth (10 to 12%).
+
+### What this does and doesn't show
+
+- **v5's depth pattern comes from a reader with no measured power at any depth.** v5's MiniLM fall at the middle layer and rise at three quarters came from a reader that separates two pooled neurons from one by -1 to +3 points at every depth. v7 showed this at the middle layer, and v11 shows the same at the other two depths.
+- **The readers that detect pooling do so at every depth, by 16 to 26 points on average.** No depth difference was detected, but differences of up to about 15 points can't be ruled out. Within the deepest layer their power may fall with size (point 5), so a deep-layer trend is hard to read in either direction.
+- **The two readers that detect pooling never agree on a scale trend.** The network reader's full-sample verdicts are a fall at a quarter and nothing at the middle or three quarters. Haiku's rate rises at every depth, passing the test only at three quarters. So it isn't just the middle layer: at every depth the trend depends on the reader, and no depth has a trend that both sensitive readers share. Neither "bigger models have cleaner neurons" nor "messier neurons" holds up across readers at any depth.
+- **Haiku's rise doesn't show that bigger models' neurons are more mixed.** It appears at every depth (point 4). At three quarters it comes with Haiku telling real neurons from random pools less well at larger sizes (point 6). It may reflect how this reader handles more varied examples rather than more mixing.
+- **It doesn't test the essay's method,** for the same reasons as v7: Haiku reads a fixed set of snippets once and runs no experiments.
+
+### What's still shaky
+
+- **Small samples.** 100 real neurons and 50 pools per model per depth. The subsample differs from v5's and v6's full samples by up to 14 points (the network reader at 2.8B's three-quarters layer: 61% against 46.6%). It can't reproduce v6's full-sample fall at a quarter (point 3), and it makes the network reader look as if it rises at three quarters (point 2). For MiniLM and the network reader the full-sample verdicts are the better guide. Haiku has no full sample, so its verdicts are weak tests.
+- **Haiku's deep-layer verdict is borderline.** It rests on one noisy reading per unit (retest kappa 0.47 at that depth), on a Spearman of +0.83 against a 0.8 threshold, and without 70M on exactly the threshold.
+- **Several scale tests, one pass.** v11 adds six scale tests (three readers at two depths). For a reader whose rates have no real trend, the Spearman condition alone is met in 42 of 720 orderings of six sizes (5.8%, either direction). Across six tests that's about a 30% chance of at least one, before the interval condition, which makes it rarer. One pass, just over the line, is weak evidence.
+- **The hidden context differs from v7's.** The `claude` CLI adds its own text to each call: the working-directory path, platform, date and an account notice. v11 ran from a git worktree, which adds a fixed paragraph of about 250 tokens that v7's readings, run from the main checkout, didn't have. The date also differs (v7 ran on 2026-10-19; v11 ran from 23:04 that night to 01:33 on 2026-10-20). Nothing in this text can tell Haiku which units are pooled, so blinding holds within each run. But comparisons with v7's middle layer aren't exactly like for like.
+- **The power measure counts the real rate.** A falling excess can mean the reader lost sensitivity or that real neurons became more mixed. Point 6 separates these only by looking at the pools' own rate, which is exploratory.
+- **One refused reading.** Haiku's filter refused one real 2.8B neuron at three quarters. Flagged or not, it would move that model's real rate by at most 0.6 points.
+- **The analysis code came during the run.** The rules (`908adce`) were committed before any reading. The analysis code (`a77e87f`) was committed 3 minutes after the first reading, while the run was going and before any result was looked at.
+- **The related control is still easier than intended,** and pools still use only each neuron's strongest 25 to 45 examples (as in v7).
+- **Scope:** Pythia 70M to 2.8B, three depths, one small language-model reader with one prompt.
+
+### v11 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v11.py`](recgen/rubric_v11.py) | Pre-registered depths, over-all-models excess, depth comparison and reader dependence |
+| [`recgen/units_v11.py`](recgen/units_v11.py), [`recgen/llm_reader_v11.py`](recgen/llm_reader_v11.py) | v7's units at any depth; v7's cached reader on them |
+| [`recgen/analyze_v11.py`](recgen/analyze_v11.py), [`recgen/plots_v11.py`](recgen/plots_v11.py) | Three readers' flags and v7's tests at each depth, the depth comparison, checks; the figures |
+| [`results/v11_llm_answers.json`](results/v11_llm_answers.json) | Every Haiku reading by depth: label, stated patterns, tokens, and the prompt's SHA-256 |
+| [`results/classification_v11.json`](results/classification_v11.json) | Per-depth and per-model rates with intervals, verdicts, excess, depth comparison, kappas, retest, checks, per-unit flags |
+| [`results/v11_models.md`](results/v11_models.md) | Per model and depth: rates by reader and unit type, and units where the readers disagree, with Haiku's patterns |
+| [`results/figures/`](results/figures/) `v11_*.png` | Flag rates at three depths, and each reader's power by depth and size |
+| `tests/test_rubric_v11.py`, `tests/test_units_v11.py`, `tests/test_llm_reader_v11.py`, `tests/test_analyze_v11.py` | Tests for the rules, the units (skipped without `data/v6/`), the reader and the analysis |
+
+```bash
+./run_v11.sh
+```
+
+`run_v11.sh` needs v6's `data/v6/` recordings, v5's MiniLM embeddings, `results/classification_v6.json` and `results/classification_v7.json`, and the `claude` CLI signed in. Haiku's answers are cached in `data/v11/` (not committed) and collected in `results/v11_llm_answers.json`. With the cache, it makes no model calls and reruns in about 4 minutes. From scratch, the 3,720 readings took about 2.5 hours, four at a time, and their labels will differ somewhat because Haiku isn't deterministic.
+
 ## Files
 
 | Path | What it is |
