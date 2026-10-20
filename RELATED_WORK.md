@@ -91,7 +91,7 @@ Not supported:
 - The README reads this as no evidence for the mechanism in this sample, from tests with limited power.
 
 **Closest prior work**
-- *The mechanism, before the essay.* Multimodal Neurons describes CLIP neurons whose concepts seem "conjoined", "overlapping in a superficial way in one facet, and then generalizing out in multiple directions" (Phil-adelphia / Phil-ippines / Phil-ip). A footnote guesses they may be "a vestigial phenomenon from early in training" [Goh21, section "Feature properties", paragraph "Polysemanticity and Conjoined Neurons"]. The essay credits this paragraph, and says the mechanism "is easy to check if you have training checkpoints" [Cammarata26].
+- *The mechanism, before the essay.* Multimodal Neurons describes CLIP neurons whose concepts seem "conjoined", "overlapping in a superficial way in one facet, and then generalizing out in multiple directions" (Phil-adelphia / Phil-ippines / Phil-ip). A footnote guesses they may be "a vestigial phenomenon from early in training" [Goh21, section "Feature properties", paragraph "Polysemanticity and Conjoined Neurons"]. The essay credits this paragraph, and says recursive generalization is "easy to check if you have training checkpoints" [Cammarata26].
 - *The essay's own evidence.* Vision models it retrained, where it follows neurons over training, for example InceptionV1 mixed5a:178 [Cammarata26, the figure "A feature takes shape over training"]. For language models it reports audits of finished models (Qwen3-32B), not checkpoints.
 - *Another origin story.* "Incidental polysemanticity": random initialization can assign several features to one neuron by chance, and training dynamics then strengthen the overlap, even when there are enough neurons [Lecomte24]. That predicts unrelated facets present from early on. The repo's rubric lumps this in with "mixed from the start" and doesn't test it separately.
 - *Pythia checkpoint studies of features and circuits.*
@@ -117,7 +117,7 @@ Not supported:
 
 **Closest prior work**
 - Pythia trains on about 2.1M tokens per step [Tigges24, section 2.3], so steps 1k to 3k are about 2 to 6B tokens. Pythia-410M's config sets `"warmup": 0.01` of `"train-iters": 143000`, so warm-up ends near step 1,430 [Pythia-config].
-- Induction heads in Pythia 70M to 2.8B "emerge soon after they have seen 2×10^9 tokens" [Tigges24, section 3.2, Figure 2].
+- Induction heads in Pythia 70M to 2.8B "emerge soon after they have seen 2×10^9 tokens" [Tigges24, section 3.2, Figure 2], "at around step 1,000 out of 143,000" [YinSteinhardt25, section 5.1].
 - In-context learning develops "in a narrow window early in training (roughly 2.5 to 5 billion tokens)" in Anthropic's models, alongside induction-head formation [Olsson22, Argument 1].
 - In Pythia-70M, many tasks share a phase transition "coinciding with the learning rate warm-up", and many early context neurons are later unlearned [Quirke23, abstract and section 3].
 - Pythia's readout reorganizes in "a narrow early window, 0.4-1.1% of the way through Pythia's pretraining" (about steps 570 to 1,570) [He26].
@@ -165,3 +165,59 @@ Not supported:
 5. **Test conditional units.** Known-answer benchmarks include units that respond to one concept only in the presence of another [Schwettmann23; Shaham24]. A conditional or unequal pool would be a harder, more realistic positive control than 50/50 pools.
 6. **Place training-dynamics observations against known landmarks.** Before reading the MLP-to-attention crossover (4a) as new, compare it with warm-up's end (step 1,430), induction-head formation (about step 1k) [Tigges24] and the readout reorganization [He26]. For repurposing (4c), feature-level tracking across checkpoints [Xu24; Bayazit26] doesn't fix facets at the final checkpoint, which v1 to v4 do.
 7. **Cite the anisotropy result** [MachinaMercer24] in README v6 point 6.
+
+## References
+
+- **[AitHouHwa26]** Iyad Ait Hou, Rebecca Hwa (2026). "Polysemanticity or Polysemy? Lexical Identity Confounds Superposition Metrics." arXiv:2604.00443. https://arxiv.org/abs/2604.00443
+- **[Bau17]** David Bau, Bolei Zhou, Aditya Khosla, Aude Oliva, Antonio Torralba (2017). "Network Dissection: Quantifying Interpretability of Deep Visual Representations." CVPR 2017. arXiv:1704.05796. https://arxiv.org/abs/1704.05796
+- **[Bayazit26]** Deniz Bayazit, Aaron Mueller, Antoine Bosselut (2026). "Crosscoding Through Time: Tracking Emergence & Consolidation Of Linguistic Representations Throughout LLM Pretraining." ACL 2026 (2026.acl-long.60). arXiv:2509.05291. https://arxiv.org/abs/2509.05291
+- **[Belrose24]** Nora Belrose, Quintin Pope, Lucia Quirke, Alex Mallen, Xiaoli Fern (2024). "Neural Networks Learn Statistics of Increasing Complexity." ICML 2024. arXiv:2402.04362. https://arxiv.org/abs/2402.04362
+- **[Bills23]** Steven Bills, Nick Cammarata, Dan Mossing, Henk Tillman, Leo Gao, Gabriel Goh, Ilya Sutskever, Jan Leike, Jeff Wu, William Saunders (2023). "Language models can explain neurons in language models." OpenAI. https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html (sections "Subject model size", "Subject model training time", and "Neurons may represent many features" under "Limitations and caveats")
+- **[Bolukbasi21]** Tolga Bolukbasi, Adam Pearce, Ann Yuan, Andy Coenen, Emily Reif, Fernanda Viégas, Martin Wattenberg (2021). "An Interpretability Illusion for BERT." arXiv:2104.07143. https://arxiv.org/abs/2104.07143
+- **[Cammarata26]** Nick Cammarata (2026-10-15). "Neural Networks Are Already Clean." Goodfire. https://already-clean.goodfire.com/ (sections "Recursive Generalization" and "Superposition", the figure "A feature takes shape over training", and the Qwen3-32B audit figure in the introduction)
+- **[Dravid26]** Amil Dravid, Yasaman Bahri, Alexei A. Efros, Yossi Gandelsman (2026). "Neuron Populations Exhibit Divergent Selectivity with Scale." arXiv:2606.03990. https://arxiv.org/abs/2606.03990
+- **[Dreyer24]** Maximilian Dreyer, Erblina Purelku, Johanna Vielhaben, Wojciech Samek, Sebastian Lapuschkin (2024). "PURE: Turning Polysemantic Neurons Into Pure Features by Identifying Relevant Circuits." CVPR 2024 Workshops (XAI4CV). arXiv:2404.06453. https://arxiv.org/abs/2404.06453
+- **[Elhage22]** Nelson Elhage, Tristan Hume, Catherine Olsson, et al. (2022). "Softmax Linear Units." Transformer Circuits Thread. https://transformer-circuits.pub/2022/solu/index.html
+- **[Ethayarajh19]** Kawin Ethayarajh (2019). "How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings." EMNLP-IJCNLP 2019. arXiv:1909.00512. https://arxiv.org/abs/1909.00512
+- **[Foote24]** Alex Foote (2024). "Tackling Polysemanticity with Neuron Embeddings." ICML 2024 Mechanistic Interpretability Workshop. arXiv:2411.08166. https://arxiv.org/abs/2411.08166
+- **[Goh21]** Gabriel Goh, Nick Cammarata, Chelsea Voss, Shan Carter, Michael Petrov, Ludwig Schubert, Alec Radford, Chris Olah (2021). "Multimodal Neurons in Artificial Neural Networks." Distill. https://distill.pub/2021/multimodal-neurons/ (section "Feature properties", paragraph "Polysemanticity and Conjoined Neurons" and its footnote)
+- **[GuptaKumar25]** Manan Gupta, Dhruv Kumar (2025). "Disentangling Polysemantic Neurons with a Null-Calibrated Polysemanticity Index and Causal Patch Interventions." arXiv:2508.16950. https://arxiv.org/abs/2508.16950
+- **[GuptaKumar26]** Manan Gupta, Dhruv Kumar (2026). "DPMI: A Principled Index for Neural Polysemanticity via Dirichlet Process Mixture Modeling." ICML 2026. https://openreview.net/forum?id=AnYCqLSigg (abstract: https://icml.cc/virtual/2026/67442)
+- **[Gurnee23]** Wes Gurnee, Neel Nanda, Matthew Pauly, Katherine Harvey, Dmitrii Troitskii, Dimitris Bertsimas (2023). "Finding Neurons in a Haystack: Case Studies with Sparse Probing." TMLR. arXiv:2305.01610. https://arxiv.org/abs/2305.01610
+- **[He26]** Matteo He, William F. Shen, Alex Iacob, Andrej Jovanovic, Xinchi Qiu, Nicholas D. Lane (2026). "Learning to Read Out: Unembedding Dynamics in Language Model Pretraining." arXiv:2610.21025. https://arxiv.org/abs/2610.21025
+- **[Kopf25]** Laura Kopf, Nils Feldhus, Kirill Bykov, Philine Lou Bommer, Anna Hedström, Marina M.-C. Höhne, Oliver Eberle (2025). "Capturing Polysemanticity with PRISM: A Multi-Concept Feature Description Framework." NeurIPS 2025. arXiv:2506.15538. https://arxiv.org/abs/2506.15538
+- **[Lecomte24]** Victor Lecomte, Kushal Thaman, Rylan Schaeffer, Naomi Bashkansky, Trevor Chow, Sanmi Koyejo (2024). "What Causes Polysemanticity? An Alternative Origin Story of Mixed Selectivity from Incidental Causes." ICLR 2024 Workshop on Representational Alignment (Re-Align). arXiv:2312.03096. https://arxiv.org/abs/2312.03096
+- **[Liu26]** Weiqi Liu, Yongliang Miao, Haiyan Zhao, Yanguang Liu, Mengnan Du (2026). "NeuronScope: A Multi-Agent Framework for Explaining Polysemantic Neurons in Language Models." arXiv:2601.03671. https://arxiv.org/abs/2601.03671
+- **[MachinaMercer24]** Anemily Machina, Robert Mercer (2024). "Anisotropy is Not Inherent to Transformers." NAACL 2024, pages 4892 to 4907. https://aclanthology.org/2024.naacl-long.274
+- **[Nandan25]** Advey Nandan, Cheng-Ting Chou, Amrit Kurakula, Cole Blondin, Kevin Zhu, Vasu Sharma, Sean O'Brien (2025). "Universal Neurons in GPT-2: Emergence, Persistence, and Functional Impact." arXiv:2508.00903. https://arxiv.org/abs/2508.00903
+- **[Nguyen16]** Anh Nguyen, Jason Yosinski, Jeff Clune (2016). "Multifaceted Feature Visualization: Uncovering the Different Types of Features Learned By Each Neuron in Deep Neural Networks." arXiv:1602.03616. https://arxiv.org/abs/1602.03616
+- **[Oikarinen25]** Tuomas Oikarinen, Ge Yan, Tsui-Wei Weng (2025). "Evaluating Neuron Explanations: A Unified Framework with Sanity Checks." ICML 2025 (PMLR 267). arXiv:2506.05774. https://arxiv.org/abs/2506.05774
+- **[Olsson22]** Catherine Olsson, Nelson Elhage, Neel Nanda, et al. (2022). "In-context Learning and Induction Heads." Transformer Circuits Thread. https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html (Argument 1)
+- **[Paulo24]** Gonçalo Paulo, Alex Mallen, Caden Juang, Nora Belrose (2024). "Automatically Interpreting Millions of Features in Large Language Models." arXiv:2410.13928. https://arxiv.org/abs/2410.13928
+- **[Pythia-config]** EleutherAI. Pythia-410M training configuration, `"warmup": 0.01` and `"train-iters": 143000`. https://github.com/EleutherAI/pythia/blob/main/models/410M/pythia-410m.yml
+- **[Quirke23]** Lucia Quirke, Lovis Heindrich, Wes Gurnee, Neel Nanda (2023). "Training Dynamics of Contextual N-Grams in Language Models." ATTRIB workshop at NeurIPS 2023. arXiv:2311.00863. https://arxiv.org/abs/2311.00863
+- **[Schwettmann23]** Sarah Schwettmann, Tamar Rott Shaham, Joanna Materzynska, Neil Chowdhury, Shuang Li, Jacob Andreas, David Bau, Antonio Torralba (2023). "FIND: A Function Description Benchmark for Evaluating Interpretability Methods." NeurIPS 2023. arXiv:2309.03886. https://arxiv.org/abs/2309.03886
+- **[Shaham24]** Tamar Rott Shaham, Sarah Schwettmann, Franklin Wang, Achyuta Rajaram, Evan Hernandez, Jacob Andreas, Antonio Torralba (2024). "A Multimodal Automated Interpretability Agent." ICML 2024. arXiv:2404.14394. https://arxiv.org/abs/2404.14394
+- **[Tigges24]** Curt Tigges, Michael Hanna, Qinan Yu, Stella Biderman (2024). "LLM Circuit Analyses Are Consistent Across Training and Scale." NeurIPS 2024. arXiv:2407.10827. https://arxiv.org/abs/2407.10827
+- **[Xu24]** Yang Xu, Yi Wang, Hengguan Huang, Hao Wang (2024). "Tracking the Feature Dynamics in LLM Training: A Mechanistic Study." arXiv:2412.17626. https://arxiv.org/abs/2412.17626
+- **[YinSteinhardt25]** Kayo Yin, Jacob Steinhardt (2025). "Which Attention Heads Matter for In-Context Learning?" arXiv:2502.14010. https://arxiv.org/abs/2502.14010
+
+## Search log
+
+All searches ran on 2026-10-19 with a web search tool, in "standard" or the more thorough "extended" mode. Every source cited above was then read in its own text (arXiv HTML, the PDF, or the page's source), not taken from a search summary.
+
+1. `polysemanticity index PSI neurons metric top-activating examples` (standard)
+2. `synthetic polysemantic neuron positive control merging two neurons top activating examples evaluate polysemanticity detection` (extended)
+3. `language model neuron explanation evaluation known mixture of two neurons concatenated activating examples detect polysemantic autointerp power` (extended)
+4. `neuron polysemanticity across model scale Pythia different interpretability metrics disagree scale trend` (extended)
+5. `agreement between polysemanticity measures LLM judge versus embedding clustering neurons comparison monosemanticity metrics disagree` (extended)
+6. `synthetic polysemantic neurons ground truth benchmark interpretability agent FIND MAIA` (standard)
+7. `polysemantic neurons formation during training language model checkpoints facets emerge separately neuron repurposed later training` (extended)
+8. `tracking individual neurons or features across Pythia training checkpoints emergence drift sparse autoencoder crosscoder` (extended)
+9. `"Neural Networks Are Already Clean" Cammarata recursive generalization response` (extended), and `"recursive generalization" neurons Pythia checkpoints test Goodfire essay LessWrong` (standard)
+10. `sentence embedding clustering of a neuron's top activating contexts to detect polysemantic neurons language model MiniLM` (extended), and `polysemantic neurons Pythia model size top activating examples clustering` restricted to lesswrong.com, alignmentforum.org, transformer-circuits.pub, blog.eleuther.ai and goodfire.ai (standard)
+11. `"conjoined features" OR "conjoined neurons" polysemanticity training dynamics follow-up` (standard)
+12. `attention heads versus MLP neurons share of contribution changes over training early checkpoints language model direct attribution Pythia` (extended)
+13. `anisotropy Pythia model size training checkpoints residual stream mean cosine similarity` (standard), and `Machina Mercer "Anisotropy is not inherent to transformers" Pythia NAACL 2024` (standard)
+
+Targeted lookups of papers already known to be relevant (Bills23, Gurnee23, Lecomte24, Oikarinen25, Foote24, Dreyer24, Nguyen16, Xu24, Bayazit26, Tigges24, Belrose24, Bolukbasi21) are not listed. The searches cover English-language sources indexed by the search tool. Papers behind paywalls, talks and private write-ups would be missed.
