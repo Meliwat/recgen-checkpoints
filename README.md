@@ -678,7 +678,7 @@ With "unrelated jobs" as the flag (C in v7's rubric, D in E4), detection is +21 
 | **Sonnet, E3** | **+26.8 (+23.5 to +30.5)** | +10.3 (+7 to +14) | -16.5 (-21 to -12) | **raises cleanliness, less for known pools** |
 | Sonnet, E4 | +19.2 (+16 to +22) | +5.0 (+2.7 to +7.7) | -14.2 (-18 to -10) | raises cleanliness, less for known pools |
 
-Sonnet's verdicts reflect where its line moved, not better discrimination. Under v7's rubric Sonnet called almost nothing one job (6% of real neurons and 0.3% of 50/50 pools, a floor), and E3 moves its cut point along a ranking that hardly changes (label AUC 0.639 under v7's rubric, 0.632 under E3; paired difference -0.008, -0.04 to +0.03). Raising a cut point from a floor adds more points to the group with more units near it, here the real neurons (+27 against +10), even though in odds the pools rose far more: the odds of a one-main-job call rose about 36 times for 50/50 pools and 7.3 times for real neurons (post hoc; under E4, 17 and 5.1 times).
+Sonnet's verdicts reflect where its line moved, not better discrimination. Under v7's rubric Sonnet called almost nothing one job (6% of real neurons and 0.3% of 50/50 pools, a floor), and E3 moves its cut point along a ranking that hardly changes (label AUC 0.639 under v7's rubric, 0.632 under E3; paired difference -0.008, -0.04 to +0.03). Moving a cut point up from a floor along an unchanged ranking adds more points to the group ranked closer to one job, here the real neurons (+27 against +10), even though in odds the pools rose far more: the odds of a one-main-job call rose about 36 times for 50/50 pools and 7.3 times for real neurons (post hoc; under E4, 17 and 5.1 times).
 
 | E4 minus E3 (pre-registered) | Haiku, points | Sonnet, points |
 |---|---|---|
