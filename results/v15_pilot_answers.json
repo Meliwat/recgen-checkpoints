@@ -1,0 +1,5923 @@
+{
+ "explainer": "claude-sonnet-5-5",
+ "simulators": {
+  "sonnet": "claude-sonnet-5-5",
+  "haiku": "claude-haiku-5-5"
+ },
+ "judge": "claude-haiku-5-5",
+ "units": {
+  "160m:real::0": {
+   "id": "160m:real::0",
+   "model": "160m",
+   "kind": "real",
+   "group": "real",
+   "neurons": [
+    0
+   ],
+   "neuron_ids": [
+    2
+   ],
+   "log_peak": [
+    0.9886929894719407
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 272,
+     "stratum": "ranks 51-300",
+     "window": 748,
+     "position": 153,
+     "value": 5.7702349869451695,
+     "neuron_values": [
+      5.7702349869451695
+     ],
+     "driver": 0,
+     "snippet": " Rev. B **81**, 073106 (2010). Y. Nomura, K. Nakamura, and R[[.]] Arita,"
+    },
+    {
+     "rank": 3680,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1329,
+     "position": 126,
+     "value": -0.0,
+     "neuron_values": [
+      -0.0
+     ],
+     "driver": 0,
+     "snippet": " can transform ${\\mathcal{C}^*}$ to ${\\mathcal{C}'}$ and continue to fill up the $(i+[[1]])$-th row."
+    },
+    {
+     "rank": 280,
+     "stratum": "ranks 51-300",
+     "window": 1475,
+     "position": 277,
+     "value": 5.754569190600522,
+     "neuron_values": [
+      5.754569190600522
+     ],
+     "driver": 0,
+     "snippet": " pursued by Dudley Herschbach and colleagues; see S. Kais, S.M. Sung, D[[.]]R. Hersch"
+    },
+    {
+     "rank": 2666,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2376,
+     "position": 166,
+     "value": 0.6648172323759791,
+     "neuron_values": [
+      0.6648172323759791
+     ],
+     "driver": 0,
+     "snippet": " you can tell from the saddle height, but hey, fifty bucks for a mb-2.<|endoftext|>Camera\u23ce\u23cePan[[av]]ision Millennium D"
+    },
+    {
+     "rank": 3863,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1327,
+     "position": 490,
+     "value": -3.9840180319843345e-07,
+     "neuron_values": [
+      -3.9840180319843345e-07
+     ],
+     "driver": 0,
+     "snippet": "/\\mu$ satisfies that $\\ell(\\lambda)-\\ell(\\mu) \\equiv 0\\ (\\mathrm{mod}\\\u23ce[[2]])$.\u23ce\u23ce-"
+    },
+    {
+     "rank": 514,
+     "stratum": "ranks 301-2000",
+     "window": 312,
+     "position": 271,
+     "value": 5.203655352480418,
+     "neuron_values": [
+      5.203655352480418
+     ],
+     "driver": 0,
+     "snippet": " page, and it faithfully reflects right-wing pro-Israel talking points.\u23ce\u23ceControversy\u23ce\u23ceDeb[[bie]] Wasserman Sch"
+    },
+    {
+     "rank": 1930,
+     "stratum": "ranks 301-2000",
+     "window": 122,
+     "position": 223,
+     "value": 2.9242819843342036,
+     "neuron_values": [
+      2.9242819843342036
+     ],
+     "driver": 0,
+     "snippet": " Isle of Avalon'. Inside the tomb were two entwined skeletons, supposedly those of Arthur and his wife[[ Gu]]inevere. The"
+    },
+    {
+     "rank": 69,
+     "stratum": "ranks 51-300",
+     "window": 4041,
+     "position": 509,
+     "value": 6.8198433420365525,
+     "neuron_values": [
+      6.8198433420365525
+     ],
+     "driver": 0,
+     "snippet": " thank CSIR, India for SRF grant.\u23ce\u23ce[References]{} Q. Zhang, G. Li, D[[.]] Rhodes,"
+    },
+    {
+     "rank": 2524,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3954,
+     "position": 164,
+     "value": 0.9171018276762402,
+     "neuron_values": [
+      0.9171018276762402
+     ],
+     "driver": 0,
+     "snippet": "w - 1. Let f(p) = -2*p**3 - 6*p**2 - 18[[*]]p. What is"
+    },
+    {
+     "rank": 3857,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1079,
+     "position": 37,
+     "value": -3.9840180319843345e-07,
+     "neuron_values": [
+      -3.9840180319843345e-07
+     ],
+     "driver": 0,
+     "snippet": " insoluble, fraction of the bacterial cell pellet. After sonication treatment, the completely soluble target protein was dissolved in phosphate buffer[[ solution]] and purified by Ni"
+    },
+    {
+     "rank": 198,
+     "stratum": "ranks 51-300",
+     "window": 2389,
+     "position": 284,
+     "value": 6.078328981723237,
+     "neuron_values": [
+      6.078328981723237
+     ],
+     "driver": 0,
+     "snippet": "\u23ce\u23ceNATO troops relaxing\u23ce\u23ce\ufeff\u23ce\u23ceGen. Abdul Fattah Younis\u23ce\u23ce\ufeff Gen.[[ Abdul]] Fattah Youn"
+    },
+    {
+     "rank": 840,
+     "stratum": "ranks 301-2000",
+     "window": 1030,
+     "position": 308,
+     "value": 4.74934725848564,
+     "neuron_values": [
+      4.749347258485639
+     ],
+     "driver": 0,
+     "snippet": ", preparing for 4.3\u2019s general availability on June 1st!\u23ce\u23ceCheers,\u23ce\u23ceJuerg[[en]]<|endoftext|>Q:\u23ce"
+    },
+    {
+     "rank": 2858,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2419,
+     "position": 42,
+     "value": 0.4210182767624021,
+     "neuron_values": [
+      0.4210182767624021
+     ],
+     "driver": 0,
+     "snippet": "LAN box style\u23ceDust Filters\u23ceFrom Amazon.com\u23ce\u23ceAny suggestions?\u23ceThanks!\u23ce\u23ce[[A]]:\u23ce\u23ceI"
+    },
+    {
+     "rank": 3510,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2721,
+     "position": 144,
+     "value": 0.07123041775456919,
+     "neuron_values": [
+      0.07123041775456919
+     ],
+     "driver": 0,
+     "snippet": " the forward path-relinking procedure for the MAX-CUT problem.\u23ce\u23ceOnce a new solution ![\u23ce$$\\[[(]]S,\\\\bar{"
+    },
+    {
+     "rank": 226,
+     "stratum": "ranks 51-300",
+     "window": 614,
+     "position": 332,
+     "value": 5.95822454308094,
+     "neuron_values": [
+      5.95822454308094
+     ],
+     "driver": 0,
+     "snippet": " McDougald attached the report, the municipal court\u23ce\u23cecomplaints, a portion of the trial transcript testimony of Kend[[ra]] White, his request"
+    },
+    {
+     "rank": 3514,
+     "stratum": "random, ranks 2001-4096",
+     "window": 114,
+     "position": 55,
+     "value": 0.06984334203655353,
+     "neuron_values": [
+      0.06984334203655353
+     ],
+     "driver": 0,
+     "snippet": "The 18-mile **Templer Way** is a two- to three-day leg stretch from Haytor to Te[[ign]]mouth, while the"
+    },
+    {
+     "rank": 137,
+     "stratum": "ranks 51-300",
+     "window": 2471,
+     "position": 480,
+     "value": 6.308093994778067,
+     "neuron_values": [
+      6.308093994778067
+     ],
+     "driver": 0,
+     "snippet": " will also be more economical in the long term due to health-care cost savings as well as climate gains,\" says Dr[[ Carlos]] Dora, WHO"
+    },
+    {
+     "rank": 1230,
+     "stratum": "ranks 301-2000",
+     "window": 920,
+     "position": 111,
+     "value": 4.271540469973891,
+     "neuron_values": [
+      4.27154046997389
+     ],
+     "driver": 0,
+     "snippet": " . . assuming that the leader of the gang didn't mean to hang on to all the loot. Chances were,[[ Sw]]int didn't really"
+    },
+    {
+     "rank": 1886,
+     "stratum": "ranks 301-2000",
+     "window": 3446,
+     "position": 375,
+     "value": 3.0522193211488244,
+     "neuron_values": [
+      3.0522193211488253
+     ],
+     "driver": 0,
+     "snippet": " complacent courtier verse or prose cut by template. A poetics of longing, of organic necessity.\u23ce\u23ceMay[[akov]]sky: The presence"
+    },
+    {
+     "rank": 366,
+     "stratum": "ranks 301-2000",
+     "window": 1454,
+     "position": 48,
+     "value": 5.514360313315927,
+     "neuron_values": [
+      5.514360313315927
+     ],
+     "driver": 0,
+     "snippet": "\u23ceFIGURE 6.6 Henry Moseley. Photo from author's collection used by permission from Emilio Segr[[\u00e9]] Collection.\u23ce\u23ce"
+    },
+    {
+     "rank": 1167,
+     "stratum": "ranks 301-2000",
+     "window": 819,
+     "position": 334,
+     "value": 4.342036553524804,
+     "neuron_values": [
+      4.342036553524804
+     ],
+     "driver": 0,
+     "snippet": " Roots\u23ceAlbum:  The Tipping Point\u23ceSong:   Duck Down!\u23ceTyped by: k[[k]]bonsu@hot"
+    },
+    {
+     "rank": 174,
+     "stratum": "ranks 51-300",
+     "window": 3211,
+     "position": 180,
+     "value": 6.172323759791123,
+     "neuron_values": [
+      6.172323759791123
+     ],
+     "driver": 0,
+     "snippet": "  (1745) and  (1732). He confirmed parthenogenesis of aphids.\u23ce1745.[[ Pierre]] Louis M. de"
+    },
+    {
+     "rank": 536,
+     "stratum": "ranks 301-2000",
+     "window": 3523,
+     "position": 173,
+     "value": 5.16710182767624,
+     "neuron_values": [
+      5.16710182767624
+     ],
+     "driver": 0,
+     "snippet": " exit the Senate race.\"\u23ce\u23ceOur original post and earlier updates:\u23ce\u23ceIt's come to this for Rep.[[ Todd]] Akin of Missouri"
+    },
+    {
+     "rank": 255,
+     "stratum": "ranks 51-300",
+     "window": 1676,
+     "position": 390,
+     "value": 5.806788511749347,
+     "neuron_values": [
+      5.806788511749347
+     ],
+     "driver": 0,
+     "snippet": " African American Rhodes Scholar,\u23ce Ralph Bunche, professor of political science and later a Nobel Laureate;\u23ce[[ Charles]] Drew, who perfect"
+    },
+    {
+     "rank": 2725,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3819,
+     "position": 196,
+     "value": 0.5835509138381201,
+     "neuron_values": [
+      0.5835509138381201
+     ],
+     "driver": 0,
+     "snippet": " numbers of oxidatively-modified mitochondrial proteins were also identified by mass-spectral analysis in mice with I/R injury[[ [@]]bib38] and"
+    },
+    {
+     "rank": 3497,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2253,
+     "position": 145,
+     "value": 0.07922650130548302,
+     "neuron_values": [
+      0.07922650130548303
+     ],
+     "driver": 0,
+     "snippet": "\u23ce  esac\u23ce  DN_WORK=`mktemp -d`\u23ce  cp Configuration.h ${DN_[[WORK]]}/\u23ce  cp"
+    },
+    {
+     "rank": 448,
+     "stratum": "ranks 301-2000",
+     "window": 2559,
+     "position": 139,
+     "value": 5.3524804177545695,
+     "neuron_values": [
+      5.352480417754569
+     ],
+     "driver": 0,
+     "snippet": "engineer Robert Musso. But most notably, forming what became his signature group, a trio with bassist Mario Pav[[one]] and drummers Steve"
+    },
+    {
+     "rank": 190,
+     "stratum": "ranks 51-300",
+     "window": 1459,
+     "position": 258,
+     "value": 6.093994778067884,
+     "neuron_values": [
+      6.093994778067884
+     ],
+     "driver": 0,
+     "snippet": " two distinct elements named scandium and ytterbium. The next step was taken by Georges Urb[[ain]] and Auer von"
+    },
+    {
+     "rank": 1170,
+     "stratum": "ranks 301-2000",
+     "window": 258,
+     "position": 158,
+     "value": 4.339425587467363,
+     "neuron_values": [
+      4.339425587467363
+     ],
+     "driver": 0,
+     "snippet": "\u23ceThis wonderful Georgian hunting lodge has bags of old-fashioned character \u2013 it was once the home of Highland author[[ Neil]] M Gunn \u2013 and"
+    },
+    {
+     "rank": 213,
+     "stratum": "ranks 51-300",
+     "window": 3570,
+     "position": 136,
+     "value": 6.015665796344647,
+     "neuron_values": [
+      6.015665796344647
+     ],
+     "driver": 0,
+     "snippet": " innovative work in radio broadcasting, with entries from radio stations, networks and independent producers from around the globe. Executive director Rose[[ Anderson]] says, \u201cEven"
+    },
+    {
+     "rank": 77,
+     "stratum": "ranks 51-300",
+     "window": 1438,
+     "position": 308,
+     "value": 6.746736292428198,
+     "neuron_values": [
+      6.746736292428198
+     ],
+     "driver": 0,
+     "snippet": " and had to wait a further 50 years before it became firmly established at the hands of fellow Italian chemist Stanisla[[o]] Cannizzaro."
+    },
+    {
+     "rank": 2936,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2006,
+     "position": 58,
+     "value": 0.33012402088772846,
+     "neuron_values": [
+      0.33012402088772846
+     ],
+     "driver": 0,
+     "snippet": "\u23ce\u23ce\u23ce\u23ce623\u23ce\u23ce\u23ce\u23ce624\u23ce\u23ce\u23ce\u23ce625\u23ce\u23ce\u23ce\u23ce626\u23ce\u23ce\u23ce\u23ce627\u23ce\u23ce\u23ce\u23ce628\u23ce\u23ce\u23ce\u23ce630 STA[[AR]] Modified Texas Education\u23ce\u23ce\u23ce\u23ce\u23ce"
+    },
+    {
+     "rank": 973,
+     "stratum": "ranks 301-2000",
+     "window": 165,
+     "position": 441,
+     "value": 4.58485639686684,
+     "neuron_values": [
+      4.58485639686684
+     ],
+     "driver": 0,
+     "snippet": "24;  hdinner by reservation Wed-Sat)\u23ce\u23ceBBC Masterchef 2012 finalist, Irishman E[[amon]]n Hunt, and"
+    },
+    {
+     "rank": 1954,
+     "stratum": "ranks 301-2000",
+     "window": 2569,
+     "position": 213,
+     "value": 2.8459530026109663,
+     "neuron_values": [
+      2.845953002610966
+     ],
+     "driver": 0,
+     "snippet": " since the Great Recession continue a decades-long trend of wage stagnation for workers in the United States.\u201d But Irene[[ T]]ung, a senior"
+    },
+    {
+     "rank": 1195,
+     "stratum": "ranks 301-2000",
+     "window": 1885,
+     "position": 496,
+     "value": 4.313315926892949,
+     "neuron_values": [
+      4.31331592689295
+     ],
+     "driver": 0,
+     "snippet": ".oauth2.provider.error.WebResponseExceptionTranslator;\u23ce\u23ce/**\u23ce * @author q[[iang]]getaba\u23ce *"
+    },
+    {
+     "rank": 209,
+     "stratum": "ranks 51-300",
+     "window": 3463,
+     "position": 449,
+     "value": 6.031331592689295,
+     "neuron_values": [
+      6.031331592689295
+     ],
+     "driver": 0,
+     "snippet": " biggest trade deficit from India amongst all ASEAN member States.\u23ce\u23ceThe committee chaired by BJP MP Bhup[[ender]] Yadav has"
+    },
+    {
+     "rank": 2328,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3501,
+     "position": 166,
+     "value": 1.4660574412532636,
+     "neuron_values": [
+      1.4660574412532636
+     ],
+     "driver": 0,
+     "snippet": " per cent who didn\u2019t know.\u23ce\u23ceFifty-one per cent were against fracking.\u23ce\u23ceSt[[ur]]geon has signalled"
+    },
+    {
+     "rank": 4019,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1683,
+     "position": 141,
+     "value": -1.2111414817232376e-05,
+     "neuron_values": [
+      -1.2111414817232376e-05
+     ],
+     "driver": 0,
+     "snippet": "-0027208-t001-1}\u23ce\u23ce                                 WHOLE POPULATION (n\u200a=\u200a457)[[   ]]CONTROLS (n"
+    },
+    {
+     "rank": 2924,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3392,
+     "position": 71,
+     "value": 0.3410574412532637,
+     "neuron_values": [
+      0.3410574412532637
+     ],
+     "driver": 0,
+     "snippet": "64plus/           *\u23ce *   Copyright (C) 2002 Hacktarux                                          *\u23ce *                                                                        [[ *]]\u23ce *   This"
+    },
+    {
+     "rank": 3559,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3858,
+     "position": 484,
+     "value": 0.03512565274151436,
+     "neuron_values": [
+      0.03512565274151436
+     ],
+     "driver": 0,
+     "snippet": "---------------------------------------------------------------------------------------------------------------------------\u23ce\u23ceThere was also a baseline increase of TH activity in TAAR1 KO mice as compared to WT mice[[ ([@]]B22]). To"
+    },
+    {
+     "rank": 836,
+     "stratum": "ranks 301-2000",
+     "window": 9,
+     "position": 467,
+     "value": 4.75195822454308,
+     "neuron_values": [
+      4.75195822454308
+     ],
+     "driver": 0,
+     "snippet": "provides statutory authority for the imposition of an indeterminate\u23ce\u23ceprobation sentence. Following People v. Stellab[[otte]], 2016 COA"
+    },
+    {
+     "rank": 1745,
+     "stratum": "ranks 301-2000",
+     "window": 3007,
+     "position": 117,
+     "value": 3.402088772845953,
+     "neuron_values": [
+      3.402088772845953
+     ],
+     "driver": 0,
+     "snippet": "s problems stem, at least in part, from currency exchange controls put in place more than ten years ago by the late[[ Hugo]] Ch\u00e1vez."
+    },
+    {
+     "rank": 234,
+     "stratum": "ranks 51-300",
+     "window": 1936,
+     "position": 230,
+     "value": 5.8903394255874675,
+     "neuron_values": [
+      5.8903394255874675
+     ],
+     "driver": 0,
+     "snippet": " Judge Mark S. O\u2019Connor to prison for assaulting another man using his vehicle.\u23ce\u23ceZachariah[[ Bates]], 25, of"
+    },
+    {
+     "rank": 421,
+     "stratum": "ranks 301-2000",
+     "window": 2972,
+     "position": 273,
+     "value": 5.4046997389033935,
+     "neuron_values": [
+      5.4046997389033935
+     ],
+     "driver": 0,
+     "snippet": " Jake and Chance, but they were absent from the second season.\u23ce Little Old Lady (voiced by Candi Mil[[o]]) - A crank"
+    },
+    {
+     "rank": 74,
+     "stratum": "ranks 51-300",
+     "window": 2965,
+     "position": 427,
+     "value": 6.767624020887728,
+     "neuron_values": [
+      6.767624020887728
+     ],
+     "driver": 0,
+     "snippet": " A.Tarski, [*Cylindric Algebras Part I*]{}. North Holland, 1971.\u23ce\u23ceL[[.]] Henkin, J"
+    },
+    {
+     "rank": 3744,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2767,
+     "position": 179,
+     "value": -0.0,
+     "neuron_values": [
+      -0.0
+     ],
+     "driver": 0,
+     "snippet": " the many events of Winterfest 2013, the stylish SpringHill Suites Long Island Brookhaven, NY hotel is an ideal[[ destination]] for those planning to"
+    },
+    {
+     "rank": 261,
+     "stratum": "ranks 51-300",
+     "window": 3963,
+     "position": 68,
+     "value": 5.7963446475195815,
+     "neuron_values": [
+      5.7963446475195815
+     ],
+     "driver": 0,
+     "snippet": " for the coming year. Those elected were Roy Newsom, president; Andrew Craw-sen. vice-president; Norman[[ Crawford]]. secretary-tre"
+    },
+    {
+     "rank": 490,
+     "stratum": "ranks 301-2000",
+     "window": 3474,
+     "position": 410,
+     "value": 5.253263707571802,
+     "neuron_values": [
+      5.253263707571802
+     ],
+     "driver": 0,
+     "snippet": " similar ankle ligament injuries while the game will come too soon for midfielder Victor Wanyama.\u23ce\u23ceStriker Dan[[i]] Osvaldo will"
+    },
+    {
+     "rank": 3678,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1326,
+     "position": 77,
+     "value": -0.0,
+     "neuron_values": [
+      -0.0
+     ],
+     "driver": 0,
+     "snippet": ")=e.$$ If $\\lambda_{2m}=0$, i.e., $\\ell(\\lambda)=2m-[[1]]$, then we still"
+    },
+    {
+     "rank": 1718,
+     "stratum": "ranks 301-2000",
+     "window": 633,
+     "position": 132,
+     "value": 3.4647519582245434,
+     "neuron_values": [
+      3.4647519582245425
+     ],
+     "driver": 0,
+     "snippet": "1]: <https://spark-packages.org>\u23ce\u23ce[^2]: <https://github.com/ra[[ul]]josepalma"
+    },
+    {
+     "rank": 167,
+     "stratum": "ranks 51-300",
+     "window": 1555,
+     "position": 410,
+     "value": 6.193211488250652,
+     "neuron_values": [
+      6.193211488250652
+     ],
+     "driver": 0,
+     "snippet": ": image taken on 2011 Sep. 19.92656UT and 2011 Sep. 28.72678UT by S[[.]] Korotkiy"
+    },
+    {
+     "rank": 2330,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2627,
+     "position": 71,
+     "value": 1.4634464751958223,
+     "neuron_values": [
+      1.4634464751958225
+     ],
+     "driver": 0,
+     "snippet": " in half\u23ceWhat will the line look like?\u23ce(student: Vertical?)\u23ceVertical line, where?\u23ce([[student]]: On the vertex"
+    },
+    {
+     "rank": 127,
+     "stratum": "ranks 51-300",
+     "window": 635,
+     "position": 365,
+     "value": 6.349869451697128,
+     "neuron_values": [
+      6.349869451697128
+     ],
+     "driver": 0,
+     "snippet": "UMD) fueron defenestrados. M\u00e1s recientemente, el expresidente Zapater[[o]] y el exminist"
+    },
+    {
+     "rank": 2528,
+     "stratum": "random, ranks 2001-4096",
+     "window": 471,
+     "position": 169,
+     "value": 0.9138381201044385,
+     "neuron_values": [
+      0.9138381201044387
+     ],
+     "driver": 0,
+     "snippet": "0.2 + 0.2. What is the third smallest value in o, 0.1, t?\u23ce[[0]].1\u23ceLet"
+    },
+    {
+     "rank": 3158,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3827,
+     "position": 68,
+     "value": 0.23710835509138384,
+     "neuron_values": [
+      0.2371083550913838
+     ],
+     "driver": 0,
+     "snippet": "cdots, z_n,z_n^{-1},1$. From Weyl\u2019s integral formula, the corresponding p[[.]]d.f."
+    },
+    {
+     "rank": 204,
+     "stratum": "ranks 51-300",
+     "window": 4028,
+     "position": 443,
+     "value": 6.052219321148826,
+     "neuron_values": [
+      6.052219321148826
+     ],
+     "driver": 0,
+     "snippet": " GARRISON.\u23ce\u23ceGARRISON, WILLIAM E, born ABT 1933, and his bride NANC[[Y]] L, born A"
+    },
+    {
+     "rank": 212,
+     "stratum": "ranks 51-300",
+     "window": 2480,
+     "position": 376,
+     "value": 6.015665796344647,
+     "neuron_values": [
+      6.015665796344647
+     ],
+     "driver": 0,
+     "snippet": "/426\\\">issue 426</a>.\u23ce</li>\u23ce<li>\u23ceMarch 19, 2015, by[[ Michael]] Wetter:<"
+    },
+    {
+     "rank": 1112,
+     "stratum": "ranks 301-2000",
+     "window": 4026,
+     "position": 88,
+     "value": 4.420365535248042,
+     "neuron_values": [
+      4.420365535248042
+     ],
+     "driver": 0,
+     "snippet": " says, died May 1982\u23ce1273293 Check the source file (free) and then check Archives\u23cefor WILLIAM[[ G]]ARRISON.\u23ce"
+    },
+    {
+     "rank": 1979,
+     "stratum": "ranks 301-2000",
+     "window": 1704,
+     "position": 38,
+     "value": 2.767624020887728,
+     "neuron_values": [
+      2.767624020887728
+     ],
+     "driver": 0,
+     "snippet": " of leaf and smell it - very nice, like sassafrass.\u23ce\u23ce\u23ce\u23ceSAPODILLA, Man[[il]]kara zap"
+    },
+    {
+     "rank": 203,
+     "stratum": "ranks 51-300",
+     "window": 3766,
+     "position": 62,
+     "value": 6.052219321148826,
+     "neuron_values": [
+      6.052219321148826
+     ],
+     "driver": 0,
+     "snippet": " for over a year and is being conducted by a Western Cape task team.\u23ce\u23ceNational police commissioner Riah Phiy[[ega]] said the high-"
+    }
+   ],
+   "explainer_prompt_sha256": "c6272ab0f6d4377710db80cdb634c7e0c9b50087f11b8129a1118fda31f9ffeb",
+   "first": {
+    "explanation": {
+     "parsed": "Inside a person's name, mid-name or at an initial/nickname boundary (author lists, citations, cast lists, credits), where more of the name, usually the surname, comes next: initial periods, spaces after initials, name fragments, closing nickname quotes.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.017056,
+       "reply": "{\"explanation\": \"Inside a person's name, mid-name or at an initial/nickname boundary (author lists, citations, cast lists, credits), where more of the name, usually the surname, comes next: initial periods, spaces after initials, name fragments, closing nickname quotes.\"}"
+      }
+     ],
+     "cost_usd": 0.017056,
+     "input_tokens": 4035,
+     "output_tokens": 92,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "c6272ab0f6d4377710db80cdb634c7e0c9b50087f11b8129a1118fda31f9ffeb",
+     "reply": "{\"explanation\": \"Inside a person's name, mid-name or at an initial/nickname boundary (author lists, citations, cast lists, credits), where more of the name, usually the surname, comes next: initial periods, spaces after initials, name fragments, closing nickname quotes.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       8.0,
+       0.0,
+       8.0,
+       5.0,
+       0.0,
+       6.0,
+       5.0,
+       8.0,
+       0.0,
+       0.0,
+       6.0,
+       4.0,
+       0.0,
+       0.0,
+       5.0,
+       4.0,
+       6.0,
+       5.0,
+       5.0,
+       5.0,
+       3.0,
+       6.0,
+       6.0,
+       5.0,
+       0.0,
+       0.0,
+       5.0,
+       5.0,
+       6.0,
+       6.0,
+       5.0,
+       3.0,
+       5.0,
+       6.0,
+       3.0,
+       5.0,
+       4.0,
+       0.0,
+       5.0,
+       0.0,
+       5.0,
+       6.0,
+       6.0,
+       4.0,
+       8.0,
+       0.0,
+       6.0,
+       5.0,
+       0.0,
+       4.0,
+       8.0,
+       4.0,
+       2.0,
+       0.0,
+       5.0,
+       5.0,
+       3.0,
+       5.0,
+       4.0,
+       5.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.019298,
+        "reply": "[8,0,8,5,0,6,5,8,0,0,6,4,0,0,5,4,6,5,5,5,3,6,6,5,0,0,5,5,6,6,5,3,5,6,3,5,4,0,5,0,5,6,6,4,8,0,6,5,0,4,8,4,2,0,5,5,3,5,4,5]"
+       }
+      ],
+      "cost_usd": 0.019298,
+      "input_tokens": 4518,
+      "output_tokens": 123,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "8c29184346bb2d2b5ddc9321ca605ea47d6ed2536c1ba9e7af46b6c76a5bb3cc",
+      "reply": "[8,0,8,5,0,6,5,8,0,0,6,4,0,0,5,4,6,5,5,5,3,6,6,5,0,0,5,5,6,6,5,3,5,6,3,5,4,0,5,0,5,6,6,4,8,0,6,5,0,4,8,4,2,0,5,5,3,5,4,5]"
+     },
+     "haiku": {
+      "parsed": [
+       9.0,
+       0.0,
+       8.0,
+       2.0,
+       0.0,
+       8.0,
+       7.0,
+       9.0,
+       0.0,
+       0.0,
+       6.0,
+       3.0,
+       0.0,
+       0.0,
+       8.0,
+       2.0,
+       7.0,
+       7.0,
+       8.0,
+       5.0,
+       2.0,
+       6.0,
+       7.0,
+       7.0,
+       0.0,
+       5.0,
+       8.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       8.0,
+       8.0,
+       6.0,
+       8.0,
+       8.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       7.0,
+       7.0,
+       6.0,
+       7.0,
+       9.0,
+       0.0,
+       7.0,
+       8.0,
+       0.0,
+       3.0,
+       9.0,
+       0.0,
+       7.0,
+       0.0,
+       1.0,
+       7.0,
+       6.0,
+       8.0,
+       6.0,
+       7.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.0017546,
+        "reply": "{\"scores\": [9, 0, 8, 2, 0, 8, 7, 9, 0, 0, 6, 3, 0, 0, 8, 2, 7, 7, 8, 5, 2, 6, 7, 7, 0, 5, 8, 0, 0, 0, 0, 8, 8, 6, 8, 8, 0, 0, 0, 0, 7, 7, 6, 7, 9, 0, 7, 8, 0, 3, 9, 0, 7, 0, 1, 7, 6, 8, 6, 7]}"
+       }
+      ],
+      "cost_usd": 0.0017546,
+      "input_tokens": 4509,
+      "output_tokens": 1706,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "8c29184346bb2d2b5ddc9321ca605ea47d6ed2536c1ba9e7af46b6c76a5bb3cc",
+      "reply": "{\"scores\": [9, 0, 8, 2, 0, 8, 7, 9, 0, 0, 6, 3, 0, 0, 8, 2, 7, 7, 8, 5, 2, 6, 7, 7, 0, 5, 8, 0, 0, 0, 0, 8, 8, 6, 8, 8, 0, 0, 0, 0, 7, 7, 6, 7, 9, 0, 7, 8, 0, 3, 9, 0, 7, 0, 1, 7, 6, 8, 6, 7]}"
+     }
+    },
+    "judge": {
+     "parsed": false,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.000302,
+       "reply": "{\"unrelated_patterns\": false}"
+      }
+     ],
+     "cost_usd": 0.000302,
+     "input_tokens": 976,
+     "output_tokens": 214,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "a8ac157e603762691bf4708ed72006037904f3610405795e946af99c1e5d7fdc",
+     "reply": "{\"unrelated_patterns\": false}"
+    }
+   }
+  },
+  "160m:real::62": {
+   "id": "160m:real::62",
+   "model": "160m",
+   "kind": "real",
+   "group": "real",
+   "neurons": [
+    62
+   ],
+   "neuron_ids": [
+    92
+   ],
+   "log_peak": [
+    -0.25251815999411403
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 3563,
+     "stratum": "random, ranks 2001-4096",
+     "window": 418,
+     "position": 184,
+     "value": 3.084914182475158,
+     "neuron_values": [
+      3.0849141824751585
+     ],
+     "driver": 0,
+     "snippet": " frondosa*(fruit body)                                                                                                                                                  Extract\\                                  \u03b2-1,6[[-]]glucan with \u03b2"
+    },
+    {
+     "rank": 377,
+     "stratum": "ranks 301-2000",
+     "window": 2421,
+     "position": 235,
+     "value": 6.061427280939476,
+     "neuron_values": [
+      6.061427280939476
+     ],
+     "driver": 0,
+     "snippet": " arguments made in a companion case, Faus Group, Inc. v. United States, slip op. 04-143[[ (]]CIT Nov. 15"
+    },
+    {
+     "rank": 851,
+     "stratum": "ranks 301-2000",
+     "window": 155,
+     "position": 395,
+     "value": 5.29810298102981,
+     "neuron_values": [
+      5.29810298102981
+     ],
+     "driver": 0,
+     "snippet": "ER COUNTRY\u23ce\u23ceHerefordshire Cider RouteTOUR\u23ce\u23ce(www.ciderroute.[[co]].uk)\u23ce"
+    },
+    {
+     "rank": 2372,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3752,
+     "position": 453,
+     "value": 4.112466124661247,
+     "neuron_values": [
+      4.112466124661247
+     ],
+     "driver": 0,
+     "snippet": "hexanol60.20\u00a0\u00b1\u00a00.09100.43\u00a0\u00b1\u00a00.17161.12\u00a0[[\u00b1]]\u00a00.171"
+    },
+    {
+     "rank": 51,
+     "stratum": "ranks 51-300",
+     "window": 3538,
+     "position": 135,
+     "value": 7.5564588979223135,
+     "neuron_values": [
+      7.5564588979223135
+     ],
+     "driver": 0,
+     "snippet": " or gaps\u23ce\t\t}\u23ce\u23ce\t\t// Compact nps + non-nil Instrs into a new slice.\u23ce\t[[\t]]// TODO(ad"
+    },
+    {
+     "rank": 157,
+     "stratum": "ranks 51-300",
+     "window": 1166,
+     "position": 302,
+     "value": 6.743450767841012,
+     "neuron_values": [
+      6.743450767841012
+     ],
+     "driver": 0,
+     "snippet": " people do not study history on their own like I do for a hobby, and are very prone to believing about history what[[ they]] have learned in school"
+    },
+    {
+     "rank": 192,
+     "stratum": "ranks 51-300",
+     "window": 2579,
+     "position": 281,
+     "value": 6.626016260162601,
+     "neuron_values": [
+      6.6260162601626025
+     ],
+     "driver": 0,
+     "snippet": " different hedonic price models. Therefore, we split the same regression in three income classes (columns (2) to ([[4]])) and observe that"
+    },
+    {
+     "rank": 1742,
+     "stratum": "ranks 301-2000",
+     "window": 212,
+     "position": 139,
+     "value": 4.53929539295393,
+     "neuron_values": [
+      4.53929539295393
+     ],
+     "driver": 0,
+     "snippet": "iciousCAFE\u23ce\u23ce(  MAP   GOOGLE MAP ) ;  %0191-340 1393; www[[.]]tealicioust"
+    },
+    {
+     "rank": 964,
+     "stratum": "ranks 301-2000",
+     "window": 3675,
+     "position": 371,
+     "value": 5.167118337850046,
+     "neuron_values": [
+      5.167118337850045
+     ],
+     "driver": 0,
+     "snippet": "3*d + 4*d + 167600144*d**2 - 167600210*d**[[2]].\u23ce-66"
+    },
+    {
+     "rank": 3368,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1656,
+     "position": 499,
+     "value": 3.3017163504968385,
+     "neuron_values": [
+      3.3017163504968385
+     ],
+     "driver": 0,
+     "snippet": " as determined by the resazurin assayTested plant and partsIC~50~ values (\u00b5g/mL)Pl[[ants]]Parts*Alch"
+    },
+    {
+     "rank": 3566,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3908,
+     "position": 486,
+     "value": 3.0826558265582658,
+     "neuron_values": [
+      3.0826558265582658
+     ],
+     "driver": 0,
+     "snippet": " textIndex-19.3 {Display lines} {\u23ce    .t index \"2.30 displaylinestart[[\"]]\u23ce} {2"
+    },
+    {
+     "rank": 254,
+     "stratum": "ranks 51-300",
+     "window": 3990,
+     "position": 47,
+     "value": 6.382113821138211,
+     "neuron_values": [
+      6.382113821138211
+     ],
+     "driver": 0,
+     "snippet": "\u23ce// to avoid automatic coersion.  It doesn't use a GroupVersion to avoid custom marshalling\u23ce// [[\u23ce]]// +protobuf."
+    },
+    {
+     "rank": 3050,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2261,
+     "position": 125,
+     "value": 3.5862691960252935,
+     "neuron_values": [
+      3.5862691960252935
+     ],
+     "driver": 0,
+     "snippet": "), or the function may be hard to assign based on full-length homology rather than select specificity-determining residues ([[as]] seems to occur with"
+    },
+    {
+     "rank": 1886,
+     "stratum": "ranks 301-2000",
+     "window": 4015,
+     "position": 504,
+     "value": 4.451219512195123,
+     "neuron_values": [
+      4.451219512195123
+     ],
+     "driver": 0,
+     "snippet": ".3]).\u23ce\u23ceThe results from [@ForstnericSlapar2007MRL; @Forstner[[ic]]Slapar2007"
+    },
+    {
+     "rank": 3826,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2225,
+     "position": 453,
+     "value": 2.737127371273713,
+     "neuron_values": [
+      2.737127371273713
+     ],
+     "driver": 0,
+     "snippet": " fewer atoms than for dilute ensembles prepared in warm vapors and in MOT experiments. Roughly for a fixed optical depth $[[b]]_0\\sim"
+    },
+    {
+     "rank": 2167,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1149,
+     "position": 251,
+     "value": 4.241192411924119,
+     "neuron_values": [
+      4.2411924119241196
+     ],
+     "driver": 0,
+     "snippet": ") << S_OPCODE)\u23ce#define G_OPCODE(x) (((x) >> S_OP[[CODE]]) & 0xFF"
+    },
+    {
+     "rank": 3770,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2060,
+     "position": 119,
+     "value": 2.8387533875338757,
+     "neuron_values": [
+      2.8387533875338753
+     ],
+     "driver": 0,
+     "snippet": ".\u23ce\u23ce'In this way, society esteems the married couple as the source and guardians of the next generation.[[ As]] an institution marriage is"
+    },
+    {
+     "rank": 183,
+     "stratum": "ranks 51-300",
+     "window": 2103,
+     "position": 487,
+     "value": 6.648599819331528,
+     "neuron_values": [
+      6.648599819331528
+     ],
+     "driver": 0,
+     "snippet": " despite the well-known difficult environment and barely discernible progress. The international community and, first and foremost, we,[[ as]] the European Union,"
+    },
+    {
+     "rank": 3754,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3130,
+     "position": 271,
+     "value": 2.8613369467028007,
+     "neuron_values": [
+      2.8613369467028003
+     ],
+     "driver": 0,
+     "snippet": ", now she had control of the treasury, there was no one to stop her spending whatever she wanted. Not only[[ that]], she had full"
+    },
+    {
+     "rank": 3025,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2969,
+     "position": 273,
+     "value": 3.611111111111111,
+     "neuron_values": [
+      3.611111111111111
+     ],
+     "driver": 0,
+     "snippet": " {\u23ce            binary = valuebinary.getBytes();\u23ce        } else {\u23ce            binary = null;\u23ce        [[}]]\u23ce        String valued"
+    },
+    {
+     "rank": 3248,
+     "stratum": "random, ranks 2001-4096",
+     "window": 702,
+     "position": 219,
+     "value": 3.412375790424571,
+     "neuron_values": [
+      3.412375790424571
+     ],
+     "driver": 0,
+     "snippet": " de ce que la mar\u00e2tre avait dit \u00e0 leur p\u00e8re. Margot, en pleurant des larmes[[ am]]\u00e8res, dit \u00e0"
+    },
+    {
+     "rank": 2508,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1541,
+     "position": 487,
+     "value": 4.004065040650406,
+     "neuron_values": [
+      4.004065040650406
+     ],
+     "driver": 0,
+     "snippet": " to account for the contribution of the primary beam (the scaled coefficients of a polynomial in the off-axis distance) were[[:]] -3.397"
+    },
+    {
+     "rank": 1662,
+     "stratum": "ranks 301-2000",
+     "window": 2168,
+     "position": 185,
+     "value": 4.5957542908762425,
+     "neuron_values": [
+      4.5957542908762425
+     ],
+     "driver": 0,
+     "snippet": " an image or changing the contents of an image to a degree at which deterioration of image quality is not visually recognizable.\u23ce[[As]] an example of the"
+    },
+    {
+     "rank": 282,
+     "stratum": "ranks 51-300",
+     "window": 1694,
+     "position": 383,
+     "value": 6.287262872628727,
+     "neuron_values": [
+      6.287262872628727
+     ],
+     "driver": 0,
+     "snippet": " Waltham, MA, USA). SDS/CO~3~buffer was composed of 4% SDS, 68 mM[[ Na]]~2~CO"
+    },
+    {
+     "rank": 162,
+     "stratum": "ranks 51-300",
+     "window": 1421,
+     "position": 64,
+     "value": 6.729900632339657,
+     "neuron_values": [
+      6.729900632339657
+     ],
+     "driver": 0,
+     "snippet": " term of imprisonment on a separate offense, Mathis v. United States,\u23ce391\u23ceU.S. 1\u23ce[[(]]1968), and to"
+    },
+    {
+     "rank": 1053,
+     "stratum": "ranks 301-2000",
+     "window": 416,
+     "position": 210,
+     "value": 5.072267389340561,
+     "neuron_values": [
+      5.07226738934056
+     ],
+     "driver": 0,
+     "snippet": "  Pectins (modified)                                                     Citrus spp.                                                        2-4-month BALB[[/]]c mice (9"
+    },
+    {
+     "rank": 101,
+     "stratum": "ranks 51-300",
+     "window": 3336,
+     "position": 474,
+     "value": 7.028003613369467,
+     "neuron_values": [
+      7.028003613369467
+     ],
+     "driver": 0,
+     "snippet": "6000_card), GFP_KERNEL);\u23ce\tif (!chip) {\u23ce\t\trc = -ENOMEM;\u23ce\t[[\t]]goto error;\u23ce"
+    },
+    {
+     "rank": 2038,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3910,
+     "position": 446,
+     "value": 4.324751580849142,
+     "neuron_values": [
+      4.324751580849142
+     ],
+     "driver": 0,
+     "snippet": " story first appeared in the Sept. 27 issue of The Hollywood Reporter magazine. To receive the magazine, click here to subscribe[[.]]<|endoftext|>Among vehicles,"
+    },
+    {
+     "rank": 71,
+     "stratum": "ranks 51-300",
+     "window": 3593,
+     "position": 416,
+     "value": 7.3080397470641385,
+     "neuron_values": [
+      7.308039747064138
+     ],
+     "driver": 0,
+     "snippet": " Viral RNA Mini Kit (Qiagen). Quantitative RT-PCR was performed using the following primers/probe specific for gag sequences[[:]] NG1F ("
+    },
+    {
+     "rank": 1206,
+     "stratum": "ranks 301-2000",
+     "window": 4064,
+     "position": 489,
+     "value": 4.94579945799458,
+     "neuron_values": [
+      4.94579945799458
+     ],
+     "driver": 0,
+     "snippet": " disclosure forms and calculations made available by OpenSecrets.org - The Center for Responsive Politics, Gardner's net worth[[ as]] of 2011 was estimated"
+    },
+    {
+     "rank": 2996,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1969,
+     "position": 403,
+     "value": 3.635953026196929,
+     "neuron_values": [
+      3.635953026196929
+     ],
+     "driver": 0,
+     "snippet": " sit out the 2001\u201302 season due to NCAA transfer regulations, but was able to practice with the team.\u23ce\u23ce[[As]] a redshirted"
+    },
+    {
+     "rank": 88,
+     "stratum": "ranks 51-300",
+     "window": 2771,
+     "position": 81,
+     "value": 7.158988256549233,
+     "neuron_values": [
+      7.158988256549233
+     ],
+     "driver": 0,
+     "snippet": " a palliative approach as the disease progresses [@pone.0109679-National1]. Palliative care has been defined as[[:]] \"The active total"
+    },
+    {
+     "rank": 242,
+     "stratum": "ranks 51-300",
+     "window": 748,
+     "position": 94,
+     "value": 6.4317976513098465,
+     "neuron_values": [
+      6.4317976513098465
+     ],
+     "driver": 0,
+     "snippet": ". Gunnarsson, and A. I. Liechtenstein, Phys. Rev. B **48**, 7651[[ (]]1993). J."
+    },
+    {
+     "rank": 81,
+     "stratum": "ranks 51-300",
+     "window": 836,
+     "position": 250,
+     "value": 7.217705510388438,
+     "neuron_values": [
+      7.217705510388438
+     ],
+     "driver": 0,
+     "snippet": " General Disclaimer: The Body is designed for educational purposes only and is not engaged in rendering medical advice or professional services.[[ The]] information provided through The"
+    },
+    {
+     "rank": 113,
+     "stratum": "ranks 51-300",
+     "window": 2139,
+     "position": 355,
+     "value": 6.942186088527552,
+     "neuron_values": [
+      6.942186088527552
+     ],
+     "driver": 0,
+     "snippet": ".\u201d [citing Paul Comstock] It has been noted that this condition is characterized by one or more of the following symptoms[[:]]\u23ce\u23ceToo much"
+    },
+    {
+     "rank": 2091,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2341,
+     "position": 275,
+     "value": 4.290876242095754,
+     "neuron_values": [
+      4.290876242095754
+     ],
+     "driver": 0,
+     "snippet": " cut off all ties with the past, you can't go on living right?\" \"If people don't do that,[[ they]] can't go forward"
+    },
+    {
+     "rank": 75,
+     "stratum": "ranks 51-300",
+     "window": 2994,
+     "position": 423,
+     "value": 7.289972899728998,
+     "neuron_values": [
+      7.289972899728998
+     ],
+     "driver": 0,
+     "snippet": "lement, pp. E1256. https://doi.org/10.1016/S0735-1097[[(]]13)61256"
+    },
+    {
+     "rank": 1361,
+     "stratum": "ranks 301-2000",
+     "window": 112,
+     "position": 408,
+     "value": 4.81029810298103,
+     "neuron_values": [
+      4.81029810298103
+     ],
+     "driver": 0,
+     "snippet": "/child \u00a39.40/5.20;  h10.30am-5pm Wed-Sun Mar[[-]]Oct, plus Tue"
+    },
+    {
+     "rank": 703,
+     "stratum": "ranks 301-2000",
+     "window": 1728,
+     "position": 464,
+     "value": 5.4923215898825655,
+     "neuron_values": [
+      5.4923215898825655
+     ],
+     "driver": 0,
+     "snippet": "64% H, 28.56% N.\u23ce\u23ce*5-\\[(4-Chlorobenzyl)[[amino]]\\]-6-methyl"
+    },
+    {
+     "rank": 1261,
+     "stratum": "ranks 301-2000",
+     "window": 1693,
+     "position": 493,
+     "value": 4.90063233965673,
+     "neuron_values": [
+      4.90063233965673
+     ],
+     "driver": 0,
+     "snippet": " in excess of other essential nutrients (10 \u00b5M FeCl~3~); no iron was added to the iron-limited[[ cultures]] (\\'stress\\'"
+    },
+    {
+     "rank": 2177,
+     "stratum": "random, ranks 2001-4096",
+     "window": 696,
+     "position": 130,
+     "value": 4.232158988256549,
+     "neuron_values": [
+      4.23215898825655
+     ],
+     "driver": 0,
+     "snippet": " h be (1 - -2 - 4)*(-4 - 0). Let s(b) = 130*b -[[ 44]]. Is 9 a"
+    },
+    {
+     "rank": 3935,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2023,
+     "position": 370,
+     "value": 2.439024390243903,
+     "neuron_values": [
+      2.439024390243903
+     ],
+     "driver": 0,
+     "snippet": " in South Korea five days a week\u2014Wednesdays and Sundays were excluded\u2014to support Commonwealth forces on the peninsula.[[ It]] became known in the"
+    },
+    {
+     "rank": 2253,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1377,
+     "position": 95,
+     "value": 4.186991869918699,
+     "neuron_values": [
+      4.186991869918699
+     ],
+     "driver": 0,
+     "snippet": "\u23ce801.581.0369\u23ce\u23ce7.\u23ceIntroductions\u23ceThere are two kinds of introductions[[:]] self-introductions"
+    },
+    {
+     "rank": 276,
+     "stratum": "ranks 51-300",
+     "window": 3242,
+     "position": 206,
+     "value": 6.305329719963867,
+     "neuron_values": [
+      6.305329719963867
+     ],
+     "driver": 0,
+     "snippet": " behavioral patterns.\u23ce\u23ceGoats\u23ceFew people of Telangana (mind it, they are not citizens of India[[ as]] they do not show"
+    },
+    {
+     "rank": 1812,
+     "stratum": "ranks 301-2000",
+     "window": 1940,
+     "position": 351,
+     "value": 4.496386630532972,
+     "neuron_values": [
+      4.496386630532973
+     ],
+     "driver": 0,
+     "snippet": " transduction, endocrine system, immune system and cellular community were the most represented KO (KEGG orthology) subcategories in[[ all]] groups ([Fig."
+    },
+    {
+     "rank": 74,
+     "stratum": "ranks 51-300",
+     "window": 2485,
+     "position": 478,
+     "value": 7.289972899728998,
+     "neuron_values": [
+      7.289972899728998
+     ],
+     "driver": 0,
+     "snippet": "15 (PS) and the Singapore Ministry of Education Social Science Research Thematic Grant (MOE2016-SSRTG[[-]]017, PS)."
+    },
+    {
+     "rank": 259,
+     "stratum": "ranks 51-300",
+     "window": 3747,
+     "position": 376,
+     "value": 6.368563685636857,
+     "neuron_values": [
+      6.3685636856368575
+     ],
+     "driver": 0,
+     "snippet": " is made to travel at relativistic speeds. In the frame of the container, the density is d at temperature T and pressure[[ P]]. To a person"
+    },
+    {
+     "rank": 1985,
+     "stratum": "ranks 301-2000",
+     "window": 783,
+     "position": 186,
+     "value": 4.369918699186992,
+     "neuron_values": [
+      4.369918699186992
+     ],
+     "driver": 0,
+     "snippet": " marry outside the church.\u23ce\u23cethat marrying a non-mormon constitutes a deliberate and active sin.\u23ce\u23ce[[as]] i read these various"
+    },
+    {
+     "rank": 224,
+     "stratum": "ranks 51-300",
+     "window": 2437,
+     "position": 388,
+     "value": 6.504065040650407,
+     "neuron_values": [
+      6.504065040650407
+     ],
+     "driver": 0,
+     "snippet": " + 0*f - 2*f))*(f**2 - 2*f**2 - 2*f**[[2]]).\u23ce-144"
+    },
+    {
+     "rank": 193,
+     "stratum": "ranks 51-300",
+     "window": 2156,
+     "position": 204,
+     "value": 6.621499548328817,
+     "neuron_values": [
+      6.621499548328817
+     ],
+     "driver": 0,
+     "snippet": "razy guitar rock with her friend Kazy at their next show. For more information, visit Kazy at http://[[www]].kazym"
+    },
+    {
+     "rank": 486,
+     "stratum": "ranks 301-2000",
+     "window": 797,
+     "position": 261,
+     "value": 5.835591689250227,
+     "neuron_values": [
+      5.835591689250226
+     ],
+     "driver": 0,
+     "snippet": " life, but I\u2019d been having a lot of questions about my own faith, and my relationship to the church.[[ It]]\u2019s hard to"
+    },
+    {
+     "rank": 2846,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3266,
+     "position": 281,
+     "value": 3.764679313459802,
+     "neuron_values": [
+      3.764679313459802
+     ],
+     "driver": 0,
+     "snippet": " That is, in an unlocked state, the unlocked state detecting circuit passes the output signals of the phase/frequency comparator to[[ the]] up/down counter"
+    },
+    {
+     "rank": 178,
+     "stratum": "ranks 51-300",
+     "window": 3168,
+     "position": 336,
+     "value": 6.657633242999097,
+     "neuron_values": [
+      6.657633242999097
+     ],
+     "driver": 0,
+     "snippet": "z<1.5$ [@2015MNRAS.447.2772R; @2016ApJ...826...11[[S]]], where the typical"
+    },
+    {
+     "rank": 1668,
+     "stratum": "ranks 301-2000",
+     "window": 2746,
+     "position": 446,
+     "value": 4.591237579042457,
+     "neuron_values": [
+      4.591237579042458
+     ],
+     "driver": 0,
+     "snippet": " heard of Microsoft or Bill Gates.\" \"I mean, they were nobodies.\" \"But then we were all nobodies[[,]] which was perfect for"
+    },
+    {
+     "rank": 558,
+     "stratum": "ranks 301-2000",
+     "window": 2992,
+     "position": 210,
+     "value": 5.718157181571816,
+     "neuron_values": [
+      5.718157181571816
+     ],
+     "driver": 0,
+     "snippet": "?\u23cer\u23ceLet g(i) = -i**3 + 7*i**2 + 7*i[[ +]] 8. Let v"
+    },
+    {
+     "rank": 1085,
+     "stratum": "ranks 301-2000",
+     "window": 679,
+     "position": 430,
+     "value": 5.049683830171635,
+     "neuron_values": [
+      5.049683830171635
+     ],
+     "driver": 0,
+     "snippet": "3~                                                                                                  \u23ce  LiOH                                                                                                        \u23ce  (CH~3~C[[OO]])~2~Zn"
+    },
+    {
+     "rank": 1179,
+     "stratum": "ranks 301-2000",
+     "window": 141,
+     "position": 101,
+     "value": 4.963866305329721,
+     "neuron_values": [
+      4.963866305329721
+     ],
+     "driver": 0,
+     "snippet": "ide InnB&B\u23ce\u23ce( %01353-661677; www.riversideinn-ely.[[co]].uk; 8"
+    },
+    {
+     "rank": 1697,
+     "stratum": "ranks 301-2000",
+     "window": 519,
+     "position": 248,
+     "value": 4.57542908762421,
+     "neuron_values": [
+      4.57542908762421
+     ],
+     "driver": 0,
+     "snippet": " analysis was performed using Raosoft ([www.raosoft.com/samplesize.html](www.ra[[os]]oft.com/"
+    },
+    {
+     "rank": 3596,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3998,
+     "position": 369,
+     "value": 3.0510388437217704,
+     "neuron_values": [
+      3.0510388437217704
+     ],
+     "driver": 0,
+     "snippet": "Points = 150 WHERE (ID = 52055);\u23ceUPDATE quest_template_addon SET RequiredSkillID =[[ 25]]65, RequiredSk"
+    },
+    {
+     "rank": 435,
+     "stratum": "ranks 301-2000",
+     "window": 4055,
+     "position": 150,
+     "value": 5.939476061427282,
+     "neuron_values": [
+      5.939476061427281
+     ],
+     "driver": 0,
+     "snippet": " enc) {\u23ce  if (enc == -1) {\u23ce    enc = ctx->encrypt;\u23ce  [[}]] else {\u23ce    "
+    }
+   ],
+   "explainer_prompt_sha256": "16f9322aede39f72ad681fc17cf7fcd9cd09f63aaa9b429d51afaa788c4a2951",
+   "first": {
+    "explanation": {
+     "parsed": "Predicts the next token after punctuation/whitespace in structured boilerplate: citation and legal formatting (middle-initial periods, parentheses, hyphens in case/DOI numbers), code indentation/newlines, and arithmetic sequence operators.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.016638,
+       "reply": "{\"explanation\": \"Predicts the next token after punctuation/whitespace in structured boilerplate: citation and legal formatting (middle-initial periods, parentheses, hyphens in case/DOI numbers), code indentation/newlines, and arithmetic sequence operators.\"}"
+      }
+     ],
+     "cost_usd": 0.016638,
+     "input_tokens": 3928,
+     "output_tokens": 93,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "16f9322aede39f72ad681fc17cf7fcd9cd09f63aaa9b429d51afaa788c4a2951",
+     "reply": "{\"explanation\": \"Predicts the next token after punctuation/whitespace in structured boilerplate: citation and legal formatting (middle-initial periods, parentheses, hyphens in case/DOI numbers), code indentation/newlines, and arithmetic sequence operators.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       1.0,
+       5.0,
+       4.0,
+       3.0,
+       6.0,
+       0.0,
+       4.0,
+       3.0,
+       4.0,
+       1.0,
+       3.0,
+       3.0,
+       1.0,
+       1.0,
+       2.0,
+       2.0,
+       1.0,
+       0.0,
+       0.0,
+       6.0,
+       0.0,
+       3.0,
+       1.0,
+       2.0,
+       6.0,
+       3.0,
+       7.0,
+       0.0,
+       3.0,
+       0.0,
+       1.0,
+       3.0,
+       0.0,
+       1.0,
+       3.0,
+       0.0,
+       6.0,
+       5.0,
+       1.0,
+       0.0,
+       3.0,
+       0.0,
+       1.0,
+       1.0,
+       5.0,
+       1.0,
+       2.0,
+       4.0,
+       1.0,
+       3.0,
+       0.0,
+       3.0,
+       1.0,
+       4.0,
+       4.0,
+       0.0,
+       3.0,
+       7.0,
+       2.0,
+       2.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.019379999999999998,
+        "reply": "[1,5,4,3,6,0,4,3,4,1,3,3,1,1,2,2,1,0,0,6,0,3,1,2,6,3,7,0,3,0,1,3,0,1,3,0,6,5,1,0,3,0,1,1,5,1,2,4,1,3,0,3,1,4,4,0,3,7,2,2,1,4,5]\n\nWait \u2014 that's 63 numbers; here is the corrected list of 60:\n\n[1,5,4,3,6,0,4,3,4,1,3,3,1,1,2,2,1,0,0,6,0,3,1,2,6,3,7,0,3,0,1,3,0,1,3,0,6,5,1,0,3,0,1,1,5,1,2,4,1,3,0,3,1,4,4,0,3,7,2,2]"
+       }
+      ],
+      "cost_usd": 0.019379999999999998,
+      "input_tokens": 4156,
+      "output_tokens": 276,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "4dadfce212ae9f5e3bf1ee412560facd30d18cbdf234b647d08cc887351dd966",
+      "reply": "[1,5,4,3,6,0,4,3,4,1,3,3,1,1,2,2,1,0,0,6,0,3,1,2,6,3,7,0,3,0,1,3,0,1,3,0,6,5,1,0,3,0,1,1,5,1,2,4,1,3,0,3,1,4,4,0,3,7,2,2,1,4,5]\n\nWait \u2014 that's 63 numbers; here is the corrected list of 60:\n\n[1,5,4,3,6,0,4,3,4,1,3,3,1,1,2,2,1,0,0,6,0,3,1,2,6,3,7,0,3,0,1,3,0,1,3,0,6,5,1,0,3,0,1,1,5,1,2,4,1,3,0,3,1,4,4,0,3,7,2,2]"
+     },
+     "haiku": {
+      "parsed": [
+       4.0,
+       7.0,
+       2.0,
+       3.0,
+       6.0,
+       1.0,
+       4.0,
+       4.0,
+       3.0,
+       1.0,
+       3.0,
+       5.0,
+       1.0,
+       2.0,
+       2.0,
+       2.0,
+       1.0,
+       1.0,
+       1.0,
+       5.0,
+       1.0,
+       3.0,
+       1.0,
+       1.0,
+       8.0,
+       3.0,
+       7.0,
+       2.0,
+       2.0,
+       1.0,
+       1.0,
+       2.0,
+       8.0,
+       1.0,
+       2.0,
+       1.0,
+       8.0,
+       3.0,
+       2.0,
+       1.0,
+       4.0,
+       1.0,
+       2.0,
+       1.0,
+       1.0,
+       6.0,
+       1.0,
+       1.0,
+       4.0,
+       2.0,
+       1.0,
+       1.0,
+       6.0,
+       1.0,
+       5.0,
+       2.0,
+       2.0,
+       2.0,
+       3.0,
+       5.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.0015012,
+        "reply": "{\"scores\": [4, 7, 2, 3, 6, 1, 4, 4, 3, 1, 3, 5, 1, 2, 2, 2, 1, 1, 1, 5, 1, 3, 1, 1, 8, 3, 7, 2, 2, 1, 1, 2, 8, 1, 2, 1, 8, 3, 2, 1, 4, 1, 2, 1, 1, 6, 1, 1, 4, 2, 1, 1, 6, 1, 5, 2, 2, 2, 3, 5]}"
+       }
+      ],
+      "cost_usd": 0.0015012,
+      "input_tokens": 4157,
+      "output_tokens": 1340,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "4dadfce212ae9f5e3bf1ee412560facd30d18cbdf234b647d08cc887351dd966",
+      "reply": "{\"scores\": [4, 7, 2, 3, 6, 1, 4, 4, 3, 1, 3, 5, 1, 2, 2, 2, 1, 1, 1, 5, 1, 3, 1, 1, 8, 3, 7, 2, 2, 1, 1, 2, 8, 1, 2, 1, 8, 3, 2, 1, 4, 1, 2, 1, 1, 6, 1, 1, 4, 2, 1, 1, 6, 1, 5, 2, 2, 2, 3, 5]}"
+     }
+    },
+    "judge": {
+     "parsed": true,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0002388,
+       "reply": "{\"unrelated_patterns\": true}"
+      }
+     ],
+     "cost_usd": 0.0002388,
+     "input_tokens": 975,
+     "output_tokens": 88,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "c9764389532bdb87d1cf8e53f492724b2186daa86ff275fc50da0025a25d4a2e",
+     "reply": "{\"unrelated_patterns\": true}"
+    }
+   }
+  },
+  "160m:pooled:50/50:1947-1365": {
+   "id": "160m:pooled:50/50:1947-1365",
+   "model": "160m",
+   "kind": "pooled",
+   "group": "pooled 50/50",
+   "neurons": [
+    1947,
+    1365
+   ],
+   "neuron_ids": [
+    2934,
+    2060
+   ],
+   "log_peak": [
+    -0.12623974567460688,
+    1.653773726254152
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 184,
+     "stratum": "ranks 51-300",
+     "window": 1559,
+     "position": 104,
+     "value": 7.304936305732484,
+     "neuron_values": [
+      7.304936305732484,
+      3.6618616605207284
+     ],
+     "driver": 0,
+     "snippet": "is Studio\u2019s instagram profile and check out the highlight called \u201cNG19\u201d. You can also check out the highlight[[ called]] \"Airport Tour"
+    },
+    {
+     "rank": 2493,
+     "stratum": "random, ranks 2001-4096",
+     "window": 461,
+     "position": 450,
+     "value": 4.787778895221067,
+     "neuron_values": [
+      4.080414012738854,
+      4.787778895221067
+     ],
+     "driver": 1,
+     "snippet": "Delta_u=0$) [@Barros2009a; @Maurer2004a].\u23ce\u23ceA third example is[[ based]] on vSTIR"
+    },
+    {
+     "rank": 1565,
+     "stratum": "ranks 301-2000",
+     "window": 49,
+     "position": 281,
+     "value": 5.386146496815287,
+     "neuron_values": [
+      5.386146496815287,
+      4.172207322978358
+     ],
+     "driver": 0,
+     "snippet": " the astounding stonework and displays at the Natural History Museum\u23ce\u23cea Getting your drama fix at Shakespeare's Globe or[[ any]] of London's outstanding"
+    },
+    {
+     "rank": 206,
+     "stratum": "ranks 51-300",
+     "window": 3836,
+     "position": 113,
+     "value": 7.201433121019109,
+     "neuron_values": [
+      7.201433121019109,
+      3.9880619808544715
+     ],
+     "driver": 0,
+     "snippet": " annulus is present at the periosteal surface of both the femur (Fig. 1D) and tibia (fig[[.]] S8E),"
+    },
+    {
+     "rank": 169,
+     "stratum": "ranks 51-300",
+     "window": 3186,
+     "position": 480,
+     "value": 7.355291093976979,
+     "neuron_values": [
+      0.3801751592356688,
+      7.355291093976981
+     ],
+     "driver": 1,
+     "snippet": "0.950816;0.160263;,\u23ce   0.956250;0.179000;,\u23ce[[   ]]1.000000;"
+    },
+    {
+     "rank": 3600,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3863,
+     "position": 178,
+     "value": 4.001215219577606,
+     "neuron_values": [
+      3.3738057324840764,
+      4.001215219577606
+     ],
+     "driver": 1,
+     "snippet": "ALTH OF VIRGINIA (Mark Earley),\u23ce\u23ce                                            Respondents - Appellees.\u23ce\u23ce\u23ce\u23ceAppeal from the[[ United]] States District Court for"
+    },
+    {
+     "rank": 1303,
+     "stratum": "ranks 301-2000",
+     "window": 2019,
+     "position": 180,
+     "value": 5.598018400566171,
+     "neuron_values": [
+      4.243630573248407,
+      5.598018400566171
+     ],
+     "driver": 1,
+     "snippet": "-sensors-20-02641]\\] was used for localization. Xiao et al. \\[[@B113-sensors-[[20]]-02641]\\]"
+    },
+    {
+     "rank": 299,
+     "stratum": "ranks 51-300",
+     "window": 226,
+     "position": 327,
+     "value": 6.9347133757961785,
+     "neuron_values": [
+      6.9347133757961785,
+      5.398089171974522
+     ],
+     "driver": 0,
+     "snippet": "   GOOGLE MAP ) ;  %01970-623232; www.aberystwythartsc[[entre]].co.uk"
+    },
+    {
+     "rank": 1177,
+     "stratum": "ranks 301-2000",
+     "window": 1629,
+     "position": 373,
+     "value": 5.700636942675159,
+     "neuron_values": [
+      5.7006369426751595,
+      4.093287890639551
+     ],
+     "driver": 0,
+     "snippet": "\u23ce\u23cepages has an ownership interest in the website on which the pages are displayed,\u201d\u23ce\u23ceR., Vol. I[[,]] at 880."
+    },
+    {
+     "rank": 3585,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2186,
+     "position": 410,
+     "value": 4.011737810556114,
+     "neuron_values": [
+      0.2724422770700637,
+      4.011737810556114
+     ],
+     "driver": 1,
+     "snippet": "*h - 3*w. Let s(u) = -u**3 + 5*u**2 -[[ 4]]*u. Let"
+    },
+    {
+     "rank": 105,
+     "stratum": "ranks 51-300",
+     "window": 1498,
+     "position": 147,
+     "value": 7.699044585987262,
+     "neuron_values": [
+      7.69904458598726,
+      3.430364658993556
+     ],
+     "driver": 0,
+     "snippet": ". Velg hva du vil gj\u00f8re og klikk Neste for \u00e5 fortsette.\"\u23ceStrC[[py]] $PageReinstall"
+    },
+    {
+     "rank": 96,
+     "stratum": "ranks 51-300",
+     "window": 814,
+     "position": 231,
+     "value": 7.718949044585988,
+     "neuron_values": [
+      7.718949044585988,
+      4.977185532834209
+     ],
+     "driver": 0,
+     "snippet": "to-perform activities, introduced weekly at school by people locally well-known by means of instruction videos (i.e[[.,]] the schools' own"
+    },
+    {
+     "rank": 154,
+     "stratum": "ranks 51-300",
+     "window": 2917,
+     "position": 504,
+     "value": 7.434210526315789,
+     "neuron_values": [
+      4.796974522292993,
+      7.434210526315789
+     ],
+     "driver": 1,
+     "snippet": " K7D, K10D, and \u0394G8\u0394G9 ([Figure 4A](#fig4){ref[[-]]type=\"fig\"}),"
+    },
+    {
+     "rank": 1276,
+     "stratum": "ranks 301-2000",
+     "window": 3025,
+     "position": 219,
+     "value": 5.6210191082802545,
+     "neuron_values": [
+      5.6210191082802545,
+      4.5799577233955375
+     ],
+     "driver": 0,
+     "snippet": " (formal and informal), including the use of antibiotics to treat existing and suspected infections or to prevent infection (e.g[[.,]] antibiotic prophylaxis)Any"
+    },
+    {
+     "rank": 2014,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1959,
+     "position": 371,
+     "value": 5.08359872611465,
+     "neuron_values": [
+      5.08359872611465,
+      4.766733713264052
+     ],
+     "driver": 0,
+     "snippet": " days, you see poker. There are poker tournaments throughout the world, poker on ESPN, poker online, poker books gal[[ore]], and poker articles"
+    },
+    {
+     "rank": 1727,
+     "stratum": "ranks 301-2000",
+     "window": 1550,
+     "position": 479,
+     "value": 5.2718180802324275,
+     "neuron_values": [
+      4.179936305732484,
+      5.271818080232428
+     ],
+     "driver": 1,
+     "snippet": " procedure to perform a partial resection of a malunion of a posteromedial fracture to correct posterior ankle impingement.[[\u23ce]]\u23ceSupplementary Data {#"
+    },
+    {
+     "rank": 1199,
+     "stratum": "ranks 301-2000",
+     "window": 151,
+     "position": 507,
+     "value": 5.680732484076433,
+     "neuron_values": [
+      5.680732484076433,
+      5.111348567810183
+     ],
+     "driver": 0,
+     "snippet": " ;  %0844 800 1110; www.rsc.org.uk; Southern Lane). Contact the R[[SC]] for the latest news"
+    },
+    {
+     "rank": 632,
+     "stratum": "ranks 301-2000",
+     "window": 2298,
+     "position": 347,
+     "value": 6.317675159235669,
+     "neuron_values": [
+      6.317675159235669,
+      5.645370059969457
+     ],
+     "driver": 0,
+     "snippet": "Being part of the 1 percent\u23ce\u23ceI was lucky enough to study and work at two elite USA institutions \u2013 Yale University[[ and]] McKinsey & Co"
+    },
+    {
+     "rank": 2076,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1771,
+     "position": 395,
+     "value": 5.0437898089171975,
+     "neuron_values": [
+      5.0437898089171975,
+      3.2883096807837
+     ],
+     "driver": 0,
+     "snippet": " is so compact, cars are coming from every which way and there\u2019s all kinds of traffic with pedestrians and mixed intersections[[ going]] on. This is"
+    },
+    {
+     "rank": 3315,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1866,
+     "position": 328,
+     "value": 4.239649681528662,
+     "neuron_values": [
+      4.239649681528662,
+      3.640816478563713
+     ],
+     "driver": 0,
+     "snippet": " The Forum in London, and the organization\u2019s 2014 debut card featured a host of local talent. In the headliner[[,]] fast-rising b"
+    },
+    {
+     "rank": 3885,
+     "stratum": "random, ranks 2001-4096",
+     "window": 681,
+     "position": 478,
+     "value": 3.5329599210340077,
+     "neuron_values": [
+      0.7369625796178343,
+      3.5329599210340077
+     ],
+     "driver": 1,
+     "snippet": "Sfixed32}\u23ce    set {_uniqueStorage()._optionalSfixed32 = newValue}\u23ce  }[[\u23ce\u23ce]]  var optionalS"
+    },
+    {
+     "rank": 233,
+     "stratum": "ranks 51-300",
+     "window": 3292,
+     "position": 206,
+     "value": 7.129777070063694,
+     "neuron_values": [
+      7.129777070063694,
+      3.3856436473348976
+     ],
+     "driver": 0,
+     "snippet": " didn\u2019t get the points so I sent them a contact us and got a response within the hour that they had re[[processed]] the receipt.\u23ce"
+    },
+    {
+     "rank": 3394,
+     "stratum": "random, ranks 2001-4096",
+     "window": 938,
+     "position": 127,
+     "value": 4.175955414012739,
+     "neuron_values": [
+      4.175955414012739,
+      3.8249618206875997
+     ],
+     "driver": 0,
+     "snippet": " were. Every instinct they possessed told them to flee, and they were doing it rapidly.\u23ce\u23ceJamie galloped[[ past]] the Bingham wagon"
+    },
+    {
+     "rank": 1711,
+     "stratum": "ranks 301-2000",
+     "window": 569,
+     "position": 434,
+     "value": 5.278662420382165,
+     "neuron_values": [
+      5.278662420382165,
+      4.227450925615525
+     ],
+     "driver": 0,
+     "snippet": ". d\u23ce\u23ce(emphasis added).\u23ce\u23ce              For example, in Henley v. Prince George\u2019s Cn[[ty]]., the\u23ce\u23ce"
+    },
+    {
+     "rank": 391,
+     "stratum": "ranks 301-2000",
+     "window": 428,
+     "position": 429,
+     "value": 6.72393563526651,
+     "neuron_values": [
+      4.928343949044586,
+      6.72393563526651
+     ],
+     "driver": 1,
+     "snippet": " Intan. She'd spent a few years there when she first got to the country, and thought of it as a[[ sort]] of home. She"
+    },
+    {
+     "rank": 254,
+     "stratum": "ranks 51-300",
+     "window": 2355,
+     "position": 335,
+     "value": 7.081703728535776,
+     "neuron_values": [
+      3.4375,
+      7.081703728535776
+     ],
+     "driver": 1,
+     "snippet": " health-promoting lifestyles (P\\<0.05). According to [Table 3](#T0003){ref[[-]]type=\"table\"},"
+    },
+    {
+     "rank": 1493,
+     "stratum": "ranks 301-2000",
+     "window": 1039,
+     "position": 427,
+     "value": 5.445859872611465,
+     "neuron_values": [
+      5.445859872611464,
+      4.245865459827914
+     ],
+     "driver": 0,
+     "snippet": " of pollution can also develop precipitation differently \u2013 and even in one region depending on the pollution on a specific day,\u201d Bruint[[jes]] says. Anything that"
+    },
+    {
+     "rank": 165,
+     "stratum": "ranks 51-300",
+     "window": 339,
+     "position": 316,
+     "value": 7.372611464968153,
+     "neuron_values": [
+      7.372611464968153,
+      4.056458822214773
+     ],
+     "driver": 0,
+     "snippet": " Community\u23ce\u23ceNearby Schools\u23ce\u23ce3208 Perdot Avenue, Rosamond, CA 93560 (MLS[[#]] SR16727560"
+    },
+    {
+     "rank": 147,
+     "stratum": "ranks 51-300",
+     "window": 3877,
+     "position": 176,
+     "value": 7.4562101910828025,
+     "neuron_values": [
+      7.4562101910828025,
+      3.5066534435877377
+     ],
+     "driver": 0,
+     "snippet": " 8.) I have addressed the issue of unbranded gasoline at length in my most recent opinion and order at Docket No[[.]] 287. The ruling"
+    },
+    {
+     "rank": 2659,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3597,
+     "position": 162,
+     "value": 4.682552985435988,
+     "neuron_values": [
+      4.490445859872612,
+      4.682552985435989
+     ],
+     "driver": 1,
+     "snippet": ",450\u00d7.](brainsci-03-01374-g008){#brainsci-03-01374-f008}[[\u23ce]]\u23ce![Electron"
+    },
+    {
+     "rank": 2266,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2088,
+     "position": 335,
+     "value": 4.919311282452416,
+     "neuron_values": [
+      3.5628980891719744,
+      4.919311282452416
+     ],
+     "driver": 1,
+     "snippet": " field. These systems provide capability for safeguards inspection and verification applications and could find application in counter-smuggling operations.[[\u23ce]]\u23ceAmbient pressure"
+    },
+    {
+     "rank": 2556,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3493,
+     "position": 423,
+     "value": 4.748319179051664,
+     "neuron_values": [
+      3.62062101910828,
+      4.748319179051664
+     ],
+     "driver": 1,
+     "snippet": " Subsection (c)(3) authorizes the FCC to designate \"additional services for such support mechanisms for schools, libraries[[,]] and health care providers"
+    },
+    {
+     "rank": 1636,
+     "stratum": "ranks 301-2000",
+     "window": 4047,
+     "position": 261,
+     "value": 5.334394904458599,
+     "neuron_values": [
+      5.334394904458599,
+      4.222189630126271
+     ],
+     "driver": 0,
+     "snippet": " the most significant since the arena opened in 1991 as the Delta Center. In 2006, EnergySolutions bought the naming rights[[ to]] the venue.\u23ce"
+    },
+    {
+     "rank": 246,
+     "stratum": "ranks 51-300",
+     "window": 2900,
+     "position": 247,
+     "value": 7.086965024025031,
+     "neuron_values": [
+      3.957006369426752,
+      7.086965024025031
+     ],
+     "driver": 1,
+     "snippet": " a small magnetic field of 5\u2009mT (lower panel in Fig.\u00a0[1e](#Fig1){ref[[-]]type=\"fig\"})."
+    },
+    {
+     "rank": 232,
+     "stratum": "ranks 51-300",
+     "window": 3031,
+     "position": 123,
+     "value": 7.129777070063694,
+     "neuron_values": [
+      7.129777070063694,
+      4.366875256080753
+     ],
+     "driver": 0,
+     "snippet": " in the spectrum of Fig. \\[fig:spec\\] nor the coincidence spectrum with the 1797-keV peak (Fig[[.]]\u00a0\\[fig:"
+    },
+    {
+     "rank": 3138,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2426,
+     "position": 348,
+     "value": 4.372136551570009,
+     "neuron_values": [
+      3.2882165605095546,
+      4.372136551570008
+     ],
+     "driver": 1,
+     "snippet": " the whole relation behind $S$ so that the already improved instances can sufficiently be passed on to the general adaptation mechanism.[[\u23ce]]\u23ceFor a general"
+    },
+    {
+     "rank": 95,
+     "stratum": "ranks 51-300",
+     "window": 1151,
+     "position": 497,
+     "value": 7.734104369203263,
+     "neuron_values": [
+      1.6480891719745223,
+      7.734104369203263
+     ],
+     "driver": 1,
+     "snippet": "_RSS_MASK_LEN(x) ((x) << S_RSS_MASK_LEN)\u23ce[[#]]define G_R"
+    },
+    {
+     "rank": 844,
+     "stratum": "ranks 301-2000",
+     "window": 2700,
+     "position": 299,
+     "value": 6.039012738853503,
+     "neuron_values": [
+      6.039012738853503,
+      5.203421238872127
+     ],
+     "driver": 0,
+     "snippet": ".5.2, we also investigate the convergence of the proposed measure as a function of sample size (i.e[[.,]] with the number of"
+    },
+    {
+     "rank": 1638,
+     "stratum": "ranks 301-2000",
+     "window": 562,
+     "position": 136,
+     "value": 5.332322978358848,
+     "neuron_values": [
+      4.884554140127388,
+      5.332322978358849
+     ],
+     "driver": 1,
+     "snippet": " be identified in either the 1D or 2D gels, were included (see [Supporting Information](#Sec13){ref[[-]]type=\"sec\"})."
+    },
+    {
+     "rank": 2523,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3941,
+     "position": 451,
+     "value": 4.769108280254777,
+     "neuron_values": [
+      4.769108280254777,
+      4.603633553097181
+     ],
+     "driver": 0,
+     "snippet": " Apps that can manipulate large amounts of data. Multi-stream video chat, graphics, presentations, etc. Even holding uncomp[[ressed]] jpg files in"
+    },
+    {
+     "rank": 273,
+     "stratum": "ranks 51-300",
+     "window": 3821,
+     "position": 468,
+     "value": 7.023829478153983,
+     "neuron_values": [
+      4.518312101910828,
+      7.023829478153983
+     ],
+     "driver": 1,
+     "snippet": " authors thank Dr. Klaus Gawrisch for his support. The authors do not have any conflict of interest.[[\u23ce]]\u23ce![Five major"
+    },
+    {
+     "rank": 2018,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3383,
+     "position": 106,
+     "value": 5.077150147130033,
+     "neuron_values": [
+      3.499203821656051,
+      5.077150147130033
+     ],
+     "driver": 1,
+     "snippet": "X,.)$ is then the conditional vector quantile of $Y$ given $X$. There is, as we will[[ see]] in dimension one,"
+    },
+    {
+     "rank": 1193,
+     "stratum": "ranks 301-2000",
+     "window": 3524,
+     "position": 150,
+     "value": 5.688694267515924,
+     "neuron_values": [
+      5.688694267515924,
+      2.9910464856408536
+     ],
+     "driver": 0,
+     "snippet": ", the Payroll Assistant will be comfortable running hourly, weekly and monthly payroll for a team of circa 250 staff,[[ and]] ... more about Pay"
+    },
+    {
+     "rank": 54,
+     "stratum": "ranks 51-300",
+     "window": 3837,
+     "position": 172,
+     "value": 8.045382165605096,
+     "neuron_values": [
+      8.045382165605094,
+      3.148885350318471
+     ],
+     "driver": 0,
+     "snippet": " ceased and resumed (totaling 13 years of growth) or up to 6 years where relatively little growth occurred annually (tot[[aling]] up to 18 years"
+    },
+    {
+     "rank": 1945,
+     "stratum": "ranks 301-2000",
+     "window": 1933,
+     "position": 451,
+     "value": 5.127388535031847,
+     "neuron_values": [
+      5.127388535031847,
+      4.945617759898685
+     ],
+     "driver": 0,
+     "snippet": " from Justin Gilbert and Senquez Golson (not this season for the latter, obviously) before all\u2019s said and[[ done]].\u23ce\u23ceSpecial"
+    },
+    {
+     "rank": 1430,
+     "stratum": "ranks 301-2000",
+     "window": 3365,
+     "position": 148,
+     "value": 5.497611464968153,
+     "neuron_values": [
+      5.497611464968153,
+      3.924926434983425
+     ],
+     "driver": 0,
+     "snippet": " variants\u23ce Nintendo Power 100th Issue Edition - gold w/ logo | This was available for purchase by the Nintendo Power ad[[verts]] or by winning their"
+    },
+    {
+     "rank": 2277,
+     "stratum": "random, ranks 2001-4096",
+     "window": 140,
+     "position": 301,
+     "value": 4.912420382165605,
+     "neuron_values": [
+      4.912420382165605,
+      4.443164040674936
+     ],
+     "driver": 0,
+     "snippet": " space. Look out too for the entrancing ceiling, the masterly 14th-century **Octagon** , and[[ **]]towers** that"
+    },
+    {
+     "rank": 1967,
+     "stratum": "ranks 301-2000",
+     "window": 2247,
+     "position": 53,
+     "value": 5.108717920065557,
+     "neuron_values": [
+      4.19187898089172,
+      5.108717920065557
+     ],
+     "driver": 1,
+     "snippet": "=\"supplementary-material\"}.\u23ce\u23ceSee also [S1 Text](#pbio.1002412.s012){ref[[-]]type=\"supplementary-"
+    },
+    {
+     "rank": 3785,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3633,
+     "position": 198,
+     "value": 3.763933121019108,
+     "neuron_values": [
+      3.763933121019108,
+      2.6135485342868847
+     ],
+     "driver": 0,
+     "snippet": " are not induced in the conditions when the growth is limited by the nitrogen of these amino acids. When the growth was limited[[ by]] carbon, aspar"
+    },
+    {
+     "rank": 507,
+     "stratum": "ranks 301-2000",
+     "window": 2863,
+     "position": 449,
+     "value": 6.492834394904458,
+     "neuron_values": [
+      6.492834394904458,
+      3.443517897716691
+     ],
+     "driver": 0,
+     "snippet": "\u23ceFor students and guests that would prefer to use a taxi service, CCMIT's campus is less than five miles[[ from]] the Baltimore - Washington"
+    },
+    {
+     "rank": 1731,
+     "stratum": "ranks 301-2000",
+     "window": 455,
+     "position": 43,
+     "value": 5.26671974522293,
+     "neuron_values": [
+      5.26671974522293,
+      3.5276986255447538
+     ],
+     "driver": 0,
+     "snippet": " grown up. From there they'd taken the usual sea route to southern Thailand, cutting in from the Andaman Islands and[[ heading]] to the point where"
+    },
+    {
+     "rank": 3526,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2321,
+     "position": 277,
+     "value": 4.068471337579618,
+     "neuron_values": [
+      4.068471337579617,
+      3.1252095206168287
+     ],
+     "driver": 0,
+     "snippet": " Is it a val app, where the val f is TLR with arity wf?\u23ce        // CLEANUP[[ NOTE]]: should be using"
+    },
+    {
+     "rank": 2619,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3420,
+     "position": 150,
+     "value": 4.708859462882259,
+     "neuron_values": [
+      3.953025477707006,
+      4.708859462882258
+     ],
+     "driver": 1,
+     "snippet": " life together. It was as if my placenta had begun to refuse him oxygen. Like so many women, I waited with[[ impat]]ience for the moment"
+    },
+    {
+     "rank": 229,
+     "stratum": "ranks 51-300",
+     "window": 1528,
+     "position": 468,
+     "value": 7.13375796178344,
+     "neuron_values": [
+      7.13375796178344,
+      4.858806384325995
+     ],
+     "driver": 0,
+     "snippet": " are shown in Fig. \\[fig:exfoliated\\_CGT\\]. We can see from the optical image (Fig[[.]] \\[fig:ex"
+    },
+    {
+     "rank": 1123,
+     "stratum": "ranks 301-2000",
+     "window": 3371,
+     "position": 511,
+     "value": 5.752388535031847,
+     "neuron_values": [
+      5.752388535031847,
+      3.932818378217305
+     ],
+     "driver": 0,
+     "snippet": " one is going to come all the way to a con and not see your biggest guests, so make them at least walk[[ past]]"
+    },
+    {
+     "rank": 4008,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1082,
+     "position": 418,
+     "value": 3.0989030431705586,
+     "neuron_values": [
+      1.5903662420382165,
+      3.098903043170559
+     ],
+     "driver": 1,
+     "snippet": "C>(\u23ce        allowed, fallback_allowed, promo_allowed, holdback);\u23ce  }\u23ce};[[\u23ce]]\u23ce}  //"
+    },
+    {
+     "rank": 77,
+     "stratum": "ranks 51-300",
+     "window": 2942,
+     "position": 306,
+     "value": 7.8814206429023725,
+     "neuron_values": [
+      3.395700636942675,
+      7.8814206429023725
+     ],
+     "driver": 1,
+     "snippet": " taxane docetaxel in A2780-CP20 cells ([Supplementary Figure S1h](#sup1){ref[[-]]type=\"supplementary-"
+    },
+    {
+     "rank": 166,
+     "stratum": "ranks 51-300",
+     "window": 1228,
+     "position": 57,
+     "value": 7.364649681528662,
+     "neuron_values": [
+      7.364649681528662,
+      5.337584273848102
+     ],
+     "driver": 0,
+     "snippet": " 2\u2009ml Hibernate E medium and 1\u2009ml Earle\\'s balanced salt solution (Worthington;[[ \\#]]LK003188"
+    },
+    {
+     "rank": 3653,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1285,
+     "position": 111,
+     "value": 3.9490445859872607,
+     "neuron_values": [
+      3.9490445859872607,
+      3.440887249972064
+     ],
+     "driver": 0,
+     "snippet": " to add a dll reference or something else. Please could someone advise how to solve this thanks in advance. Also I[[ downloaded]] the demo and there"
+    },
+    {
+     "rank": 281,
+     "stratum": "ranks 51-300",
+     "window": 2659,
+     "position": 98,
+     "value": 6.990445859872611,
+     "neuron_values": [
+      6.990445859872611,
+      4.511560882035236
+     ],
+     "driver": 0,
+     "snippet": " and they also do ingrain conscious exercising. Explore more Program is mainly designed for top and middle managers, as well[[ as]] for proactive entrepreneurs eager"
+    }
+   ],
+   "explainer_prompt_sha256": "c3b04ead03265758d50e6bd6a7a34fb5d395d99e7d930175ea98f6d8b7d2e152",
+   "first": {
+    "explanation": {
+     "parsed": "Tokens ending an abbreviation or structural unit where a continuation is expected: 'Pat.', 'Ref.', 'incl.', 'i.e.', 'ref-' in figure markup, newline after figure captions or acknowledgments, and 'posted' in 'signposted'.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.016488,
+       "reply": "{\"explanation\": \"Tokens ending an abbreviation or structural unit where a continuation is expected: 'Pat.', 'Ref.', 'incl.', 'i.e.', 'ref-' in figure markup, newline after figure captions or acknowledgments, and 'posted' in 'signposted'.\"}"
+      }
+     ],
+     "cost_usd": 0.016488,
+     "input_tokens": 3863,
+     "output_tokens": 104,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "c3b04ead03265758d50e6bd6a7a34fb5d395d99e7d930175ea98f6d8b7d2e152",
+     "reply": "{\"explanation\": \"Tokens ending an abbreviation or structural unit where a continuation is expected: 'Pat.', 'Ref.', 'incl.', 'i.e.', 'ref-' in figure markup, newline after figure captions or acknowledgments, and 'posted' in 'signposted'.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       0.0,
+       0.0,
+       0.0,
+       6.0,
+       0.0,
+       0.0,
+       3.0,
+       1.0,
+       2.0,
+       0.0,
+       0.0,
+       6.0,
+       8.0,
+       6.0,
+       0.0,
+       6.0,
+       1.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       0.0,
+       2.0,
+       0.0,
+       8.0,
+       0.0,
+       3.0,
+       6.0,
+       5.0,
+       6.0,
+       0.0,
+       0.0,
+       8.0,
+       6.0,
+       5.0,
+       2.0,
+       6.0,
+       8.0,
+       0.0,
+       1.0,
+       5.0,
+       0.0,
+       1.0,
+       0.0,
+       0.0,
+       0.0,
+       8.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       6.0,
+       0.0,
+       0.0,
+       5.0,
+       8.0,
+       1.0,
+       0.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.01833,
+        "reply": "[0,0,0,6,0,0,3,1,2,0,0,6,8,6,0,6,1,0,0,0,1,1,0,2,0,8,0,3,6,5,6,0,0,8,6,5,2,6,8,0,1,5,0,1,0,0,0,8,0,0,0,1,1,6,0,0,5,8,1,0]"
+       }
+      ],
+      "cost_usd": 0.01833,
+      "input_tokens": 4276,
+      "output_tokens": 123,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "6824c97ba80d42476294d536f2a33146a36df76f5543c1e18cdaf781cdd1beea",
+      "reply": "[0,0,0,6,0,0,3,1,2,0,0,6,8,6,0,6,1,0,0,0,1,1,0,2,0,8,0,3,6,5,6,0,0,8,6,5,2,6,8,0,1,5,0,1,0,0,0,8,0,0,0,1,1,6,0,0,5,8,1,0]"
+     },
+     "haiku": {
+      "parsed": [
+       0.0,
+       0.0,
+       1.0,
+       7.0,
+       0.0,
+       1.0,
+       1.0,
+       2.0,
+       3.0,
+       1.0,
+       1.0,
+       8.0,
+       9.0,
+       8.0,
+       2.0,
+       4.0,
+       3.0,
+       1.0,
+       1.0,
+       1.0,
+       2.0,
+       1.0,
+       0.0,
+       5.0,
+       0.0,
+       9.0,
+       1.0,
+       4.0,
+       6.0,
+       6.0,
+       3.0,
+       2.0,
+       0.0,
+       9.0,
+       6.0,
+       3.0,
+       1.0,
+       8.0,
+       9.0,
+       1.0,
+       4.0,
+       0.0,
+       0.0,
+       1.0,
+       0.0,
+       1.0,
+       1.0,
+       9.0,
+       0.0,
+       0.0,
+       0.0,
+       1.0,
+       1.0,
+       6.0,
+       0.0,
+       2.0,
+       9.0,
+       2.0,
+       0.0,
+       0.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.0014764,
+        "reply": "```json\n[0, 0, 1, 7, 0, 1, 1, 2, 3, 1, 1, 8, 9, 8, 2, 4, 3, 1, 1, 1, 2, 1, 0, 5, 0, 9, 1, 4, 6, 6, 3, 2, 0, 9, 6, 3, 1, 8, 9, 1, 4, 0, 0, 1, 0, 1, 1, 9, 0, 0, 0, 1, 1, 6, 0, 2, 9, 2, 0, 0]\n```"
+       }
+      ],
+      "cost_usd": 0.0014764,
+      "input_tokens": 4273,
+      "output_tokens": 1244,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "6824c97ba80d42476294d536f2a33146a36df76f5543c1e18cdaf781cdd1beea",
+      "reply": "```json\n[0, 0, 1, 7, 0, 1, 1, 2, 3, 1, 1, 8, 9, 8, 2, 4, 3, 1, 1, 1, 2, 1, 0, 5, 0, 9, 1, 4, 6, 6, 3, 2, 0, 9, 6, 3, 1, 8, 9, 1, 4, 0, 0, 1, 0, 1, 1, 9, 0, 0, 0, 1, 1, 6, 0, 2, 9, 2, 0, 0]\n```"
+     }
+    },
+    "judge": {
+     "parsed": true,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0002732,
+       "reply": "{\"unrelated_patterns\": true}"
+      }
+     ],
+     "cost_usd": 0.0002732,
+     "input_tokens": 987,
+     "output_tokens": 152,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "0fdaa3dd00910578bda6655d76e20fa1fc68b974a50d8a76bb7323019a7f19df",
+     "reply": "{\"unrelated_patterns\": true}"
+    }
+   }
+  },
+  "160m:pooled:50/50:452-1945": {
+   "id": "160m:pooled:50/50:452-1945",
+   "model": "160m",
+   "kind": "pooled",
+   "group": "pooled 50/50",
+   "neurons": [
+    452,
+    1945
+   ],
+   "neuron_ids": [
+    652,
+    2930
+   ],
+   "log_peak": [
+    -0.19375509231470908,
+    -0.10497072808711447
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 104,
+     "stratum": "ranks 51-300",
+     "window": 3108,
+     "position": 289,
+     "value": 7.17390006097676,
+     "neuron_values": [
+      4.872231686541738,
+      7.17390006097676
+     ],
+     "driver": 1,
+     "snippet": " on our doorstep. We should stop them now.\"\u23ce\u23ceDominil found little support. Though Markus seemed[[ interested]]\u2014to the annoyance"
+    },
+    {
+     "rank": 2696,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3396,
+     "position": 334,
+     "value": 4.341993185689949,
+     "neuron_values": [
+      4.341993185689949,
+      3.1909311214066145
+     ],
+     "driver": 0,
+     "snippet": "0225795.g024}\u23ce\u23ceIt is possible to have relatively analogous structures in OpenSCAD to get same[[ result]]. Like using the"
+    },
+    {
+     "rank": 980,
+     "stratum": "ranks 301-2000",
+     "window": 856,
+     "position": 438,
+     "value": 5.53236797274276,
+     "neuron_values": [
+      5.53236797274276,
+      3.5816931423147285
+     ],
+     "driver": 0,
+     "snippet": " first goal of Section\u00a0\\[sec:main results\\] will be to show\u23ce\u23ce\\[thm:case3\\]Assume[[ that]] the map from Theorem"
+    },
+    {
+     "rank": 3104,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1367,
+     "position": 102,
+     "value": 4.061822262174922,
+     "neuron_values": [
+      1.2180579216354346,
+      4.061822262174922
+     ],
+     "driver": 1,
+     "snippet": "273 --> 00:31:36,344\u23ce\u5f7c\u5973\u3000\uff11\u4eba\u7d42\u308f\u308c\u3070\u3000\u307e\u305f[[\u6b21]]\u23ce\u3063\u3066\u611f\u3058"
+    },
+    {
+     "rank": 127,
+     "stratum": "ranks 51-300",
+     "window": 2709,
+     "position": 115,
+     "value": 7.082623509369677,
+     "neuron_values": [
+      7.082623509369677,
+      2.714306593662189
+     ],
+     "driver": 0,
+     "snippet": " all four elements, each of them corresponding to a move that would make the current solution closer to the guiding solution. As[[ expected]], path-rel"
+    },
+    {
+     "rank": 464,
+     "stratum": "ranks 301-2000",
+     "window": 1879,
+     "position": 74,
+     "value": 6.150559163172552,
+     "neuron_values": [
+      5.017035775127769,
+      6.150559163172552
+     ],
+     "driver": 1,
+     "snippet": " and unequivocal manifestation on the part of the party allegedly repudiating that he will not render the promised performance when the[[ time]] fixed for it in"
+    },
+    {
+     "rank": 1675,
+     "stratum": "ranks 301-2000",
+     "window": 761,
+     "position": 202,
+     "value": 4.991482112436117,
+     "neuron_values": [
+      4.991482112436116,
+      4.650593737623918
+     ],
+     "driver": 0,
+     "snippet": " not engage in factfinding or substitute our judgment on that issue.\u23ceThe element of a confidential relationship is shown by the[[ evidence]]. Under the trial"
+    },
+    {
+     "rank": 677,
+     "stratum": "ranks 301-2000",
+     "window": 2696,
+     "position": 428,
+     "value": 5.843270868824532,
+     "neuron_values": [
+      5.843270868824532,
+      2.3936364150694316
+     ],
+     "driver": 0,
+     "snippet": ", 1, 1, 0, 0, 0, 0, 0) together with their costs, indicating for each of[[ them]] the eliminated edges by"
+    },
+    {
+     "rank": 867,
+     "stratum": "ranks 301-2000",
+     "window": 3826,
+     "position": 453,
+     "value": 5.638841567291313,
+     "neuron_values": [
+      5.638841567291312,
+      2.5741229090314754
+     ],
+     "driver": 0,
+     "snippet": "lambda = (0)$}, \\\\ 0, & \\text{otherwise},\u23ce        \\end{cases}$$ and we[[ thus]] obtain the theorem."
+    },
+    {
+     "rank": 249,
+     "stratum": "ranks 51-300",
+     "window": 3080,
+     "position": 325,
+     "value": 6.609880749574105,
+     "neuron_values": [
+      6.609880749574105,
+      5.011566725548005
+     ],
+     "driver": 0,
+     "snippet": " frank assessment of her condition.\u23ce\u23ce\"I advise you to make your life normal again. Get back to your routine[[.]] You can still investigate"
+    },
+    {
+     "rank": 1343,
+     "stratum": "ranks 301-2000",
+     "window": 377,
+     "position": 364,
+     "value": 5.2512776831345835,
+     "neuron_values": [
+      5.251277683134583,
+      4.573492711077026
+     ],
+     "driver": 0,
+     "snippet": "i)$ and $K_i$ a Markov kernel on $(G_i,\\mathcal G_i)$. One can[[ then]] define a Markov kernel"
+    },
+    {
+     "rank": 3780,
+     "stratum": "random, ranks 2001-4096",
+     "window": 982,
+     "position": 75,
+     "value": 3.3679130232528904,
+     "neuron_values": [
+      2.2977001703577513,
+      3.3679130232528904
+     ],
+     "driver": 1,
+     "snippet": ".h \\\u23ce+           src/http/ngx_http_probe.h\"\u23ce \u23ce HTTP_SRCS[[=\"]]src/http/"
+    },
+    {
+     "rank": 3480,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2775,
+     "position": 261,
+     "value": 3.739352640545145,
+     "neuron_values": [
+      3.739352640545145,
+      3.3906928720053817
+     ],
+     "driver": 0,
+     "snippet": "0109679-Sleeman1]. The \"other symptoms\" category includes: shortness of breath (n\u200a[[=]]\u200a2), peripheral"
+    },
+    {
+     "rank": 159,
+     "stratum": "ranks 51-300",
+     "window": 1528,
+     "position": 297,
+     "value": 6.933560477001704,
+     "neuron_values": [
+      6.933560477001704,
+      2.1342965985026123
+     ],
+     "driver": 0,
+     "snippet": ") geometry. To test these predictions we compare the spectra taken at 270 K in XX and XY configurations. As can be[[ seen]] from Fig. \\["
+    },
+    {
+     "rank": 1980,
+     "stratum": "ranks 301-2000",
+     "window": 355,
+     "position": 342,
+     "value": 4.797786606486167,
+     "neuron_values": [
+      4.305792163543441,
+      4.797786606486167
+     ],
+     "driver": 1,
+     "snippet": "ining the effective stimulation\u23ceparameters and the intracellular signals that mediate synaptic plasticity in\u23cethe entorhinal cortex should allow[[ insight]] into basic mechanisms that"
+    },
+    {
+     "rank": 1915,
+     "stratum": "ranks 301-2000",
+     "window": 2638,
+     "position": 304,
+     "value": 4.846678023850085,
+     "neuron_values": [
+      4.846678023850085,
+      4.32466667085751
+     ],
+     "driver": 0,
+     "snippet": " to a more service-based, knowledge-based and competitive economy.\"\u23ce\u23ceThe average Victorian youth unemployment rate for the[[ year]] to July 2014 was"
+    },
+    {
+     "rank": 258,
+     "stratum": "ranks 51-300",
+     "window": 1980,
+     "position": 245,
+     "value": 6.588586030664397,
+     "neuron_values": [
+      6.588586030664397,
+      3.8971064327338336
+     ],
+     "driver": 0,
+     "snippet": "U.S.) Supreme Court has already ruled on this decades ago,\" lawyer Jeremy Collins said. \"College students have the[[ right]] to vote in the"
+    },
+    {
+     "rank": 137,
+     "stratum": "ranks 51-300",
+     "window": 1681,
+     "position": 206,
+     "value": 7.040034071550256,
+     "neuron_values": [
+      7.040034071550256,
+      3.904115616965369
+     ],
+     "driver": 0,
+     "snippet": "{R}_\\Theta(\\sigma_N)$. In what follows, we let $\\Lambda_N$ denote the tail of[[ sequence]], $\\Lambda_"
+    },
+    {
+     "rank": 2778,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1723,
+     "position": 223,
+     "value": 4.2951448040885865,
+     "neuron_values": [
+      4.2951448040885865,
+      2.256957322554486
+     ],
+     "driver": 0,
+     "snippet": ", but negative for CD20, CD3, TdT, MPO, and EBV-encoded small RNA ([[Fig]]. [1](#"
+    },
+    {
+     "rank": 2947,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2583,
+     "position": 506,
+     "value": 4.1971890971039185,
+     "neuron_values": [
+      4.1971890971039185,
+      3.7008492742508348
+     ],
+     "driver": 0,
+     "snippet": ", while simultaneously stimulating and challenging them with the interactivity element that only games can offer. Seven short years later, your[[ cousins]] (or kids!)"
+    },
+    {
+     "rank": 612,
+     "stratum": "ranks 301-2000",
+     "window": 1839,
+     "position": 303,
+     "value": 5.928449744463374,
+     "neuron_values": [
+      5.928449744463374,
+      2.511040250947654
+     ],
+     "driver": 0,
+     "snippet": ".\u00a0Acad.\u00a0Sci.\u00a099 (2002), 16568\u201316575.\u23ce\u23ceH.[[\u00a0]]Bercovici"
+    },
+    {
+     "rank": 3337,
+     "stratum": "random, ranks 2001-4096",
+     "window": 192,
+     "position": 492,
+     "value": 3.8585559194603873,
+     "neuron_values": [
+      3.3177172061328792,
+      3.8585559194603873
+     ],
+     "driver": 1,
+     "snippet": " Grand National.\u23ce\u23ceHistory\u23ce\u23ceLiverpool grew wealthy on the back of the triangular trading of slaves, raw[[ materials]] and finished goods."
+    },
+    {
+     "rank": 117,
+     "stratum": "ranks 51-300",
+     "window": 996,
+     "position": 422,
+     "value": 7.121331179240243,
+     "neuron_values": [
+      3.6733390119250426,
+      7.121331179240243
+     ],
+     "driver": 1,
+     "snippet": "\"), to deal\u23ce * in the Software without restriction, including without limitation the rights\u23ce * to use, copy, modify[[,]] merge, publish,"
+    },
+    {
+     "rank": 1429,
+     "stratum": "ranks 301-2000",
+     "window": 1914,
+     "position": 438,
+     "value": 5.169273370757558,
+     "neuron_values": [
+      4.522998296422488,
+      5.169273370757558
+     ],
+     "driver": 1,
+     "snippet": "rocking the washer along the diagonals.\" Looking down at the top panel of the washer, place your[[ hands]] at the ends of"
+    },
+    {
+     "rank": 559,
+     "stratum": "ranks 301-2000",
+     "window": 30,
+     "position": 370,
+     "value": 6.005110732538331,
+     "neuron_values": [
+      6.005110732538331,
+      2.3988933032430837
+     ],
+     "driver": 0,
+     "snippet": " to be an intrinsic property of hepadnaviruses preserved through evolution. Recent studies by Lauber et al. provided[[ evidence]] as to the ancient"
+    },
+    {
+     "rank": 250,
+     "stratum": "ranks 51-300",
+     "window": 2777,
+     "position": 393,
+     "value": 6.606156138222371,
+     "neuron_values": [
+      3.5114991482112434,
+      6.606156138222371
+     ],
+     "driver": 1,
+     "snippet": " restores the state of the MDI child window, i.e. normal or\u23cemaximize, and the[[ position]] of the control bars"
+    },
+    {
+     "rank": 1346,
+     "stratum": "ranks 301-2000",
+     "window": 1439,
+     "position": 34,
+     "value": 5.2498789894202185,
+     "neuron_values": [
+      3.9331345826235093,
+      5.2498789894202185
+     ],
+     "driver": 1,
+     "snippet": " lead us back into speculations analogous with those of the alchemists . . . and now we find, after our[[ attention]] has been led in"
+    },
+    {
+     "rank": 157,
+     "stratum": "ranks 51-300",
+     "window": 3544,
+     "position": 257,
+     "value": 6.937819420783645,
+     "neuron_values": [
+      6.937819420783645,
+      2.7002882251991176
+     ],
+     "driver": 0,
+     "snippet": " that issue. However, the United States Supreme Court has held that the failure to observe procedures adequate to protect an accused's[[ right]] not to be tried"
+    },
+    {
+     "rank": 1364,
+     "stratum": "ranks 301-2000",
+     "window": 3228,
+     "position": 329,
+     "value": 5.229982964224873,
+     "neuron_values": [
+      5.229982964224873,
+      4.261584012773689
+     ],
+     "driver": 0,
+     "snippet": "\u2013 adikhannaJan 30 at 13:03\u23ce\u23ce@adikhanna Once the original transaction is confirmed in a[[ block]] the funds should be"
+    },
+    {
+     "rank": 2356,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3437,
+     "position": 202,
+     "value": 4.559474342613954,
+     "neuron_values": [
+      4.382453151618399,
+      4.559474342613955
+     ],
+     "driver": 1,
+     "snippet": " families, other kinds of lives. Not a wide range, at a private school for white girls. Still, a new[[ horizon]].\u23ce\u23ceM"
+    },
+    {
+     "rank": 2830,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2060,
+     "position": 101,
+     "value": 4.271720613287905,
+     "neuron_values": [
+      4.271720613287905,
+      4.04780389371185
+     ],
+     "driver": 0,
+     "snippet": " the prudent fruit of experience, for the good of the spouses and the good of the family.\u23ce\u23ce'In this[[ way]], society esteems"
+    },
+    {
+     "rank": 3183,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3936,
+     "position": 334,
+     "value": 3.9948892674616694,
+     "neuron_values": [
+      3.9948892674616694,
+      2.8457287980034827
+     ],
+     "driver": 0,
+     "snippet": "\u23ceIn my experience, free RAM *DOES* matter... but not in the way the article states. I do[[ agree]] that a task killers"
+    },
+    {
+     "rank": 100,
+     "stratum": "ranks 51-300",
+     "window": 627,
+     "position": 360,
+     "value": 7.206132879045997,
+     "neuron_values": [
+      7.206132879045997,
+      2.3603427899696374
+     ],
+     "driver": 0,
+     "snippet": " x ]\\! ]} A(y) ) M^{(x)}$ is distributed as $M_\\infty$. We can[[ thus]] plug (\\[toto"
+    },
+    {
+     "rank": 3681,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2849,
+     "position": 427,
+     "value": 3.4993352275941842,
+     "neuron_values": [
+      3.4880749574105625,
+      3.4993352275941842
+     ],
+     "driver": 1,
+     "snippet": " Sarah picks a shirt for the day \u2014 though definitely not her favorite navy top with thin white stripes. Its wide, open[[ neck]]line is now too"
+    },
+    {
+     "rank": 3584,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2908,
+     "position": 156,
+     "value": 3.6202436555881743,
+     "neuron_values": [
+      2.7470187393526406,
+      3.6202436555881743
+     ],
+     "driver": 1,
+     "snippet": "/* Array of possible values.  */\u23ce  const struct cl_enum_arg *values;\u23ce\u23ce  /* The[[ size]] of the type used"
+    },
+    {
+     "rank": 1284,
+     "stratum": "ranks 301-2000",
+     "window": 585,
+     "position": 307,
+     "value": 5.2954386869252,
+     "neuron_values": [
+      4.092844974446337,
+      5.2954386869252
+     ],
+     "driver": 1,
+     "snippet": " leaning on his shoulder, \"unless you just want to eat some leftover popcorn and sugar cookies?\"\u23ce\u23ceHe[[ paused]] putting his finger to"
+    },
+    {
+     "rank": 1666,
+     "stratum": "ranks 301-2000",
+     "window": 969,
+     "position": 227,
+     "value": 4.995741056218058,
+     "neuron_values": [
+      4.995741056218058,
+      3.781454892913495
+     ],
+     "driver": 0,
+     "snippet": " with that of the person it\u2019s attached to after being hooked up to a laptop that runs special software which helps the[[ limb]] reprogram itself."
+    },
+    {
+     "rank": 53,
+     "stratum": "ranks 51-300",
+     "window": 1133,
+     "position": 185,
+     "value": 7.576660988074957,
+     "neuron_values": [
+      7.576660988074957,
+      5.200814699799468
+     ],
+     "driver": 0,
+     "snippet": " of propidium iodide solution were added to the cell suspension. A total of 400 \u00b5l binding buffer was added to each[[ tube]] 15 min later,"
+    },
+    {
+     "rank": 669,
+     "stratum": "ranks 301-2000",
+     "window": 4019,
+     "position": 44,
+     "value": 5.856047700170358,
+     "neuron_values": [
+      5.856047700170358,
+      5.13422744959988
+     ],
+     "driver": 0,
+     "snippet": " best game for your taste and needs. Note that not all of these games are available through all platforms, so be sure[[ to]] check it out first"
+    },
+    {
+     "rank": 2537,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3308,
+     "position": 158,
+     "value": 4.450596252129473,
+     "neuron_values": [
+      4.450596252129473,
+      4.212519723152939
+     ],
+     "driver": 0,
+     "snippet": " of this is certainly due to the fact that I\u2019ve been working on various reworkings of Windmills for[[ so]] long that it\u2019"
+    },
+    {
+     "rank": 254,
+     "stratum": "ranks 51-300",
+     "window": 731,
+     "position": 279,
+     "value": 6.597103918228279,
+     "neuron_values": [
+      6.597103918228279,
+      5.572301464070859
+     ],
+     "driver": 0,
+     "snippet": " documents appointing/retiring trustees or changing/adding assets are disclosable to a beneficiary. However, if the[[ right]] of a particular individual"
+    },
+    {
+     "rank": 1947,
+     "stratum": "ranks 301-2000",
+     "window": 1048,
+     "position": 68,
+     "value": 4.8223187512965415,
+     "neuron_values": [
+      3.0472742759795572,
+      4.822318751296542
+     ],
+     "driver": 1,
+     "snippet": "a>; I have some big enhancements planned for its next release, too.</p>\u23ce<p>On the <[[a]] href=\"/consult"
+    },
+    {
+     "rank": 188,
+     "stratum": "ranks 51-300",
+     "window": 2686,
+     "position": 174,
+     "value": 6.830450033631513,
+     "neuron_values": [
+      5.40885860306644,
+      6.830450033631512
+     ],
+     "driver": 1,
+     "snippet": "\u23ceEd Harrison\u23ce\u23ceComments\u23ce\u23ceThe purpose of the comments is to allow Newcastle United fans and others to express their[[ views]] on the news of"
+    },
+    {
+     "rank": 171,
+     "stratum": "ranks 51-300",
+     "window": 3292,
+     "position": 57,
+     "value": 6.895229982964226,
+     "neuron_values": [
+      6.895229982964226,
+      3.8760788800392265
+     ],
+     "driver": 0,
+     "snippet": "\u23ce\u23ceClick on \u201cSave\u201d menu item on the bottom\u23ce\u23ceScroll through \u201cSpecial Offers\u201d\u23ce\u23ceLook[[ for]] the Popsicle"
+    },
+    {
+     "rank": 168,
+     "stratum": "ranks 51-300",
+     "window": 3129,
+     "position": 508,
+     "value": 6.90374787052811,
+     "neuron_values": [
+      6.90374787052811,
+      5.617861161575841
+     ],
+     "driver": 0,
+     "snippet": " all the time.\"\u23ce\u23ce### Chapter 195\u23ce\u23ceKalix sat with Decembrius in his car not[[ far]] from her home"
+    },
+    {
+     "rank": 81,
+     "stratum": "ranks 51-300",
+     "window": 2256,
+     "position": 359,
+     "value": 7.35263425888092,
+     "neuron_values": [
+      5.03833049403748,
+      7.3526342588809195
+     ],
+     "driver": 1,
+     "snippet": " of the weights in the IC group was even higher than in the rest of the experimental groups. Although without statistical significance (*[[p]]* \\> 0."
+    },
+    {
+     "rank": 256,
+     "stratum": "ranks 51-300",
+     "window": 3409,
+     "position": 282,
+     "value": 6.588633177643532,
+     "neuron_values": [
+      2.857751277683135,
+      6.588633177643532
+     ],
+     "driver": 1,
+     "snippet": " student, was such a leader in this field, working with rigorous lucidity, makes me wish I could leap into a[[ time]] machine, go back"
+    },
+    {
+     "rank": 440,
+     "stratum": "ranks 301-2000",
+     "window": 2399,
+     "position": 62,
+     "value": 6.196118860677533,
+     "neuron_values": [
+      5.076660988074958,
+      6.196118860677533
+     ],
+     "driver": 1,
+     "snippet": "iaelena\u23cePinterest: https://www.pinterest.com/c21sophiaelena/[[\u23ce]]A magnificent first floor"
+    },
+    {
+     "rank": 2646,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3424,
+     "position": 340,
+     "value": 4.377235552594027,
+     "neuron_values": [
+      2.821550255536627,
+      4.377235552594027
+     ],
+     "driver": 1,
+     "snippet": " ourselves the groping passion of that little girl lost, we can begin to transmute it, and the blind[[ anger]] and bitterness that have"
+    },
+    {
+     "rank": 3892,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3219,
+     "position": 56,
+     "value": 3.1611420884225883,
+     "neuron_values": [
+      2.928023850085179,
+      3.1611420884225883
+     ],
+     "driver": 1,
+     "snippet": " operation.\u23ce\u23ceBecause Rochville University is not accredited by any recognized accreditation bodies in the United States, its[[ degrees]] and credits are unlikely"
+    },
+    {
+     "rank": 943,
+     "stratum": "ranks 301-2000",
+     "window": 3731,
+     "position": 490,
+     "value": 5.568796871955092,
+     "neuron_values": [
+      3.6413969335604772,
+      5.568796871955091
+     ],
+     "driver": 1,
+     "snippet": " percussion. It is the opening movement of the \u201cLakshmi Suite.\u201d The lyrical story line is the first[[ encounter]] between the man and"
+    },
+    {
+     "rank": 153,
+     "stratum": "ranks 51-300",
+     "window": 2054,
+     "position": 502,
+     "value": 6.970633718262225,
+     "neuron_values": [
+      3.8862862010221466,
+      6.970633718262225
+     ],
+     "driver": 1,
+     "snippet": " made them sweet and sticky. We remember when there was a right and wrong and who belonged with each. We remember a[[ time]] when those in power"
+    },
+    {
+     "rank": 2816,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2978,
+     "position": 282,
+     "value": 4.279106973352527,
+     "neuron_values": [
+      2.8343270868824533,
+      4.279106973352527
+     ],
+     "driver": 1,
+     "snippet": "16716, 0.566863, -0.851922, -0.304581, 0[[.]]940295, -"
+    },
+    {
+     "rank": 2037,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2413,
+     "position": 450,
+     "value": 4.757240204429301,
+     "neuron_values": [
+      4.757240204429302,
+      3.255766075548319
+     ],
+     "driver": 0,
+     "snippet": " As Integer = 97 To 122\u23ce    If Instr(p, Chr(i)) = 0 Then Return False\u23ce  [[Next]]\u23ce  Return True"
+    },
+    {
+     "rank": 2481,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1700,
+     "position": 498,
+     "value": 4.482373316067062,
+     "neuron_values": [
+      3.877768313458263,
+      4.482373316067062
+     ],
+     "driver": 1,
+     "snippet": "onds, and once the tree trunk is stripped, it can make a good wall for huts.\u23ce\u23ce\u23ce\u23ce- The[[ leaves]] contain \"heart of"
+    },
+    {
+     "rank": 1722,
+     "stratum": "ranks 301-2000",
+     "window": 1008,
+     "position": 68,
+     "value": 4.965928449744464,
+     "neuron_values": [
+      4.965928449744464,
+      3.4993352275941842
+     ],
+     "driver": 0,
+     "snippet": "Holiday Mansion alleges that Mercury \"failed to use appropriate and reasonable care in selecting the Mercury engines and stern drives it[[ did]], which would not"
+    },
+    {
+     "rank": 173,
+     "stratum": "ranks 51-300",
+     "window": 2410,
+     "position": 285,
+     "value": 6.890971039182284,
+     "neuron_values": [
+      6.890971039182284,
+      3.271536740069275
+     ],
+     "driver": 0,
+     "snippet": "               to space\u23ce           if lc-alphabet = space\u23ce               set is-pangram to true\u23ce[[           ]]end-if\u23ce"
+    },
+    {
+     "rank": 2845,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1555,
+     "position": 438,
+     "value": 4.256814310051108,
+     "neuron_values": [
+      4.256814310051108,
+      3.588702326546264
+     ],
+     "driver": 0,
+     "snippet": "y, V. Gerke (Ka-Dar Observatory, TAU Station, Nizhny Arkhyz,[[ Russia]]) does not detect"
+    },
+    {
+     "rank": 2516,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2760,
+     "position": 164,
+     "value": 4.461345763372455,
+     "neuron_values": [
+      3.349659284497445,
+      4.461345763372455
+     ],
+     "driver": 1,
+     "snippet": ".        Foshan Shunde SV Submission for Final\u23ce\u23ceResults, PD 96 at Ex. 4. The[[ data]] that Commerce relied on"
+    },
+    {
+     "rank": 219,
+     "stratum": "ranks 51-300",
+     "window": 2371,
+     "position": 307,
+     "value": 6.697275533232334,
+     "neuron_values": [
+      4.031090289608177,
+      6.697275533232334
+     ],
+     "driver": 1,
+     "snippet": " whom perceived a lower level of support and 68.1% a higher level of support. The difference is statistically significant (*[[p]]*\u2009=\u2009"
+    }
+   ],
+   "explainer_prompt_sha256": "c4b1f2da812cc5bde1729ac9c7a1360d5725c28455cedebc29ede2fb736935e4",
+   "first": {
+    "explanation": {
+     "parsed": "Predicts a noun/word completing a phrase after a determiner or quantifier like 'each', 'for the', 'such', 'it's', often 'time', 'set', 'value', 'end', 'that'; slot after 'the/each/both/it's' expecting 'time/set/date'.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.016484,
+       "reply": "{\"explanation\": \"Predicts a noun/word completing a phrase after a determiner or quantifier like 'each', 'for the', 'such', 'it's', often 'time', 'set', 'value', 'end', 'that'; slot after 'the/each/both/it's' expecting 'time/set/date'.\"}"
+      }
+     ],
+     "cost_usd": 0.016484,
+     "input_tokens": 3867,
+     "output_tokens": 102,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "c4b1f2da812cc5bde1729ac9c7a1360d5725c28455cedebc29ede2fb736935e4",
+     "reply": "{\"explanation\": \"Predicts a noun/word completing a phrase after a determiner or quantifier like 'each', 'for the', 'such', 'it's', often 'time', 'set', 'value', 'end', 'that'; slot after 'the/each/both/it's' expecting 'time/set/date'.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       0.0,
+       3.0,
+       1.0,
+       0.0,
+       1.0,
+       8.0,
+       4.0,
+       2.0,
+       1.0,
+       0.0,
+       1.0,
+       0.0,
+       0.0,
+       2.0,
+       3.0,
+       7.0,
+       5.0,
+       3.0,
+       0.0,
+       2.0,
+       0.0,
+       3.0,
+       0.0,
+       3.0,
+       4.0,
+       3.0,
+       3.0,
+       5.0,
+       4.0,
+       3.0,
+       3.0,
+       0.0,
+       1.0,
+       3.0,
+       5.0,
+       0.0,
+       4.0,
+       5.0,
+       0.0,
+       2.0,
+       5.0,
+       0.0,
+       3.0,
+       0.0,
+       2.0,
+       0.0,
+       7.0,
+       0.0,
+       3.0,
+       3.0,
+       4.0,
+       7.0,
+       0.0,
+       0.0,
+       4.0,
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.018106,
+        "reply": "[0,3,1,0,1,8,4,2,1,0,1,0,0,2,3,7,5,3,0,2,0,3,0,3,4,3,3,5,4,3,3,0,1,3,5,0,4,5,0,2,5,0,3,0,2,0,7,0,3,3,4,7,0,0,4,0,0,3,0,0]"
+       }
+      ],
+      "cost_usd": 0.018106,
+      "input_tokens": 4220,
+      "output_tokens": 123,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "e9984c36811c81044221ec422a1d60dc3854cc3ee726a1410f1227cb8dabb6d1",
+      "reply": "[0,3,1,0,1,8,4,2,1,0,1,0,0,2,3,7,5,3,0,2,0,3,0,3,4,3,3,5,4,3,3,0,1,3,5,0,4,5,0,2,5,0,3,0,2,0,7,0,3,3,4,7,0,0,4,0,0,3,0,0]"
+     },
+     "haiku": {
+      "parsed": [
+       1.0,
+       3.0,
+       3.0,
+       3.0,
+       2.0,
+       7.0,
+       4.0,
+       4.0,
+       2.0,
+       1.0,
+       2.0,
+       1.0,
+       1.0,
+       2.0,
+       3.0,
+       6.0,
+       5.0,
+       4.0,
+       1.0,
+       4.0,
+       1.0,
+       2.0,
+       1.0,
+       4.0,
+       2.0,
+       5.0,
+       4.0,
+       5.0,
+       4.0,
+       3.0,
+       5.0,
+       1.0,
+       2.0,
+       2.0,
+       4.0,
+       2.0,
+       3.0,
+       6.0,
+       2.0,
+       4.0,
+       5.0,
+       3.0,
+       4.0,
+       2.0,
+       2.0,
+       1.0,
+       6.0,
+       1.0,
+       2.0,
+       3.0,
+       4.0,
+       6.0,
+       1.0,
+       2.0,
+       2.0,
+       2.0,
+       2.0,
+       1.0,
+       4.0,
+       1.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.0019261,
+        "reply": "```json\n[1, 3, 3, 3, 2, 7, 4, 4, 2, 1, 2, 1, 1, 2, 3, 6, 5, 4, 1, 4, 1, 2, 1, 4, 2, 5, 4, 5, 4, 3, 5, 1, 2, 2, 4, 2, 3, 6, 2, 4, 5, 3, 4, 2, 2, 1, 6, 1, 2, 3, 4, 6, 1, 2, 2, 2, 2, 1, 4, 1]\n```"
+       }
+      ],
+      "cost_usd": 0.0019261,
+      "input_tokens": 4214,
+      "output_tokens": 2167,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "e9984c36811c81044221ec422a1d60dc3854cc3ee726a1410f1227cb8dabb6d1",
+      "reply": "```json\n[1, 3, 3, 3, 2, 7, 4, 4, 2, 1, 2, 1, 1, 2, 3, 6, 5, 4, 1, 4, 1, 2, 1, 4, 2, 5, 4, 5, 4, 3, 5, 1, 2, 2, 4, 2, 3, 6, 2, 4, 5, 3, 4, 2, 2, 1, 6, 1, 2, 3, 4, 6, 1, 2, 2, 2, 2, 1, 4, 1]\n```"
+     }
+    },
+    "judge": {
+     "parsed": false,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0002703,
+       "reply": "{\"unrelated_patterns\": false}"
+      }
+     ],
+     "cost_usd": 0.0002703,
+     "input_tokens": 985,
+     "output_tokens": 147,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "baec4d50ab0f0ba445ee20aed4563de1cbdb2ff5e64206602fd89810b3cd5245",
+     "reply": "{\"unrelated_patterns\": false}"
+    }
+   }
+  },
+  "160m:related:50/50:387-1658": {
+   "id": "160m:related:50/50:387-1658",
+   "model": "160m",
+   "kind": "related",
+   "group": "related",
+   "neurons": [
+    387,
+    1658
+   ],
+   "neuron_ids": [
+    560,
+    2517
+   ],
+   "log_peak": [
+    1.2664038431239424,
+    1.2375093771242274
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 1663,
+     "stratum": "ranks 301-2000",
+     "window": 2037,
+     "position": 390,
+     "value": 4.56882911392405,
+     "neuron_values": [
+      4.568829113924051,
+      4.1555826030509575
+     ],
+     "driver": 0,
+     "snippet": ", where\u23ce  Gytha is a little slave girl. Though mainly a domestic tale, we yet\u23ce  get a[[ glimpse]] of the stirring events"
+    },
+    {
+     "rank": 1363,
+     "stratum": "ranks 301-2000",
+     "window": 1389,
+     "position": 198,
+     "value": 4.726549821486531,
+     "neuron_values": [
+      3.0735759493670884,
+      4.726549821486531
+     ],
+     "driver": 1,
+     "snippet": " means to Oceania, where it was found and exploited by the Austronesian explorers \\[[@B141-viruses-[[12]]-00132]\\]."
+    },
+    {
+     "rank": 266,
+     "stratum": "ranks 51-300",
+     "window": 3667,
+     "position": 346,
+     "value": 5.838234339500162,
+     "neuron_values": [
+      5.537974683544304,
+      5.838234339500162
+     ],
+     "driver": 1,
+     "snippet": "verletzungen.\u23ce\u23ceWir berichten weiter.\u23ce\u23ceWeitere Themen:[[\u23ce]]\u23ceDieses"
+    },
+    {
+     "rank": 272,
+     "stratum": "ranks 51-300",
+     "window": 706,
+     "position": 476,
+     "value": 5.822784810126581,
+     "neuron_values": [
+      5.822784810126581,
+      5.65295358649789
+     ],
+     "driver": 0,
+     "snippet": " un bon ami en la personne du loup, et, le soir, il se faufila[[ jus]]qu'\u00e0 la"
+    },
+    {
+     "rank": 911,
+     "stratum": "ranks 301-2000",
+     "window": 2032,
+     "position": 399,
+     "value": 5.0177052904901,
+     "neuron_values": [
+      4.655854430379747,
+      5.0177052904901
+     ],
+     "driver": 1,
+     "snippet": "rs. Blackie to say that no firm of publishers turns\u23ceout this class of literature with more finish. We refer[[ not]] only to the\u23ce"
+    },
+    {
+     "rank": 152,
+     "stratum": "ranks 51-300",
+     "window": 3868,
+     "position": 370,
+     "value": 6.273076923076923,
+     "neuron_values": [
+      5.589398734177214,
+      6.273076923076923
+     ],
+     "driver": 1,
+     "snippet": " using PyMOL \\[[@B77]\\].](1472-6807-12-6-3){#F3}[[\u23ce]]\u23ceNon-interacting"
+    },
+    {
+     "rank": 3289,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3228,
+     "position": 487,
+     "value": 3.8132911392405062,
+     "neuron_values": [
+      3.8132911392405062,
+      3.490084388185654
+     ],
+     "driver": 0,
+     "snippet": " file is empty.  I would like to show the filepath in the textbox, but it appears the value field[[ does]] not populate this text"
+    },
+    {
+     "rank": 742,
+     "stratum": "ranks 301-2000",
+     "window": 779,
+     "position": 461,
+     "value": 5.142486205777344,
+     "neuron_values": [
+      4.537183544303797,
+      5.142486205777344
+     ],
+     "driver": 1,
+     "snippet": " site to site, it provides a good qualitative understanding of the skyrmionic behavior and still matches with our numerical simulations.[[\u23ce]]\u23ceThe corresponding sky"
+    },
+    {
+     "rank": 51,
+     "stratum": "ranks 51-300",
+     "window": 2102,
+     "position": 448,
+     "value": 7.171677215189873,
+     "neuron_values": [
+      7.171677215189873,
+      6.598263550795196
+     ],
+     "driver": 0,
+     "snippet": "2Wp\" to=\"tpck:fKAQMTB\" resolve=\"boolean\" />\u23ce    </node[[>]]\u23ce    <node"
+    },
+    {
+     "rank": 300,
+     "stratum": "ranks 51-300",
+     "window": 1193,
+     "position": 509,
+     "value": 5.762609542356377,
+     "neuron_values": [
+      5.534018987341772,
+      5.762609542356377
+     ],
+     "driver": 1,
+     "snippet": " with increased shear rate, which was an essential property of saliva as shown in [Fig. 3](#f0015){ref[[-]]type=\""
+    },
+    {
+     "rank": 925,
+     "stratum": "ranks 301-2000",
+     "window": 777,
+     "position": 310,
+     "value": 5.010142810775722,
+     "neuron_values": [
+      4.090189873417721,
+      5.010142810775721
+     ],
+     "driver": 1,
+     "snippet": " average person, on an average salary with an average life.\u201d\u23ce\u23ceDaily Record\u23ce\u23ceAlison Lindsay with son Jake[[\u23ce]]\u23cePensioner"
+    },
+    {
+     "rank": 1851,
+     "stratum": "ranks 301-2000",
+     "window": 1505,
+     "position": 487,
+     "value": 4.48076923076923,
+     "neuron_values": [
+      3.846914556962025,
+      4.48076923076923
+     ],
+     "driver": 1,
+     "snippet": " to identify inflammatory monocytes. Cells were then fixed, permeabilized, and intracellularly stained for IL-12 and TNF[[-]]\u03b1. Cytok"
+    },
+    {
+     "rank": 82,
+     "stratum": "ranks 51-300",
+     "window": 1331,
+     "position": 414,
+     "value": 6.8433544303797476,
+     "neuron_values": [
+      6.843354430379746,
+      6.76841934436871
+     ],
+     "driver": 0,
+     "snippet": "ters in the bladder of diabetic mice by downregulating the expression levels of myosin Va and SLC17A9.[[\u23ce]]\u23ceEthics Statement\u23ce"
+    },
+    {
+     "rank": 1139,
+     "stratum": "ranks 301-2000",
+     "window": 16,
+     "position": 386,
+     "value": 4.861550632911392,
+     "neuron_values": [
+      4.861550632911392,
+      4.575300227198961
+     ],
+     "driver": 0,
+     "snippet": " different populations, with similar baseline disease phenotypes and treatment protocols are needed to adequately estimate associations between genetic polymorphisms and treatment outcomes.[[\u23ce]]\u23ceConflict of interest"
+    },
+    {
+     "rank": 988,
+     "stratum": "ranks 301-2000",
+     "window": 3843,
+     "position": 134,
+     "value": 4.964767932489451,
+     "neuron_values": [
+      4.193037974683544,
+      4.964767932489451
+     ],
+     "driver": 1,
+     "snippet": "-believing mom with five kids. But it takes two to do the culture-war tango.\u23ce\u23ceFor[[ instance]], in The American"
+    },
+    {
+     "rank": 147,
+     "stratum": "ranks 51-300",
+     "window": 3943,
+     "position": 505,
+     "value": 6.322233041220382,
+     "neuron_values": [
+      5.913765822784811,
+      6.322233041220382
+     ],
+     "driver": 1,
+     "snippet": " equation in terms of Weierstrass functions in section 4. Finally, in section 5 we will add some remarks.[[\u23ce]]\u23ceFactorization of"
+    },
+    {
+     "rank": 2881,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1702,
+     "position": 320,
+     "value": 4.030801687763713,
+     "neuron_values": [
+      3.146756329113924,
+      4.030801687763713
+     ],
+     "driver": 1,
+     "snippet": ", but has no common name in Belize.\u23ce\u23ce\u23ce\u23ce- Growing up to 100 ft, it is from southeast[[ Asia]] and Australia. Its"
+    },
+    {
+     "rank": 180,
+     "stratum": "ranks 51-300",
+     "window": 3858,
+     "position": 418,
+     "value": 6.129389808503731,
+     "neuron_values": [
+      5.597310126582278,
+      6.129389808503733
+     ],
+     "driver": 1,
+     "snippet": " of individual replicates is indicated within each column.](fphar-09-00166-g002){#F2}[[\u23ce]]\u23ceEffects of Ty"
+    },
+    {
+     "rank": 3036,
+     "stratum": "random, ranks 2001-4096",
+     "window": 970,
+     "position": 358,
+     "value": 3.9551768906199287,
+     "neuron_values": [
+      3.3306962025316458,
+      3.955176890619928
+     ],
+     "driver": 1,
+     "snippet": "'t like you. But they do talk to you, and when they do, they tell you of terrible things happening to[[ them]] from the government."
+    },
+    {
+     "rank": 187,
+     "stratum": "ranks 51-300",
+     "window": 2445,
+     "position": 373,
+     "value": 6.095727848101265,
+     "neuron_values": [
+      6.095727848101265,
+      5.868484258357676
+     ],
+     "driver": 0,
+     "snippet": " de finalmente serem apresentados ao p\u00fablico.\u23ce\u23ceDurante esse per\u00edodo, espera-[[se]] que eles trabal"
+    },
+    {
+     "rank": 3091,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1736,
+     "position": 429,
+     "value": 3.921145731905226,
+     "neuron_values": [
+      3.72626582278481,
+      3.921145731905225
+     ],
+     "driver": 1,
+     "snippet": " iPD) and among European as well as North American populations (6% and 3%, respectively) \\[[@B12]\\].[[ Conversely]], p.Gly"
+    },
+    {
+     "rank": 3198,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1197,
+     "position": 135,
+     "value": 3.860645894190198,
+     "neuron_values": [
+      3.0003955696202533,
+      3.8606458941901978
+     ],
+     "driver": 1,
+     "snippet": " it woudl be entirely reasonable, imo.\u23ce\u23ceSki, Unfortunately the set up works against that.[[ Most]] of the area under"
+    },
+    {
+     "rank": 1404,
+     "stratum": "ranks 301-2000",
+     "window": 731,
+     "position": 95,
+     "value": 4.703862382343395,
+     "neuron_values": [
+      4.323575949367088,
+      4.703862382343395
+     ],
+     "driver": 1,
+     "snippet": " to provide the requested information.\u23ce\u23ceSo where does that leave us?\u23ce\u23ceThe implications for trustees and beneficiaries.[[\u23ce]]\u23ceHere are some"
+    },
+    {
+     "rank": 3681,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1909,
+     "position": 253,
+     "value": 3.516553067185978,
+     "neuron_values": [
+      2.9113924050632907,
+      3.516553067185978
+     ],
+     "driver": 1,
+     "snippet": " risk of misuse should not be incurred if the evidence is not directed to a disputed issue in the case.\" (People v[[.]] Spencer, 140 Cal"
+    },
+    {
+     "rank": 256,
+     "stratum": "ranks 51-300",
+     "window": 3847,
+     "position": 406,
+     "value": 5.858386075949367,
+     "neuron_values": [
+      5.858386075949367,
+      5.157611165206101
+     ],
+     "driver": 0,
+     "snippet": " the final ground state and excited states of form $(29)$. Following Ref. [@Carmelo94b], these states[[ refer]] to the conformal-"
+    },
+    {
+     "rank": 870,
+     "stratum": "ranks 301-2000",
+     "window": 915,
+     "position": 458,
+     "value": 5.051736449204804,
+     "neuron_values": [
+      4.8734177215189876,
+      5.051736449204803
+     ],
+     "driver": 1,
+     "snippet": " hall if you'll agree to have a late supper with me.\"\u23ce\u23ce\"I didn't know any restaurants were still[[ open]].\"\u23ce\u23ceK"
+    },
+    {
+     "rank": 3132,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1530,
+     "position": 500,
+     "value": 3.8984582927620903,
+     "neuron_values": [
+      3.4018987341772147,
+      3.89845829276209
+     ],
+     "driver": 1,
+     "snippet": "3**]{} 912\u23ce\u23ceFleury P and Loudon R 1968 [*Physical Review*]{} [**166**]{} 514[[\u23ce]]\u23ceReiter G"
+    },
+    {
+     "rank": 2421,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2060,
+     "position": 322,
+     "value": 4.23876987990912,
+     "neuron_values": [
+      4.212816455696202,
+      4.23876987990912
+     ],
+     "driver": 1,
+     "snippet": " expected to have a more moderate tone than comments made at the weekend by Keith O\u2019Brien, leader of the Roman Catholic[[ Church]] in Scotland, who"
+    },
+    {
+     "rank": 3708,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1056,
+     "position": 271,
+     "value": 3.490084388185654,
+     "neuron_values": [
+      2.543512658227848,
+      3.490084388185654
+     ],
+     "driver": 1,
+     "snippet": " tick-borne, sometimes causing human encephalitis or hemorrhagic diseases. The recent ZIKV outbreaks in South and North[[ America]], and more recently"
+    },
+    {
+     "rank": 1543,
+     "stratum": "ranks 301-2000",
+     "window": 676,
+     "position": 462,
+     "value": 4.62823758519961,
+     "neuron_values": [
+      3.360363924050633,
+      4.62823758519961
+     ],
+     "driver": 1,
+     "snippet": " spectrum were accurate to 0.1 ppm and all the resin samples were directly used for ^13^C NMR measurement.[[\u23ce]]\u23ce2.9"
+    },
+    {
+     "rank": 3475,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1704,
+     "position": 169,
+     "value": 3.6961619604024665,
+     "neuron_values": [
+      2.373417721518987,
+      3.6961619604024665
+     ],
+     "driver": 1,
+     "snippet": ", Japan importing tons of chicle a year from Central America.\u23ce\u23ce\u23ce\u23ce- Usually, trees that were 30 years and[[ older]] were tapped, making"
+    },
+    {
+     "rank": 2284,
+     "stratum": "random, ranks 2001-4096",
+     "window": 672,
+     "position": 39,
+     "value": 4.295488477766958,
+     "neuron_values": [
+      3.860759493670886,
+      4.295488477766958
+     ],
+     "driver": 1,
+     "snippet": " there exists an object $a\\in A$ and $\\alpha,\\beta,\\gamma\\in R^a_+$[[ such]] that $\\{\\alpha,\\"
+    },
+    {
+     "rank": 274,
+     "stratum": "ranks 51-300",
+     "window": 2800,
+     "position": 464,
+     "value": 5.819328140214215,
+     "neuron_values": [
+      5.1344936708860756,
+      5.819328140214216
+     ],
+     "driver": 1,
+     "snippet": "ucked the cigarette from Tom\u2019s\u23cefingers. He tossed it into the corner.\u23ce\u23ce\u201cTom,\u201d he[[ said]] quietly, \u201cI"
+    },
+    {
+     "rank": 142,
+     "stratum": "ranks 51-300",
+     "window": 1484,
+     "position": 323,
+     "value": 6.34889240506329,
+     "neuron_values": [
+      6.34889240506329,
+      5.191642323920805
+     ],
+     "driver": 0,
+     "snippet": " induction of endogenous antioxidant defence and, consequently, a decrease in oxidative stress, could explain all the effects observed. Further investigations[[ need]] to be carried out"
+    },
+    {
+     "rank": 1952,
+     "stratum": "ranks 301-2000",
+     "window": 1008,
+     "position": 392,
+     "value": 4.43539435248296,
+     "neuron_values": [
+      3.823180379746835,
+      4.43539435248296
+     ],
+     "driver": 1,
+     "snippet": " Corp., 233 Kan. 635, 642, 666 P.2d 192, 199 (1983) (citation[[ omitted]]). In the absence"
+    },
+    {
+     "rank": 1968,
+     "stratum": "ranks 301-2000",
+     "window": 568,
+     "position": 442,
+     "value": 4.4303797468354436,
+     "neuron_values": [
+      4.430379746835443,
+      4.3862382343395
+     ],
+     "driver": 0,
+     "snippet": ",     that   the\u23ce\u23ceinjuries stemming from the November 1 incident were \u201cseparate,\u23ce\u23cedistinct[[,]] and divisible\u201d"
+    },
+    {
+     "rank": 1298,
+     "stratum": "ranks 301-2000",
+     "window": 2190,
+     "position": 483,
+     "value": 4.756799740344044,
+     "neuron_values": [
+      4.398734177215189,
+      4.756799740344044
+     ],
+     "driver": 1,
+     "snippet": " have drinks/drugs etc but then they can be a little more careful about their environment/company.\u23ce\u23ceFor[[ instance]] there is one comment"
+    },
+    {
+     "rank": 1962,
+     "stratum": "ranks 301-2000",
+     "window": 1519,
+     "position": 224,
+     "value": 4.4316131126257705,
+     "neuron_values": [
+      3.7440664556962022,
+      4.4316131126257705
+     ],
+     "driver": 1,
+     "snippet": "$\u2013conjugacy classes of $\\gamma$ in $\\Gamma$. The condition that $\\gamma \\notin \\Delta_n$[[ implies]] that at least one"
+    },
+    {
+     "rank": 212,
+     "stratum": "ranks 51-300",
+     "window": 1693,
+     "position": 339,
+     "value": 5.970577734501784,
+     "neuron_values": [
+      5.799050632911392,
+      5.970577734501784
+     ],
+     "driver": 1,
+     "snippet": " ultimate challenge in appreciating the solutions that marine life found for defying the persistent shortage of iron in the open ocean.[[\u23ce]]\u23ceMaterials and methods"
+    },
+    {
+     "rank": 2474,
+     "stratum": "random, ranks 2001-4096",
+     "window": 973,
+     "position": 357,
+     "value": 4.219863680623174,
+     "neuron_values": [
+      3.7480221518987342,
+      4.219863680623174
+     ],
+     "driver": 1,
+     "snippet": "gard and Clio can be seen sitting on the picnic blankets with everyone else but seconds before the episode closes their legs are[[ visible]] in a standing up"
+    },
+    {
+     "rank": 1985,
+     "stratum": "ranks 301-2000",
+     "window": 3882,
+     "position": 496,
+     "value": 4.424050632911392,
+     "neuron_values": [
+      4.098101265822785,
+      4.424050632911392
+     ],
+     "driver": 1,
+     "snippet": " office, and rumours start flying that she was one of those trashy women who answered the ad. As a result[[,]] her nitwit"
+    },
+    {
+     "rank": 904,
+     "stratum": "ranks 301-2000",
+     "window": 3352,
+     "position": 324,
+     "value": 5.025267770204478,
+     "neuron_values": [
+      4.600474683544303,
+      5.025267770204478
+     ],
+     "driver": 1,
+     "snippet": "amente tu\u23cesapere dott. in rovina Nick's life and you and\u23cei suoi sim[[p]]atici amici"
+    },
+    {
+     "rank": 3605,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2063,
+     "position": 457,
+     "value": 3.599740344044141,
+     "neuron_values": [
+      2.8144778481012653,
+      3.599740344044142
+     ],
+     "driver": 1,
+     "snippet": "_SIZE;\u23ce\u23ce    volatile __shared__ uint32 warp_offset[ BLOCK_SIZE >> LOG_WARP_[[SIZE]] ];\u23ce\u23ce    const"
+    },
+    {
+     "rank": 1281,
+     "stratum": "ranks 301-2000",
+     "window": 3529,
+     "position": 303,
+     "value": 4.7626582278481004,
+     "neuron_values": [
+      4.762658227848101,
+      4.639581304771178
+     ],
+     "driver": 0,
+     "snippet": ". Whether milk cures cold sores or not is the secondary question, and before jumping straight to the answer, you[[ need]] to know the basics"
+    },
+    {
+     "rank": 221,
+     "stratum": "ranks 51-300",
+     "window": 2430,
+     "position": 357,
+     "value": 5.94410905550146,
+     "neuron_values": [
+      4.972310126582278,
+      5.94410905550146
+     ],
+     "driver": 1,
+     "snippet": " to the reference map, and differences are identified.](1471-2164-14-505-1){#F1}[[\u23ce]]\u23ceThe Rmaps"
+    },
+    {
+     "rank": 150,
+     "stratum": "ranks 51-300",
+     "window": 749,
+     "position": 508,
+     "value": 6.317246835443037,
+     "neuron_values": [
+      6.317246835443037,
+      6.269295683219734
+     ],
+     "driver": 0,
+     "snippet": " one indeed recovers the optimal average work as stated in Eq. [(1)](#eq12){ref-type=\"disp[[-]]formula\"}. After"
+    },
+    {
+     "rank": 2065,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2699,
+     "position": 286,
+     "value": 4.386867088607595,
+     "neuron_values": [
+      4.386867088607595,
+      4.1858325219084715
+     ],
+     "driver": 0,
+     "snippet": " gives us a sense of the relative variability of the points in the different regions of the plot. However, since one is[[ trying]] to make simultaneous inferences"
+    },
+    {
+     "rank": 261,
+     "stratum": "ranks 51-300",
+     "window": 2457,
+     "position": 232,
+     "value": 5.8386075949367084,
+     "neuron_values": [
+      5.8386075949367084,
+      5.649172346640701
+     ],
+     "driver": 0,
+     "snippet": " i and combining it with the first equation yields the (complex) equation\u23ce\u23ce2. The last term in this equation[[ can]] be deleted for the"
+    },
+    {
+     "rank": 3259,
+     "stratum": "random, ranks 2001-4096",
+     "window": 567,
+     "position": 413,
+     "value": 3.8291139240506324,
+     "neuron_values": [
+      3.8291139240506324,
+      3.7963648166179813
+     ],
+     "driver": 0,
+     "snippet": "BAN HOSPITAL HEALTHCARE\u23ceSYSTEM, INC.,\u23ce\u23ce                 Defendants.\u23ce\u23ce\u23ce\u23ceAppeal from the[[ United]] States District Court for"
+    },
+    {
+     "rank": 2025,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1420,
+     "position": 511,
+     "value": 4.4013631937682565,
+     "neuron_values": [
+      4.295886075949367,
+      4.4013631937682565
+     ],
+     "driver": 1,
+     "snippet": "8173, 8\u23ce          tz.transition 1927, 5, :o2, 7275005, 3\u23ce          [[tz]]"
+    },
+    {
+     "rank": 4083,
+     "stratum": "random, ranks 2001-4096",
+     "window": 3613,
+     "position": 409,
+     "value": 1.9851509250243424,
+     "neuron_values": [
+      0.8618473101265822,
+      1.9851509250243429
+     ],
+     "driver": 1,
+     "snippet": "archar'') AND clmns.max_length <> -1 THEN clmns.max_length/[[2]] ELSE clmns"
+    },
+    {
+     "rank": 1181,
+     "stratum": "ranks 301-2000",
+     "window": 2571,
+     "position": 330,
+     "value": 4.832424537487828,
+     "neuron_values": [
+      4.003164556962025,
+      4.832424537487828
+     ],
+     "driver": 1,
+     "snippet": "ator then washed in PBS for digital imaging under 10x magnification. The monolayer was then lysed with 1% sodium dode[[cyl]] sulfate (SDS"
+    },
+    {
+     "rank": 168,
+     "stratum": "ranks 51-300",
+     "window": 2919,
+     "position": 434,
+     "value": 6.170886075949366,
+     "neuron_values": [
+      6.170886075949366,
+      6.1067023693605975
+     ],
+     "driver": 0,
+     "snippet": " with changes in mRNA abundance in the same direction, we repeated the analysis in [Figure 6B](#fig6){ref[[-]]type=\"fig\"}"
+    },
+    {
+     "rank": 3964,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1759,
+     "position": 498,
+     "value": 3.024991885751379,
+     "neuron_values": [
+      2.118275316455696,
+      3.024991885751379
+     ],
+     "driver": 1,
+     "snippet": " != 2)\u23ce+       error (1, 0, \"proxy server %s:%d does not support http tunn[[elling]]\",\u23ce+              "
+    },
+    {
+     "rank": 148,
+     "stratum": "ranks 51-300",
+     "window": 3064,
+     "position": 389,
+     "value": 6.321202531645569,
+     "neuron_values": [
+      6.32120253164557,
+      5.766390782213566
+     ],
+     "driver": 0,
+     "snippet": " looked puzzled. It seemed strange to her that anyone could be attracted to her waif-like, troubled daughter. \"[[Are]] you sure?\"\u23ce"
+    },
+    {
+     "rank": 1150,
+     "stratum": "ranks 301-2000",
+     "window": 1804,
+     "position": 263,
+     "value": 4.851330736773774,
+     "neuron_values": [
+      3.9220727848101267,
+      4.851330736773774
+     ],
+     "driver": 1,
+     "snippet": " know where to strike in order to inflict the most damage. Some times literally.\u23ce\u23cePigeons \u2013 cast list[[\u23ce]]\u23ceThe story is"
+    },
+    {
+     "rank": 3939,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1921,
+     "position": 358,
+     "value": 3.104397922752353,
+     "neuron_values": [
+      2.950949367088607,
+      3.104397922752353
+     ],
+     "driver": 1,
+     "snippet": " key,\u23ce            CharSequence title,\u23ce            int defaultColor,\u23ce            final Listener<Integer> colorListener[[)]] {\u23ce        Fragment"
+    },
+    {
+     "rank": 120,
+     "stratum": "ranks 51-300",
+     "window": 2871,
+     "position": 487,
+     "value": 6.499208860759493,
+     "neuron_values": [
+      6.499208860759493,
+      5.618922427783186
+     ],
+     "driver": 0,
+     "snippet": " of worms. Supporting Mir is just a huge risk.\u23ce\u23ce\u23ce\u23ceCanonicals products have become increasingly dependant into this[[ sort]] of one-way"
+    },
+    {
+     "rank": 3777,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2413,
+     "position": 325,
+     "value": 3.4106783511846803,
+     "neuron_values": [
+      2.507911392405063,
+      3.4106783511846803
+     ],
+     "driver": 1,
+     "snippet": " (*, '(l1)') is_pangram (string)\u23ce\u23ceend program test\u23ce```\u23ce[[\u23ce]]{{out}}\u23ce"
+    },
+    {
+     "rank": 106,
+     "stratum": "ranks 51-300",
+     "window": 2935,
+     "position": 344,
+     "value": 6.620950989938331,
+     "neuron_values": [
+      6.554588607594937,
+      6.620950989938331
+     ],
+     "driver": 1,
+     "snippet": " fig tree and now the blight and rot was beginning to show it. They came up to Jesus with all their pret[[ent]]ious authority and asked"
+    }
+   ],
+   "explainer_prompt_sha256": "d4ec66e814edc54a70f4c3a69b85026a7fc1ca088dca54a332f6fd190101cfea",
+   "first": {
+    "explanation": {
+     "parsed": "Paragraph-break newline right after a figure caption's image link/ID (e.g. `](fig-g005){#F5}`) or end of acknowledgments in scientific papers; also line breaks before '#define' and 'Pat.' abbreviations.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.01651,
+       "reply": "{\"explanation\": \"Paragraph-break newline right after a figure caption's image link/ID (e.g. `](fig-g005){#F5}`) or end of acknowledgments in scientific papers; also line breaks before '#define' and 'Pat.' abbreviations.\"}"
+      }
+     ],
+     "cost_usd": 0.01651,
+     "input_tokens": 3901,
+     "output_tokens": 91,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "d4ec66e814edc54a70f4c3a69b85026a7fc1ca088dca54a332f6fd190101cfea",
+     "reply": "{\"explanation\": \"Paragraph-break newline right after a figure caption's image link/ID (e.g. `](fig-g005){#F5}`) or end of acknowledgments in scientific papers; also line breaks before '#define' and 'Pat.' abbreviations.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       10.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       5.0,
+       5.0,
+       0.0,
+       5.0,
+       0.0,
+       10.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       4.0,
+       0.0,
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       5.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       5.0,
+       0.0,
+       0.0,
+       0.0,
+       10.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       4.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.02011,
+        "reply": "[0,0,3,0,0,10,0,3,0,0,3,0,5,5,0,5,0,10,0,0,0,0,4,0,0,0,3,0,0,5,0,0,0,0,0,0,0,0,5,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]\n\nWait \u2014 I need to ensure exactly 60 entries. Corrected final answer:\n\n[0,0,3,0,0,10,0,3,0,0,3,0,5,5,0,5,0,10,0,0,0,0,4,0,0,0,3,0,0,5,0,0,0,0,0,0,0,0,5,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,4]"
+       }
+      ],
+      "cost_usd": 0.02011,
+      "input_tokens": 4346,
+      "output_tokens": 273,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "36161149d02dcdfaad9a71aa7b0d704e0cd7b6fa6f77766aec03ed8d2b107566",
+      "reply": "[0,0,3,0,0,10,0,3,0,0,3,0,5,5,0,5,0,10,0,0,0,0,4,0,0,0,3,0,0,5,0,0,0,0,0,0,0,0,5,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]\n\nWait \u2014 I need to ensure exactly 60 entries. Corrected final answer:\n\n[0,0,3,0,0,10,0,3,0,0,3,0,5,5,0,5,0,10,0,0,0,0,4,0,0,0,3,0,0,5,0,0,0,0,0,0,0,0,5,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,4]"
+     },
+     "haiku": {
+      "parsed": [
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       9.0,
+       0.0,
+       4.0,
+       0.0,
+       0.0,
+       2.0,
+       0.0,
+       5.0,
+       5.0,
+       0.0,
+       4.0,
+       0.0,
+       9.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       0.0,
+       4.0,
+       0.0,
+       0.0,
+       4.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       5.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       9.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       2.0,
+       0.0,
+       0.0,
+       2.0,
+       0.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": "invalid reply",
+        "cost_usd": 0.0014179000000000001,
+        "reply": "```json\n[0,0,2,0,0,9,0,2,0,0,3,0,4,4,0,2,0,9,0,0,0,0,2,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,2,0,0,3,0]\n```"
+       },
+       {
+        "error": null,
+        "cost_usd": 0.0005095,
+        "reply": "```json\n[0,0,3,0,0,9,0,4,0,0,2,0,5,5,0,4,0,9,0,0,0,0,3,0,0,0,4,0,0,4,0,0,0,0,0,0,0,0,5,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0]\n```"
+       }
+      ],
+      "cost_usd": 0.0019274000000000001,
+      "input_tokens": 4338,
+      "output_tokens": 713,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "36161149d02dcdfaad9a71aa7b0d704e0cd7b6fa6f77766aec03ed8d2b107566",
+      "reply": "```json\n[0,0,3,0,0,9,0,4,0,0,2,0,5,5,0,4,0,9,0,0,0,0,3,0,0,0,4,0,0,4,0,0,0,0,0,0,0,0,5,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0]\n```"
+     }
+    },
+    "judge": {
+     "parsed": true,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.000259,
+       "reply": "{\"unrelated_patterns\": true}"
+      }
+     ],
+     "cost_usd": 0.000259,
+     "input_tokens": 976,
+     "output_tokens": 128,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "d034d899c5bc08c5e7f7fe4f50a38b57445487f36255783d15e836763e48b1de",
+     "reply": "{\"unrelated_patterns\": true}"
+    }
+   }
+  },
+  "160m:related:50/50:1432-1996": {
+   "id": "160m:related:50/50:1432-1996",
+   "model": "160m",
+   "kind": "related",
+   "group": "related",
+   "neurons": [
+    1432,
+    1996
+   ],
+   "neuron_ids": [
+    2161,
+    2999
+   ],
+   "log_peak": [
+    0.8654774699903297,
+    0.7720556419804692
+   ],
+   "retest": false,
+   "held_out": [
+    {
+     "rank": 192,
+     "stratum": "ranks 51-300",
+     "window": 2621,
+     "position": 165,
+     "value": 6.656822209096279,
+     "neuron_values": [
+      6.656822209096279,
+      6.064507567549761
+     ],
+     "driver": 0,
+     "snippet": " 13 years of my life have been pretty focused on my three boys, so if it wasn\u2019t something the boys were[[ into]], or David was"
+    },
+    {
+     "rank": 2422,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1836,
+     "position": 332,
+     "value": 0.5340645298393784,
+     "neuron_values": [
+      0.012067151506202007,
+      0.5340645298393784
+     ],
+     "driver": 1,
+     "snippet": ", and we\u23ce\u23ceappointed counsel to represent him.\u23ce\u23ce                                           II.\u23ce\u23ce      At the heart of all Mach[[ado]]\u2019s arguments and"
+    },
+    {
+     "rank": 196,
+     "stratum": "ranks 51-300",
+     "window": 3778,
+     "position": 108,
+     "value": 6.645008860011814,
+     "neuron_values": [
+      6.645008860011814,
+      5.28276638382991
+     ],
+     "driver": 0,
+     "snippet": "Kasbar is like a iconbox, it lists the icons of the apps currently running. What I am refering[[ to]] is a kp"
+    },
+    {
+     "rank": 182,
+     "stratum": "ranks 51-300",
+     "window": 2949,
+     "position": 121,
+     "value": 6.686355581807443,
+     "neuron_values": [
+      6.686355581807443,
+      6.175755351386816
+     ],
+     "driver": 0,
+     "snippet": " U.S., we don\u2019t trust government, and we certainly wonder about those lavish promises the presidential candidates are[[ making]] that will be promptly"
+    },
+    {
+     "rank": 716,
+     "stratum": "ranks 301-2000",
+     "window": 1243,
+     "position": 98,
+     "value": 5.433101226852958,
+     "neuron_values": [
+      4.548139397519197,
+      5.433101226852958
+     ],
+     "driver": 1,
+     "snippet": "ailing more d-separation rules is that the placement of edges relative to the rest of the graph and what additional paths[[ they]] allow affects the total"
+    },
+    {
+     "rank": 2307,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2845,
+     "position": 119,
+     "value": 0.6141178337491514,
+     "neuron_values": [
+      0.018412212049616065,
+      0.6141178337491515
+     ],
+     "driver": 1,
+     "snippet": ", but the memories never last.A broken heart,shatted dreams,forgoton memories these are the painful[[ things]].A heart that"
+    },
+    {
+     "rank": 245,
+     "stratum": "ranks 51-300",
+     "window": 1554,
+     "position": 459,
+     "value": 6.4382752510336685,
+     "neuron_values": [
+      6.4382752510336685,
+      6.31406340696802
+     ],
+     "driver": 0,
+     "snippet": " turned out to be one of the best things I\u2019ve ever done and one of the things I\u2019m most proud[[ of]] in 2018. Because"
+    },
+    {
+     "rank": 3473,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1272,
+     "position": 243,
+     "value": -0.0,
+     "neuron_values": [
+      -1.351930513511518e-06,
+      -0.0
+     ],
+     "driver": 1,
+     "snippet": "x60\u23ce\tIPV6_VERSION_MASK                 = 0xf0\u23ce\tIP_ADD_MEMBERSH[[IP]]                 = 0xc"
+    },
+    {
+     "rank": 1560,
+     "stratum": "ranks 301-2000",
+     "window": 84,
+     "position": 163,
+     "value": 3.1098641464855286,
+     "neuron_values": [
+      3.1098641464855286,
+      0.15503280686751833
+     ],
+     "driver": 0,
+     "snippet": "-Fri, 2-4pm daily)\u23ce\u23ceFounded in 1555, this small college is worth a visit[[ to]] see the lovely garden"
+    },
+    {
+     "rank": 162,
+     "stratum": "ranks 51-300",
+     "window": 3674,
+     "position": 226,
+     "value": 6.759054542316242,
+     "neuron_values": [
+      1.8487891317188423,
+      6.7590545423162425
+     ],
+     "driver": 1,
+     "snippet": " Street in Manhattan, for the first of five days of songwriting sessions. Her engineer, Aubry Delaine, whom[[ she]] calls Big Juice"
+    },
+    {
+     "rank": 2661,
+     "stratum": "random, ranks 2001-4096",
+     "window": 415,
+     "position": 38,
+     "value": 0.5098198464264619,
+     "neuron_values": [
+      0.5098198464264619,
+      -1.1102609866814466e-05
+     ],
+     "driver": 0,
+     "snippet": "Healthy animals                                                                                                                                                                                                              \u2191 \\#s splenic T lymphocytes (Thy1[[.]]2, CD4"
+    },
+    {
+     "rank": 177,
+     "stratum": "ranks 51-300",
+     "window": 3077,
+     "position": 113,
+     "value": 6.698920605107023,
+     "neuron_values": [
+      5.640874187832251,
+      6.698920605107023
+     ],
+     "driver": 1,
+     "snippet": " warning, Decembrius found himself plunged into one of the strongest and most terrifying visions of the future he'd[[ ever]] experienced. He saw"
+    },
+    {
+     "rank": 1117,
+     "stratum": "ranks 301-2000",
+     "window": 870,
+     "position": 150,
+     "value": 4.669400224295874,
+     "neuron_values": [
+      4.601299468399291,
+      4.669400224295874
+     ],
+     "driver": 1,
+     "snippet": ", single-gene tests frequently do not cover important disease-associated mutations and in some instances fail to detect the very mutations[[ they]] target \\[[@pone."
+    },
+    {
+     "rank": 1616,
+     "stratum": "ranks 301-2000",
+     "window": 2833,
+     "position": 159,
+     "value": 2.818960425280567,
+     "neuron_values": [
+      2.818960425280567,
+      0.020882449288670276
+     ],
+     "driver": 0,
+     "snippet": " our forecast for Christmas gasoline prices to average between $3.25-$3.35/gallon,\" DeHaan[[ said]].<|endoftext|>1."
+    },
+    {
+     "rank": 1136,
+     "stratum": "ranks 301-2000",
+     "window": 105,
+     "position": 460,
+     "value": 4.636326558830803,
+     "neuron_values": [
+      3.6148848198464267,
+      4.636326558830803
+     ],
+     "driver": 1,
+     "snippet": " away) the inner horseshoes are aligned to coincide with sunrise at the midsummer solstice, which some[[ claim]] supports the theory that"
+    },
+    {
+     "rank": 3167,
+     "stratum": "random, ranks 2001-4096",
+     "window": 216,
+     "position": 254,
+     "value": 0.12625516834022446,
+     "neuron_values": [
+      0.12625516834022446,
+      -0.0
+     ],
+     "driver": 0,
+     "snippet": " the endearing, sloping village of Embleton and curves in a broad vanilla-coloured strand around to end[[ at]] Low Newton-by"
+    },
+    {
+     "rank": 276,
+     "stratum": "ranks 51-300",
+     "window": 1586,
+     "position": 111,
+     "value": 6.362170556735395,
+     "neuron_values": [
+      4.539279385705847,
+      6.362170556735395
+     ],
+     "driver": 1,
+     "snippet": " far shorter than are suggested by the packaging labels.\u23ce\u23ceNevertheless, research continues with new drugs and delivery methods that developers[[ hope]] will extend the clinical"
+    },
+    {
+     "rank": 230,
+     "stratum": "ranks 51-300",
+     "window": 1037,
+     "position": 172,
+     "value": 6.512505399758444,
+     "neuron_values": [
+      5.767867690490254,
+      6.512505399758444
+     ],
+     "driver": 1,
+     "snippet": " Basic breakout board for the TEMT6000 Ambient Light Sensor. Only what you need, nothing you don\u2019[[t]]. Sensor acts"
+    },
+    {
+     "rank": 3720,
+     "stratum": "random, ranks 2001-4096",
+     "window": 4038,
+     "position": 436,
+     "value": -7.210296072061429e-07,
+     "neuron_values": [
+      -7.210296072061429e-07,
+      -2.4774418711073603e-06
+     ],
+     "driver": 0,
+     "snippet": " variation of anisotropy with temperature suggests that it is a type of multi-band superconductor.'\u23ceaddress: '$^{\\mbox[[{]]a}}$ Department of"
+    },
+    {
+     "rank": 2894,
+     "stratum": "random, ranks 2001-4096",
+     "window": 283,
+     "position": 333,
+     "value": 0.3175823558861891,
+     "neuron_values": [
+      0.09579887773183698,
+      0.3175823558861891
+     ],
+     "driver": 1,
+     "snippet": " victory at the 2001 general election, although their majority is reduced.\u23ce\u23ce2003\u23ce\u23ceBritain joins America and other[[ countries]] in the invasion of"
+    },
+    {
+     "rank": 1104,
+     "stratum": "ranks 301-2000",
+     "window": 826,
+     "position": 226,
+     "value": 4.684433708598179,
+     "neuron_values": [
+      4.060838747784997,
+      4.684433708598179
+     ],
+     "driver": 1,
+     "snippet": " catapulting her into a high-stakes world of passion, danger, and mystery. Tested in ways[[ she]] could never have imagined"
+    },
+    {
+     "rank": 58,
+     "stratum": "ranks 51-300",
+     "window": 925,
+     "position": 352,
+     "value": 7.50738334317779,
+     "neuron_values": [
+      7.50738334317779,
+      5.514282042085404
+     ],
+     "driver": 0,
+     "snippet": " thought it was already time to leave the wagons behind and disappear in the middle of the night with the loot they had[[ liberated]] from Eldon Sw"
+    },
+    {
+     "rank": 1367,
+     "stratum": "ranks 301-2000",
+     "window": 3297,
+     "position": 341,
+     "value": 3.954518606024808,
+     "neuron_values": [
+      3.954518606024808,
+      2.778187899065929
+     ],
+     "driver": 0,
+     "snippet": " once can be devastating. It's important to enable feedback; you tell them the situation and, depending on the reactions you[[ get]], you know where"
+    },
+    {
+     "rank": 1998,
+     "stratum": "ranks 301-2000",
+     "window": 1456,
+     "position": 79,
+     "value": 1.2551683402244538,
+     "neuron_values": [
+      1.2551683402244536,
+      0.9388410946789353
+     ],
+     "driver": 0,
+     "snippet": " of the atom to the spectrum of the hydrogen atom, historians of physics John Heilbron and Thomas Kuhn have[[ shown]] rather conclusively that"
+    },
+    {
+     "rank": 1098,
+     "stratum": "ranks 301-2000",
+     "window": 3211,
+     "position": 394,
+     "value": 4.692852923803899,
+     "neuron_values": [
+      4.6928529238038985,
+      4.65737343685403
+     ],
+     "driver": 0,
+     "snippet": " all the species that actually exist? These species which we see today are only the smallest part of those which a blind destiny[[ produced]].\"\u23ce1748"
+    },
+    {
+     "rank": 4025,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2859,
+     "position": 65,
+     "value": -1.1716731117099824e-05,
+     "neuron_values": [
+      -1.1716731117099824e-05,
+      -1.477289412030685e-05
+     ],
+     "driver": 0,
+     "snippet": "R43]\\]. Studies have investigated the mechanism whereby OPG could promote angiogenic behavior of endothelial cells. Human dermal microvascular[[ endothelial]] cells (HuDM"
+    },
+    {
+     "rank": 1573,
+     "stratum": "ranks 301-2000",
+     "window": 699,
+     "position": 497,
+     "value": 3.0127102541818838,
+     "neuron_values": [
+      2.8233904311872418,
+      3.0127102541818838
+     ],
+     "driver": 1,
+     "snippet": " venue dans notre maison ?\u23ce\u23ceElle leur raconta que sa mar\u00e2tre avait voulu la[[ faire]] mourir, mais"
+    },
+    {
+     "rank": 244,
+     "stratum": "ranks 51-300",
+     "window": 3086,
+     "position": 74,
+     "value": 6.446358068828302,
+     "neuron_values": [
+      6.190194920259893,
+      6.446358068828302
+     ],
+     "driver": 1,
+     "snippet": "ary Snacks T-shirt. Though she'd designed it herself, it wasn't a garment she'd normally have cared[[ to]] be seen in."
+    },
+    {
+     "rank": 3008,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1690,
+     "position": 422,
+     "value": 0.23508611077729147,
+     "neuron_values": [
+      -7.210296072061429e-07,
+      0.23508611077729147
+     ],
+     "driver": 1,
+     "snippet": "STAINING AND CREATING exhibition is the result of successful realization of the program of support for the young artists Unusual[[ Art]] that gives an incredible"
+    },
+    {
+     "rank": 1765,
+     "stratum": "ranks 301-2000",
+     "window": 1942,
+     "position": 117,
+     "value": 2.0939161252215004,
+     "neuron_values": [
+      2.0939161252215004,
+      1.3161815506667862
+     ],
+     "driver": 0,
+     "snippet": " know their proliferate skills). How many people actually think about that?\u23ce\u23ceAll that matters really is what Easter sign[[ifies]] \u2013 the persecution,"
+    },
+    {
+     "rank": 254,
+     "stratum": "ranks 51-300",
+     "window": 1662,
+     "position": 321,
+     "value": 6.404264312781849,
+     "neuron_values": [
+      5.6320141760189015,
+      6.404264312781849
+     ],
+     "driver": 1,
+     "snippet": "line and has given those of it the Glimpse, the ability to see what the user should not be able[[ to]] see. Of course"
+    },
+    {
+     "rank": 112,
+     "stratum": "ranks 51-300",
+     "window": 442,
+     "position": 195,
+     "value": 7.017129356172474,
+     "neuron_values": [
+      7.017129356172474,
+      6.96952332254851
+     ],
+     "driver": 0,
+     "snippet": " where the person was born. We're not talking about those flimsy temporary foreign worker cards that migrants are supposed to[[ have]] \u2013 those are worthless"
+    },
+    {
+     "rank": 61,
+     "stratum": "ranks 51-300",
+     "window": 464,
+     "position": 482,
+     "value": 7.442409923213231,
+     "neuron_values": [
+      7.442409923213231,
+      5.914172724526712
+     ],
+     "driver": 0,
+     "snippet": " vague now but she swears by it. Somehow, someway, I ended up doing something that I have a passion[[ for]] and now over 40"
+    },
+    {
+     "rank": 702,
+     "stratum": "ranks 301-2000",
+     "window": 3856,
+     "position": 361,
+     "value": 5.466174892318029,
+     "neuron_values": [
+      4.26166568222091,
+      5.466174892318029
+     ],
+     "driver": 1,
+     "snippet": " do like this.\" \"Hom better.\" \"Hom is a Thai kiss.\" \"A sniff, which I haven't quite[[ gonna]] hang on yet.\""
+    },
+    {
+     "rank": 2507,
+     "stratum": "random, ranks 2001-4096",
+     "window": 810,
+     "position": 52,
+     "value": 0.5242173656231541,
+     "neuron_values": [
+      0.5242173656231541,
+      -1.8351421267461926e-06
+     ],
+     "driver": 0,
+     "snippet": " (Z-VAD-FMK), and an inactive caspase inhibitor (Z-FA-FMK) as control[[.]] In both shControl"
+    },
+    {
+     "rank": 1151,
+     "stratum": "ranks 301-2000",
+     "window": 1511,
+     "position": 471,
+     "value": 4.59723949964481,
+     "neuron_values": [
+      3.9279385705847605,
+      4.597239499644811
+     ],
+     "driver": 1,
+     "snippet": " are Digital Twins only relevant to physical machines such as wind turbines, jet engines, and locomotives? What can[[ we]] learn about the concept"
+    },
+    {
+     "rank": 3930,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2899,
+     "position": 72,
+     "value": -3.965662839633786e-06,
+     "neuron_values": [
+      -3.965662839633786e-06,
+      -1.541519386466802e-05
+     ],
+     "driver": 0,
+     "snippet": " a few (*N*\u2009=\u20092--4) narrow channels of air or CoFeB. Using broadband spin[[-]]wave spectroscopy and mic"
+    },
+    {
+     "rank": 3940,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2952,
+     "position": 379,
+     "value": -4.496098210528172e-06,
+     "neuron_values": [
+      -9.914157099084465e-06,
+      -4.496098210528172e-06
+     ],
+     "driver": 1,
+     "snippet": "). Each signal was normalized to the \u03b2-actin loading control in the same lane.\u23ce\u23ceStatistical analysis\u23ce--------------------\u23ce[[\u23ce]]Data are reported as"
+    },
+    {
+     "rank": 3838,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1486,
+     "position": 498,
+     "value": -1.8351421267461926e-06,
+     "neuron_values": [
+      -1.2347632023405197e-05,
+      -1.8351421267461926e-06
+     ],
+     "driver": 1,
+     "snippet": " may contact GM customer service at 1-800-521-7300 (Buick), 1-800-222-[[10]]20 (Chev"
+    },
+    {
+     "rank": 3747,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2814,
+     "position": 469,
+     "value": -9.175710633730963e-07,
+     "neuron_values": [
+      -1.351930513511518e-06,
+      -9.175710633730963e-07
+     ],
+     "driver": 1,
+     "snippet": " see if there was a link between genetic profile and response to treatment. One study evaluated the genetic profile of 835 patients[[ from]] the CATT ("
+    },
+    {
+     "rank": 3023,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2703,
+     "position": 492,
+     "value": 0.2264418573034662,
+     "neuron_values": [
+      -5.407722054046072e-06,
+      0.2264418573034662
+     ],
+     "driver": 1,
+     "snippet": " subgradient algorithm proceeds to iteration q \\+ 1.\u23ce\u23ce### 7.9.2 A template for Lagrangean[[ he]]uristics\u23ce\u23ce"
+    },
+    {
+     "rank": 145,
+     "stratum": "ranks 51-300",
+     "window": 530,
+     "position": 210,
+     "value": 6.839929119905493,
+     "neuron_values": [
+      6.839929119905493,
+      6.118628111038058
+     ],
+     "driver": 0,
+     "snippet": "'s written permission. If we do have a release of information for an individual or an agency, which the client can rev[[oke]] at anytime and no"
+    },
+    {
+     "rank": 3133,
+     "stratum": "random, ranks 2001-4096",
+     "window": 294,
+     "position": 71,
+     "value": 0.14775915534554046,
+     "neuron_values": [
+      0.14775915534554046,
+      -2.2939276584327406e-06
+     ],
+     "driver": 0,
+     "snippet": " bikes.\u23ce\u23ceA very useful leaflet called _National Rail Cycling by Train_ is available at major stations or[[ download]]able from www."
+    },
+    {
+     "rank": 648,
+     "stratum": "ranks 301-2000",
+     "window": 3105,
+     "position": 382,
+     "value": 5.5623891918527795,
+     "neuron_values": [
+      4.822799763733018,
+      5.5623891918527795
+     ],
+     "driver": 1,
+     "snippet": " examined his aura suspiciously. To her annoyance, Easterly still showed no sign of falling in love with her, which[[ she]] took as a great"
+    },
+    {
+     "rank": 110,
+     "stratum": "ranks 51-300",
+     "window": 2583,
+     "position": 498,
+     "value": 7.02894270525694,
+     "neuron_values": [
+      7.02894270525694,
+      5.995353539759158
+     ],
+     "driver": 0,
+     "snippet": " American film stories to today\u2019s children, while simultaneously stimulating and challenging them with the interactivity element that only games can[[ offer]]. Seven short years"
+    },
+    {
+     "rank": 1130,
+     "stratum": "ranks 301-2000",
+     "window": 1568,
+     "position": 80,
+     "value": 4.648353346272647,
+     "neuron_values": [
+      4.238038984051979,
+      4.648353346272647
+     ],
+     "driver": 1,
+     "snippet": " Los Angeles Kings in seven games. (Oakland's three playoff game victories against Los Angeles were the only ones the[[ franchise]] would get in their"
+    },
+    {
+     "rank": 115,
+     "stratum": "ranks 51-300",
+     "window": 1747,
+     "position": 231,
+     "value": 7.005316007088009,
+     "neuron_values": [
+      7.005316007088009,
+      5.195572174876543
+     ],
+     "driver": 0,
+     "snippet": " way to honor\u23cethat service\u23ceis to take a knee or to stand up for the\u23cethings that you really believe[[ in]]\u23ceand that you"
+    },
+    {
+     "rank": 166,
+     "stratum": "ranks 51-300",
+     "window": 1916,
+     "position": 69,
+     "value": 6.745422327229769,
+     "neuron_values": [
+      6.745422327229769,
+      6.548585762083976
+     ],
+     "driver": 0,
+     "snippet": " team has had him on the radar for a while.\u23ce\u23ce\u201cHe\u2019s a player we were obviously well aware[[ of]] coming out of Oklahoma"
+    },
+    {
+     "rank": 1081,
+     "stratum": "ranks 301-2000",
+     "window": 3122,
+     "position": 400,
+     "value": 4.725339633786178,
+     "neuron_values": [
+      4.725339633786178,
+      4.134208183133823
+     ],
+     "driver": 0,
+     "snippet": " Fire Elemental could not grow a new foot with ease. And even though there were other pressing matters she should be attending[[ to]], Malveria"
+    },
+    {
+     "rank": 2702,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2116,
+     "position": 43,
+     "value": 0.5031748375664502,
+     "neuron_values": [
+      0.5031748375664501,
+      -0.0
+     ],
+     "driver": 0,
+     "snippet": " if\\ g = g^{\\prime}}\\lambda_{gn}^{k}}} = \\phi_{G}^{k};} \\\\[[\u23ce]]{{\\sum\\limits"
+    },
+    {
+     "rank": 2493,
+     "stratum": "random, ranks 2001-4096",
+     "window": 2290,
+     "position": 44,
+     "value": 0.5253248670998228,
+     "neuron_values": [
+      0.5253248670998228,
+      -0.000101942145140751
+     ],
+     "driver": 0,
+     "snippet": "iratory volume in 1 second %predicted (%FEV1) at 5 year after single lung transplantation (SLT).[[\u23ce]]\u23ce(TIFF"
+    },
+    {
+     "rank": 1292,
+     "stratum": "ranks 301-2000",
+     "window": 1611,
+     "position": 393,
+     "value": 4.176301939180276,
+     "neuron_values": [
+      1.0033963378617838,
+      4.176301939180276
+     ],
+     "driver": 1,
+     "snippet": " We effectively have an exchange rate target anyway; it\u2019s just that no one outside of the bureaucracy seems to know what[[ it]] is. Maybe they"
+    },
+    {
+     "rank": 114,
+     "stratum": "ranks 51-300",
+     "window": 1911,
+     "position": 168,
+     "value": 7.011222681630243,
+     "neuron_values": [
+      7.011222681630243,
+      5.634549916503842
+     ],
+     "driver": 0,
+     "snippet": " Breathless Resorts\u23ce\u23ceOkay, seriously. These resorts have perfected a concept we were all in desperate need[[ of]]. Do you want"
+    },
+    {
+     "rank": 2877,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1362,
+     "position": 212,
+     "value": 0.33111249175826346,
+     "neuron_values": [
+      -1.1716731117099823e-06,
+      0.3311124917582634
+     ],
+     "driver": 1,
+     "snippet": "\u23ce\u3078\u3048\uff5e\u3000\u308f\u3056\u308f\u3056\u3000\u3042\u305d\u3053\u307e\u3067\u23ce\u96fb\u8eca[[\u3067]]\u884c\u3063\u3066\u3000\ufffd"
+    },
+    {
+     "rank": 72,
+     "stratum": "ranks 51-300",
+     "window": 2559,
+     "position": 452,
+     "value": 7.270193008594606,
+     "neuron_values": [
+      4.069698759598347,
+      7.270193008594606
+     ],
+     "driver": 1,
+     "snippet": "' experimentalist scene, and mainstream jazz.\" He is survived by his wife, Terri Castillo Chapin, whom[[ he]] married on October 15"
+    },
+    {
+     "rank": 1064,
+     "stratum": "ranks 301-2000",
+     "window": 290,
+     "position": 62,
+     "value": 4.74757434266786,
+     "neuron_values": [
+      2.858830478440638,
+      4.747574342667859
+     ],
+     "driver": 1,
+     "snippet": " can pay anything from \u00a325 to \u00a3200 for the very same hotel room. With that in mind, the hotel rates[[ we]] quote are often guide"
+    },
+    {
+     "rank": 1566,
+     "stratum": "ranks 301-2000",
+     "window": 97,
+     "position": 424,
+     "value": 3.086237448316598,
+     "neuron_values": [
+      3.086237448316598,
+      0.90651910342898
+     ],
+     "driver": 0,
+     "snippet": ";  hnoon-2.30pm & 6-9pm)\u23ce\u23ceThe seafood and setting are hard to[[ beat]] \u2013 bag a chair"
+    },
+    {
+     "rank": 228,
+     "stratum": "ranks 51-300",
+     "window": 2756,
+     "position": 449,
+     "value": 6.520968694624926,
+     "neuron_values": [
+      6.520968694624926,
+      6.476425037432912
+     ],
+     "driver": 0,
+     "snippet": " took some courses and worked hard to grow my audience, and I put together some digital products that I\u2019m really proud[[ of]].\u23ce\u23ceAt"
+    },
+    {
+     "rank": 2261,
+     "stratum": "random, ranks 2001-4096",
+     "window": 1909,
+     "position": 178,
+     "value": 0.6768826307112741,
+     "neuron_values": [
+      0.5958357944477259,
+      0.6768826307112741
+     ],
+     "driver": 1,
+     "snippet": " *192 officer's testimony was not essential to the People's case.\" The use of a witness, such as a probation[[ officer]], with all of"
+    },
+    {
+     "rank": 1194,
+     "stratum": "ranks 301-2000",
+     "window": 834,
+     "position": 80,
+     "value": 4.486119314825753,
+     "neuron_values": [
+      4.486119314825753,
+      1.7965013741254248
+     ],
+     "driver": 0,
+     "snippet": " of the best phones ever. Early \u2014 and perhaps exclusive \u2014 access to Google\u2019s latest software features is hard to pass[[ up]] for some. It"
+    }
+   ],
+   "explainer_prompt_sha256": "a3448c9799361f50aad093a02f5852242df03ad87d8f34d7908ea7f5f9c8867f",
+   "first": {
+    "explanation": {
+     "parsed": "Verb or auxiliary (often a dangling preposition) at the end of a relative clause with a gap, right before the clause would close, e.g. 'the people she went out [with]', 'the pen you've had your eye [on]'.",
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.015931999999999998,
+       "reply": "{\"explanation\": \"Verb or auxiliary (often a dangling preposition) at the end of a relative clause with a gap, right before the clause would close, e.g. 'the people she went out [with]', 'the pen you've had your eye [on]'.\"}"
+      }
+     ],
+     "cost_usd": 0.015931999999999998,
+     "input_tokens": 3779,
+     "output_tokens": 82,
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "prompt_sha256": "a3448c9799361f50aad093a02f5852242df03ad87d8f34d7908ea7f5f9c8867f",
+     "reply": "{\"explanation\": \"Verb or auxiliary (often a dangling preposition) at the end of a relative clause with a gap, right before the clause would close, e.g. 'the people she went out [with]', 'the pen you've had your eye [on]'.\"}"
+    },
+    "simulations": {
+     "sonnet": {
+      "parsed": [
+       9.0,
+       0.0,
+       9.0,
+       6.0,
+       3.0,
+       2.0,
+       9.0,
+       0.0,
+       3.0,
+       2.0,
+       0.0,
+       3.0,
+       3.0,
+       4.0,
+       5.0,
+       3.0,
+       5.0,
+       6.0,
+       0.0,
+       2.0,
+       2.0,
+       5.0,
+       5.0,
+       5.0,
+       6.0,
+       0.0,
+       2.0,
+       6.0,
+       0.0,
+       2.0,
+       6.0,
+       7.0,
+       9.0,
+       3.0,
+       0.0,
+       3.0,
+       0.0,
+       0.0,
+       0.0,
+       2.0,
+       0.0,
+       0.0,
+       0.0,
+       3.0,
+       3.0,
+       2.0,
+       3.0,
+       9.0,
+       9.0,
+       8.0,
+       0.0,
+       0.0,
+       2.0,
+       0.0,
+       0.0,
+       7.0,
+       2.0,
+       7.0,
+       0.0,
+       7.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": null,
+        "cost_usd": 0.019574,
+        "reply": "[9,0,9,6,3,2,9,0,3,2,0,3,3,4,5,3,5,6,0,2,2,5,5,5,6,0,2,6,0,2,6,7,9,3,0,3,0,0,0,2,0,0,0,3,3,2,3,9,9,8,0,0,2,0,0,7,2,7,0,7,0,6]\n\nWait, that has 62 entries; let me give the correct 60.\n\n[9,0,9,6,3,2,9,0,3,2,0,3,3,4,5,3,5,6,0,2,2,5,5,5,6,0,2,6,0,2,6,7,9,3,0,3,0,0,0,2,0,0,0,3,3,2,3,9,9,8,0,0,2,0,0,7,2,7,0,7]"
+       }
+      ],
+      "cost_usd": 0.019574,
+      "input_tokens": 4217,
+      "output_tokens": 271,
+      "models": [
+       "claude-sonnet-5-5"
+      ],
+      "prompt_sha256": "36c7de38d6a0eaf04e9b2cb3c38354a4735f9604df45d0d27577507416151bf9",
+      "reply": "[9,0,9,6,3,2,9,0,3,2,0,3,3,4,5,3,5,6,0,2,2,5,5,5,6,0,2,6,0,2,6,7,9,3,0,3,0,0,0,2,0,0,0,3,3,2,3,9,9,8,0,0,2,0,0,7,2,7,0,7,0,6]\n\nWait, that has 62 entries; let me give the correct 60.\n\n[9,0,9,6,3,2,9,0,3,2,0,3,3,4,5,3,5,6,0,2,2,5,5,5,6,0,2,6,0,2,6,7,9,3,0,3,0,0,0,2,0,0,0,3,3,2,3,9,9,8,0,0,2,0,0,7,2,7,0,7]"
+     },
+     "haiku": {
+      "parsed": [
+       9.0,
+       1.0,
+       7.0,
+       6.0,
+       2.0,
+       2.0,
+       9.0,
+       0.0,
+       3.0,
+       3.0,
+       0.0,
+       3.0,
+       4.0,
+       1.0,
+       2.0,
+       2.0,
+       5.0,
+       2.0,
+       0.0,
+       1.0,
+       2.0,
+       6.0,
+       8.0,
+       2.0,
+       8.0,
+       1.0,
+       1.0,
+       4.0,
+       1.0,
+       1.0,
+       3.0,
+       8.0,
+       9.0,
+       2.0,
+       1.0,
+       2.0,
+       0.0,
+       0.0,
+       0.0,
+       3.0,
+       1.0,
+       7.0,
+       1.0,
+       2.0,
+       8.0,
+       2.0,
+       9.0,
+       3.0,
+       8.0,
+       0.0,
+       0.0,
+       3.0,
+       8.0,
+       2.0,
+       3.0,
+       3.0,
+       3.0,
+       9.0,
+       1.0,
+       4.0
+      ],
+      "error": null,
+      "attempts": [
+       {
+        "error": "invalid reply",
+        "cost_usd": 0.0016901,
+        "reply": "```json\n[9, 1, 8, 6, 2, 2, 9, 0, 3, 4, 0, 3, 4, 1, 2, 3, 4, 6, 0, 1, 2, 2, 6, 1, 7, 0, 1, 2, 1, 8, 9, 1, 1, 1, 0, 0, 0, 2, 0, 3, 1, 2, 7, 3, 9, 8, 9, 0, 0, 2, 2, 9, 2, 4, 3, 6, 9, 2, 7]\n```"
+       },
+       {
+        "error": "invalid reply",
+        "cost_usd": 0.00103483,
+        "reply": "{\"activations\": [9, 1, 7, 8, 3, 2, 9, 1, 3, 4, 0, 5, 4, 1, 3, 2, 6, 2, 0, 1, 3, 4, 8, 2, 8, 0, 1, 5, 1, 1, 3, 8, 9, 2, 1, 1, 0, 0, 0, 2, 0, 4, 1, 3, 8, 2, 0, 0, 3, 9, 4, 4, 3, 9, 2, 9, 4, 0, 0, 3, 9, 2, 5]}"
+       },
+       {
+        "error": null,
+        "cost_usd": 0.00109333,
+        "reply": "[\n9, 1, 7, 6, 2, 2, 9, 0, 3, 3, 0, 3, 4, 1, 2, 2, 5, 2, 0, 1, 2, 6, 8, 2, 8, 1, 1, 4, 1, 1, 3, 8, 9, 2, 1, 2, 0, 0, 0, 3, 1, 7, 1, 2, 8, 2, 9, 3, 8, 0, 0, 3, 8, 2, 3, 3, 3, 9, 1, 4\n]"
+       }
+      ],
+      "cost_usd": 0.00381826,
+      "input_tokens": 4214,
+      "output_tokens": 1882,
+      "models": [
+       "claude-haiku-5-5"
+      ],
+      "prompt_sha256": "36c7de38d6a0eaf04e9b2cb3c38354a4735f9604df45d0d27577507416151bf9",
+      "reply": "[\n9, 1, 7, 6, 2, 2, 9, 0, 3, 3, 0, 3, 4, 1, 2, 2, 5, 2, 0, 1, 2, 6, 8, 2, 8, 1, 1, 4, 1, 1, 3, 8, 9, 2, 1, 2, 0, 0, 0, 3, 1, 7, 1, 2, 8, 2, 9, 3, 8, 0, 0, 3, 8, 2, 3, 3, 3, 9, 1, 4\n]"
+     }
+    },
+    "judge": {
+     "parsed": false,
+     "error": null,
+     "attempts": [
+      {
+       "error": null,
+       "cost_usd": 0.0002731,
+       "reply": "{\"unrelated_patterns\": false}"
+      }
+     ],
+     "cost_usd": 0.0002731,
+     "input_tokens": 964,
+     "output_tokens": 161,
+     "models": [
+      "claude-haiku-5-5"
+     ],
+     "prompt_sha256": "76170a60cd01895615b37f63c7465a27d8d5c659e71f25684adf28108381c1ed",
+     "reply": "{\"unrelated_patterns\": false}"
+    }
+   }
+  }
+ }
+}
