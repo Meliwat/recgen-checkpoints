@@ -4,7 +4,8 @@ import numpy as np
 
 from recgen import analyze_v16
 from recgen.analyze_v16 import (
-    POOL, analyze, arm_stats, baselines, e4_versus_e3, patterns_of, retest, unit_place, unit_rows, v10_sonnet, versus_v7,
+    POOL, analyze, arm_stats, auc_differences, baselines, e4_versus_e3, patterns_of, retest, unit_place, unit_rows,
+    v10_sonnet, versus_v7,
 )
 from recgen.llm_reader import cache_path
 from recgen.rubric_v5 import MODELS
@@ -113,3 +114,12 @@ def test_analyze_runs_end_to_end_without_a_sonnet_baseline():
     assert result["summary"]["versus_v7"]["sonnet-E3"].startswith("not run")
     assert result["summary"]["versus_v7"]["haiku-E3"]["verdict"] == SELECTIVE
     assert result["usage"]["haiku-E3"]["first readings"] == len(MODELS) * 12
+
+
+def test_auc_differences_are_paired_per_reader():
+    answers, v7_answers = fake({"haiku-E3": {"real": "A", POOL: "C"}, "haiku-E4": {"real": "A", POOL: "A"}},
+                               v7={"real": "A", POOL: "C", "pooled 90/10": "C"})
+    base = baselines(v7_answers, None)
+    out = auc_differences(unit_rows(answers, base), base, np.random.default_rng(0))
+    assert out["haiku: E3 minus E4"]["value"] == 0.5 and out["haiku: E3 minus v7"]["interval"] == [0.0, 0.0]
+    assert out["haiku: E4 minus v7"]["value"] == -0.5 and not any(k.startswith("sonnet") for k in out)

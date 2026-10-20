@@ -247,6 +247,20 @@ def exploratory(rows: list[dict], answers: dict, base: dict) -> dict:
     return out
 
 
+def auc_differences(rows: list[dict], base: dict, rng) -> dict:
+    """Post hoc, added after seeing the results: paired differences in the label AUC (50/50 pools
+    over real neurons) between rubrics, per reader, to check whether a rubric changes how well the
+    labels rank pools above real neurons, apart from where the reader draws the line."""
+    out = {}
+    for reader in READERS:
+        pairs = [("E3", "E4")] + [(r, V7_RUBRIC) for r in RUBRICS if f"{reader}-{V7_RUBRIC}" in base]
+        for a, b in pairs:
+            st = strata(rows, [f"{reader}-{a}", f"{reader}-{b}"], [POOL, "real"], rank)
+            if all(len(v) for v in st.values()):
+                out[f"{reader}: {a} minus {b}"] = bootstrap(st, lambda s: auc_over_sizes(s, 0) - auc_over_sizes(s, 1), rng)
+    return out
+
+
 def usage(answers: dict) -> dict:
     out = {}
     for arm, parts in answers["arms"].items():
@@ -286,6 +300,7 @@ def analyze(answers: dict, v7_answers: dict, sonnet: dict | None, rng) -> dict:
                 flag = (lambda x: x == V7_UNRELATED) if rubric_of(s) == V7_RUBRIC else (lambda x: x == UNRELATED_JOBS)
                 summary["retest"][s]["unrelated jobs"] = retest(first, second, flag, rng)
     return {"summary": rounded(summary), "exploratory": rounded(exploratory(rows, answers, base)),
+            "post_hoc": rounded({"label_auc_differences": auc_differences(rows, base, rng)}),
             "usage": rounded(usage(answers)), "units": rows}
 
 
