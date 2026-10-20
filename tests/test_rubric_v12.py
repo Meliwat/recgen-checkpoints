@@ -41,3 +41,12 @@ def test_h2_recovers_a_peak_effect_that_survives_controls():
             rows.append({**r, "model": model, "flag": float(rng.random() < p)})
     out = h2(rows, rng)
     assert out["holds"] and out["log_peak"]["coefficient"] < -0.5
+
+
+def test_peakedness_is_undefined_below_50_firing_windows_and_h2_leaves_those_out():
+    window_max = np.array([3.0] * 10 + [0.0] * 90)
+    assert np.isnan(neuron_stats(window_max, [1] * 50)["peakedness"])
+    rng = np.random.default_rng(2)
+    rows = [{c: rng.normal() for c in COVARIATES} | {"model": "a", "flag": float(i % 2)} for i in range(200)]
+    rows[0]["peakedness"] = float("nan")
+    assert h2(rows, rng)["left_out_undefined_peakedness"] == 1

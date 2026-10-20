@@ -27,6 +27,10 @@ H2 (controls): a logistic regression of the flag on standardized log peak, peake
 (share of the 50 strongest examples on the most common activating token), with a fixed effect per
 model. H2 holds if the log-peak coefficient's bootstrap interval is entirely below zero. If H1
 holds and H2 doesn't, the controls' coefficients say which one absorbs the effect.
+
+Amendment, made after the first analysis run crashed and before any result was computed: a few
+sampled neurons fire in fewer than 50 windows, so their 50th-ranked window maximum is 0 and
+peakedness is undefined. They stay in H1 and are left out of H2, and their number is reported.
 """
 
 import numpy as np
@@ -53,7 +57,8 @@ def neuron_stats(window_max: np.ndarray, top_tokens: list[int]) -> dict:
     activating tokens of its 50 strongest examples."""
     ordered = np.sort(window_max)[::-1]
     peak = float(ordered[0])
-    return {"peak": peak, "peakedness": peak / float(ordered[49]),
+    fiftieth = float(ordered[49])
+    return {"peak": peak, "peakedness": peak / fiftieth if fiftieth > 0 else float("nan"),
             "density": float(np.mean(window_max >= 0.5 * peak)),
             "token_purity": max(top_tokens.count(t) for t in set(top_tokens)) / len(top_tokens)}
 
@@ -110,7 +115,8 @@ def coefficients(x: np.ndarray, y: np.ndarray) -> np.ndarray:
 
 
 def h2(rows: list[dict], rng) -> dict:
-    x, y = design(rows)
+    defined = [r for r in rows if all(np.isfinite(r[c]) for c in COVARIATES)]
+    x, y = design(defined)
     point = coefficients(x, y)
     draws = []
     for _ in range(BOOTSTRAP):
@@ -122,4 +128,5 @@ def h2(rows: list[dict], rng) -> dict:
     out = {c: {"coefficient": float(p), "interval": [float(lo), float(hi)]}
            for c, p, lo, hi in zip(COVARIATES, point, low, high)}
     out["holds"] = bool(high[0] < 0)
+    out["left_out_undefined_peakedness"] = len(rows) - len(defined)
     return out
