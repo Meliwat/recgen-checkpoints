@@ -744,6 +744,111 @@ Everything else was pre-registered or listed as exploratory in the rubric. Detai
 
 `run_v15.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v8.json`, and the `claude` CLI signed in. The readings are cached in `data/v15/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute and a half. From scratch, the 1,290 readings take about 40 minutes, six at a time, and about $12 of quota. Explanations and predictions will differ somewhat, because the models aren't deterministic (point 6).
 
+## v18 results
+
+v8's investigating agents and v14's Opus agent separate known pools of two neurons from real neurons only moderately (label AUCs 0.56 to 0.66), and they investigated lightly, with about 3 to 6 of their 8 tool calls. v15 found the field's standard simulation score no better (AUC 0.56), with explanations of pools that mostly capture one of the two neurons. v18 asks whether a stronger audit protocol passes this known-pool test. An Opus agent must state candidate jobs, then try to falsify them with predictions on text it writes and on examples below the top 50, with twice the tool budget. Two questions:
+
+- Is its label better at separating pools from real neurons than v14's Opus agent (the same model, with v8's light protocol)?
+- Is its final description a better predictor of held-out activations than v15's one-shot explanation, by v15's simulation score on the same held-out examples?
+
+The rules are in [`recgen/rubric_v18.py`](recgen/rubric_v18.py), committed (`8e5608f`) before any reading. A pilot of two readings on pythia-160m units outside the sample came next (`d1d1b47`). Nothing was broken, so the rules weren't amended. The analysis code was committed (`ccf2293`) before the main run started. To reuse v8's runner, its backend and runner now take a view, a tool budget, tools, a CLI command and a parser as arguments (`d2b310d`); the defaults are v8's, and every earlier test still passes. One recording change came during the run (`cf28e23`): the CLI version is now kept with the cache, so a rerun from the cache writes the same answers file whatever CLI is installed; the answers were rebuilt from the cache after the run, and no reading changed. v14's per-unit labels aren't on this branch. They were read once, read-only, from the v14 worktree's `results/v14_agent_answers.json` into [`results/v14_opus_extract.json`](results/v14_opus_extract.json), with the source's commit (`5481296`) and SHA-256. No earlier file or result changed.
+
+### v18 method
+
+1. **Agent.** `claude-opus-5-5` through the `claude` CLI (2.1.296, as in v14), with v8's runner: the same system prompt, CLI flags, two tools (examples by rank, and activation on new text through Pythia), activation scale, 3 attempts and empty working folder outside the repo. No effort flag was passed, as in v8 and v14. What changed from v14's arm:
+   - **The prompt.** v8's prompt up to v7's A/B/C definitions (the same 50 snippets with their 0-10 activations, in v7's order), then a protocol: list one to three candidate descriptions; for each, write at least 3 texts predicted to activate the unit strongly and 2 predicted not to, and measure them; read examples from ranks 51 to 500 and say whether they fit; revise. The answer is the label (v7's definitions, unchanged), one final description of at most 30 words "that you would use to predict its activation on any text", and a confidence. The agent isn't told that some units are synthetic.
+   - **The budget.** 16 tool calls, at least 8 asked for (not enforced), enforced by v8's backend. The CLI's turn cap (34), cost cap per attempt ($2, v8's $1) and timeout (30 minutes) were raised to fit. None bound.
+   - **Held-out windows are hidden.** v15 scores each unit on 60 held-out windows from ranks 51 to 4,096, and the protocol asks the agent to read ranks 51 to 500, where it could otherwise read some of them with their values. So the agent's examples tool reads the unit's ranked list with those 60 windows removed and the rest renumbered (4,036 windows; ranks 1 to 50 unchanged), and the tool's description gives that length.
+2. **Units:** v8's 300 (per size, 40 real neurons, 40 50/50 pools of random neurons and 20 related pools, at the middle layer of 70M, 410M and 2.8B) and v8's 30 retest units. v14's labels and v15's scores are on the same units; neither was read again.
+3. **Scoring the description:** v15's primary simulator (`claude-sonnet-5-5`, v15's prompt) predicts the unit's activation on v15's exact 60 held-out snippets from the description alone. The simulation score is the Pearson correlation with the true values, as in v15. It's compared per unit with the score of v15's explanation (a Sonnet explainer, one shot, from the top 50 examples) on the same snippets with the same simulator.
+4. **Pre-registered tests:**
+   - **Primary:** the label AUC (A < B < C) for ranking 50/50 pools above real neurons, averaged over the three sizes, the v18 agent minus v14's Opus agent, with v8's paired bootstrap (units resampled within size and unit type, both readers together). Verdict: "much better" if the difference is at least +0.10 with its interval above 0, "better" if only the interval is above 0.
+   - **Secondary:** v8's detection (the pools' flag rate minus the real neurons', with C and with B or C as the flag); one-job shares of real neurons and pools; the simulation score's pools-minus-real gap and AUC, beside v15's 0.56; the paired score difference from v15's explanation, on real neurons and pools separately; retest; tool use; cost.
+   - **Exploratory:** v15's tracked-neuron check and judge on the v18 descriptions, scores by label, and description length.
+5. **Run rules:** first readings size by size, units interleaved across types; then their simulations and v15's judge; then the retests and their simulations. Six at a time, with a $120 guard on CLI-reported cost (pilot included), agent readings stopping at $112 to leave room for simulations, and readings that failed for an infrastructure reason read again on a later run.
+
+All 330 agent readings returned a valid answer on the first attempt. All 330 simulations and 300 judgments were valid; 24 simulations needed a retry after a list of the wrong length (58 to 64 numbers). The run took about 80 minutes, six at a time, while other jobs shared the machine. The CLI reported $63.08 of quota for all v18 readings: $52.04 for the first readings ($0.17 a reading, against v14's $0.11 on the same units), $4.26 for the retests, $6.31 for the simulations, $0.08 for the judge and $0.39 for the pilot. The guard never came close. Every reading, tool call, description, prediction and judgment is in [`results/v18_agent_answers.json`](results/v18_agent_answers.json).
+
+### What v18 found
+
+![The audit agent beside earlier readers, its descriptions' scores against v15's, and the two Opus agents' labels](results/figures/v18_auditor.png)
+
+| Reader (same 240 real and pooled units) | Label AUC, pools over real (95% interval) | 50/50 pools flagged C over real neurons, points | Same, B or C | Real neurons called one job | 50/50 pools called one job | Retest kappa (same 30 units) | Mean tool calls |
+|---|---|---|---|---|---|---|---|
+| Opus agent (v14) | 0.66 (0.60 to 0.72) | +22.5 (+11 to +34) | +29 (+17.5 to +40) | 50% | 21% | 0.57 | 5.6 |
+| **Opus audit agent (v18)** | **0.665 (0.60 to 0.73)** | +25 (+14 to +36) | +27.5 (+15 to +39) | 57.5% | 30% | 0.59 | 9.7 |
+
+| Pre-registered comparison, v18 minus v14 | Difference (95% interval) | Verdict |
+|---|---|---|
+| **Label AUC (primary)** | **+0.006 (-0.043 to +0.054)** | **no clear difference** |
+| Detection, C flag | +2.5 points (-8 to +14) | no clear difference |
+| Detection, B or C flag | -1.7 points (-12 to +7.5) | no clear difference |
+
+| Simulation score, Sonnet simulator, same 60 held-out examples | v15 explanation | v18 description | v18 minus v15, paired (95% interval) |
+|---|---|---|---|
+| Real neurons | 0.32 | 0.335 | +0.015 (-0.009 to +0.038) |
+| 50/50 pools | 0.29 | 0.315 | +0.027 (+0.006 to +0.050) |
+| Related pools | 0.34 | 0.38 | +0.042 (+0.009 to +0.077) |
+| Pools minus real | -0.03 (-0.07 to +0.01) | -0.02 (-0.06 to +0.02) | |
+| **Score AUC, real over pools** | 0.56 (0.48 to 0.63) | **0.535 (0.46 to 0.61)** | -0.023 (-0.083 to +0.036) |
+
+Mean scores over the three sizes. v14's and v15's numbers are recomputed here from their answers on the same units, with v18's bootstrap seed, so a few intervals differ from their own tables by a point.
+
+What's post hoc, added after seeing the results: the label moves from v14 to v18 and the catch-all count (point 2), the primary without the two readings that named a second model, and the detail of the duplicate texts (both under "What's still shaky"). Everything else was pre-registered or listed as exploratory in the rubric. Details are in [`results/classification_v18.json`](results/classification_v18.json).
+
+1. **The audit protocol didn't make the label a better pool detector.** The audit agent's label AUC is 0.665, against 0.659 for v14's Opus agent on the same units (difference +0.006, interval -0.043 to +0.054). The interval's upper end rules out the pre-registered "much better" (+0.10). By size, the AUCs are 0.58, 0.78 and 0.64 from 70M to 2.8B (v14: 0.60, 0.78 and 0.61). The flag-rate detections don't move either: +25 points with C as the flag (v14 +22.5) and +27.5 with B or C (v14 +29).
+2. **It moved where the agent draws the line, toward one job and related jobs.** It calls 57.5% of real neurons one job (47.5 to 66%), against v14's 50% (paired difference +7.5 points, interval 0 to +15), and 30% of the 50/50 pools (22.5 to 38%), against 21%. Its C share falls on both: 17% of real neurons (v14 29%) and 42% of pools (v14 52%). Most of the moves are from C to B: of v14's 62 C pools, the audit agent calls 42 C, 14 B and 6 A; of its 35 C real neurons, 18 C, 14 B and 3 A (post hoc). Since real neurons and pools move together, the separation stays where it was.
+   - Its one-job descriptions of pools are often broad catch-alls, as v14's patterns were. 70M neurons 543 and 1306, a pool v14 called C: *Words that start a fixed phrase or template and set up the next slot: 'thank'/'grateful to', 'Due to', 'chose/used to', '#include', '->prepare(', French l', possessive 's, math '/' before the next number.* By v8's crude keyword count, 44% of its 36 one-job descriptions of pools use such a word, against 33% of its 69 on real neurons (post hoc); v14's README reports 48% of 25 and 37% of 60 for v14's patterns.
+3. **Its descriptions predict held-out activations a little better than v15's explanations, but separate pools no better.** With the same simulator on the same 60 held-out examples per unit, the description scores +0.015 above v15's explanation on real neurons (interval -0.009 to +0.038), +0.027 on 50/50 pools (+0.006 to +0.050) and +0.042 on related pools (+0.009 to +0.077).
+   - The gain is at least as large on pools as on real neurons, so pools score about as well as real neurons: 0.02 below them (-0.06 to +0.02). The score's AUC for ranking real neurons above pools is 0.535 (0.46 to 0.61), against v15's 0.56 on the same units (paired difference -0.023, -0.083 to +0.036). v15's verdict rule gives "doesn't detect mixtures" for both.
+   - The description was asked to be at most 30 words and wasn't held to it: 35 to 40% of descriptions run over (25 to 35 words, 10th to 90th percentile). Restricted to descriptions of at most 35 words, the gains are the same (+0.017 on real neurons, +0.030 on pools).
+4. **Descriptions of pools still mostly capture one neuron (exploratory).** With v15's tracked-neuron check, the audit agent's predictions on pools correlate 0.31 with the neuron they track and 0.08 with the other (gap 0.23, interval 0.17 to 0.29), the same as v15's explanations (0.29 and 0.07, gap 0.22).
+   - That's despite descriptions that more often name unrelated patterns: v15's judge says so for 84% of the pool descriptions (v15's explanations: 76%), 65% of real neurons' (63%) and 45% of related pools' (42%).
+   - The best-scoring pool is one the agent split. 70M neurons 1227 and 485, labeled C, score 0.70 (v15: 0.55): *Two unrelated facets: (1) in code, '=' after typed variable/pointer declarations plus ternary ':', argument commas, '+'; (2) in prose, public sentiment/political faction words (outrage, protests, supporters, right-wing, opposition).*
+   - Among pools, descriptions labeled C score 0.325, B 0.32 and A 0.30; among real neurons, A scores 0.37, B 0.285 and C 0.29. These are observational splits.
+5. **It investigated more, and the budget still didn't bind.** It used 9.7 of 16 tool calls on average (v14: 5.6 of 8), met the minimum of 8 in 94% of readings, and never used more than 14. It wrote 30.1 test texts per reading (v14: 17.3), and every reading started by testing text it wrote and read examples within ranks 51 to 500. But it read less deep: the median reading's deepest rank was 490 (v14: 1,014), as if the protocol's range set where to stop. These counts check the protocol's actions, not its order: the runner logs the agent's visible text and tool calls, and its visible text mentions candidates in only 68 of 300 readings.
+6. **Retest consistency can't be told apart from v14's.** On the 30 retest units (10 of them real neurons), the audit agent gives the same label 80% of the time (v14: 67%) and the same C flag 83% (kappa 0.59, interval 0.19 to 0.89; v14 0.57). The description's simulation score repeats well: it correlates 0.90 between the two readings across the 30 units (mean absolute difference 0.07; exploratory).
+7. **Related pools look like real neurons again**, as in v7 to v15: they're flagged C 1.7 points less than real neurons (-12.5 to +9), and they score highest of the three types (0.38).
+8. **By size (descriptive):** the audit agent flags 10%, 10% and 30% of real neurons C from 70M to 2.8B (v14: 20%, 22.5% and 45%), and 25%, 55% and 45% of 50/50 pools (v14: 32.5%, 65% and 57.5%).
+
+### What this does and doesn't show
+
+- **A falsification-driven protocol, as specified here, didn't help the strongest available auditor tell known pools from real neurons.** With the model, units and tools fixed, asking for candidates, predictions on new text, a look below the top 50 and twice the budget left the label AUC at 0.665 (v14 0.66), and its upper bound (+0.054) rules out the pre-registered +0.10. No reader in this repo has a label AUC above 0.665.
+- **What the protocol changed was the line, not the separation.** The agent calls more units one job or related jobs, real neurons and pools alike. So a protocol that sounds more rigorous can raise an auditor's one-job share (57.5% of real neurons here, against 50%) without making that share any better evidence of clean neurons: it also calls 30% of known pools one job.
+- **Better descriptions made pools look more like real neurons, not less.** The descriptions predict held-out activations a little better than v15's explanations, more so on pools, and the score separates pools no better (AUC 0.535). Their pool descriptions still track one of the two neurons as much as v15's did. That's v15's finding again, with a stronger and more thorough explainer: the simulation score measures how predictable a unit is, not whether it has one job.
+- **It doesn't show that no audit could pass.** The budget never bound, the agent stopped around 10 calls, and nothing in the protocol asked whether two candidates could be independent jobs (for example by testing each candidate's texts against the other's, or by scoring each candidate's predictions separately). The A definition, unchanged from v7, still allows a broad pattern. A protocol built around those questions might do better; v18 tests one reasonable version.
+- **It doesn't refute the essay's ~90%.** As in v8 and v14, the essay audits a different model with its own rubric. What v18 adds is that a more rigorous-sounding audit, on known mixtures, still calls a sizable share of them one job.
+
+### What's still shaky
+
+- **Several things changed at once from v14's arm:** the protocol, the answer format (one description instead of a list of patterns), twice the tool budget, the CLI's caps, and 60 of 4,096 windows hidden from the examples tool. "The protocol" here means all of these. The hidden windows are 1.5% of the list, spread across it, so they're unlikely to matter for the labels.
+- **The comparison with v15 isn't only the protocol.** The audit agent is Opus where v15's explainer is Sonnet, and it saw more (examples past rank 50 and its own test texts). So "a better predictor" is the whole package, and the gains are small: 0.015 to 0.042 in correlation, against a v15 retest difference of 0.08 per unit (averaged over many units, the paired intervals for pools and related pools exclude 0).
+- **The protocol's steps aren't verified one by one.** The runner keeps the agent's visible text and tool calls, not its reasoning, so whether it stated candidates and predictions before measuring is known only from its tool use (every reading started with test texts; 94% used at least 8 calls) and from the 68 readings whose visible text mentions candidates.
+- **Two readings named a second model.** Both at 410M (a 50/50 pool and a related pool), the CLI reported part of their usage under `claude-opus-5` as well as `claude-opus-5-5`; the runner doesn't keep a per-model breakdown. Without them, the primary difference is +0.011 (-0.039 to +0.063, post hoc). v14's 330 readings reported only `claude-opus-5-5`.
+- **Three held-out texts reappeared elsewhere.** The exact text of three held-out snippets (license boilerplate, Go code, a repeated article) also sits in another window the agent read, at a different rank with a similar value (post hoc detail). The held-out windows themselves were never shown. Three of 18,000 held-out examples can't move the scores.
+- **One reading per unit from a noisy reader.** The retest kappa is 0.59, and the paired AUC interval is about ±0.05, so a smaller true gain couldn't be seen.
+- **Shared machine and account.** Other jobs, including other CLI readers and Pythia recordings, ran at the same time; they could slow readings but not change the tool answers.
+- **v8's caveats all carry over:** pools mix two neurons' strongest examples, the easiest kind of mixing to detect; test texts are short and their first token is marked; one prompt and rubric, one model family, the middle layer of three Pythia sizes. v15's caveats carry over to the scores: held-out examples are each window's strongest token, which compresses the range of true values.
+
+### v18 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v18.py`](recgen/rubric_v18.py) | Pre-registered protocol, prompt, tools, budget, held-out masking, tests and run rules |
+| [`recgen/agent_v18.py`](recgen/agent_v18.py) | Runs the audit agent through v8's runner with the held-out windows hidden, then v15's simulator and judge on its descriptions, with the spend guard, the cache and the rerun of infrastructure failures |
+| [`recgen/analyze_v18.py`](recgen/analyze_v18.py), [`recgen/plots_v18.py`](recgen/plots_v18.py) | The paired label AUC, detection, one-job shares, scores against v15's, retest, tool use, cost, exploratory and post hoc checks; the figure |
+| [`results/v18_agent_answers.json`](results/v18_agent_answers.json) | Every reading: label, description, confidence, tool calls with their answers, messages, tokens and cost; each description's simulation and judgment |
+| [`results/classification_v18.json`](results/classification_v18.json) | All statistics, and every unit's labels (v18 and v14), scores (v18 and v15) and tool use |
+| [`results/v14_opus_extract.json`](results/v14_opus_extract.json) | v14's Opus labels, tool use and cost per unit, extracted read-only from the v14 branch |
+| [`results/v18_pilot_answers.json`](results/v18_pilot_answers.json) | The two pilot readings on pythia-160m, with their simulations |
+| `tests/test_rubric_v18.py`, `tests/test_agent_v18.py`, `tests/test_analyze_v18.py` | Tests for the rules, the runner and the analysis |
+
+```bash
+./run_v18.sh
+```
+
+`run_v18.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/v15_answers.json`, `results/classification_v8.json`, `results/v14_opus_extract.json` and the `claude` CLI signed in. The readings are cached in `data/v18/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about two minutes. From scratch, the 330 readings and their simulations took about 80 minutes, six at a time, with each Pythia model downloaded, kept in memory while its units are read, and deleted (twice per size, since the retests run last), and about $63 of quota. Labels and descriptions will differ somewhat, because the agent isn't deterministic (point 6).
+
 ## Files
 
 | Path | What it is |
