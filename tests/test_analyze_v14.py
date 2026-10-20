@@ -1,7 +1,9 @@
 import numpy as np
 
 from recgen.analyze_v8 import gain, kappas, unit_rows
-from recgen.analyze_v14 import AGENTS, READERS, label_changes, one_job_shares, prompts_match, tool_use
+from recgen.analyze_v14 import (
+    AGENTS, LLM_READERS, READERS, label_changes, label_shares, one_job_shares, prompts_match, tool_use,
+)
 from recgen.rubric_v8 import AGENT_MODEL as HAIKU, MODELS, SECOND_AGENT_MODEL as SONNET
 from recgen.rubric_v14 import AGENT_MODEL as OPUS, AGENT_NAME
 
@@ -84,3 +86,16 @@ def test_tool_use_reports_whether_the_budget_bound():
     answers[OPUS]["first"]["70m:real::0"] = record("A", calls=8)
     out = tool_use(unit_rows(answers, v7_units, AGENTS), answers)
     assert out[AGENT_NAME]["share using all 8"] == round(1 / 24, 3) and out["sonnet agent"]["share using all 8"] == 0
+
+
+def test_label_shares_give_a_or_b_as_one_minus_c_and_the_b_or_c_ceiling():
+    answers, v7_units = fake_inputs()
+    out = label_shares(unit_rows(answers, v7_units, AGENTS))
+    assert out[AGENT_NAME]["real"] == {"A": 0.5, "B": 0.5, "C": 0.0, "B or C": 0.5, "A or B": 1.0,
+                                       "B or C per model": {m: 0.5 for m in MODELS}}
+    assert out[AGENT_NAME]["pooled 50/50"]["C"] == 1.0 and out[AGENT_NAME]["pooled 50/50"]["A or B"] == 0.0
+    # Calling half of real neurons B or C leaves room for at most 50 points of B-or-C detection.
+    assert out[AGENT_NAME]["B-or-C ceiling"] == 0.5 and out["sonnet agent"]["B-or-C ceiling"] == 1.0
+    for reader in LLM_READERS:
+        for group in ("real", "pooled 50/50"):
+            assert out[reader][group]["A or B"] == round(1 - out[reader][group]["C"], 3)

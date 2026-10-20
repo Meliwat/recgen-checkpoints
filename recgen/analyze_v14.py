@@ -17,10 +17,11 @@ from recgen import analyze_v8
 from recgen.agent_v8 import ANSWERS_PATH as V8_ANSWERS_PATH
 from recgen.agent_v14 import ANSWERS_PATH
 from recgen.analyze_v8 import (
-    MEASURES, agent_use, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference, rates, retest,
-    specificity, unit_rows,
+    LABEL_RANK, MEASURES, agent_use, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference, rates,
+    retest, specificity, unit_rows,
 )
 from recgen.config import RESULTS_DIR
+from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
 from recgen.rubric_v8 import MAX_TOOL_CALLS, MODELS, parse_answer
 from recgen.rubric_v14 import AGENT_MODEL, AGENT_NAME, PRIMARY, SECONDARY
 
@@ -76,6 +77,28 @@ def label_changes(rows: dict, a: str, b: str) -> dict:
     return out
 
 
+def label_shares(rows: dict, readers: tuple[str, ...] = LLM_READERS) -> dict:
+    """Post hoc, added after an independent review: each language-model reader's shares of A, B and C on
+    real neurons and on 50/50 pools. "B or C" is the secondary flag; "A or B" (1 minus the C share) is
+    the exploratory reading of the essay's "one main job". The B-or-C ceiling is the largest B-or-C
+    detection a reader could reach given how often it calls real neurons B or C: the mean over sizes of
+    1 minus that rate."""
+    out = {}
+    for r in readers:
+        out[r] = {}
+        for g in ("real", "pooled 50/50"):
+            labels = {m: [u["labels"][r] for u in rows[m] if u["group"] == g and u["labels"][r] is not None] for m in MODELS}
+            every = [x for m in MODELS for x in labels[m]]
+            out[r][g] = {**{x: round(every.count(x) / len(every), 3) for x in LABEL_RANK},
+                         "B or C": round(float(np.mean([x != ONE_JOB for x in every])), 3),
+                         "A or B": round(float(np.mean([x != UNRELATED_JOBS for x in every])), 3),
+                         "B or C per model": {m: round(float(np.mean([x != ONE_JOB for x in labels[m]])), 3) for m in MODELS}}
+        real_rates = [np.mean([u["labels"][r] != ONE_JOB for u in rows[m] if u["group"] == "real" and u["labels"][r] is not None])
+                      for m in MODELS]
+        out[r]["B-or-C ceiling"] = round(float(np.mean([1 - x for x in real_rates])), 3)
+    return out
+
+
 def main() -> None:
     answers = load_answers()
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
@@ -100,6 +123,10 @@ def main() -> None:
         "catch_all_one_job": catch_all(rows, patterns),
         "prompts_match_v8": prompts_match(answers),
         "post_hoc": {"label changes, sonnet agent to opus agent": label_changes(rows, "sonnet agent", AGENT_NAME)},
+        "post_hoc_after_review": {
+            "note": "post hoc, added after an independent review",
+            "label shares": label_shares(rows),
+        },
     }
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]
     (RESULTS_DIR / "classification_v14.json").write_text(json.dumps({"summary": stats, "units": rows}, indent=1))
