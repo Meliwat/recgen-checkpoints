@@ -85,9 +85,10 @@ def comparison(units: dict, neurons: dict, v19: dict, v7_answers: dict) -> dict:
     test_c = {"openwebtext": owt_rate, "pile": pile_rate, "pythia_size_matched": target,
               "change": change["change"], "interval": change["interval"],
               "by_model": {m: {"openwebtext": float(o.mean()), "pile": float(p.mean()), "neurons": len(o),
+                               "interval": rate_change([(o, p)], v22_rng(60 + i))["interval"],
                                "flagged_only_on_openwebtext": int(((o == 1) & (p == 0)).sum()),
                                "flagged_only_on_pile": int(((o == 0) & (p == 1)).sum())}
-                           for m, (o, p) in zip(MODELS, real["llm"])},
+                           for i, (m, (o, p)) in enumerate(zip(MODELS, real["llm"]))},
               **decide_c(owt_rate, pile_rate, target, change["interval"])}
     test_d = {reader: excess_change(list(zip(pooled[reader], real[reader])), v22_rng(10 + i))
               for i, reader in enumerate(READERS)}

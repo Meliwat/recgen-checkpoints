@@ -280,6 +280,10 @@
      "openwebtext": 0.07,
      "pile": 0.08,
      "neurons": 100,
+     "interval": [
+      -0.08,
+      0.06000000000000001
+     ],
      "flagged_only_on_openwebtext": 6,
      "flagged_only_on_pile": 7
     },
@@ -287,6 +291,10 @@
      "openwebtext": 0.1,
      "pile": 0.18,
      "neurons": 100,
+     "interval": [
+      -0.16,
+      0.0
+     ],
      "flagged_only_on_openwebtext": 6,
      "flagged_only_on_pile": 14
     },
@@ -294,6 +302,10 @@
      "openwebtext": 0.13,
      "pile": 0.25,
      "neurons": 100,
+     "interval": [
+      -0.21,
+      -0.03999999999999998
+     ],
      "flagged_only_on_openwebtext": 5,
      "flagged_only_on_pile": 17
     }
