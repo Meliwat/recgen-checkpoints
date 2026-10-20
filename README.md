@@ -969,6 +969,90 @@ Points 4 and 5 are exploratory. Point 5 was added after v9's review; point 4, th
 
 `run_v12.sh` needs v5's and v6's caches and results, and reads v11's cached readings in `data/v11/llm/` if they're there. With v12's cached Haiku answers in `data/v12/`, it makes no model calls and reruns in about four minutes.
 
+## v13 results
+
+v1 to v4 tested recursive generalization on 40 neurons of Pythia-410m layer 12 that the sentence model (MiniLM) called mixed, with MiniLM's facets. v7 and v9 then showed that MiniLM barely sees mixing, so those neurons may not have been mixed in the network's own terms. v13 reruns v4's formation-time test on 40 neurons the network-native reader (v6) calls unrelated mixed, with the facets that reader finds. The rules are in [`recgen/rubric_v13.py`](recgen/rubric_v13.py), committed (`8b80902`) before any v13 recording. v4's attribution helpers gained an optional output path, with their defaults and tests unchanged. No earlier result changed.
+
+### v13 method
+
+1. **Neurons and facets.** 40 neurons, drawn with a fixed seed from the 1,109 of v6's 2,048 sampled neurons at 410M layer 12 that v6 flags unrelated mixed. Facets are v6's clusters (5 or more examples) of each neuron's 50 strongest examples in the network's own representation: 2 to 5 per neuron, 142 in all (median 8 examples, against 6 for v4's).
+2. **Recording.** v4's attribution (direct terms from every upstream MLP neuron and attention head, with the LayerNorm scale frozen) at v4's 14 checkpoints from step 128 to 143k, on every facet example and v4's background text. The terms add back up within 6.3e-5 at every checkpoint.
+3. **Tests, as in v4:** each facet's formation window; adjacency at formation against the null of other neurons' facets read through this neuron's weights (window maximum, 95th percentile); MLP drivers primary, head drivers beside them; labels; and "branched then separated" (adjacent at formation, not at the end) counted against its chance expectation. Two changes, both pre-registered: a facet's emergence time is the start of its formation window, and adjacency at the end is v2's rule computed from v13's own final checkpoint.
+
+### What v13 found
+
+![Labels, v4 and v13](results/figures/v13_labels.png)
+
+| | v4 (MiniLM facets) | v13 (network facets), MLP drivers | v13, head drivers |
+|---|---|---|---|
+| recursive generalization | 1 (0.9 by chance) | 1 (0.2) | 0 (0.0) |
+| one origin, timing unresolved | 0 | 1 (0.1) | 0 (0.0) |
+| packing-like | 33 | 27 (26.3) | 27 (26.2) |
+| mixed from the start | 6 | 11 (13.5) | 13 (13.8) |
+| unrelated pairs branched then separated | 0 of 68 (3.1 by chance) | **10 of 144 (6.4)** | 3 of 144 (2.7) |
+| related pairs adjacent at formation (positive control) | 17 of 18 | **26 of 55** | 8 of 55 |
+
+As in v4, "unrelated" and "related" here mean not adjacent and adjacent at the end by v2's driver test, not by any reader's judgment of the examples. The v4 and v13 label columns aren't like for like: v4 timed each facet's emergence by v1's response threshold, and v13 by the start of its formation window.
+
+Points 3 to 6 are exploratory. Point 3 was added after seeing the counts; points 4 to 6 and the token-sharing split in point 3 were added after an independent review. Their numbers are under `exploratory_same_token` and `exploratory_after_review` in the results.
+
+1. **Labels match chance, but that says little.** One neuron is labeled recursive generalization by MLP drivers (0.2 expected) and none by head drivers. But own facet pairs are adjacent at formation far more often than chance (36 of 199 against 8.7 expected), so the labels are driven mostly by timing: 70 of 142 formation windows start at step 1k or 2k. The one recursive-generalization neuron, 1726, has 8 of its 10 pairs adjacent at the end. That looks like lasting sharing, as v4 found for 4010.
+2. **More unrelated pairs branched then separated than in v4, but within chance.** 10 of 144 by MLP drivers, against 6.4 expected from each pair's null; 3 of 144 by head drivers, against 2.7. If each pair crossed its threshold only at its own null's false-positive rate, independently, 10 or more would happen with probability 0.11 (0.52 for 3 or more by heads).
+3. **The direct test of unrelated jobs is exactly at chance.** v13's neurons were picked because the network reader calls two of their facets unrelated, but "unrelated" above means unrelated by drivers. Splitting by the reader's own judgment:
+   - Of the 101 pairs the reader calls unrelated, only 1 is adjacent at the end by drivers. Of the other 100, 5 branched then separated, against 4.4 expected (probability 0.46).
+   - The other 5 branched pairs are pairs the reader calls related, though drivers call them unrelated at the end: 5 of 44, against 1.9 expected (probability 0.04).
+
+   So what excess there is comes from facets the reader sees as related.
+4. **Token sharing goes with shared drivers early in training.** Facet pairs that share at least one activating token overlap more at steps 128 to 512 than pairs that share none: median 0.10 against 0.04 (13 and 186 pairs). Of the 144 unrelated pairs:
+   - 9 share a token, and 3 of those branched then separated, against 0.4 expected (probability 0.006);
+   - the other 135 give 7 against 6.0 (probability 0.39).
+
+   The clearest case is one of the three. Neuron 769's facets 0 and 2 share 92% of their top 100 upstream MLP drivers at step 128, still 13% to 18% from step 2k to 34k (the null's 95th percentile is about 0.06), and 7% at the end. Both fire on a hyphen: one in number ranges and scores ("41-44", "4-3"), the other inside web addresses and class names. The reader calls this pair related.
+
+   Whether this counts against recursive generalization is ambiguous. Upstream drivers that respond to the token are shared circuitry, so this could be a hyphen detector that later split by context (branching at the level of a token) or one job that the reader split in two.
+5. **The positive control is weaker than v4's because these related pairs share less.** v13's related pairs sit just above the end threshold (median final overlap 0.12, median threshold 0.07); v4's overlapped far more (median 0.44). So the 26 of 55 is roughly the detection rate for sharing just above threshold. At a 5% false-positive rate, several of the 55 may also be adjacent at the end by chance. 29 related pairs are adjacent at the end but not at formation.
+6. **Half of the separations are marginal.** Only 5 of the 10 branched pairs end at least 0.02 below their end threshold, and 5 sit at or below the null's 95th percentile at each of the last three checkpoints. Two are adjacent at formation and only fall below the end threshold at the last checkpoint:
+   - 2379 (facets 0 and 2) overlaps 0.11 to 0.18 from step 128 to 8k and again at 55k and 89k, then ties the end threshold;
+   - 3017 (facets 2 and 3) stays near 0.10 through step 89k and drops to 0.06 at the end.
+
+   Both look like lasting sharing with a dip at the end, not branching.
+
+![Pairs that branched then separated](results/figures/v13_branched.png)
+
+### What this does and doesn't show
+
+- **v13 doesn't find recursive generalization with the network reader's neurons and facets either.** Among the facet pairs the reader itself calls unrelated, branching is at chance (point 3).
+- **It's weak evidence against it.**
+  - With 4.4 expected among those 100 pairs, at least 9 would be needed for a probability below 0.05.
+  - The test catches roughly half of near-threshold sharing (point 5). So branching in fewer than about a tenth of those pairs could go unseen.
+  - The control also covers sharing that lasts, not a brief shared phase.
+  - Different neurons were tested than in v4, so this doesn't settle whether MiniLM's facets hid anything in v4's neurons.
+- **The chance model is generous to branching.** It treats a neuron's own facet pairs like null pairs, but own pairs share drivers far more often (point 1). So lasting sharing just below the end threshold inflates the branched count. An excess wouldn't by itself mean branching.
+- **Shared tokens complicate formation-time tests.** Facets that fire on the same token share drivers early (point 4). A future test should hold the token fixed, or decide in advance whether token-level branching counts. Word form is a known confound for polysemanticity metrics more generally ([Ait Hou and Hwa 2026](https://arxiv.org/abs/2604.00443)).
+
+### What's still shaky
+
+- **The rules weren't written blind to v4,** whose design and results they reuse. Every split in points 3 to 6 is post hoc.
+- **Adjacency at the end uses only the final checkpoint,** so a dip there turns lasting sharing into "branched then separated" (point 6). Four of the ten pairs are within 0.01 of the end threshold.
+- **Pairs aren't independent:** they share facets and null sets, so the chance probabilities are approximate.
+- **Everything else from v4 still applies:** top-100 overlap is coarse, head drivers are a blunt probe, early checkpoints are noisy (37 of the 144 unrelated pairs have windows opening at step 128, and their thresholds run from 0.10 to 0.24, median 0.14), the grid is log-spaced, and facets are defined by their final examples.
+- **Scope:** one layer of one model, 40 neurons.
+
+### v13 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v13.py`](recgen/rubric_v13.py) | Pre-registered neurons, facets and tests |
+| [`recgen/candidates_v13.py`](recgen/candidates_v13.py), [`recgen/record_v13.py`](recgen/record_v13.py) | The 40 neurons and their network-native facets; v4's recording at 14 checkpoints |
+| [`recgen/analyze_v13.py`](recgen/analyze_v13.py), [`recgen/plots_v13.py`](recgen/plots_v13.py) | v4's tests on v13's recordings, the exploratory checks; the figures |
+| [`results/candidates_v13.json`](results/candidates_v13.json), [`results/classification_v13.json`](results/classification_v13.json) | Neurons and facet examples; labels, pairs, windows, overlap series, null thresholds |
+
+```bash
+./run_v13.sh
+```
+
+`run_v13.sh` needs v6's `data/v6/` recordings and results, and v4's results. From scratch it takes about 70 minutes on an M1 Pro: it downloads 14 checkpoints one at a time, deletes each after use, and caches 4.5 GB in `data/v13/`. With that cache, the analysis reruns in about 15 minutes.
+
 ## Files
 
 | Path | What it is |
