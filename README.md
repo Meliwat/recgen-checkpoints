@@ -758,7 +758,7 @@ Its rules are in [`recgen/rubric_v16_addendum.py`](recgen/rubric_v16_addendum.py
 ./run_v16.sh
 ```
 
-`run_v16.sh` needs v6's `data/v6/` recordings, `results/v7_llm_answers.json`, v10's Sonnet cache in `data/v10/sonnet/` and the `claude` CLI signed in. The readings are cached in `data/v16/` (not committed), and every CLI call's reported cost is logged in `data/v16/spend.jsonl` (the addendum's in `data/v16/concurrent/`). With the cache, it makes no CLI calls and reruns in about 3.5 minutes, mostly the bootstraps. From scratch, the 7,440 readings took about 3 hours 15 minutes and the addendum's 3,600 about 1 hour 30 minutes, six at a time. Labels will differ somewhat, because the readers aren't deterministic (point 7).
+`run_v16.sh` needs v6's `data/v6/` recordings, `results/v7_llm_answers.json`, v7's Haiku cache in `data/v7/llm/` (for the thinking split), v10's Sonnet cache in `data/v10/sonnet/` and the `claude` CLI signed in. The readings are cached in `data/v16/` (not committed), and every CLI call's reported cost is logged in `data/v16/spend.jsonl` (the addendum's in `data/v16/concurrent/`). With the cache, it makes no CLI calls and reruns in about 3.5 minutes, mostly the bootstraps. From scratch, the 7,440 readings took about 3 hours 15 minutes and the addendum's 3,600 about 1 hour 30 minutes, six at a time. Labels will differ somewhat, because the readers aren't deterministic (point 7).
 
 ## Files
 
