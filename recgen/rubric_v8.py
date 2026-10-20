@@ -71,6 +71,7 @@ INTERVAL = 95
 AGENT_MODEL = "haiku"
 ATTEMPTS = 3
 MAX_TOOL_CALLS = 8
+MIN_TOOL_CALLS = 4  # asked for in the prompt, not enforced; tool use is reported
 EXAMPLES_PER_CALL = 20
 TEXTS_PER_CALL = 5
 MAX_TEXT_TOKENS = 64
@@ -90,9 +91,10 @@ INSTRUCTIONS = (
         "is marked [[like this]].",
         "is marked [[like this]], and the number before it is the unit's activation there, on a scale where 10 "
         f"is its strongest activation over {N_WINDOWS:,} windows of text.")
-    + "\n\nInvestigate before you decide. You can read more of the unit's examples, including weaker ones further "
-      "down its ranked list (tool \"examples\"), and measure its activation on text you write, to test whether a "
-      f"pattern really drives it (tool \"activation\"). You have {MAX_TOOL_CALLS} tool calls in all."
+    + "\n\nInvestigate before you decide. Read more of the unit's examples, including weaker ones further down its "
+      "ranked list (tool \"examples\"), and measure its activation on text you write (tool \"activation\"): test "
+      "each pattern you see with texts that should activate the unit and texts that shouldn't. You have "
+      f"{MAX_TOOL_CALLS} tool calls; use at least {MIN_TOOL_CALLS} of them."
     + "\n\nWhen you are done, reply with JSON only, in this form: "
       '{{"label": "A", "patterns": ["short description", ...], "confidence": "high"}}, '
       "where confidence is low, medium or high.\n\nSnippets:\n{snippets}")
