@@ -120,8 +120,9 @@ class TextReader:
 class Backend:
     """Answers tool calls for the units being read, one session per reading, and logs them all."""
 
-    def __init__(self, views: dict[str, UnitView], reader: TextReader | None):
-        self.views, self.reader = views, reader
+    def __init__(self, views: dict[str, UnitView], reader: TextReader | None, max_calls: int = MAX_TOOL_CALLS,
+                 tools: list[dict] = TOOLS):
+        self.views, self.reader, self.max_calls, self.tools = views, reader, max_calls, tools
         self.sessions: dict[str, dict] = {}
         self.lock = threading.Lock()
         self.server = None
@@ -139,11 +140,11 @@ class Backend:
             session = self.sessions[handle]
             number = len(session["calls"]) + 1
             session["calls"].append({"tool": tool, "arguments": arguments, "answer": None})
-        if number > MAX_TOOL_CALLS:
+        if number > self.max_calls:
             answer = NO_CALLS_LEFT
         else:
             answer = self.answer(self.views[session["unit"]], tool, arguments)
-            left = MAX_TOOL_CALLS - number
+            left = self.max_calls - number
             answer += f"\n\n({left} tool call{'s' if left != 1 else ''} left)" if left else f"\n\n({NO_CALLS_LEFT})"
         session["calls"][number - 1]["answer"] = answer
         return answer
@@ -172,7 +173,7 @@ class Backend:
 
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):
-                self.reply({"tools": TOOLS})
+                self.reply({"tools": backend.tools})
 
             def do_POST(self):
                 body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
