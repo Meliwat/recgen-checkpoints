@@ -65,6 +65,7 @@ def network_rows_v20(model: str, published: dict, v17_neurons: dict, corpus: np.
     assert np.array_equal(recorded["fractions"], band["fractions"], equal_nan=True)
     second = np.load(second_band_path(model))
     assert np.array_equal(second["neurons"], band["neurons"])
+    assert np.array_equal(second["keys"], rank_band_examples(model, SECOND_BAND)["keys"])
     v17_ranks = v17_band_ranks(model)
     for s, row in enumerate(rows):
         row["band_fractions"] = band["fractions"][s]
