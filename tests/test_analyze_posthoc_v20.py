@@ -95,3 +95,27 @@ def test_network_pool_flags_project_out_both_neurons_directions(tmp_path, monkey
     unit = {"neurons": (0, 2), "picks": picks, "keys": keys[np.concatenate([band_rows[0][:25], band_rows[2][25:]])]}
     assert network_pool_flags("70m", [unit]) == [1.0]
     assert seen[0].shape == (50, d) and np.allclose(seen[0] @ directions[[0, 2]].T, 0)
+
+
+def test_pools_join_each_pool_with_its_neurons_and_both_readers(monkeypatch):
+    def units(model):
+        out = []
+        for q in range(4):
+            for k in range(2):
+                a, b = 8 * q + 2 * k, 8 * q + 2 * k + 1
+                windows = np.array([a] * 2 + list(range(100, 148))) if k == 0 else np.arange(50) + 200
+                out.append({"id": f"{model}:pool::{a}-{b}", "quartile": q, "neurons": (a, b),
+                            "keys": np.stack([windows, np.arange(50)], axis=1)})
+        return out
+
+    monkeypatch.setattr(posthoc, "pool_units", units)
+    monkeypatch.setattr(posthoc, "network_pool_flags", lambda model, us: [float(u["quartile"] == 3) for u in us])
+    network = [{"model": m, "s": s, "neuron": 1000 + s, "quartile": s // 8, "band_flag": float(s % 2)}
+               for m in MODELS for s in range(32)]
+    haiku = [{"model": m, "neuron": 1000 + s, "quartile": s // 8, "band_flag": 0.0} for m in MODELS for s in range(32)]
+    answers = {"pool": {u["id"]: {"label": "C" if u["quartile"] == 0 else "A"} for m in MODELS for u in units(m)}}
+    out = posthoc.pools(answers, haiku, network)
+    assert out["shared_window_share"] == 0.5
+    assert out["network"]["pool_rate"] == [0, 0, 0, 1] and out["network"]["constituents_rate"] == [0.5] * 4
+    assert out["network"]["single_rate"] == [0.5] * 4 and out["network"]["pools"] == [2 * len(MODELS)] * 4
+    assert out["haiku"]["pool_rate"] == [1, 0, 0, 0] and out["haiku"]["constituents_rate"] == [0.0] * 4

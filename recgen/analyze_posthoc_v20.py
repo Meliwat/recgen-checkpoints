@@ -138,13 +138,15 @@ def excess_by_quartile(pools: list[dict], single: list[dict], rng) -> dict:
 def pools(answers: dict, haiku: list[dict], network: list[dict]) -> dict:
     """C. Both readers on the same two-neuron pools (POOL_PART of ranks 201 to 500 from each of two of v12's fresh
     neurons of one quartile), against single neurons' rank-band flags in that quartile: v12's fresh neurons for
-    Haiku, every sampled neuron for the network reader."""
+    Haiku, every sampled neuron for the network reader. Also the share of pools that repeat a text window (two
+    examples from one window), which v7 found makes pools look less mixed to Haiku."""
     haiku_flags = {(r["model"], r["neuron"]): r["band_flag"] for r in haiku}
     network_by_s = {(r["model"], r["s"]): r for r in network}
-    haiku_pools, network_pools = [], []
+    haiku_pools, network_pools, shared_window = [], [], []
     for model in MODELS:
         units = pool_units(model)
         for u, network_flag in zip(units, network_pool_flags(model, units)):
+            shared_window.append(len(set(u["keys"][:, 0].tolist())) < len(u["keys"]))
             constituents = [network_by_s[model, s] for s in u["neurons"]]
             assert all(r["quartile"] == u["quartile"] for r in constituents)
             network_pools.append({"quartile": u["quartile"], "flag": network_flag,
@@ -155,7 +157,8 @@ def pools(answers: dict, haiku: list[dict], network: list[dict]) -> dict:
                 haiku_pools.append({"quartile": u["quartile"], "flag": flag(label),
                                     "constituents": None if None in own else float(np.mean(own))})
     return {"network": excess_by_quartile(network_pools, network, rng_for(MODELS[0], PURPOSE + 50)),
-            "haiku": excess_by_quartile(haiku_pools, haiku, rng_for(MODELS[0], PURPOSE + 51))}
+            "haiku": excess_by_quartile(haiku_pools, haiku, rng_for(MODELS[0], PURPOSE + 51)),
+            "shared_window_share": float(np.mean(shared_window))}
 
 
 def posthoc(haiku: list[dict], network: list[dict], v20_answers: dict, answers: dict) -> dict:
@@ -197,7 +200,9 @@ def report(block: dict) -> None:
     print(f"B: Haiku flags {b['haiku_flag']['mean']:.3f} {interval(b['haiku_flag']['interval'])} of {b['haiku_flag']['n']} random units "
           f"(labels {b['haiku_label_shares']}); network reference flag {b['network_reference_flag']['mean']:.3f}, "
           f"coherence {b['network_reference_coherence']['mean']:.1f}")
-    for reader, c in block["pools"].items():
+    print(f"C: {block['pools']['shared_window_share']:.3f} of pools repeat a text window")
+    for reader in ("network", "haiku"):
+        c = block["pools"][reader]
         print(f"C, {reader}: pools {interval(c['pool_rate'])} (n={c['pools']}), single neurons {interval(c['single_rate'])}, "
               f"constituents {interval(c['constituents_rate'])}; excess " + "; ".join(
                   f"{e['difference']:+.3f} {interval(e['interval'])}" for e in c["excess"])
