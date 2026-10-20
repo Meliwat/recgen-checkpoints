@@ -1,8 +1,12 @@
+import json
+import os
+from datetime import datetime
+
 import numpy as np
 
 from recgen.analyze_v8 import gain, kappas, label_auc, unit_rows
 from recgen.analyze_v14 import (
-    AGENTS, LLM_READERS, READERS, label_auc_difference, label_changes, label_shares, one_job_shares, prompts_match,
+    AGENTS, LLM_READERS, READERS, cached_before, label_auc_difference, label_changes, label_shares, one_job_shares, prompts_match,
     reading_stats, shared_unrelated, tool_use,
 )
 from recgen.rubric_v8 import AGENT_MODEL as HAIKU, MODELS, SECOND_AGENT_MODEL as SONNET
@@ -139,3 +143,15 @@ def test_reading_stats_report_the_deepest_rank_and_per_reading_tokens_and_cost()
     assert out[AGENT_NAME] == {"readings": 25, "deepest rank asked for": 3014, "output tokens per reading": 3.0,
                                "cost per reading, USD": 0.1}
     assert out["sonnet agent"]["deepest rank asked for"] == 55 and out["haiku agent"]["deepest rank asked for"] is None
+
+
+def test_cached_before_counts_readings_written_before_a_moment_by_folder_and_kind(tmp_path):
+    moment = datetime.fromisoformat("2026-10-20T00:48:20-04:00")
+    for folder, unit_id, offset in (("agent_opus", "70m:real::1", -60), ("agent_opus", "70m:real::2", -1),
+                                    ("agent_opus", "70m:pooled:50/50:3", 5), ("agent_opus_retest", "70m:real::1", 60)):
+        path = tmp_path / folder / f"{unit_id.replace(':', '_').replace('/', '-')}.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps({"id": unit_id}))
+        os.utime(path, (moment.timestamp() + offset,) * 2)
+    out = cached_before([tmp_path / "agent_opus", tmp_path / "agent_opus_retest"], moment)
+    assert out == {"readings": 4, "written before": 2, "by folder, size and kind": {"agent_opus, 70m real": 2}}

@@ -3,19 +3,22 @@ and v7's three readers, on the same units, with v8's machinery (recgen/analyze_v
 
 Reads results files only: the Opus agent's readings (results/v14_agent_answers.json, from
 recgen.agent_v14), v8's agents' readings (results/v8_agent_answers.json), and v7's per-unit flags,
-labels and replies (results/classification_v7.json, results/v7_llm_answers.json). Writes
-results/classification_v14.json. A unit a reader never labeled is left out of that reader's rates
-and of the paired comparisons that use it, and counted.
+labels and replies (results/classification_v7.json, results/v7_llm_answers.json), and, for one post-hoc check, the file
+times of the Opus agent's cached readings in data/v14/. Writes results/classification_v14.json. A
+unit a reader never labeled is left out of that reader's rates and of the paired comparisons that
+use it, and counted.
 """
 
 import json
 from collections import Counter
+from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 
 from recgen import analyze_v8
 from recgen.agent_v8 import ANSWERS_PATH as V8_ANSWERS_PATH
-from recgen.agent_v14 import ANSWERS_PATH
+from recgen.agent_v14 import ANSWERS_PATH, directories
 from recgen.analyze_v8 import (
     LABEL_RANK, MEASURES, agent_use, auc, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference,
     rates, readings_of, retest, specificity, unit_rows,
@@ -29,6 +32,8 @@ AGENTS = {**analyze_v8.AGENTS, AGENT_NAME: AGENT_MODEL}
 LLM_READERS = ("haiku", *AGENTS)  # "haiku" is v7's one-shot reader
 READERS = ("minilm", "network") + LLM_READERS
 GAINS = (PRIMARY, *SECONDARY)
+# Post hoc, added after an independent review: when this analysis code was first committed (92d136d).
+ANALYSIS_COMMITTED = datetime.fromisoformat("2026-10-20T00:48:20-04:00")
 
 
 def load_answers() -> dict:
@@ -149,6 +154,16 @@ def reading_stats(answers: dict) -> dict:
     return out
 
 
+def cached_before(folders: list[Path], moment: datetime) -> dict:
+    """Post hoc, added after an independent review: how many cached readings in the folders were written
+    before a moment, by file modification time, counted by folder, size and unit kind. A run from
+    scratch rewrites the cache, so this describes the original run only."""
+    files = [path for folder in folders for path in sorted(folder.glob("*.json"))]
+    early = [path for path in files if path.stat().st_mtime < moment.timestamp()]
+    kinds = Counter(f"{path.parent.name}, {' '.join(json.loads(path.read_text())['id'].split(':')[:2])}" for path in early)
+    return {"readings": len(files), "written before": len(early), "by folder, size and kind": dict(sorted(kinds.items()))}
+
+
 def main() -> None:
     answers = load_answers()
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
@@ -180,6 +195,9 @@ def main() -> None:
             f"label AUC, {PRIMARY[0]} minus {PRIMARY[1]}": label_auc_difference(rows, *PRIMARY, review_rng),
             f"C labels, {PRIMARY[0]} and {PRIMARY[1]}": shared_unrelated(rows, *PRIMARY),
             "per reading": reading_stats(answers),
+            "readings cached before the analysis commit": {
+                "commit time": ANALYSIS_COMMITTED.isoformat(),
+                **cached_before(sorted(set(directories(pilot=False).values())), ANALYSIS_COMMITTED)},
         },
     }
     per_reading = stats["post_hoc_after_review"]["per reading"]
