@@ -699,6 +699,101 @@ Points 4 and 5 are exploratory. Point 5 was added after v9's review; point 4, th
 
 `run_v12.sh` needs v5's and v6's caches and results, and reads v11's cached readings in `data/v11/llm/` if they're there. With v12's cached Haiku answers in `data/v12/`, it makes no model calls and reruns in about four minutes.
 
+## v19 results
+
+Every result so far comes from one model family. Pythia's blocks are GPT-NeoX's, where attention and the MLP read the same residual stream in parallel. v19 asks whether the repo's two methods findings hold in a family with a sequential residual, GPT-2, whose MLP reads the residual stream after its own block's attention:
+
+- **(a)** MiniLM barely tells two pooled neurons from one, while the network reader and Haiku do (v7).
+- **(b)** Neurons with a larger peak activation are flagged unrelated mixed less often (v12).
+
+It's a pre-registered replication, not a new method. The rules are in [`recgen/rubric_v19.py`](recgen/rubric_v19.py), committed (`87deb48`) before any GPT-2 activation was recorded or any unit was read. Before that, the only GPT-2 component run was its tokenizer, on 512 corpus windows, to size the corpus problem in method point 2. Two earlier modules changed without changing any output: [`recgen/corpus.py`](recgen/corpus.py) now exposes v1's packed token stream (rebuilding `data/corpus.npy` from it gives the same array), and `analyze_v6.Layer` takes an optional path. No earlier result changed, and no rule was amended.
+
+### v19 method
+
+1. **Models.** GPT-2 small, medium and large (124M, 355M and 774M parameters; XL was left out for disk space), in float16, at the middle layer: 6 of 12, 12 of 24 and 18 of 36.
+2. **Corpus.** The same 4,096 Pile windows, re-tokenized. A 512-token Pythia window decodes to fewer than 512 GPT-2 tokens 29% of the time, so each GPT-2 window is the first 512 GPT-2 tokens of the text that starts where the Pythia window starts in v1's packed stream. Document separators carry over as GPT-2's end-of-text token.
+3. **Neurons and readers, rules unchanged.** v5's eligibility rule and a sample of 2,048 neurons per model, with window maxima as in v5 (each window's first 32 positions ignored). The three readers are v7's:
+   - **MiniLM:** 32 GPT-2 tokens of context up to the firing token, v1's clustering and v5's unrelated cutoff.
+   - **network:** v6's detector, reading the residual stream where GPT-2's MLP reads it: entering `ln_2`, after the block's attention. It's LayerNorm-normalized and centered on 1,024 random positions, with the neuron's input direction (its `c_fc` column times `ln_2`'s gain) projected out. Each unit's thresholds are v6's percentiles of its own null of random positions, recomputed in each GPT-2 layer.
+   - **Haiku:** v7's prompt, system prompt and CLI, with snippets of 24 GPT-2 tokens before the marked token and 4 after.
+4. **Units,** as in v7, per model: 100 real neurons, 50 pools of two random neurons at each mix (50/50, 70/30, 90/10) and 50 related pools. 60 units in all were read twice.
+5. **Pre-registered tests.**
+   - **(a)** Per reader, the over-all-models excess: the 50/50 pools' flag rate minus real neurons', averaged over the three sizes, with a 95% bootstrap interval (v11's main measure, and v7's exploratory one). (a) replicates if MiniLM's interval includes 0 or stays below +10 points, and the network reader's and Haiku's intervals lie above 0.
+   - **(b)** v12's H1 and H2, on the network reader for all 6,144 sampled neurons and on Haiku for the 300 real neurons. H1: the top peak quartile is flagged less than the other three, with an interval below zero, and peak's Spearman correlation with the flag is negative in all three models (v12 asked for 5 of 6). H2: log peak's coefficient stays below zero with peakedness, density and token purity controlled. (b) replicates if H1 holds for the network reader.
+
+All 960 readings returned a valid label, from `claude-haiku-5-5` (the model v7 used): 3.7M input tokens, which the CLI reported as $1.13. Every answer is in [`results/v19_llm_answers.json`](results/v19_llm_answers.json).
+
+### What v19 found
+
+![v19 on GPT-2](results/figures/v19_gpt2.png)
+
+**(a) replicates.**
+
+| Reader | GPT-2: 50/50 pools over real, mean of three sizes (95% interval) | small / medium / large | Pythia, same measure on v7's units | GPT-2 minus Pythia |
+|---|---|---|---|---|
+| MiniLM | **-2** (-7 to +2) | -5 / 0 / -2 | +3 (-1 to +8) | -5.5 (-12 to +1) |
+| network | **+22** (+13 to +31) | +35 / +10 / +22 | +22 (+16 to +28) | 0 (-11 to +11) |
+| Haiku | **+22** (+14 to +31) | +16 / +28 / +23 | +21 (+14 to +27) | +1.5 (-9 to +12) |
+
+**(b) replicates for the network reader; Haiku doesn't confirm it.**
+
+| Reader | Neurons | Flagged, by peak quartile (weakest to strongest) | Top minus rest (points), models negative | Log-peak coefficient with controls | H1 / H2 | Pythia, middle layer (v12): top minus rest; coefficient |
+|---|---|---|---|---|---|---|
+| network | 6,144 | 49% / 51% / 45% / 27% | **-22** (-24.3 to -19.2), 3/3 | -0.34 (-0.41 to -0.28) | **yes** / yes | -26; -0.57 |
+| Haiku (real neurons) | 300 | 26% / 18% / 14% / 11% | **-8** (-17.2 to +1.3), 3/3 | -0.40 (-0.89 to +0.01) | no / no | -38 (fresh neurons); -0.94 |
+| MiniLM (secondary) | 6,144 | 3% / 5% / 6% / 5% | -0.3 (-1.6 to +0.8), 0/3 | +0.13 (-0.02 to +0.27) | no / no | -4; -0.35 |
+
+Points 1 to 5 are pre-registered (1 and 2 the tests, 3 to 5 secondary). Point 6 is post hoc: it was noticed after seeing the results. GPT-2's numbers are in [`results/classification_v19.json`](results/classification_v19.json), beside Pythia's for the two tests; point 6's Pythia figures come from v6's and v7's results.
+
+1. **(a): MiniLM can't see pooling in GPT-2 either, and the other two readers see it as well as in Pythia.** MiniLM's excess is -2 points, with an interval that includes zero, and it's within 5 points of zero at every size. The network reader and Haiku both flag 50/50 pools 22 points more than real neurons, their low ends at +13 and +14. Each reader's GPT-2 excess is within 6 points of its Pythia excess, though those differences have wide intervals (about ±6 to ±11 points).
+2. **(b): the network reader flags the strongest quarter of neurons 22 points less than the rest,** in all three models (Spearman -0.27, -0.15 and -0.09), close to v12's held-out -21 on Pythia. Like Pythia's, it's mostly a step at the top quartile (49%, 51%, 45%, then 27%). Log peak's coefficient stays negative with the controls (H2), at about 60% of Pythia's (-0.34 against -0.56 to -0.58); one neuron with undefined peakedness is left out of H2, as v12's amendment requires. Haiku points the same way in every model (Spearman -0.21, -0.22 and -0.11) and declines steadily by quartile (26% to 11%), but its interval includes zero, so H1 and H2 don't hold for it.
+3. **v7's per-model tests and agreement come out much as on Pythia.** The per-model power test (+20 points with separated intervals) passes for the network reader in 1 of 3 models, Haiku in 2 and MiniLM in none. Related pools are flagged less than 50/50 pools by 20 points or more for the network reader and Haiku in 2 of 3 models each. As in v7 that control is easy: 40 to 46% of related pools contain two examples from one window, against 12 to 22% of 50/50 pools and none of the real units. On real neurons, kappa between the network reader and Haiku is 0.11 to 0.36, and below 0.2 with MiniLM.
+4. **Haiku is more consistent on GPT-2's units:** a second reading of 60 units gives the same label 87% of the time and the same flag 95% (kappa 0.87, interval 0.71 to 1.00), against 0.37 on v7's Pythia units.
+5. **As on Pythia, coherence carries Haiku's magnitude trend.** Adding v6's top-pair percentile (how alike a neuron's 50 strongest examples are inside the network) to H2's regression gives it a coefficient of -1.18 (-1.83 to -0.73) for Haiku, and log peak's coefficient rises by 0.80 (0.48 to 1.35), to +0.40 (-0.08 to +1.11). Log peak and coherence correlate at about 0.64. For the network reader this is near circular, as in v12 (coherence -1.51, log peak turning positive); for MiniLM coherence's coefficient is small (-0.14, -0.33 to +0.03).
+6. **Post hoc: Haiku calls far fewer GPT-2 neurons unrelated mixed than Pythia neurons.** It flags 8% (3 to 14%), 18% and 25% of real neurons from small to large, against 33 to 47% on Pythia, and calls 87%, 72% and 69% of them one job (Pythia: 42 to 57%). It flags fewer 50/50 pools too (24%, 46%, 48%; Pythia: 56 to 78%), so its excess is unchanged. The network reader's rates on real neurons (40 to 46%) are close to Pythia's. That suggests GPT-2's top examples aren't less varied in the network's own representation: their median top-pair percentile is 90, 83 and 84 by size, inside Pythia's range of 79 to 91 (v6). Why Haiku reads them as cleaner isn't tested here. Haiku's low rate on GPT-2 small also leaves (b)'s Haiku test little room: 8 of its 100 real neurons are flagged.
+
+**Recording checks.**
+
+- Activations rebuilt from the stored residuals match the recorded ones within 0.0038, against median peaks of 3.0 to 3.4.
+- 2,896, 3,960 and 5,039 neurons are eligible (of 3,072, 4,096 and 5,120), and 2,048 are sampled in each model.
+- MiniLM's null on GPT-2's contexts puts v1's merge level at the 98.3rd percentile and the unrelated cutoff at the 81.2nd, against the frozen 98.2 and 81.0.
+- The residual's mean makes up 41%, 64% and 37% of its squared norm by size (Pythia's middle layers: 26 to 55%), which the centering removes.
+- **The pre-registered float32 check failed for medium, and the check itself was at fault.** A float32 pass on the CPU matched the float16 window maxima within 0.013 for small and 0.009 for large, but only within 3.97 for medium. A post hoc check ([`recgen/precision_v19.py`](recgen/precision_v19.py), [`results/v19_precision_check.json`](results/v19_precision_check.json)) found that this Mac's CPU float32 path computes GPT-2 medium wrongly: its next-token loss on 4 windows is infinite, against 2.408 in float64 on the CPU. Float32 and float16 on MPS, the recording's device, match the float64 reference (loss 2.408 and 2.409; hidden states within 2e-6 and 1.3e-3 relative). Float32 on MPS matches the stored float16 window maxima within 0.027 over 64 windows. So the recording stands.
+
+### What this does and doesn't show
+
+- **(a) holds across the change of architecture.** In GPT-2, as in Pythia, clustering top examples with this sentence model doesn't separate two pooled neurons from one, while the network's own representation and a language model reading the snippets do, by about 22 points in both families. The warning from v7 and v9, that MiniLM-based cleanliness numbers don't measure mixing, isn't specific to Pythia.
+- **(b) holds for the network reader, which is the less independent test.** The network reader's flag and the coherence that carries the effect come from the same representation (point 5). In Pythia, Haiku, which never sees that representation, confirmed the effect at three depths. In GPT-2 it points the same way in every model but doesn't pass: it flags few real neurons (point 6) and reads only 300. So in GPT-2 the magnitude effect is shown clearly by one reader and only suggested by the independent one.
+- **Absolute "share mixed" numbers don't transfer between families.** Haiku's real-neuron rate drops from about 43% on Pythia to 17% on GPT-2 while its excess on pools stays the same. A cleanliness figure from one reader on one family says little about another.
+
+### What's still shaky
+
+- **The corpus is the Pile, Pythia's training data, not GPT-2's.** GPT-2 was trained on WebText, so code, LaTeX and other Pile text may be unusual inputs for it. That could change which examples top a neuron's ranking in ways that don't affect Pythia.
+- **Re-tokenization changes what each reader sees.** GPT-2 windows end at different text than Pythia's, and 24 GPT-2 tokens of snippet cover different text than 24 Pythia tokens.
+- **The network reader reads a different place in the block.** In GPT-2 the MLP's input includes its own block's attention output; in Pythia it doesn't. That's the right analog, but it means the two families' network readers aren't identical.
+- **Haiku's (b) test is weak:** 300 neurons with a 17% flag rate, against v12's 600 per test with flag rates of 34 to 42%.
+- **Three sizes, 124M to 774M, one layer each.** Per-model numbers rest on 50 pools and 100 real neurons per model.
+- **Why the CPU float32 path fails on GPT-2 medium isn't known** (PyTorch 2.14.1 on this M1 Pro). It doesn't affect the recording, which ran on MPS, but the pre-registered check didn't do its job for that model.
+- **Haiku runs through the `claude` CLI,** which adds a little hidden context: the working directory, the platform, the date and an account notice. It includes no git branch, commit or file contents.
+
+### v19 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v19.py`](recgen/rubric_v19.py) | Pre-registered models, corpus, readers, units and both tests |
+| [`recgen/gpt2_v19.py`](recgen/gpt2_v19.py) | GPT-2's corpus and recording: window maxima, residuals entering `ln_2`, input weights |
+| [`recgen/units_v19.py`](recgen/units_v19.py), [`recgen/read_v19.py`](recgen/read_v19.py) | v7's units on GPT-2; Haiku readings through v7's reader, with a $40 spend guard |
+| [`recgen/analyze_v19.py`](recgen/analyze_v19.py), [`recgen/plots_v19.py`](recgen/plots_v19.py) | Three readers, tests (a) and (b), secondary results and checks; the figure |
+| [`recgen/precision_v19.py`](recgen/precision_v19.py) | Post hoc device and precision check of GPT-2 medium |
+| [`results/classification_v19.json`](results/classification_v19.json), [`results/v19_llm_answers.json`](results/v19_llm_answers.json), [`results/v19_precision_check.json`](results/v19_precision_check.json) | Results with per-unit and per-neuron flags; every Haiku reading with its prompt hash and cost; the precision check |
+| `tests/test_rubric_v19.py`, `tests/test_gpt2_v19.py`, `tests/test_read_v19.py`, `tests/test_analyze_v19.py` | Tests for the rules, the GPT-2 recorder, the spend guard and the analysis |
+
+```bash
+./run_v19.sh
+```
+
+`run_v19.sh` needs `data/corpus.npy`, the `pile-10k` dataset (once, to rebuild v1's stream for GPT-2's corpus), `results/classification_v7.json` and `classification_v12.json`, and the `claude` CLI signed in. From scratch it takes about 1.5 hours on an M1 Pro: recording takes 46 minutes, downloading the three models one at a time (5.3 GB in all) and deleting each after use; MiniLM embeddings take 5 minutes; the 960 readings take about 35 minutes, six at a time. It caches 970 MB in `data/v19/`. With that cache, it makes no model calls and reruns in about 3 minutes. The precision check isn't part of it: `uv run python -m recgen.precision_v19 gpt2-medium` downloads medium again.
+
 ## Files
 
 | Path | What it is |
