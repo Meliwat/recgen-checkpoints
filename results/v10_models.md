@@ -42,6 +42,8 @@ opus labels on real neurons: A 38, B 31, C 31
 
 ### 50/50 pools Haiku flags and Opus calls one job
 
+None.
+
 ### Real neurons where Opus and Haiku disagree
 
 **70m:real::38**, MLP neuron(s) 54 (network True; labels: haiku C, sonnet C, opus B)
@@ -104,6 +106,8 @@ opus labels on real neurons: A 35, B 31, C 34
 
 ### 50/50 pools Haiku flags and Opus calls one job
 
+None.
+
 ### Real neurons where Opus and Haiku disagree
 
 **160m:real::62**, MLP neuron(s) 92 (network False; labels: haiku A, sonnet B, opus C)
@@ -165,6 +169,8 @@ opus labels on real neurons: A 33, B 23, C 44
 - `commons.math.util.MathUtilsTest)⏎testMulAndCheck(org.apache.commons.math[[.]]util.MathUtils`
 
 ### 50/50 pools Haiku flags and Opus calls one job
+
+None.
 
 ### Real neurons where Opus and Haiku disagree
 

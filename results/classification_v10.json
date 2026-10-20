@@ -2088,6 +2088,70 @@
      }
     }
    }
+  },
+  "post_review_checks": {
+   "scale_verdict_by_seed": {
+    "haiku": {
+     "no clear trend": 1.0
+    },
+    "sonnet": {
+     "against the essay": 0.16,
+     "no clear trend": 0.84
+    },
+    "opus": {
+     "against the essay": 1.0
+    }
+   },
+   "retest_kappa_real_units": {
+    "haiku": {
+     "kappa": 0.3939393939393937,
+     "units": 20
+    },
+    "sonnet": {
+     "kappa": 0.6590909090909091,
+     "units": 20
+    },
+    "opus": {
+     "kappa": 0.8863636363636362,
+     "units": 20
+    }
+   },
+   "kappa_over_ceiling_with_network": {
+    "haiku": [
+     0.3470414613592388,
+     0.8769689542169408
+    ],
+    "sonnet": [
+     0.385017822571982,
+     0.6004403711231011
+    ],
+    "opus": [
+     0.40157412721289637,
+     0.5857242755494882
+    ]
+   },
+   "difference_from_haiku_by_mix_corrected": {
+    "sonnet": {
+     "pooled 70/30": [
+      -0.0008437500000000045,
+      0.175
+     ],
+     "pooled 90/10": [
+      -0.04917708333333332,
+      0.12833333333333333
+     ]
+    },
+    "opus": {
+     "pooled 70/30": [
+      0.037489583333333354,
+      0.22833333333333336
+     ],
+     "pooled 90/10": [
+      -0.07666666666666667,
+      0.10166666666666667
+     ]
+    }
+   }
   }
  },
  "units": {
