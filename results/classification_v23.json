@@ -429,6 +429,72 @@
      0.95
     ]
    }
+  },
+  "exploratory_after_review": {
+   "reader_margin": {
+    "spearman_reader_margin_driver_margin": 0.654,
+    "median_reader_margin_by_quartile": [
+     -0.074,
+     -0.063,
+     -0.031,
+     0.035
+    ],
+    "by_tercile": {
+     "0": {
+      "top_rate": 1.0,
+      "top_n": 9,
+      "rest_rate": 1.0,
+      "rest_n": 58
+     },
+     "1": {
+      "top_rate": 0.933,
+      "top_n": 15,
+      "rest_rate": 0.961,
+      "rest_n": 51
+     },
+     "2": {
+      "top_rate": 0.231,
+      "top_n": 26,
+      "rest_rate": 0.732,
+      "rest_n": 41
+     }
+    },
+    "P1_within_reader_margin_terciles": {
+     "value": -0.2348474654466465,
+     "interval": [
+      -0.3391015166951809,
+      -0.12625189827185176
+     ]
+    }
+   },
+   "shared_tokens": {
+    "least_pair_shares_a_token_by_quartile": [
+     0.08,
+     0.02,
+     0.0,
+     0.06
+    ],
+    "least_pair_unrelated_without_shared_token_by_quartile": [
+     1.0,
+     0.898,
+     0.88,
+     0.596
+    ]
+   },
+   "least_pairs_tied_with_threshold_by_quartile": {
+    "mlp": [
+     1,
+     1,
+     2,
+     2
+    ],
+    "heads": [
+     9,
+     2,
+     2,
+     7
+    ]
+   }
   }
  },
  "neurons": [
