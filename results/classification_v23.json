@@ -29,6 +29,11 @@
    "5": 10
   },
   "reconstruction_error": 5.459785461425781e-05,
+  "background": {
+   "positions": 1024,
+   "positions_that_are_facet_examples": 4,
+   "windows_holding_facet_examples": 804
+  },
   "pre_registered": {
    "mlp": {
     "P1_least_pair_unrelated": {

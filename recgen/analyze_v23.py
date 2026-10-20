@@ -216,6 +216,17 @@ def source_shares(final: dict, rows: list[dict]) -> dict:
             for part in ("mlp_neurons", "attention_heads")}
 
 
+def background_overlap(candidates: list[dict]) -> dict:
+    """How many of v13's background positions, and of their windows, hold v23 facet examples."""
+    examples = np.load(RECORDING_PATH)["examples"]
+    n_facet = int(np.load(RECORDING_PATH)["n_facet_examples"])
+    facet_examples = {tuple(e) for e in examples[:n_facet].tolist()}
+    facet_windows = {w for w, _ in facet_examples}
+    background = [tuple(e) for e in examples[n_facet:].tolist()]
+    return {"positions": len(background), "positions_that_are_facet_examples": sum(e in facet_examples for e in background),
+            "windows_holding_facet_examples": sum(w in facet_windows for w, _ in background)}
+
+
 def rounded(rows: list[dict]) -> list[dict]:
     out = []
     for r in rows:
@@ -234,7 +245,7 @@ def main() -> None:
     summary = {"neurons_by_quartile": eligible_counts() | {"selected": [sum(r["quartile"] == k for r in rows) for k in range(4)]},
                "facets": len([s for r in rows for s in r["facet_sizes"]]), "pairs": sum(len(r["mlp"]["overlaps"]) for r in rows),
                "facet_count_distribution": {str(k): v for k, v in sorted(Counter(r["n_facets"] for r in rows).items())},
-               "reconstruction_error": final["reconstruction_error"],
+               "reconstruction_error": final["reconstruction_error"], "background": background_overlap(candidates),
                "pre_registered": pre_registered(rows), "by_quartile": by_quartile(rows),
                "share_of_pairs_unrelated": {kind: round(float(np.mean([o <= r[kind]["threshold"] for r in rows
                                                                        for o in r[kind]["overlaps"].values()])), 3) for kind in KINDS},
