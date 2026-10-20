@@ -42,7 +42,7 @@ def main() -> None:
         ax.set_title(TITLES[reader], fontsize=10)
         ax.set_xlabel("Pythia model")
     axes[0].set_ylabel("share flagged unrelated mixed")
-    axes[0].legend(fontsize=8)
+    fig.legend(*axes[0].get_legend_handles_labels(), loc="lower center", ncol=len(GROUPS), fontsize=8)
     ax = axes[-1]
     for i, reader in enumerate(ALL_READERS):
         e = summary["excess"][reader]
@@ -50,10 +50,11 @@ def main() -> None:
                     marker="o", capsize=3, color="tab:red" if reader in LLM_READERS else "gray")
     ax.axhline(0, color="black", linewidth=0.5)
     ax.set_xticks(range(len(ALL_READERS)), ALL_READERS)
-    ax.set_title("50/50 pools minus real neurons,\nmean over models (95% interval)", fontsize=10)
+    ax.set_title("50/50 pools minus real neurons, mean over\nmodels (95% interval, unpaired; the paired\n"
+                 "comparison with Haiku is in the README)", fontsize=9)
     fig.suptitle("Stronger language-model readers on v7's units (middle layer): real neurons, pools of two random "
                  "neurons at three mixes, and pools of two related neurons", fontsize=10)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     FIGURES_DIR.mkdir(exist_ok=True)
     fig.savefig(FIGURES_DIR / "v10_readers.png", dpi=110)
     plt.close(fig)

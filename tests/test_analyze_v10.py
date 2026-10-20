@@ -119,3 +119,18 @@ def test_usage_reports_tokens_v7_never_recorded_as_missing():
                                  "thinking_tokens": 3, "cost_usd": 0.5}}, "retest": {}}
     assert usage(v7_style)["output_tokens"] is None and usage(v7_style)["cost_usd_by_cli"] is None
     assert usage(v10_style)["output_tokens"] == 5 and usage(v10_style)["median_thinking_tokens"] == 3
+
+
+def test_review_checks_on_consistent_readers():
+    from recgen.analyze_v10 import review_checks
+
+    rows = rows_with(readers(SEPARATING, SEPARATING, SEPARATING))
+    same = {f"70m:real::{i}": {"label": "C" if i < 5 else "A"} for i in range(20)}
+    answers = {r: {"first": same, "retest": same} for r in ("haiku", "sonnet", "opus")}
+    out = review_checks(rows, answers)
+    assert all(abs(sum(v.values()) - 1) < 1e-9 for v in out["scale_verdict_by_seed"].values())
+    assert out["retest_kappa_real_units"]["opus"] == {"kappa": 1.0, "units": 20}
+    low, high = out["kappa_over_ceiling_with_network"]["sonnet"]  # ceiling 1, so the ratio is the kappa with network
+    assert low <= high and -1 <= low
+    for mixes in out["difference_from_haiku_by_mix_corrected"].values():
+        assert all(interval == [0.0, 0.0] for interval in mixes.values())  # identical readers

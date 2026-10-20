@@ -1,4 +1,6 @@
-"""v10's language-model readers: v7's reader (recgen/llm_reader.py) with only the model changed.
+"""v10's language-model readers: v7's reader (recgen/llm_reader.py) with the model changed. The CLI flags
+are otherwise v7's. The run differs only in how it is driven: four workers instead of six, a longer
+timeout, CLAUDE_CODE_EFFORT_LEVEL removed from the CLI's environment, and failed readings retried.
 
 Answers are cached in data/v10/<model>/llm/ (and llm_retest/ for second readings), keyed by the
 prompt's SHA-256 as in v7, so reruns never call the model again. A reading that failed with a CLI

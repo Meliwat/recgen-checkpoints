@@ -19,17 +19,19 @@ from recgen.corpus import load_corpus
 from recgen.facets import display_text
 from recgen.llm_reader import ANSWERS_PATH as HAIKU_ANSWERS_PATH
 from recgen.llm_reader_v10 import answers_path
-from recgen.rubric_v5 import MODELS
+from recgen.rubric_v5 import MODELS, bootstrap_interval, decide
 from recgen.rubric_v6 import cohen_kappa
 from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
 from recgen.rubric_v10 import (
-    BASELINE, READERS, excess_interval, kappa_ceiling, kappa_interval, multiple_jobs, paired_difference,
-    paired_kappa_difference,
+    BASELINE, BOOTSTRAP, READERS, bootstrap_excess, excess_interval, kappa_ceiling, kappa_interval, multiple_jobs,
+    paired_difference, paired_kappa_difference,
 )
 
 LLM_READERS = (BASELINE,) + READERS
 ALL_READERS = ("minilm", "network") + LLM_READERS
 EXAMPLES_SHOWN = 2  # per model, of each kind of disagreement worth reading
+SEED_CHECKS = 200  # bootstrap seeds tried in the post-review scale check
+CORRECTED_MIXES = ("pooled 70/30", "pooled 90/10")
 
 
 def rng(k: int):
@@ -94,14 +96,20 @@ def reader_excess(rows: dict, reader: str, seed: int, flag=None, pooled_group: s
     return {**excess_interval(pooled, real, rng(seed)), "units": sum(map(len, pooled)) + sum(map(len, real))}
 
 
-def main_comparison(rows: dict, reader: str, seed: int, flag=None, pooled_group: str = "pooled 50/50") -> dict:
-    """Reader minus Haiku in the over-all-models 50/50 excess, paired on units both labeled."""
+def paired_flags(rows: dict, reader: str, flag=None, pooled_group: str = "pooled 50/50") -> tuple[list, list]:
+    """Per model, [units, 2] flags of Haiku and the reader on pooled and on real units both labeled."""
     pooled, real = [], []
     for m in MODELS:
         for g, out in ((pooled_group, pooled), ("real", real)):
             pairs = [(h, x) for h, x in zip(flags_of(rows[m], BASELINE, g, flag), flags_of(rows[m], reader, g, flag))
                      if h is not None and x is not None]
             out.append(np.array(pairs, float).reshape(-1, 2))
+    return pooled, real
+
+
+def main_comparison(rows: dict, reader: str, seed: int, flag=None, pooled_group: str = "pooled 50/50") -> dict:
+    """Reader minus Haiku in the over-all-models 50/50 excess, paired on units both labeled."""
+    pooled, real = paired_flags(rows, reader, flag, pooled_group)
     if any(len(a) == 0 for a in pooled + real):
         return {"verdict": "not run", "units": sum(map(len, pooled)) + sum(map(len, real))}
     return {**paired_difference(pooled, real, rng(seed)), "units": sum(map(len, pooled)) + sum(map(len, real))}
@@ -190,6 +198,50 @@ def exploratory_stats(rows: dict) -> dict:
     return out
 
 
+def review_checks(rows: dict, answers: dict) -> dict:
+    """Not pre-registered: checks added after an independent review of the first v10 results.
+    - How often v7's scale verdict for each reader comes out the same over SEED_CHECKS bootstrap seeds.
+    - Retest kappa on the retested real neurons only (the ceilings use all 60 retest units).
+    - An interval for kappa with the network reader divided by its ceiling, resampling the retest
+      units and the real neurons independently.
+    - Intervals for the exploratory paired differences at 70/30 and 90/10, corrected for those four
+      comparisons (Bonferroni)."""
+    out = {"scale_verdict_by_seed": {}, "retest_kappa_real_units": {}, "kappa_over_ceiling_with_network": {},
+           "difference_from_haiku_by_mix_corrected": {}}
+    for i, reader in enumerate(LLM_READERS):
+        seeds = rng(200 + i)
+        real = [np.array([v for v in flags_of(rows[m], reader, "real") if v is not None], bool) for m in MODELS]
+        shares = [float(r.mean()) for r in real]
+        counts = Counter(decide(shares, [bootstrap_interval(r, seeds) for r in real])[0] for _ in range(SEED_CHECKS))
+        out["scale_verdict_by_seed"][reader] = {verdict: n / SEED_CHECKS for verdict, n in counts.items()}
+
+        pairs = retest_pairs(answers[reader])
+        first, second = (np.array([p[k] == UNRELATED_JOBS for p in pairs.values()]) for k in (0, 1))
+        is_real = np.array([":real:" in key for key in pairs])
+        out["retest_kappa_real_units"][reader] = {"kappa": cohen_kappa(first[is_real], second[is_real]),
+                                                  "units": int(is_real.sum())}
+
+        draws_rng = rng(210 + i)
+        both = [(r[reader], r["network"]) for m in MODELS for r in rows[m] if r["group"] == "real" and r[reader] is not None]
+        a, b = np.array(both, bool).T
+        ratios = []
+        for _ in range(BOOTSTRAP):
+            idx = draws_rng.integers(0, len(first), len(first))
+            ceiling = kappa_ceiling(cohen_kappa(first[idx], second[idx]))
+            idx = draws_rng.integers(0, len(a), len(a))
+            ratios.append(cohen_kappa(a[idx], b[idx]) / ceiling if ceiling > 0 else np.nan)
+        out["kappa_over_ceiling_with_network"][reader] = [float(x) for x in np.nanpercentile(ratios, [2.5, 97.5])]
+    corrected = 5 / len(CORRECTED_MIXES) / len(READERS)  # percent outside each interval
+    for i, reader in enumerate(READERS):
+        out["difference_from_haiku_by_mix_corrected"][reader] = {}
+        for k, g in enumerate(CORRECTED_MIXES):
+            pooled, real = paired_flags(rows, reader, pooled_group=g)
+            draws = bootstrap_excess(pooled, real, rng(220 + 2 * i + k))
+            out["difference_from_haiku_by_mix_corrected"][reader][g] = [
+                float(x) for x in np.percentile(draws[:, 1] - draws[:, 0], [corrected / 2, 100 - corrected / 2])]
+    return out
+
+
 def summarize(rows: dict, answers: dict) -> dict:
     retests = {reader: retest(answers[reader], 10 + i) for i, reader in enumerate(LLM_READERS)}
     summary = {"main": {}, "secondary_multiple_jobs": {}, "excess": {}, "excess_multiple_jobs": {}, "v7_tests": {},
@@ -247,6 +299,8 @@ def write_report(rows: dict, answers: dict, corpus: np.ndarray) -> None:
             ("Real neurons where Opus and Haiku disagree",
              [r for r in model_rows if r["group"] == "real" and r["opus"] is not None and r["opus"] != r["haiku"]])):
             lines.append(f"### {title}\n")
+            if not chosen:
+                lines.append("None.\n")
             for r in chosen[:EXAMPLES_SHOWN]:
                 lines.append(f"**{r['id']}**, MLP neuron(s) {', '.join(map(str, r['neuron_ids']))} "
                              f"(network {r['network']}; labels: " +
@@ -265,6 +319,7 @@ def main() -> None:
     rows = unit_rows(MiniLM(corpus), answers)
     summary = summarize(rows, answers)
     summary["exploratory"] = exploratory_stats(rows)
+    summary["post_review_checks"] = review_checks(rows, answers)
     keep = ("id", "group", "neuron_ids", "shared_window", "minilm", "network") + \
         tuple(x for reader in LLM_READERS for x in (reader, f"{reader}_label"))
     units_out = {m: [{k: r[k] for k in keep} for r in model_rows] for m, model_rows in rows.items()}
