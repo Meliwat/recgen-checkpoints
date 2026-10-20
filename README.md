@@ -612,6 +612,102 @@ Points 3 to 6 are exploratory. Point 3 was added after seeing the counts; points
 
 `run_v13.sh` needs v6's `data/v6/` recordings and results, and v4's results. From scratch it takes about 70 minutes on an M1 Pro: it downloads 14 checkpoints one at a time, deletes each after use, and caches 4.5 GB in `data/v13/`. With that cache, the analysis reruns in about 15 minutes.
 
+## v23 results
+
+v12 found, pre-registered and on held-out data, that neurons with a larger peak activation are flagged unrelated mixed much less often by the network-native reader (v6) and by Haiku (branch `v12`). Branches `v17` and `v20` found the effect persists below each neuron's top 50. All of those tests judge how alike a neuron's examples are. So none can tell "weakly firing neurons do several unrelated jobs" from "weakly firing neurons carry one broad, diffuse feature". v2's driver test measures something else: whether two facets of a neuron are driven by the same upstream MLP neurons. v23 asks, at Pythia-410m layer 12, final checkpoint:
+
+- **Are the facets of weakly firing neurons driven by different upstream circuits more often than the facets of strongly firing neurons?**
+
+The rules are in [`recgen/rubric_v23.py`](recgen/rubric_v23.py), committed (`3e60e74`) before any v23 recording, and not amended. No earlier result changed: v13's `final_adjacency` gained an optional driver kind (MLP drivers by default), and v4's `step_summary` now reads head terms as float32, which they already were in v4's and v13's recordings. With v23's code, v13's published end thresholds and final MLP overlaps reproduce exactly.
+
+### v23 method
+
+1. **Neurons.** Peak is v12's: a neuron's largest window maximum in v5's sweep, with quartiles taken over all 2,048 of v6's sampled neurons at the layer. Eligible neurons are those whose 50 strongest examples form at least 2 facets under v6's detector at its pre-registered settings: 467, 471, 461 and 410 of the 509 to 514 per quartile, weakest to strongest. 50 were drawn from each quartile with a fixed seed. Facets are v6's, as in v13: 609 in all, 2 to 5 per neuron (median 8 examples), 701 pairs.
+2. **Recording.** v4/v13's attribution at the final checkpoint (step 143k) only, on all 6,691 facet examples and 1,024 background positions. The terms add back up within 5.5e-5. Two departures from v13, both in the rules: examples were captured in chunks of 1,500 within one checkpoint load (to bound memory), and head terms were stored in float16 like the MLP activations (to stay under 2 GB). Background is v13's positions, unchanged. v4's rule needs 1,024 windows that hold no facet example, and v23's facets occupy 3,213 of the 4,096 windows. Sharing v13's background also makes the v13 check exact. Four background positions happen to be v23 facet examples; they stay in the background as random text.
+3. **Per neuron,** for MLP drivers (top 100 of 49,152, primary) and head drivers (top 5 of 192, beside them): every facet pair's driver overlap, judged by v2's rule against this neuron's null (its facets against the other 199 neurons' facets, read through its weights, 95th percentile). A pair is driver-unrelated if it isn't adjacent.
+   - **Primary measure:** whether the neuron's least-overlapping pair is driver-unrelated. One threshold serves all of a neuron's pairs, so this is the same as "some pair is driver-unrelated".
+   - **Secondary:** the share of its pairs that are driver-unrelated (S1); the margin, the least-overlapping pair's overlap minus the threshold (S2; above 0 means shared beyond the null); and whether the pair v6's reader calls least related is driver-unrelated (S3).
+4. **Pre-registered tests** (MLP drivers; bootstrap intervals resample neurons within quartiles):
+   - **P1:** the strongest quartile's rate of driver-unrelated least pairs minus the other three's.
+   - **P2:** Spearman correlation of peak with the margin.
+   - **P3:** P1 minus the same difference in v6's unrelated-mixed flag on the same neurons (paired), which asks whether drivers follow the reader's gradient at its full size.
+   - **Reading:** "more jobs" if P1's interval is below 0 and P2's above 0; "weak neurons share more" if the reverse; "no driver gradient" if neither points to more jobs and P3's interval is above 0 (which would support one broad feature, or mixing in the examples rather than the mechanism); otherwise "unclear".
+5. **Controls,** pre-registered for the main confounds:
+   - **C1, facet size.** The null threshold and the overlaps may depend on how small and noisy the facets are. C1 repeats S2 within terciles of each neuron's median facet size (5 to 7.5, 8 to 11.5, 12 to 25 examples).
+   - **C2, number of facets.** A neuron with more facets has more pairs, so its least pair is more likely to be driver-unrelated, and strong neurons have fewer facets. C2 repeats P1 within neurons of 2, 3, and 4 or more facets.
+
+Recording took 13 minutes on an M1 Pro, including a 75-second download of the checkpoint (deleted after use), while another process shared the GPU. `data/v23/` holds 1.55 GB (1.4 GiB): the 1.43 GB recording and a 0.11 GB cache of the driver sets, which take most of the analysis's 14 minutes to compute.
+
+### What v23 found
+
+![Driver relatedness by peak quartile](results/figures/v23_drivers_by_peak.png)
+
+| By peak quartile, weakest to strongest (50 neurons each) | Q1 | Q2 | Q3 | Q4 |
+|---|---|---|---|---|
+| median peak | 2.04 | 2.28 | 2.61 | 3.34 |
+| **least pair driver-unrelated, MLP drivers (primary)** | **96%** | **90%** | **88%** | **58%** |
+| share of pairs driver-unrelated, MLP drivers (S1) | 84% | 78% | 68% | 45% |
+| reader's least-related pair driver-unrelated (S3) | 96% | 90% | 86% | 58% |
+| least pair driver-unrelated, head drivers | 96% | 98% | 88% | 82% |
+| v6 reader's flag: unrelated mixed (same neurons) | 70% | 72% | 62% | 44% |
+| median margin (least pair's overlap minus threshold) | -0.060 | -0.050 | -0.050 | -0.035 |
+| median least pair's overlap / null threshold | 0.010 / 0.080 | 0.020 / 0.070 | 0.025 / 0.075 | 0.045 / 0.080 |
+| median facet size / mean facets per neuron | 8 / 3.04 | 8 / 3.20 | 9 / 3.16 | 10 / 2.78 |
+
+| Pre-registered test | Value (95% interval) | |
+|---|---|---|
+| **P1:** least pair driver-unrelated, Q4 minus the rest (points) | **-33.3 (-47.3 to -18.7)** | below 0 |
+| **P2:** Spearman of peak with the margin | **+0.32 (+0.18 to +0.45)** | above 0 |
+| P3: P1 minus the reader flag's Q4-minus-rest (-24.0, from -40.7 to -9.3) | -9.3 (-22.0 to +3.3) | includes 0 |
+| **Reading** | **more jobs** | |
+| C1: S2 (margin, Q4 minus the rest: +0.066, from +0.038 to +0.097) within facet-size terciles | +0.055 (+0.029 to +0.082) | holds within strata |
+| C2: P1 within neurons of 2, 3, and 4+ facets (points) | -29.7 (-41.9 to -17.9) | holds within strata |
+| S1: share of pairs driver-unrelated, Q4 minus the rest (points) | -31.9 (-43.7 to -19.7) | |
+| S3: reader's least-related pair driver-unrelated, Q4 minus the rest (points) | -32.7 (-47.3 to -18.7) | |
+| Head drivers: P1 (points) / P2 | -12.0 (-24.7 to -1.3) / +0.11 (-0.04 to +0.25) | |
+
+Points 4 to 6 are exploratory, added after seeing the pre-registered results. Their numbers are under `exploratory_after_results` in the results.
+
+1. **Weakly firing neurons' facets are driven by different upstream MLP neurons more often.** The least-overlapping pair is driver-unrelated in 96% of the weakest quartile's neurons and 58% of the strongest's, and the margin rises with peak. As with the readers in v12, it's mostly a step at the top quartile: 2, 5 and 6 of 50 neurons in Q1 to Q3 have a least pair that shares drivers beyond the null, against 21 of 50 in Q4 (with margins up to 0.36). So the pre-registered reading is "more jobs". The same holds for the share of pairs (S1) and for the pair the reader itself calls least related (S3).
+2. **The drivers' gradient is at least as large as the reader's.** On the same 200 neurons, the reader flags Q4 24 points less than the rest, and the drivers call Q4's least pair unrelated 33 points less. The paired difference (-9 points) includes 0, so drivers follow the reader's gradient at its full size. The mixing the readers see in weak neurons has a counterpart in their upstream circuitry, not only in their examples.
+3. **Neither pre-registered confound explains it.** The null threshold is flat across quartiles (median 0.07 to 0.08) even though facets grow with peak (median 8 to 10 examples); what rises is the least pair's overlap (median 0.01 to 0.045). Within facet-size terciles the margin difference stays at +0.055 (C1), and within facet-count strata P1 stays at -30 points (C2).
+4. **Where the reader flags a neuron, drivers agree at every peak; the gradient comes from neurons it doesn't flag.** Of the 124 neurons the reader flags unrelated mixed, the least pair is driver-unrelated in 100%, 100%, 100% and 95% by quartile (Q4 minus the rest: -4.5 points, -13.6 to 0). Of the 76 it doesn't flag, whose least-related facets look related to the reader, it's 87%, 64%, 68% and 29% (-44 points, -65 to -23). So the drivers add something the reader doesn't see: in weak neurons, even facets that look related are mostly fed by different upstream MLP neurons. This matches v13, where 100 of the 101 facet pairs the reader called unrelated were driver-unrelated; v23's version of v13's 40 neurons (all reader-flagged) is in point 7.
+5. **Weak neurons' driver signatures are noisier, but that doesn't account for the gradient.** Two random halves of a facet share a median 41% of their top-100 MLP drivers in Q1 and 54% in Q4, so noise could make weak neurons' facets look less related. Within terciles of the least pair's split-half reliability, the margin difference stays at +0.062 (+0.033 to +0.092).
+6. **The MLP drivers are a minority path, and less so for weak neurons.** Upstream MLP neurons carry a median 20%, 22%, 16% and 5% of a facet's direct rise over background, Q1 to Q4; attention heads carry the rest (82% to 95%). By head drivers the gradient is weaker: 96%, 98%, 88% and 82%, with P1 at -12 points (-25 to -1) and P2's interval including 0. Head drivers are a blunt probe (top 5 of 192; the median null threshold is 2 of 5 heads shared, in every quartile), and in v4 they caught only 9 of 18 related pairs.
+7. **The v13 check passes.** From v13's final-checkpoint recording, v23's code reproduces v13's published end thresholds and final MLP overlaps exactly (largest difference 0). Neuron 2347, the one neuron in both selections, gets identical MLP and head overlaps and the same threshold (0.07) from both recordings, so float16 head storage changed nothing there. All 40 of v13's neurons have a driver-unrelated least pair, in every peak quartile (8, 10, 15 and 7 neurons), with median margins rising from -0.077 to -0.040. That's consistent with point 4: they were selected as reader-flagged.
+
+### What this does and doesn't show
+
+- **The readers' magnitude effect has a mechanistic counterpart.** At this layer, weakly firing neurons' facets are fed by separate upstream MLP neurons more often than strongly firing neurons' facets, by about as much as the reader's flag differs. That is evidence against "the readers' mixing is only in the examples". Of the two readings v23 was built to separate, it supports "more jobs" over "one broad feature that shares one upstream computation".
+- **It doesn't rule out a broad feature assembled from separate inputs.** Driver overlap tests whether two facets share upstream computation. A neuron that pools several separate detectors into one feature the rest of the network treats as one (an "or" of inputs) would also have driver-unrelated facets. Telling that apart from separate jobs needs the output side: whether downstream components use the facets differently (v3 tried this for v1's neurons and couldn't decide).
+- **It covers the direct MLP path.** For strong neurons that path carries about 5% of a facet's rise; attention heads carry most of it, and by head drivers the gradient is weaker and P2 isn't clear (point 6).
+- **It doesn't say how the neurons got that way.** v23 is the final checkpoint only, so it says nothing about branching or packing during training.
+
+### What's still shaky
+
+- **The rules weren't written blind.** They were written knowing v13's result that facet pairs the reader calls unrelated are almost always driver-unrelated, and v12's that the reader flags strong neurons less. So a driver gradient was partly predictable through the reader's flag. P3 was included for that reason, and point 4 shows the gradient also holds among neurons the reader doesn't flag, but that split is post hoc.
+- **Most of each facet's drive is untested at fine grain.** MLP drivers carry 5% to 22% of a facet's rise (point 6). Head drivers are coarse, and indirect paths (an early neuron acting through later ones) are left out, as in v2 to v13.
+- **Noise.** Weak neurons' driver signatures are less reliable (point 5). The reliability control is coarse (terciles), so some of the gradient could still come from noisier signatures, though the null threshold, which noise would also lower, is flat across quartiles.
+- **Ceiling.** 88% to 96% of the weaker quartiles' least pairs are driver-unrelated, so the binary measure can't separate those quartiles; the continuous margin is there for that, and it rises mostly at the top quartile too.
+- **Background is v13's, not v4's rule.** 804 of its 1,024 windows hold some v23 neuron's facet example at another position, and 4 of its positions are facet examples. All neurons share it, so the same baseline is subtracted from every facet.
+- **Scope:** one layer of one 410M-parameter model, 200 neurons with at least two facets, the final checkpoint only.
+
+### v23 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v23.py`](recgen/rubric_v23.py) | Pre-registered neurons, measures, tests, readings and controls |
+| [`recgen/candidates_v23.py`](recgen/candidates_v23.py), [`recgen/record_v23.py`](recgen/record_v23.py) | The 200 neurons, their peaks and network-native facets; v4's attribution at the final checkpoint, in chunks |
+| [`recgen/analyze_v23.py`](recgen/analyze_v23.py), [`recgen/plots_v23.py`](recgen/plots_v23.py) | Driver tests, controls, the v13 check and the exploratory checks; the figure |
+| `tests/test_rubric_v23.py`, `tests/test_analyze_v23.py` | Tests for the rules and the analysis |
+| [`results/candidates_v23.json`](results/candidates_v23.json), [`results/classification_v23.json`](results/classification_v23.json) | Neurons and facet examples; per neuron: pair overlaps, thresholds and measures for both driver kinds; tests, controls, v13 check, exploratory checks |
+
+```bash
+./run_v23.sh
+```
+
+`run_v23.sh` needs v5's and v6's `data/` recordings and results, v13's results and `data/v13/`'s final checkpoint. From scratch it takes about 30 minutes on an M1 Pro: 13 to record (one 0.9 GB checkpoint, deleted after use) and 14 to analyze, and it caches 1.55 GB in `data/v23/`. With that cache, it reruns in about 2 minutes.
+
 ## Files
 
 | Path | What it is |
