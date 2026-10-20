@@ -109,3 +109,13 @@ def test_exploratory_excess_by_mix_and_majority_vote():
     assert abs(out["excess_by_mix"]["sonnet"]["pooled 70/30"]["excess"] - 0.4) < 1e-9
     # two of three readers separate, so the majority flags what they flag
     assert abs(out["majority_of_three_excess"]["excess"] - 0.7) < 1e-9
+
+
+def test_usage_reports_tokens_v7_never_recorded_as_missing():
+    from recgen.analyze_v10 import usage
+
+    v7_style = {"first": {"u": {"label": "A", "models": ["h"], "input_tokens": 10}}, "retest": {}}
+    v10_style = {"first": {"u": {"label": "C", "models": ["s"], "input_tokens": 10, "output_tokens": 5,
+                                 "thinking_tokens": 3, "cost_usd": 0.5}}, "retest": {}}
+    assert usage(v7_style)["output_tokens"] is None and usage(v7_style)["cost_usd_by_cli"] is None
+    assert usage(v10_style)["output_tokens"] == 5 and usage(v10_style)["median_thinking_tokens"] == 3

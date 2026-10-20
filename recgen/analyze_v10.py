@@ -94,11 +94,11 @@ def reader_excess(rows: dict, reader: str, seed: int, flag=None, pooled_group: s
     return {**excess_interval(pooled, real, rng(seed)), "units": sum(map(len, pooled)) + sum(map(len, real))}
 
 
-def main_comparison(rows: dict, reader: str, seed: int, flag=None) -> dict:
+def main_comparison(rows: dict, reader: str, seed: int, flag=None, pooled_group: str = "pooled 50/50") -> dict:
     """Reader minus Haiku in the over-all-models 50/50 excess, paired on units both labeled."""
     pooled, real = [], []
     for m in MODELS:
-        for g, out in (("pooled 50/50", pooled), ("real", real)):
+        for g, out in ((pooled_group, pooled), ("real", real)):
             pairs = [(h, x) for h, x in zip(flags_of(rows[m], BASELINE, g, flag), flags_of(rows[m], reader, g, flag))
                      if h is not None and x is not None]
             out.append(np.array(pairs, float).reshape(-1, 2))
@@ -165,14 +165,18 @@ def usage(answers: dict) -> dict:
     return {"readings": len(done), "without_label": sum(a["label"] is None for a in done),
             "models_used": sorted({m for a in done for m in a["models"]}),
             "input_tokens": sum(a["input_tokens"] for a in done),
-            "output_tokens": sum(a.get("output_tokens", 0) for a in done),
-            "thinking_tokens": sum(a.get("thinking_tokens", 0) for a in done),
-            "cost_usd_by_cli": round(sum(a.get("cost_usd") or 0 for a in done), 2)}
+            # v7's answers file didn't keep output tokens or cost, so Haiku's are None here
+            "output_tokens": sum(a["output_tokens"] for a in done) if all("output_tokens" in a for a in done) else None,
+            "thinking_tokens": sum(a["thinking_tokens"] for a in done) if all("thinking_tokens" in a for a in done) else None,
+            "median_thinking_tokens": float(np.median([a["thinking_tokens"] for a in done]))
+            if all("thinking_tokens" in a for a in done) else None,
+            "cost_usd_by_cli": round(sum(a["cost_usd"] or 0 for a in done), 2) if all("cost_usd" in a for a in done) else None}
 
 
 def exploratory_stats(rows: dict) -> dict:
     """Not pre-registered: checks added after seeing the v10 results. Each reader's excess at the other
-    two mixes, and a majority vote of the three language-model readers (flag if two or more flag)."""
+    two mixes, a majority vote of the three language-model readers (flag if two or more flag), and each
+    stronger reader's paired difference from Haiku at the other two mixes."""
     out = {"excess_by_mix": {}}
     for i, reader in enumerate(ALL_READERS):
         out["excess_by_mix"][reader] = {g: reader_excess(rows, reader, 80 + 2 * i + k, pooled_group=g)
@@ -180,6 +184,9 @@ def exploratory_stats(rows: dict) -> dict:
     voted = {m: [{**r, "majority": None if any(r[x] is None for x in LLM_READERS) else sum(r[x] for x in LLM_READERS) >= 2}
                  for r in model_rows] for m, model_rows in rows.items()}
     out["majority_of_three_excess"] = reader_excess(voted, "majority", 95)
+    out["difference_from_haiku_by_mix"] = {
+        reader: {g: main_comparison(rows, reader, 96 + 2 * i + k, pooled_group=g)
+                 for k, g in enumerate(("pooled 70/30", "pooled 90/10"))} for i, reader in enumerate(READERS)}
     return out
 
 
