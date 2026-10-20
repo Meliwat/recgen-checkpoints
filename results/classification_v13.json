@@ -87,6 +87,68 @@
     "branched_then_separated": 9,
     "expected_by_chance": 6.3,
     "chance_tail": 0.182
+   },
+   "share any token": {
+    "unrelated_pairs": 9,
+    "branched_then_separated": 3,
+    "expected_by_chance": 0.4,
+    "chance_tail": 0.006
+   },
+   "share no token": {
+    "unrelated_pairs": 135,
+    "branched_then_separated": 7,
+    "expected_by_chance": 6.0,
+    "chance_tail": 0.386
+   },
+   "median_overlap_steps_128_to_512": {
+    "pairs sharing a token": [
+     0.1,
+     13
+    ],
+    "pairs sharing none": [
+     0.037,
+     186
+    ]
+   }
+  },
+  "exploratory_after_review": {
+   "v6_relation": {
+    "pairs_v6_calls_unrelated": 101,
+    "of_those_adjacent_at_end": 1,
+    "v6 unrelated": {
+     "unrelated_pairs": 100,
+     "branched_then_separated": 5,
+     "expected_by_chance": 4.4,
+     "chance_tail": 0.455,
+     "branched_needed_for_tail_below_0.05": 9
+    },
+    "v6 related": {
+     "unrelated_pairs": 44,
+     "branched_then_separated": 5,
+     "expected_by_chance": 1.9,
+     "chance_tail": 0.043
+    },
+    "branched_pairs_v6_related": [
+     "2379 0-2",
+     "270 3-4",
+     "3017 1-2",
+     "3017 2-3",
+     "769 0-2"
+    ]
+   },
+   "robustness": {
+    "branched": 10,
+    "branched_final_overlap_0.02_below_end_threshold": 5,
+    "branched_below_null_at_last_3_checkpoints": 5,
+    "own_pairs_adjacent_at_formation": "36 of 199",
+    "own_pairs_adjacent_at_formation_expected": 8.7,
+    "related_median_final_overlap": 0.12,
+    "related_median_end_threshold": 0.07
+   },
+   "facet_sizes": {
+    "v13_median_facet_size": 8.0,
+    "v4_median_facet_size": 6.0,
+    "v4_related_median_final_overlap": 0.44
    }
   }
  },
@@ -1129,7 +1191,8 @@
      "recursive generalization": 1.2652972420843591e-06
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.09
   },
   {
    "neuron": 270,
@@ -2167,7 +2230,8 @@
      "recursive generalization": 3.058101282722128e-08
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.088
   },
   {
    "neuron": 458,
@@ -2826,7 +2890,8 @@
      "recursive generalization": 0.0001577956994171827
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.09
   },
   {
    "neuron": 769,
@@ -3192,7 +3257,8 @@
      "recursive generalization": 0.000285815892944082
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.072
   },
   {
    "neuron": 1021,
@@ -4230,7 +4296,8 @@
      "recursive generalization": 8.880657548600687e-07
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 1173,
@@ -4395,7 +4462,8 @@
      "recursive generalization": 0.0
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 1593,
@@ -4761,7 +4829,8 @@
      "recursive generalization": 0.0006411464172691657
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 1602,
@@ -5127,7 +5196,8 @@
      "recursive generalization": 0.0008225205629882169
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.092
   },
   {
    "neuron": 1701,
@@ -5784,7 +5854,8 @@
      "recursive generalization": 4.077965710224074e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.06
   },
   {
    "neuron": 1726,
@@ -6824,7 +6895,8 @@
      "recursive generalization": 4.868587461491085e-07
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 1742,
@@ -7190,7 +7262,8 @@
      "recursive generalization": 0.001136368134069595
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 1769,
@@ -7556,7 +7629,8 @@
      "recursive generalization": 0.00041549494217575585
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 1799,
@@ -8215,7 +8289,8 @@
      "recursive generalization": 7.580395955854157e-06
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 1924,
@@ -8872,7 +8947,8 @@
      "recursive generalization": 0.00010058210616855421
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.0845
   },
   {
    "neuron": 1973,
@@ -9240,7 +9316,8 @@
      "recursive generalization": 0.00014030319487832261
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.06
   },
   {
    "neuron": 2057,
@@ -9606,7 +9683,8 @@
      "recursive generalization": 0.0008225205629882169
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 2231,
@@ -10265,7 +10343,8 @@
      "recursive generalization": 3.138464396291981e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.09
   },
   {
    "neuron": 2286,
@@ -10922,7 +11001,8 @@
      "recursive generalization": 1.787047652536944e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 2347,
@@ -11962,7 +12042,8 @@
      "recursive generalization": 1.979098293010595e-06
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 2379,
@@ -12328,7 +12409,8 @@
      "recursive generalization": 0.0002316505058982678
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 2396,
@@ -12694,7 +12776,8 @@
      "recursive generalization": 0.0009718843630131866
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 2411,
@@ -13062,7 +13145,8 @@
      "recursive generalization": 0.0023761661098807584
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 2471,
@@ -14100,7 +14184,8 @@
      "recursive generalization": 5.703061914660615e-06
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.06
   },
   {
    "neuron": 2511,
@@ -14466,7 +14551,8 @@
      "recursive generalization": 0.002216469496452249
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.072
   },
   {
    "neuron": 2591,
@@ -15123,7 +15209,8 @@
      "recursive generalization": 7.003346030322667e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.12
   },
   {
    "neuron": 2614,
@@ -15782,7 +15869,8 @@
      "recursive generalization": 8.754925919327283e-07
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.0645
   },
   {
    "neuron": 2656,
@@ -16150,7 +16238,8 @@
      "recursive generalization": 0.0016323983409411388
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.09
   },
   {
    "neuron": 2838,
@@ -16516,7 +16605,8 @@
      "recursive generalization": 0.00034562864347171054
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.062
   },
   {
    "neuron": 2969,
@@ -16681,7 +16771,8 @@
      "recursive generalization": 0.0
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 3017,
@@ -17719,7 +17810,8 @@
      "recursive generalization": 6.874951883363542e-07
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.078
   },
   {
    "neuron": 3073,
@@ -17884,7 +17976,8 @@
      "recursive generalization": 0.014285714285714285
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 3204,
@@ -18250,7 +18343,8 @@
      "recursive generalization": 0.001136368134069595
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 3358,
@@ -18909,7 +19003,8 @@
      "recursive generalization": 6.822342928570608e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 3380,
@@ -19566,7 +19661,8 @@
      "recursive generalization": 1.4092854776062844e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 3450,
@@ -19932,7 +20028,8 @@
      "recursive generalization": 0.00036805088303457946
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 3696,
@@ -20097,7 +20194,8 @@
      "recursive generalization": 0.010714285714285714
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.0505
   },
   {
    "neuron": 3719,
@@ -20756,7 +20854,8 @@
      "recursive generalization": 2.0180261103650243e-05
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.06
   },
   {
    "neuron": 3769,
@@ -20921,7 +21020,8 @@
      "one origin, timing unresolved": 0.007142857142857143
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.08
   },
   {
    "neuron": 3841,
@@ -21287,7 +21387,8 @@
      "one origin, timing unresolved": 0.00042786190970278134
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.07
   },
   {
    "neuron": 3874,
@@ -22325,7 +22426,8 @@
      "recursive generalization": 5.254627963999537e-07
     }
    },
-   "final_mlp_overlap_vs_v2": 0.0
+   "final_mlp_overlap_vs_v2": 0.0,
+   "end_threshold": 0.068
   }
  ]
 }
