@@ -156,9 +156,10 @@ def pilot_jobs(corpus) -> list[dict]:
     return [job(arm, unit, corpus, PILOT_DIR / arm, False, group(unit)) for unit in pilot_units() for arm in ARMS]
 
 
-def read_all(jobs: list[dict], guard: SpendGuard, runner=call_cli, workers: int = WORKERS) -> list[dict | None]:
+def read_all(jobs: list[dict], guard: SpendGuard, runner=call_cli, workers: int = WORKERS, arms: dict = ARMS,
+             pilot_dir=PILOT_DIR) -> list[dict | None]:
     """Read jobs in order, while the spend guard allows and until MAX_FAILED of them end in a CLI
-    error; None for jobs not started."""
+    error; None for jobs not started. arms maps each job's arm to its (model, rubric)."""
     failed, lock = 0, threading.Lock()
 
     def one(j: dict) -> dict | None:
@@ -171,11 +172,11 @@ def read_all(jobs: list[dict], guard: SpendGuard, runner=call_cli, workers: int 
                 return None
         if not guard.try_start():
             return None
-        model, rubric = ARMS[j["arm"]]
+        model, rubric = arms[j["arm"]]
 
         def counted(text: str) -> dict:
             out = runner(model, text)
-            kind = "pilot" if PILOT_DIR in j["directory"].parents else "retest" if j["retest"] else "first"
+            kind = "pilot" if pilot_dir in j["directory"].parents else "retest" if j["retest"] else "first"
             guard.add(out.get("cost_usd") or 0.0, {"arm": j["arm"], "id": j["id"], "kind": kind})
             return out
 

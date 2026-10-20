@@ -31,7 +31,8 @@ from recgen.corpus import load_corpus
 from recgen.probe_v8 import Backend, TextReader, UnitView
 from recgen.rubric_v7 import DEPTH
 from recgen.rubric_v8 import (
-    AGENT_MODEL, ATTEMPTS, MAX_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, SYSTEM_PROMPT, choose, parse_answer, retest_ids,
+    AGENT_MODEL, ATTEMPTS, MAX_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, SYSTEM_PROMPT, choose, parse_answer, prompt,
+    retest_ids,
 )
 from recgen.sweep import sweep_path
 from recgen.sweep_v6 import v6_path
@@ -150,12 +151,12 @@ def load_model(model: str):
 
 
 def read_model(model: str, units: list[dict], jobs: list[tuple[str, str, str]], directories: dict[tuple[str, str], Path],
-               guards: dict[str, SpendGuard], corpus: np.ndarray) -> list[dict]:
+               guards: dict[str, SpendGuard], corpus: np.ndarray, make_prompt=prompt) -> list[dict]:
     """The record of each (unit id, agent, reading) job of one model, loading Pythia only if some
-    reading isn't cached."""
+    reading isn't cached. make_prompt builds each unit's prompt from its snippet lines (v8's by default)."""
     v6 = dict(np.load(v6_path(model, DEPTH)))
     v5 = np.load(sweep_path(model, DEPTH))
-    views = {u["id"]: UnitView(u, v6, v5["max"], v5["pos"], corpus) for u in units}
+    views = {u["id"]: UnitView(u, v6, v5["max"], v5["pos"], corpus, make_prompt) for u in units}
     for directory in directories.values():
         directory.mkdir(parents=True, exist_ok=True)
 
