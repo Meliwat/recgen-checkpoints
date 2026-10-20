@@ -1,7 +1,7 @@
 import numpy as np
 
 import recgen.analyze_v20 as analyze_v20
-from recgen.analyze_v20 import band_tests, by_quartile, comparison, in_v17_band, selectivity, v17_band_ranks
+from recgen.analyze_v20 import band_tests, by_quartile, comparison, in_v17_band, reading, selectivity, v17_band_ranks
 from recgen.rubric_v5 import MODELS
 from recgen.rubric_v20 import PERSISTS, READINGS, TOP50_SPECIFIC
 
@@ -22,13 +22,18 @@ def synthetic_rows(rng) -> list[dict]:
     return rows
 
 
-def test_band_tests_give_each_band_its_verdict_and_reading():
+def test_band_tests_give_each_band_its_verdict():
     rows = synthetic_rows(np.random.default_rng(0))
     band = band_tests(rows, "flag", "band", 0)
-    assert band["n"] == len(rows) and band["t2"]["verdict"] == PERSISTS and band["reading"] == READINGS[PERSISTS]
+    assert band["n"] == len(rows) and band["t2"]["verdict"] == PERSISTS
     second = band_tests(rows, "flag", "band2", 10)
-    assert second["n"] == len(rows) - len(rows) // 10
-    assert second["t2"]["verdict"] == TOP50_SPECIFIC and second["reading"] == "v17's persistence explained by selectivity"
+    assert second["n"] == len(rows) - len(rows) // 10 and second["t2"]["verdict"] == TOP50_SPECIFIC
+
+
+def test_only_the_co_primary_measures_get_the_rubrics_reading():
+    assert reading("haiku", "flag", PERSISTS) == READINGS[PERSISTS]
+    assert reading("network", "coherence", TOP50_SPECIFIC) == "v17's persistence explained by selectivity"
+    assert reading("network", "flag", TOP50_SPECIFIC) is None and reading("network", "flag", PERSISTS) is None
 
 
 def test_comparison_pairs_the_rank_band_with_v17s_band():

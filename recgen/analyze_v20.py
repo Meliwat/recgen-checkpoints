@@ -35,6 +35,7 @@ from recgen.sweep import sweep_path
 NETWORK_MEASURES = ("flag", "n_facets", "coherence")
 SAMPLES = ("top", "band", "band2", "v17", "reference")
 INCLUDED = {PRIMARY_BAND: "included", SECOND_BAND: "band2_included"}  # network row fields
+CO_PRIMARY = (("network", "coherence"), ("haiku", "flag"))
 
 
 def in_v17_band(fractions: np.ndarray) -> np.ndarray:
@@ -116,15 +117,19 @@ def with_value(rows: list[dict], field: str) -> list[dict]:
 
 
 def band_tests(rows: list[dict], measure: str, band: str, purpose: int) -> dict:
-    """T1 and T2 for one band, reader and measure, on rows with both a band and a top-50 value, and the verdict's
-    pre-registered reading."""
+    """T1 and T2 for one band, reader and measure, on rows with both a band and a top-50 value."""
     rows = with_value(rows, f"{band}_{measure}")
     sign = MIXED_SIGN[measure]
     pairs = by_model(rows, f"{band}_{measure}", f"top_{measure}")
     groups = by_model(rows, "log_peak", "quartile", f"{band}_{measure}", f"top_{measure}")
-    out = {"n": len(rows), "t1": t1(pairs, sign, rng_for(MODELS[0], purpose)), "t2": t2(groups, sign, rng_for(MODELS[0], purpose + 1))}
-    out["reading"] = READINGS[out["t2"]["verdict"]]
-    return out
+    return {"n": len(rows), "t1": t1(pairs, sign, rng_for(MODELS[0], purpose)), "t2": t2(groups, sign, rng_for(MODELS[0], purpose + 1))}
+
+
+def reading(reader: str, measure: str, verdict: str) -> str | None:
+    """The rubric's reading of a verdict (READINGS), for the co-primary measures only. Its readings interpret a verdict
+    against v17's band ("top-50 specific": v17's persistence explained by selectivity), but v17's network flag never
+    persisted (its v17 verdict was "unclear"), so the network flag gets no reading. The rules themselves are unchanged."""
+    return READINGS[verdict] if (reader, measure) in CO_PRIMARY else None
 
 
 def by_quartile(rows: list[dict], measure: str) -> dict:
@@ -209,6 +214,7 @@ def main() -> None:
         results["against_v17"][key] = comparison(rows, measure, next(purposes))
         for band in RANKS:
             tests = band_tests(rows, measure, band, next(purposes))
+            tests["reading"] = reading(reader, measure, tests["t2"]["verdict"])
             results["tests"][f"{key}, {band}"] = tests
             results["verdicts"][f"{key}, {band}"] = tests["t2"]["verdict"]
             results["readings"][f"{key}, {band}"] = tests["reading"]

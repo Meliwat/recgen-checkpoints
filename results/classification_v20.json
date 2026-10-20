@@ -62,7 +62,7 @@
     },
     "verdict": "top-50 specific"
    },
-   "reading": "v17's persistence explained by selectivity"
+   "reading": null
   },
   "network, flag, band2": {
    "n": 11791,
@@ -126,7 +126,7 @@
     },
     "verdict": "unclear"
    },
-   "reading": "unclear"
+   "reading": null
   },
   "network, coherence, band": {
    "n": 11801,
@@ -394,8 +394,8 @@
   "haiku, flag, band2": "persists below the top"
  },
  "readings": {
-  "network, flag, band": "v17's persistence explained by selectivity",
-  "network, flag, band2": "unclear",
+  "network, flag, band": null,
+  "network, flag, band2": null,
   "network, coherence, band": "a property of the neuron beyond selectivity",
   "network, coherence, band2": "a property of the neuron beyond selectivity",
   "haiku, flag, band": "a property of the neuron beyond selectivity",
