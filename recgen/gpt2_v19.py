@@ -172,10 +172,11 @@ def sampled_top_examples(model: str) -> tuple[np.ndarray, np.ndarray, np.ndarray
     return neurons, keys, acts
 
 
-def float32_error(local_dir, corpus: np.ndarray, layer: int, neurons: np.ndarray, stored: np.ndarray) -> float:
-    """The largest difference between float32 window maxima (on the CPU) and the stored float16 ones [W, N],
-    over the sampled neurons in the first FP32_CHECK_WINDOWS windows."""
-    model = GPT2LMHeadModel.from_pretrained(local_dir, dtype=torch.float32).eval()
+def float32_error(local_dir, corpus: np.ndarray, layer: int, neurons: np.ndarray, stored: np.ndarray,
+                  device: str = "cpu") -> float:
+    """The largest difference between float32 window maxima (on the CPU unless device says otherwise) and the stored
+    float16 ones [W, N], over the sampled neurons in the first FP32_CHECK_WINDOWS windows."""
+    model = GPT2LMHeadModel.from_pretrained(local_dir, dtype=torch.float32).to(device).eval()
     values, _ = window_maxima(model, corpus[:FP32_CHECK_WINDOWS], layer)
     return float(np.abs(values[:, neurons] - stored[:FP32_CHECK_WINDOWS, neurons].astype(np.float32)).max())
 
