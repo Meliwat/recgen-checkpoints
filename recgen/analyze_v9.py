@@ -9,7 +9,7 @@ import json
 from collections import Counter
 
 import numpy as np
-from scipy.stats import spearmanr
+from scipy.stats import rankdata, spearmanr
 
 from recgen.analyze_v6 import PRIMARY as NETWORK_EMBEDDING, Layer, MiniLM, detect
 from recgen.config import RESULTS_DIR
@@ -153,6 +153,86 @@ def quartile_rates(peak: np.ndarray, flag: np.ndarray) -> dict:
             "spearman": round(float(spearmanr(peak, flag).statistic), 3), "n": int(len(flag))}
 
 
+def partial_spearman(x: np.ndarray, y: np.ndarray, controls: list[np.ndarray]) -> float:
+    """Spearman correlation of x and y after removing, by least squares on ranks, what the controls predict."""
+    def residual(v):
+        ranks = rankdata(v)
+        design = np.column_stack([np.ones(len(v))] + [rankdata(c) for c in controls])
+        return ranks - design @ np.linalg.lstsq(design, ranks, rcond=None)[0]
+    return float(np.corrcoef(residual(x), residual(y))[0, 1])
+
+
+def after_review(per_model: dict, v7_answers: dict, corpus: np.ndarray) -> dict:
+    """Exploratory, added after an independent review: (a) the dose-response against each union's own
+    source neurons' flags (unions dominated by one neuron are mostly that neuron, and stronger neurons
+    look cleaner); (b) balanced unions against real neurons; (c) what carries the magnitude effect."""
+    v6 = json.loads((RESULTS_DIR / "classification_v6.json").read_text())["neurons"]
+    out = {"exact_single_neuron_unions": sum(u["minority"] == 0 for m in MODELS for u in per_model[m]["unions"]),
+           "adjusted_by_minority": {}, "balanced_minus_real": {}, "magnitude_partials": {}}
+    for reader, field in (("network", "unrelated_mixed"), ("minilm", "v5_unrelated_mixed")):
+        observed, baseline, bins = [], [], []
+        for m in MODELS:
+            own = v6[f"{m} {DEPTH}"]
+            for u in per_model[m]["unions"]:
+                share_a = u["sources"].count(0) / len(u["sources"])
+                a, b = (float(own[str(n)][field]) for n in u["neuron_ids"])
+                observed.append(float(u[reader]))
+                baseline.append(share_a * a + (1 - share_a) * b)
+                bins.append(minority_bin(u["minority"]))
+        observed, baseline, bins = map(np.array, (observed, baseline, bins))
+        out["adjusted_by_minority"][reader] = [
+            {"minority": f"{low} to {high - 1}", "observed": round(float(observed[bins == i].mean()), 3),
+             "own_neurons_baseline": round(float(baseline[bins == i].mean()), 3),
+             "excess": round(float((observed - baseline)[bins == i].mean()), 3)}
+            for i, (low, high) in enumerate(MINORITY_BINS)]
+    for i, reader in enumerate(READERS):
+        point, interval = mean_excess([(flags([u for u in per_model[m]["unions"] if minority_bin(u["minority"]) == len(MINORITY_BINS) - 1], reader),
+                                        flags(per_model[m]["real"], reader)) for m in MODELS], np.random.default_rng([7, 9, 30 + i]))
+        out["balanced_minus_real"][reader] = {"mean_over_models": round(point, 3), "interval": [round(x, 3) for x in interval]}
+    for m in MODELS:
+        own = v6[f"{m} {DEPTH}"]
+        data = np.load(sweep_path(m, DEPTH))
+        window_max, window_pos = data["max"], data["pos"]
+        ids = [int(n) for n in own]
+        peak = window_max[:, ids].astype(np.float32).max(axis=0)
+        coherence = np.array([own[str(n)]["top_pair_percentile"] for n in ids])
+        purity = np.array([token_purity(window_max, window_pos, n, corpus) for n in ids])
+        flag = np.array([float(own[str(n)]["unrelated_mixed"]) for n in ids])
+        out["magnitude_partials"][f"network, {m}"] = {
+            "peak": round(float(spearmanr(peak, flag).statistic), 3),
+            "peak given coherence": round(partial_spearman(peak, flag, [coherence]), 3),
+            "peak given purity": round(partial_spearman(peak, flag, [purity]), 3),
+            "coherence": round(float(spearmanr(coherence, flag).statistic), 3)}
+    peaks, coherences, purities, haiku = [], [], [], []
+    for m in MODELS:
+        own = v6[f"{m} {DEPTH}"]
+        data = np.load(sweep_path(m, DEPTH))
+        window_max, window_pos = data["max"], data["pos"]
+        neurons = np.load(v6_path(m, DEPTH))["neurons"]
+        layer_median = np.median(window_max[:, [int(n) for n in own]].astype(np.float32).max(axis=0))
+        for u in (x for x in build_units(m) if x["kind"] == "real"):
+            n = int(neurons[u["neurons"][0]])
+            peaks.append(float(window_max[:, n].astype(np.float32).max()) / layer_median)
+            coherences.append(own[str(n)]["top_pair_percentile"])
+            purities.append(token_purity(window_max, window_pos, n, corpus))
+            haiku.append(float(v7_answers["first"][u["id"]]["label"] == UNRELATED_JOBS))
+    peaks, coherences, purities, haiku = map(np.array, (peaks, coherences, purities, haiku))
+    out["magnitude_partials"]["haiku, pooled"] = {
+        "peak": round(float(spearmanr(peaks, haiku).statistic), 3),
+        "peak given coherence": round(partial_spearman(peaks, haiku, [coherences]), 3),
+        "peak given purity": round(partial_spearman(peaks, haiku, [purities]), 3),
+        "coherence": round(float(spearmanr(coherences, haiku).statistic), 3), "n": int(len(haiku))}
+    return out
+
+
+def token_purity(window_max: np.ndarray, window_pos: np.ndarray, neuron: int, corpus: np.ndarray) -> float:
+    """Share of a neuron's 50 strongest windows that fire on its most common token."""
+    column = window_max[:, neuron].astype(np.float32)
+    top = np.argsort(-column, kind="stable")[:50]
+    tokens = [int(corpus[w, window_pos[w, neuron]]) for w in top]
+    return max(tokens.count(t) for t in set(tokens)) / len(tokens)
+
+
 def write_report(per_model: dict, answers: dict, corpus: np.ndarray) -> None:
     lines = ["# v9 results per model\n",
              "Flag rates of natural unions and of v7's real neurons by reader, then, per model, up to "
@@ -188,6 +268,7 @@ def main() -> None:
     per_model = {m: flags_for(m, minilm, answers, v7_answers) for m in MODELS}
     summary = analyze(per_model, v7_units, answers)
     summary["exploratory_magnitude"] = magnitude_effect(v7_answers)
+    summary["exploratory_after_review"] = after_review(per_model, v7_answers, corpus)
     units_out = {m: [{k: v for k, v in u.items() if k != "keys"} for u in per_model[m]["unions"]] for m in MODELS}
     (RESULTS_DIR / "classification_v9.json").write_text(json.dumps({"summary": summary, "unions": units_out}, indent=1))
     write_report(per_model, answers, corpus)
