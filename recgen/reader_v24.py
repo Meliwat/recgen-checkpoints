@@ -11,7 +11,6 @@ collects every reading, the pilot's included.
 import argparse
 import hashlib
 import json
-import subprocess
 
 import numpy as np
 
@@ -33,7 +32,7 @@ V24_DIR = DATA_DIR / "v24"
 PILOT_DIR = V24_DIR / "pilot"
 SPEND_LOG = V24_DIR / "spend.jsonl"
 ANSWERS_PATH = RESULTS_DIR / "v24_answers.json"
-V20_ANSWERS = "v20:results/v20_posthoc_llm_answers.json"  # read from git, branch v20
+V20_ANSWERS = RESULTS_DIR / "v20_posthoc_llm_answers.json"  # v20's committed post hoc readings
 
 
 def sha256(text: str) -> str:
@@ -48,9 +47,8 @@ def spent() -> float:
 
 
 def v20_random_answers() -> dict:
-    """v20's post hoc Haiku readings of its random-text units (unit id -> record), from branch v20."""
-    text = subprocess.run(["git", "show", V20_ANSWERS], capture_output=True, text=True, check=True).stdout
-    return json.loads(text)["random"]
+    """v20's post hoc Haiku readings of its random-text units (unit id -> record)."""
+    return json.loads(V20_ANSWERS.read_text())["random"]
 
 
 def random_units(depth: str = DEPTH) -> list[dict]:
