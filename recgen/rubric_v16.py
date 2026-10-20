@@ -107,6 +107,16 @@ one-main-job share, the 50/50 pools' one-main-job share, and detection with the 
 the same reader's v7-rubric detection with C (unrelated jobs), paired.
 
 Anything else in the analysis is labeled exploratory.
+
+Clarifications added on 2026-10-20, after the run and an independent review (no rule changed):
+- "agentic investigation" above: the essay doesn't say how its preliminary audits of Qwen3-32B neuron
+  poles were run; read it as "a preliminary audit whose method the essay doesn't detail".
+- Footnote 1's factors above: it says "depth" without saying of what (not "the depth of the
+  analysis"), and it also names the density of sub-circuits.
+- "as v10 does" above: v10 removed only CLAUDE_CODE_EFFORT_LEVEL and kept the CLI's prompt caching;
+  v16 removes every variable whose name contains EFFORT, CLAUDE_EFFORT among them. The check that
+  CLAUDE_EFFORT=xhigh didn't change thinking covered Haiku only, two filler readings per condition,
+  from a script that wasn't committed.
 """
 
 import json
