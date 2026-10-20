@@ -782,7 +782,7 @@ The rest of the numbers are in [`results/classification_v17.json`](results/class
 ./run_v17.sh
 ```
 
-`run_v17.sh` needs `data/corpus.npy`, v5's and v6's caches and results, and v12's Haiku answers. From scratch it records the six models one at a time (about 90 minutes on this laptop's MPS, including downloading about 12 GB, each deleted after use), caches 1.6 GB in `data/v17/`, and makes 658 Haiku readings (about 30 minutes, four at a time). With those caches, it makes no model calls and reruns in about four minutes.
+`run_v17.sh` needs `data/corpus.npy`, v5's and v6's caches and results, and v12's Haiku answers. From scratch it records the six models one at a time (about 90 minutes on this laptop's MPS, including downloading about 12 GB, each deleted after use), caches 1.6 GB in `data/v17/`, and makes 658 Haiku readings (about 30 minutes, four at a time). With those caches, it makes no model calls, reruns in about five minutes and leaves `git status` clean.
 
 ## Files
 
