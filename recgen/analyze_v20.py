@@ -3,13 +3,17 @@ each neuron's own window maxima, do strongly firing neurons' examples still look
 than weakly firing neurons'? And how does that compare with v17's band at a fixed fraction of the peak?
 
 Reads cached data only: v5's window maxima, v6's recordings and results, v20's recordings (data/v20/), v12's,
-v17's and v20's Haiku answers, and v17's per-neuron band readings. Writes results/classification_v20.json.
+v17's and v20's Haiku answers (with v20's post hoc ones), and v17's per-neuron band readings. Writes
+results/classification_v20.json, with the post hoc analyses added after v20's independent review in their own block
+(recgen/analyze_posthoc_v20.py).
 """
 
 import json
 
 import numpy as np
 
+from recgen.analyze_posthoc_v20 import POSTHOC_KEY, posthoc
+from recgen.analyze_posthoc_v20 import report as report_posthoc
 from recgen.analyze_v12 import haiku_rows
 from recgen.analyze_v17 import by_model, flag_given_groups, haiku_checks, label_shares, network_rows
 from recgen.band_v17 import band_examples
@@ -19,6 +23,7 @@ from recgen.corpus import load_corpus
 from recgen.read_v12 import ANSWERS_PATH as V12_ANSWERS_PATH
 from recgen.read_v17 import ANSWERS_PATH as V17_ANSWERS_PATH
 from recgen.read_v17 import band_units
+from recgen.read_posthoc_v20 import ANSWERS_PATH as POSTHOC_ANSWERS_PATH
 from recgen.read_v20 import ANSWERS_PATH, rank_units
 from recgen.record_v20 import SECOND_BAND, second_band_path, v20_path
 from recgen.rubric_v5 import MODELS
@@ -254,8 +259,10 @@ def main() -> None:
                             + ([r["band2_flag"], int(r["band2_n_facets"]), round(r["band2_coherence"], 2)] if r["band2_included"] else [])
                             for r in included if r["model"] == model} for model in MODELS},
     })
+    results[POSTHOC_KEY] = posthoc(haiku, included, v20_answers, json.loads(POSTHOC_ANSWERS_PATH.read_text()))
     (RESULTS_DIR / "classification_v20.json").write_text(json.dumps(results, indent=1))
     report(results)
+    report_posthoc(results[POSTHOC_KEY])
 
 
 def report(results: dict) -> None:
