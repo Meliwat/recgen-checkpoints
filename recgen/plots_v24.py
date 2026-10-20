@@ -33,8 +33,8 @@ def panel(ax, series: dict, label: str, title: str, essay: bool) -> None:
     else:
         for st, yy in zip(series.values(), y):
             aucs = st["label_auc"]
-            ax.text(1.0, yy + 0.38, f"AUC random>real {aucs['random over real']['value']:.2f}, "
-                    f"pools>real {aucs['pools over real']['value']:.2f}", fontsize=7, color="#52514e", ha="right", va="center")
+            ax.text(0.01, yy + 0.38, f"AUC random>real {aucs['random over real']['value']:.2f}, "
+                    f"pools>real {aucs['pools over real']['value']:.2f}", fontsize=7, color="#52514e", va="center")
     ax.set_yticks(y, [f"{NAMES[s.split('-')[0]]}, {RUBRIC_NAMES[s.split('-')[1]]}" for s in series], fontsize=8)
     ax.set_ylim(-0.6, len(series) - 0.1)
     ax.set_xlim(-0.02, 1.02)
