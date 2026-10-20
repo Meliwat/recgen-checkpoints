@@ -32,3 +32,13 @@ def test_with_coherence_moves_the_effect_onto_the_variable_that_carries_it():
     out = with_coherence(rows, "haiku", np.random.default_rng(2))
     assert out["coherence"]["interval"][1] < 0
     assert abs(out["log_peak"]["coefficient"]) < abs(out["coherence"]["coefficient"]) / 3
+
+
+def test_by_top50_mean_uses_the_given_quartile_thresholds():
+    from recgen.analyze_v12 import by_top50_mean
+
+    rows = [{"model": model, "log_top50_mean": float(v), "network": float(v < 3)} for model in MODELS for v in range(4)
+            for _ in range(10)]
+    thresholds = {model: np.array([0.5, 1.5, 2.5]) for model in MODELS}
+    out = by_top50_mean(rows, "network", thresholds, np.random.default_rng(0))
+    assert out["by_quartile"] == [1.0, 1.0, 1.0, 0.0] and out["h1"]["top_minus_rest"] == -1.0
