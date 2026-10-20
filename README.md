@@ -535,7 +535,7 @@ v7's positive control pooled two neurons' strongest examples by fixed counts (25
 ### v9 method
 
 1. **Units.** 150 unions of two random sampled neurons per model, at the middle layer of the six sizes. Because a union takes a maximum, its top 50 windows always come from the two neurons' own top 50s, so every example was already embedded for MiniLM (v5) and recorded for the network reader (v6). Only Haiku needed new readings. Real neurons are v7's 100 per model, with v7's Haiku readings reused (same units, same prompt).
-2. **Amendment.** The first rules scaled each neuron by its top-50 level. Building the units showed that this makes the two neurons cross at about their 25th example, so every union came out 25/25, which defeats the point. Raw activations give minority shares from 0 to 25 of 50 (a median of 2 to 7 by model), so raw became primary. The two scalings are reported as sensitivity checks for MiniLM and the network reader. This was decided before any reader ran.
+2. **Amendment.** The first rules scaled each neuron by its top-50 level. Building the units showed that this makes the two neurons cross at about their 25th example, so 829 of 900 unions came out exactly 25/25, which defeats the point. Raw activations give minority shares from 0 to 25 of 50 (a median of 2 to 7 by model), so raw became primary. The two scalings are reported as sensitivity checks for MiniLM and the network reader. This was decided before any reader ran.
 3. **Pre-registered tests, per reader:**
    - detection: union minus real flag rate, averaged over models, with a bootstrap interval;
    - the same for v7's 50/50 pools minus unions;
@@ -554,35 +554,44 @@ v7's positive control pooled two neurons' strongest examples by fixed counts (25
 | network | -2 (-7 to +3) | 31% / 56% / 73% | **+42** (+35 to +50) | +24 (+18 to +30) |
 | Haiku | -4 (-9 to +1) | 22% / 52% / 64% | **+43** (+35 to +50) | +25 (+19 to +31) |
 
-Points 4 and 5 are exploratory, added after seeing the results.
+Points 1, 2 and 6 and the scaling checks in point 3 are pre-registered; the rest is exploratory. The comparison of balanced unions with real neurons (point 3), point 4 and the partial correlations in point 5 were added after an independent review of the first write-up; their numbers are in `exploratory_after_review` in the results.
 
-1. **The network reader and Haiku respond strongly to how mixed a union is; MiniLM doesn't respond at all.** Both readers' flag rates climb by more than 40 points from unions dominated by one neuron to balanced ones. MiniLM stays near 9% whatever the mix, the clearest evidence yet that it can't see mixing.
-2. **No reader flags natural unions more than random real neurons overall** (the pre-registered detection test). That's because most raw unions are dominated by one neuron: 484 of 900 take fewer than 5 of their 50 examples from the minority neuron.
-3. **Natural unions are much harder than v7's fixed pools,** by about 24 points for the network reader and Haiku. Balanced unions are still detected: with each neuron scaled to its top-50 level (every union 25/25), the network reader flags unions 23 points (18 to 28) more than real neurons, and 16 (11 to 21) with peak scaling. MiniLM stays near 0 under both.
-4. **Unions dominated by one neuron are flagged much less than random real neurons:** 31% against 48% by the network reader, and 22% against 43% by Haiku. Such a union is essentially its stronger neuron's own top examples. Raw-activation unions pick the neuron with the larger activations, so this suggests that **neurons with larger activations look cleaner**.
-5. **That holds directly on real neurons.** By quartile of a neuron's peak activation (its largest window maximum), from weakest to strongest:
+1. **The network reader and Haiku respond strongly to how mixed a union is; MiniLM doesn't respond at all.** Both readers' flag rates climb by more than 40 points from unions dominated by one neuron to balanced ones. MiniLM stays near 9% whatever the mix.
+2. **No reader flags natural unions more than random real neurons overall** (the pre-registered detection test). Most raw unions are dominated by one neuron: 484 of 900 take fewer than 5 of their 50 examples from the minority neuron, and 279 take none, so they are exactly one real neuron's top 50.
+3. **Balanced unions are detected about as well as v7's pools.** Unions with 15 to 25 minority examples are flagged more than real neurons by 24 points (17 to 32) by the network reader and 22 (14 to 29) by Haiku, close to v7's 50/50 pool margins (+22 and +21). MiniLM: -1 (-5 to +4). So the gap between natural unions and v7's pools in the table comes from dominated unions, not from natural mixing being harder to see. The scaling sensitivity checks agree for the network reader: with each neuron scaled to its top-50 level (829 of 900 unions come out exactly 25/25), it flags unions 23 points (18 to 28) more than real neurons, and 16 (11 to 21) with peak scaling.
+4. **Part of the 42-point climb is which neuron a union is made of, not mixing.** A union dominated by one neuron is mostly that neuron's own top examples, and raw activations pick the neuron with the larger activations, which look cleaner (point 5). Comparing each union with its own two neurons' flags, weighted by how many examples each contributes:
+
+   | Minority share | Network reader: unions flagged | Their own neurons, weighted | Excess |
+   |---|---|---|---|
+   | 0-4 | 31% | 32% | -1 |
+   | 5-14 | 56% | 52% | +5 |
+   | 15-25 | 73% | 47% | **+26** |
+
+   So mixing adds about 26 points for balanced unions, and dominated unions look like their own neurons. MiniLM's excess is within 2 points of 0 in every bin. Haiku has readings of only 100 real neurons per model, too few of the unions' source neurons for the same check; point 3 is its closest comparison.
+5. **Neurons with larger peak activations look cleaner, and most of that is how alike their strongest examples are.** By quartile of a neuron's peak activation (its largest window maximum), from weakest to strongest:
 
    | Reader | Flagged unrelated mixed, by peak quartile | Spearman by model |
    |---|---|---|
-   | network (all 2,048 sampled neurons per model, v6's flags) | 46-66% / 50-61% / 41-56% / **24-34%** | -0.15 to -0.30 |
+   | network (all sampled neurons: 2,048 per model, 1,561 in 70M; v6's flags) | 46-66% / 50-61% / 41-56% / **24-34%** | -0.15 to -0.30 |
    | Haiku (v7's 100 real neurons per model) | pooled 62% / 51% / 40% / **19%** | -0.25 to -0.39 |
    | MiniLM (v5's flags) | 7-19% / 9-17% / 7-18% / 5-9% | 0.00 to -0.09 |
 
-   The strongest quarter of neurons is flagged at about half the rate of the rest, by two readers that work in completely different ways, in all six models. This was found after looking at the data, so it needs a test on fresh neurons before it counts (planned as v12).
-6. **Haiku is more consistent on unions than on v7's units:** a second reading gives the same label 80% of the time and the same flag 85% (kappa 0.69, against 0.37 in v7).
+   Strong neurons' 50 strongest examples are more alike in the network's own representation (v6's top-pair percentile, the median similarity of the 50 examples ranked against random positions). Holding that coherence fixed (partial Spearman), the link between peak and the flag disappears: from -0.15 to -0.30 to between 0.00 and +0.21 for the network reader, and from -0.32 to -0.06 for Haiku, pooled over 600 neurons. For the network reader this is partly circular, since its flag is computed in that representation; Haiku never sees it. Token purity (the share of the 50 examples on the most common activating token) explains almost none of it: holding it fixed leaves -0.15 to -0.29, and -0.31 for Haiku. This was found after looking at the data, so v12 tests it on held-out depths and fresh neurons.
+6. **Haiku may be more consistent on unions than on v7's units:** a second reading of 60 unions gives the same label 80% of the time and the same flag 85% (kappa 0.69, against 0.37 on v7's 60 retest units). The units differ, and 60 retests give wide intervals, so this is only suggestive.
 
 ### What this does and doesn't show
 
-- **MiniLM can't see mixing.** With the mix varied naturally from 0 to 25 examples, its flag rate doesn't move (point 1). Together with v7, that's strong evidence that sentence-model clustering of top examples doesn't measure polysemanticity.
-- **The network reader and Haiku can, in proportion to how mixed a unit is** (point 1). But they flag about 45% of real neurons, and they flag a neuron more the weaker its peak activation (point 5). So their absolute rates mix real polysemanticity with something about weak neurons, such as broad, flat tuning or less distinct top examples.
-- **The magnitude effect is the most interesting new lead, and it isn't established yet.** It could mean real mixing concentrates in weak neurons, which would fit superposition-style stories about weak features. It could also mean strong neurons are often single-token detectors, which any reader calls clean. Or a weak neuron's top 50 may just be a less distinct sample. v12 tests it on fresh neurons with these explanations as controls.
+- **This MiniLM detector can't see mixing.** With the mix varied naturally from 0 to 25 examples, its flag rate doesn't move (point 1), and balanced unions look like real neurons to it (point 3). Together with v7, that's strong evidence that clustering top-50 examples with this sentence model and v1's settings doesn't measure polysemanticity. Other sentence models or settings weren't tested.
+- **The network reader and Haiku can, in proportion to how mixed a unit is,** once the union's own neurons are accounted for (points 3 and 4). But they flag about 45% of real neurons, and flag a neuron less the more alike its strongest examples are (point 5). So their absolute rates mix polysemanticity with how coherent a neuron's top examples are.
+- **The magnitude effect is real in these data but mostly a coherence effect.** Strong neurons have more coherent top examples, and coherence is what both readers respond to. Whether weak neurons are more often doing two jobs, or just have more diffuse top examples, v9 can't say.
 
 ### What's still shaky
 
 - **Unions aren't real polysemantic neurons.** A union takes the larger of two neurons' activations. A real neuron with two jobs computes them together, and its jobs may share contexts or differ in strength in ways a union doesn't.
-- **Raw activations select the stronger neuron,** so the overall detection test (point 2) compares unions dominated by strong neurons with random real neurons. It was the pre-registered test, and it's confounded by point 5.
+- **Raw activations select the stronger neuron,** so the pre-registered detection test (point 2) compares unions dominated by strong neurons with random real neurons. Points 3 and 4 correct for that, but they're exploratory.
 - **25 drawn pairs were replaced** (10 in 70M, 0 in 2.8B) because tied activations put a union example outside both neurons' recorded top 50s.
 - **The magnitude analysis reuses data** that earlier versions already looked at, and uses only the middle layer.
+- **Haiku runs through the `claude` CLI,** which adds a little hidden context to each call: the working directory, the platform, the date and an account notice. It includes no git branch, commit or file contents, so it doesn't reveal which units are unions.
 - **Scope:** the middle layer, Pythia 70M to 2.8B, 150 unions per model.
 
 ### v9 files and reproduce
