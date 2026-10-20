@@ -11,6 +11,7 @@ import numpy as np
 from recgen.analyze_v4 import neuron_results, step_summary
 from recgen.candidates_v13 import load_candidates, v13_path
 from recgen.config import RESULTS_DIR
+from recgen.corpus import load_corpus
 from recgen.rubric_v2 import null_threshold, overlap
 from recgen.rubric_v4 import STEPS, TOP_UNITS, formation_window
 
@@ -28,6 +29,36 @@ def final_adjacency(final: dict, candidates: list[dict], n: int) -> tuple[dict, 
         overlaps[key] = overlap(final["mlp"][n, a], final["mlp"][n, b], TOP_UNITS)
         adjacent[key] = {"v2": bool(overlaps[key] > threshold)}
     return overlaps, adjacent
+
+
+def chance_tail(rates: list[float], observed: int) -> float:
+    """Exploratory, added after seeing the counts: the probability of at least `observed` branched-then-separated
+    pairs if each unrelated pair crossed its threshold only at its own null's false-positive rate, independently.
+    Pairs within a neuron share facets, so this is approximate."""
+    distribution = np.array([1.0])
+    for rate in rates:
+        distribution = np.convolve(distribution, [1 - rate, rate])
+    return float(distribution[observed:].sum())
+
+
+def same_token_check(candidates: list[dict], results: list[dict], corpus: np.ndarray) -> dict:
+    """Exploratory, added after reading the strongest branched pair (two facets firing on the same token):
+    early in training a neuron's drivers follow the input token, so facets that fire on the same token
+    share drivers early whatever happens later. Splits the unrelated MLP pairs by whether their facets'
+    most common activating token is the same."""
+    top_token = {(c["neuron"], f): Counter(int(corpus[w, p]) for w, p, _ in facet).most_common(1)[0][0]
+                 for c in candidates for f, facet in enumerate(c["facets"])}
+    out = {}
+    for same in (True, False):
+        pairs = [p for r in results for key, p in r["mlp"]["pairs"].items()
+                 if p.get("window") and not p["v2_adjacent"]
+                 and (top_token[r["neuron"], int(key.split("-")[0])] == top_token[r["neuron"], int(key.split("-")[1])]) == same]
+        rates = [p["null_exceedances"] / p["null_size"] for p in pairs]
+        branched = sum(p["branched_then_separated"] for p in pairs)
+        out["same top token" if same else "different top tokens"] = {
+            "unrelated_pairs": len(pairs), "branched_then_separated": branched,
+            "expected_by_chance": round(sum(rates), 1), "chance_tail": round(chance_tail(rates, branched), 3)}
+    return out
 
 
 def analyze(candidates: list[dict], steps: list[dict]) -> tuple[list[dict], dict]:
@@ -56,6 +87,8 @@ def analyze(candidates: list[dict], steps: list[dict]) -> tuple[list[dict], dict
             "pairs_tested": len(tested), "unrelated_pairs_tested": len(unrelated),
             "branched_then_separated": sum(p["branched_then_separated"] for p in pairs),
             "branched_then_separated_expected_by_chance": round(sum(p["null_exceedances"] / p["null_size"] for p in unrelated), 1),
+            "exploratory_chance_tail": round(chance_tail([p["null_exceedances"] / p["null_size"] for p in unrelated],
+                                                         sum(p["branched_then_separated"] for p in pairs)), 3),
             "related_pairs_adjacent_at_formation": f"{sum(p['adjacent'] for p in related)} of {len(related)}",
             "branched_then_separated_neurons": sorted({r["neuron"] for r in results
                                                        if any(p["branched_then_separated"] for p in r[kind]["pairs"].values())}),
@@ -72,6 +105,7 @@ def main() -> None:
     candidates = load_candidates()
     steps = [step_summary(step, candidates, path=v13_path(step)) for step in STEPS]
     results, summary = analyze(candidates, steps)
+    summary["exploratory_same_token"] = same_token_check(candidates, results, load_corpus())
     (RESULTS_DIR / "classification_v13.json").write_text(json.dumps({"summary": summary, "neurons": results}, indent=1))
     print(json.dumps(summary, indent=1))
 
