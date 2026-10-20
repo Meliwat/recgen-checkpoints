@@ -18,6 +18,7 @@ import json
 import os
 import shutil
 import time
+from collections.abc import Callable
 from functools import partial
 from pathlib import Path
 
@@ -25,6 +26,7 @@ import numpy as np
 
 from recgen import llm_reader
 from recgen.agent_v8 import SpendGuard as AgentSpendGuard
+from recgen.agent_v8 import cache_path as agent_cache_path
 from recgen.agent_v8 import read_model
 from recgen.analyze_v7 import group
 from recgen.config import DATA_DIR, RESULTS_DIR, SEED, WEIGHTS_DIR
@@ -53,6 +55,11 @@ ANSWERS_PATH = RESULTS_DIR / "v21_answers.json"
 V8_ANSWERS = (RESULTS_DIR / "v8_agent_answers.json", RESULTS_DIR / "v8_pilot_sonnet_answers.json")
 PILOT_MODEL = "160m"  # v8's and v14's arm B pilot size
 LOAD_TRIES, LOAD_WAIT_SECONDS = 12, 300  # waiting for memory another job may hold
+# Disk: another job downloads Pythia to the same disk, so before each download at least MIN_FREE_BYTES must
+# remain after it; the run polls every DISK_POLL_SECONDS for up to DISK_WAIT_SECONDS, then stops.
+WEIGHT_BYTES = {"70m": 166_029_852, "160m": 374_998_696, "410m": 911_373_632, "2.8b": 5_684_693_096}  # model.safetensors
+MIN_FREE_BYTES = 7 * 10**9
+DISK_POLL_SECONDS, DISK_WAIT_SECONDS = 60, 3600
 
 
 def sha256(text: str) -> str:
@@ -149,9 +156,29 @@ def check_prompts(size: str, units: list[dict], corpus) -> int:
     return len(units)
 
 
+def free_bytes() -> int:
+    return shutil.disk_usage(WEIGHTS_DIR.parent).free
+
+
+def wait_for_disk(size: str, free: Callable[[], int] = free_bytes) -> None:
+    """Wait until downloading pythia-size leaves at least MIN_FREE_BYTES free; stop the run after
+    DISK_WAIT_SECONDS."""
+    waited = 0
+    while (available := free()) - WEIGHT_BYTES[size] < MIN_FREE_BYTES:
+        if waited >= DISK_WAIT_SECONDS:
+            raise RuntimeError(f"pythia-{size}: not enough disk space after {waited} s")
+        print(f"pythia-{size}: {available / 1e9:.1f} GB free, waiting for "
+              f"{(WEIGHT_BYTES[size] + MIN_FREE_BYTES) / 1e9:.1f} GB", flush=True)
+        time.sleep(DISK_POLL_SECONDS)
+        waited += DISK_POLL_SECONDS
+
+
 def read_size_b(size: str, units: list[dict], jobs: list, folders: dict, guard, corpus) -> list[dict]:
     """read_model for one size, waiting and retrying while Pythia can't get the memory to load. The
-    weights are deleted at the end either way (read_model keeps them if loading failed)."""
+    weights are deleted at the end either way (read_model keeps them if loading failed). If some
+    reading isn't cached, Pythia will be downloaded, so first wait for disk space."""
+    if not all(agent_cache_path(folders[agent, reading], unit_id).exists() for unit_id, agent, reading in jobs):
+        wait_for_disk(size)
     try:
         for attempt in range(LOAD_TRIES):
             try:

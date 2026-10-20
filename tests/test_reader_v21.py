@@ -97,3 +97,26 @@ def test_collect_files_arm_a_answers_by_series_and_reading(tmp_path, monkeypatch
     assert out["arm_a"]["opus-E3"]["first"]["70m:real::1"]["label"] == "A"
     assert out["arm_a"]["opus-v7"]["retest"]["70m:real::1"]["cost_usd"] == 0.02
     assert out["arm_a"]["opus-v7"]["first"] == {} and out["spend_usd"] == 0.0
+
+
+def test_wait_for_disk_polls_until_the_download_leaves_enough_free(monkeypatch):
+    monkeypatch.setattr(reader_v21, "DISK_POLL_SECONDS", 0)
+    need = reader_v21.WEIGHT_BYTES["2.8b"] + reader_v21.MIN_FREE_BYTES
+    readings = iter([need - 1, need - 1, need - 1, need])
+    reader_v21.wait_for_disk("2.8b", lambda: next(readings))
+    monkeypatch.setattr(reader_v21, "DISK_WAIT_SECONDS", 0)
+    with pytest.raises(RuntimeError, match="disk space"):
+        reader_v21.wait_for_disk("2.8b", lambda: need - 1)
+
+
+def test_read_size_b_waits_for_disk_only_when_a_reading_is_missing(tmp_path, monkeypatch):
+    waited = []
+    monkeypatch.setattr(reader_v21, "wait_for_disk", waited.append)
+    monkeypatch.setattr(reader_v21, "read_model", lambda *args: ["record"])
+    monkeypatch.setattr(reader_v21, "WEIGHTS_DIR", tmp_path)
+    folders = {("m", "first"): tmp_path}
+    jobs = [("70m:real::1", "m", "first")]
+    reader_v21.read_size_b("70m", [], jobs, folders, None, None)
+    (tmp_path / "70m_real__1.json").write_text("{}")
+    reader_v21.read_size_b("70m", [], jobs, folders, None, None)
+    assert waited == ["70m"]

@@ -139,6 +139,11 @@ Run rules:
   scratch on a later run, at most RERUNS times). Missing units are left out of that series, and
   pairwise out of paired comparisons.
 - If Pythia fails to load for lack of memory, the run waits and retries; nothing else changes.
+- Added 2026-10-20, after arm A and before any arm B unit was read, because another job downloads
+  Pythia to the same disk: before each Pythia download the runner waits until at least 7 GB would
+  remain free after it, polling every minute for up to an hour, and stops if it doesn't. To add this,
+  the run was stopped once arm A had finished and before arm B began, and restarted. Nothing about
+  what the agent sees or how readings are made changes.
 """
 
 import numpy as np
