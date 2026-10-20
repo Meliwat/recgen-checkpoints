@@ -196,7 +196,8 @@ def post_hoc(answers: dict) -> dict:
     """Post hoc, added after seeing the results. (1) One-neuron oracle: the simulation score a prediction
     would get if it tracked one pool neuron perfectly (that neuron's window maxima) and ignored the other,
     for the better and the worse of the two. A real neuron's oracle scores 1. (2) Mean true and predicted
-    values by stratum and unit type. (3) Units each simulator never scored, by unit type."""
+    values by stratum and unit type, and the spread of true values within a unit. (3) Units each simulator
+    never scored, by unit type."""
     units = list(answers["units"].values())
     oracle = {}
     for g in ("pooled 50/50", "related"):
@@ -213,9 +214,30 @@ def post_hoc(answers: dict) -> dict:
                                for h, x in zip(u["held_out"], p) if h["stratum"] == stratum] for arm in ARMS}
             strata[g][stratum] = {"mean true": round(float(np.mean(true)), 2),
                                   **{f"mean predicted, {arm}": round(float(np.mean(v)), 2) for arm, v in predicted.items()}}
+    spread = {g: round(float(np.mean([np.std([h["value"] for h in u["held_out"]]) for u in units if u["group"] == g])), 2)
+              for g in GROUPS}
     missing = {arm: {g: sum(u["group"] == g and predictions(u["first"], arm) is None for u in units) for g in GROUPS}
                for arm in ARMS}
-    return {"one-neuron oracle": oracle, "values by stratum": strata, "unscored units": missing}
+    return {"one-neuron oracle": oracle, "values by stratum": strata, "mean sd of true values in a unit": spread,
+            "unscored units": missing}
+
+
+def spread_adjusted(rows: dict, answers: dict, arm: str, rng) -> dict:
+    """Post hoc: the 50/50 pools' coefficient in a least-squares fit of the simulation score on a pool
+    indicator and size fixed effects, without and with the spread (SD) of the unit's true held-out values,
+    with a bootstrap interval resampling units."""
+    units = [(u, s) for m in MODELS for u in rows[m] if u["group"] in ("real", "pooled 50/50")
+             and (s := score(u, arm, "pearson")) is not None]
+    spread = np.array([np.std([h["value"] for h in answers["units"][u["id"]]["held_out"]]) for u, _ in units])
+    base = np.column_stack([[u["group"] == "pooled 50/50" for u, _ in units]] +
+                           [[u["model"] == m for u, _ in units] for m in MODELS]).astype(float)
+    y = np.array([s for _, s in units])
+    out = {"units": len(units)}
+    for name, X in (("pool coefficient", base), ("pool coefficient with spread", np.column_stack([base, spread]))):
+        fit = lambda idx: float(np.linalg.lstsq(X[idx], y[idx], rcond=None)[0][0])  # noqa: E731
+        draws = [fit(rng.integers(0, len(y), len(y))) for _ in range(BOOTSTRAP)]
+        out[name] = [round(fit(np.arange(len(y))), 3), [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]]
+    return out
 
 
 def analyze(answers: dict, v8_auc: dict) -> dict:
@@ -234,7 +256,8 @@ def analyze(answers: dict, v8_auc: dict) -> dict:
              "retest": retest_stats(rows, rng),
              "peak (exploratory)": peak_stats(rows, rng),
              "descriptive": descriptive(rows, answers),
-             "post hoc": post_hoc(answers)}
+             "post hoc": {**post_hoc(answers),
+                          "spread-adjusted pool effect": {arm: spread_adjusted(rows, answers, arm, rng) for arm in ARMS}}}
     stats["verdict"] = stats["primary"]["verdict"]
     return {"summary": stats, "units": rows}
 
