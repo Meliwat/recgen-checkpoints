@@ -1,13 +1,13 @@
 import numpy as np
 
 from recgen.rubric_v9 import (
-    MINORITY_BINS, PEAK, TOP_50, mean_excess, minority_bin, minority_count, scale, union_top,
+    MINORITY_BINS, PEAK, RAW, TOP_50, mean_excess, minority_bin, minority_count, scale, union_top,
 )
 
 
 def test_scale_is_the_median_of_the_top_50_or_the_peak():
     window_max = np.arange(100, dtype=float)  # top 50 are 50..99, median 74.5
-    assert scale(window_max, TOP_50) == 74.5 and scale(window_max, PEAK) == 99.0
+    assert scale(window_max, TOP_50) == 74.5 and scale(window_max, PEAK) == 99.0 and scale(window_max, RAW) == 1.0
 
 
 def test_union_top_takes_each_window_from_the_stronger_scaled_neuron():

@@ -15,9 +15,17 @@ reader (v6), and only the language model needs new readings. A pair whose union 
 found among the two neurons' recorded examples (possible only through tied activations) is replaced
 by the next seeded pair.
 
-Units, per model (middle layer): N_UNION unions of two random sampled neurons, scaled by each
-neuron's TOP_50 level (the median of its 50 strongest window maxima). Real neurons are v7's 100,
-with v7's Haiku readings reused (same units, same prompt). Readers are v7's three, unchanged.
+Units, per model (middle layer): N_UNION unions of two random sampled neurons, on their RAW
+activations (no rescaling: a unit that does both jobs at each neuron's own magnitude). Real neurons
+are v7's 100, with v7's Haiku readings reused (same units, same prompt). Readers are v7's three,
+unchanged.
+
+Amendment, made after building the units and before any reading or reader output: the first
+version of these rules (commit bace9af) scaled each neuron by its TOP_50 level. That makes the two
+neurons cross at about their 25th example, so every union came out 25/25 (checked on all six
+models), which defeats the aim of natural proportions. RAW gives minority counts from 0 to 25
+(median 2 to 7 by model), so it is now primary; PEAK and TOP_50 are reported beside it for
+MiniLM and the network reader only. Nothing else changed.
 
 Pre-registered tests, per reader:
 1. Detection: the union-minus-real flag rate, averaged over the six models, with a bootstrap
@@ -27,8 +35,8 @@ Pre-registered tests, per reader:
 3. Dose-response: the flag rate of unions by how many of the 50 examples come from the minority
    neuron (MINORITY_BINS), pooled over models; the top bin minus the bottom bin, with an interval.
 4. Retest: RETEST_PER_MODEL unions per model read by Haiku a second time.
-Reported beside these and not used in any test: the same unions scaled by each neuron's PEAK
-instead, read by MiniLM and the network reader only.
+Reported beside these and not used in any test: the same pairs scaled by each neuron's PEAK and
+by its TOP_50 level, read by MiniLM and the network reader only.
 """
 
 import numpy as np
@@ -38,7 +46,9 @@ from recgen.rubric_v5 import MODELS
 
 N_UNION = 150
 TOP_K = 50
-TOP_50, PEAK = "top-50 level", "peak"
+RAW, TOP_50, PEAK = "raw", "top-50 level", "peak"
+PRIMARY = RAW
+SENSITIVITY = (PEAK, TOP_50)
 MINORITY_BINS = [(0, 5), (5, 15), (15, 26)]  # minority examples out of 50: [low, high)
 RETEST_PER_MODEL = 10
 BOOTSTRAP = 2000
@@ -50,6 +60,8 @@ def rng_for(model: str, purpose: int):
 
 def scale(window_max: np.ndarray, how: str) -> float:
     """A neuron's scale from its window maxima [W]."""
+    if how == RAW:
+        return 1.0
     if how == PEAK:
         return float(window_max.max())
     return float(np.median(np.sort(window_max)[-TOP_K:]))
