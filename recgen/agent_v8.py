@@ -48,18 +48,25 @@ SPEND_CAP_USD = {AGENT_MODEL: 3.0, SECOND_AGENT_MODEL: 20.0}  # per arm, well ab
 TIMEOUT_SECONDS = 900
 FORWARDER = Path(__file__).with_name("mcp_v8.py")
 PROBE_TOOLS = ["mcp__probe__examples", "mcp__probe__activation"]
-CLI = ["claude", "-p", "--system-prompt", SYSTEM_PROMPT, "--tools", "", "--strict-mcp-config",
-       "--setting-sources", "", "--no-session-persistence", "--output-format", "stream-json", "--verbose",
-       "--allowedTools", ",".join(PROBE_TOOLS), "--max-turns", str(MAX_TURNS),
-       "--max-budget-usd", BUDGET_USD]
 
 
-def run_cli(text: str, url: str, handle: str, model: str = AGENT_MODEL) -> dict:
+def cli_command(max_turns: int = MAX_TURNS, budget_usd: str = BUDGET_USD) -> list[str]:
+    return ["claude", "-p", "--system-prompt", SYSTEM_PROMPT, "--tools", "", "--strict-mcp-config",
+            "--setting-sources", "", "--no-session-persistence", "--output-format", "stream-json", "--verbose",
+            "--allowedTools", ",".join(PROBE_TOOLS), "--max-turns", str(max_turns),
+            "--max-budget-usd", budget_usd]
+
+
+CLI = cli_command()
+
+
+def run_cli(text: str, url: str, handle: str, model: str = AGENT_MODEL, cli: list[str] = CLI,
+            timeout: int = TIMEOUT_SECONDS) -> dict:
     """One agent reading: its final reply, its messages and tool requests, and usage."""
     # -I keeps recgen/ off the forwarder's path, where recgen/select.py would shadow the standard library.
     config = {"mcpServers": {"probe": {"command": sys.executable, "args": ["-I", str(FORWARDER), url, handle]}}}
-    run = subprocess.run(CLI + ["--model", model, "--mcp-config", json.dumps(config)], input=text, capture_output=True, text=True,
-                         timeout=TIMEOUT_SECONDS, cwd=WORKDIR)
+    run = subprocess.run(cli + ["--model", model, "--mcp-config", json.dumps(config)], input=text, capture_output=True, text=True,
+                         timeout=timeout, cwd=WORKDIR)
     events = [json.loads(line) for line in run.stdout.splitlines() if line.startswith("{")]
     result = next((e for e in reversed(events) if e.get("type") == "result"), None)
     if result is None:
@@ -99,7 +106,7 @@ class SpendGuard:
 
 
 def read(view: UnitView, directory: Path, backend: Backend | None, url: str | None, runner=run_cli,
-         guard: SpendGuard | None = None) -> dict:
+         guard: SpendGuard | None = None, parse=parse_answer) -> dict:
     """The cached reading for this prompt, or a new one with up to ATTEMPTS tries. A reading the
     spend guard stops is returned without a label and isn't cached. The cache key is the unit's prompt;
     the directory names the agent's model, so a change to SYSTEM_PROMPT, TOOLS or MAX_TOOL_CALLS needs
@@ -123,7 +130,7 @@ def read(view: UnitView, directory: Path, backend: Backend | None, url: str | No
             except (RuntimeError, json.JSONDecodeError, subprocess.TimeoutExpired) as e:
                 out, error = {}, str(e)
             calls = backend.close(handle)
-            answer = None if error else parse_answer(out["reply"])
+            answer = None if error else parse(out["reply"])
             attempts.append({"error": error or (None if answer else "no valid label"),
                              "cost_usd": out.get("cost_usd", 0.0), "tool_calls": len(calls), "reply": out.get("reply", "")})
             if guard:
@@ -150,12 +157,14 @@ def load_model(model: str):
 
 
 def read_model(model: str, units: list[dict], jobs: list[tuple[str, str, str]], directories: dict[tuple[str, str], Path],
-               guards: dict[str, SpendGuard], corpus: np.ndarray) -> list[dict]:
+               guards: dict[str, SpendGuard], corpus: np.ndarray, view_class=UnitView, backend_options: dict | None = None,
+               runner=run_cli, parse=parse_answer) -> list[dict]:
     """The record of each (unit id, agent, reading) job of one model, loading Pythia only if some
-    reading isn't cached."""
+    reading isn't cached. The keyword arguments let a later version change the view, the backend's
+    budget and tools, the runner and the parser; their defaults are v8's."""
     v6 = dict(np.load(v6_path(model, DEPTH)))
     v5 = np.load(sweep_path(model, DEPTH))
-    views = {u["id"]: UnitView(u, v6, v5["max"], v5["pos"], corpus) for u in units}
+    views = {u["id"]: view_class(u, v6, v5["max"], v5["pos"], corpus) for u in units}
     for directory in directories.values():
         directory.mkdir(parents=True, exist_ok=True)
 
@@ -171,13 +180,13 @@ def read_model(model: str, units: list[dict], jobs: list[tuple[str, str, str]], 
         print(f"pythia-{model}: {len(pending)} of {len(jobs)} readings to run", flush=True)
         WORKDIR.mkdir(parents=True, exist_ok=True)
         pythia, local_dir = load_model(model)
-        backend = Backend(views, TextReader(pythia, int(v6["layer"])))
+        backend = Backend(views, TextReader(pythia, int(v6["layer"])), **(backend_options or {}))
         url = backend.serve()
 
     def run(job):
         unit_id, agent, reading = job
-        record = read(views[unit_id], directories[agent, reading], backend, url, partial(run_cli, model=agent),
-                      guards[agent])
+        record = read(views[unit_id], directories[agent, reading], backend, url, partial(runner, model=agent),
+                      guards[agent], parse)
         if job in pending:
             print(f"  {unit_id} {agent} {reading}: {record['label']} ({len(record['tool_calls'])} tool calls, "
                   f"${record['cost_usd']:.3f})", flush=True)
