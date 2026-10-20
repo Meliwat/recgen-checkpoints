@@ -52,3 +52,16 @@ def test_pre_registered_reads_a_clear_gradient_as_more_jobs():
     assert out["mlp"]["P1_least_pair_unrelated"]["value"] == -1.0
     assert out["mlp"]["reading"] == "more jobs"
     assert out["controls"]["C2_least_pair_within_facet_count_strata"]["reading"] == "holds within strata"
+
+
+def test_reader_split_separates_flagged_from_unflagged_neurons():
+    from recgen.analyze_v23 import reader_split
+
+    # Flagged neurons' least pairs are all driver-unrelated; unflagged ones' are too, except in the top quartile.
+    rows = [{"quartile": i % 4, "unrelated_mixed": (i // 4) % 2 == 0, "mlp": {"least_unrelated": (i // 4) % 2 == 0 or i % 4 != 3}}
+            for i in range(40)]
+    out = reader_split(rows)
+    flagged, unflagged = out["reader flags unrelated mixed"], out["reader doesn't flag"]
+    assert flagged["neurons_by_quartile"] == [5, 5, 5, 5] and unflagged["neurons_by_quartile"] == [5, 5, 5, 5]
+    assert flagged["least_pair_unrelated_by_quartile"] == [1.0, 1.0, 1.0, 1.0] and flagged["P1"]["value"] == 0
+    assert unflagged["least_pair_unrelated_by_quartile"] == [1.0, 1.0, 1.0, 0.0] and unflagged["P1"]["value"] == -1.0

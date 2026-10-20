@@ -15,7 +15,8 @@ from recgen.analyze_v13 import final_adjacency
 from recgen.candidates_v13 import load_candidates as load_v13_candidates
 from recgen.candidates_v13 import v13_path
 from recgen.candidates_v23 import RECORDING_PATH, V23_DIR, layer_quartiles, load_candidates
-from recgen.config import RESULTS_DIR
+from recgen.config import RESULTS_DIR, SEED
+from recgen.rubric_v2 import TOP_UNITS, drivers, overlap
 from recgen.rubric_v23 import (
     DEPTH, MIN_FACETS, MODEL, STEP, control_reading, facet_count_strata, facet_size_strata, neuron_measures,
     paired_difference, reading, rng_for, spearman, top_minus_rest,
@@ -156,6 +157,65 @@ def v13_check(rows: list[dict]) -> dict:
                                         for k in range(4)}}
 
 
+def reader_split(rows: list[dict]) -> dict:
+    """Exploratory, added after seeing the results: P1 within neurons v6's reader flags unrelated mixed, and
+    within the rest, to see whether the driver gradient only follows the reader's flag."""
+    out = {}
+    for name, flag in (("reader flags unrelated mixed", True), ("reader doesn't flag", False)):
+        group = [r for r in rows if r["unrelated_mixed"] == flag]
+        q = np.array([r["quartile"] for r in group])
+        out[name] = {"neurons_by_quartile": [int(np.sum(q == k)) for k in range(4)],
+                     "least_pair_unrelated_by_quartile": [round(float(np.mean([r["mlp"]["least_unrelated"] for r in group if r["quartile"] == k])), 3)
+                                                          for k in range(4)],
+                     "P1": top_minus_rest(q, column(group, "mlp", "least_unrelated"), rng_for(201 + flag))}
+    return out
+
+
+def split_half_reliability(candidates: list[dict]) -> dict:
+    """Exploratory, added after seeing the results: each facet's examples split at random into two halves (seed
+    [SEED, 23, 300]); the overlap of the halves' top-100 MLP drivers through the facet's own neuron. Low
+    reliability means a noisy driver signature, which could make two facets look driver-unrelated."""
+    data = np.load(RECORDING_PATH)
+    n_facet = int(data["n_facet_examples"])
+    row = {tuple(e): i for i, e in enumerate(data["examples"][:n_facet])}
+    neurons = data["neurons"].tolist()
+    acts, sigma = data["acts"].reshape(len(data["sigma"]), -1), data["sigma"]
+    coefficients = data["coefficients"].reshape(acts.shape[1], -1)
+    background = (acts[n_facet:].astype(np.float32) / sigma[n_facet:, None]).mean(axis=0)
+    rng = np.random.default_rng([SEED, 23, 300])
+    reliability = {}
+    for c in candidates:
+        k = neurons.index(c["neuron"])
+        for f, facet in enumerate(c["facets"]):
+            rows = rng.permutation([row[(w, p)] for w, p, _ in facet])
+            halves = [np.sort(rows[:len(rows) // 2]), np.sort(rows[len(rows) // 2:])]
+            sets = [drivers(((acts[h].astype(np.float32) / sigma[h, None]).mean(axis=0) - background) * coefficients[:, k], TOP_UNITS)
+                    for h in halves]
+            reliability[c["neuron"], f] = overlap(*sets, TOP_UNITS)
+    return reliability
+
+
+def reliability_check(rows: list[dict], reliability: dict) -> dict:
+    """Exploratory: split-half reliability by quartile, and S2 (the margin) within terciles of the least pair's
+    mean reliability, combined as in C1."""
+    least = np.array([np.mean([reliability[r["neuron"], int(f)] for f in r["mlp"]["least_pair"].split("-")]) for r in rows])
+    q = np.array([r["quartile"] for r in rows])
+    strata = np.digitize(least, np.quantile(least, [1 / 3, 2 / 3]))
+    stratified = top_minus_rest(q, column(rows, "mlp", "margin"), rng_for(301), strata)
+    return {"median_facet_reliability_by_quartile": [round(float(np.median([reliability[r["neuron"], f] for r in rows if r["quartile"] == k
+                                                                           for f in range(r["n_facets"])])), 3) for k in range(4)],
+            "median_least_pair_reliability_by_quartile": [round(float(np.median(least[q == k])), 3) for k in range(4)],
+            "margin_within_reliability_strata": {**stratified, "strata_by_quartile": strata_table(q, strata)}}
+
+
+def source_shares(final: dict, rows: list[dict]) -> dict:
+    """Exploratory: median share of a facet's rise over background carried directly by upstream MLP neurons and by
+    attention heads (analyze_v4.step_summary's shares), by quartile."""
+    return {part: [round(float(np.median([final["shares"][r["neuron"], f][part] for r in rows if r["quartile"] == k
+                                          for f in range(r["n_facets"])])), 3) for k in range(4)]
+            for part in ("mlp_neurons", "attention_heads")}
+
+
 def rounded(rows: list[dict]) -> list[dict]:
     out = []
     for r in rows:
@@ -178,7 +238,10 @@ def main() -> None:
                "pre_registered": pre_registered(rows), "by_quartile": by_quartile(rows),
                "share_of_pairs_unrelated": {kind: round(float(np.mean([o <= r[kind]["threshold"] for r in rows
                                                                        for o in r[kind]["overlaps"].values()])), 3) for kind in KINDS},
-               "v13_check": v13_check(rows)}
+               "v13_check": v13_check(rows),
+               "exploratory_after_results": {"reader_split": reader_split(rows),
+                                             "split_half_reliability": reliability_check(rows, split_half_reliability(candidates)),
+                                             "source_shares_by_quartile": source_shares(final, rows)}}
     (RESULTS_DIR / "classification_v23.json").write_text(json.dumps({"summary": summary, "neurons": rounded(rows)}, indent=1))
     print(json.dumps(summary, indent=1))
 
