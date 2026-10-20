@@ -53,3 +53,12 @@ def test_band_examples_take_the_window_maximum_position_and_exclude_sparse_neuro
         assert not set(windows.tolist()) & set(top_rows[s].tolist())
         assert np.array_equal(windows, sample_band(band_windows(window_max[:, n].astype(np.float32), top_rows[s]),
                                                    band_rng("70m", int(n))))
+
+
+def test_band_rows_index_the_unique_positions_and_mark_excluded_neurons():
+    from recgen.record_v17 import band_rows
+
+    keys = np.array([[[3, 40], [1, 100]], [[-1, -1], [-1, -1]], [[1, 100], [2, 33]]], dtype=np.int32)
+    unique = np.unique(keys[[0, 2]].reshape(-1, 2), axis=0)  # (1, 100), (2, 33), (3, 40)
+    rows = band_rows(keys, unique)
+    assert rows.tolist() == [[2, 0], [-1, -1], [0, 1]]
