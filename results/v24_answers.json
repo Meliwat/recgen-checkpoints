@@ -1,0 +1,205 @@
+{
+ "readers": {
+  "haiku": "claude-haiku-5-5",
+  "sonnet": "claude-sonnet-5-5",
+  "opus": "claude-opus-5-5"
+ },
+ "series": {
+  "haiku-v7": {
+   "first": {},
+   "retest": {}
+  },
+  "haiku-E3": {
+   "first": {},
+   "retest": {}
+  },
+  "sonnet-v7": {
+   "first": {},
+   "retest": {}
+  },
+  "sonnet-E3": {
+   "first": {},
+   "retest": {}
+  },
+  "opus-v7": {
+   "first": {},
+   "retest": {}
+  },
+  "opus-E3": {
+   "first": {},
+   "retest": {}
+  }
+ },
+ "pilot": {
+  "haiku-v7": {
+   "160m-quarter:random::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "prompt_sha256": "e7a56a62d44300aeaa291ae33ec8cbb0cf1193ef9c1048466d910acd79129e8a",
+    "input_tokens": 3898,
+    "output_tokens": 929,
+    "thinking_tokens": 874,
+    "cost_usd": 0.0008543000000000001,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"mid-sentence or mid-phrase token in running text or code where the surrounding words strongly constrain what comes next\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "prompt_sha256": "2d7e5f576d560245e9468f4680e424d9271389cf60dee916d742bc42021f656d",
+    "input_tokens": 3833,
+    "output_tokens": 497,
+    "thinking_tokens": 413,
+    "cost_usd": 0.0006318000000000001,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"the token that continues an enumerated sequence of numbers, letters, or timestamps in structured text, such as panel labels, list items, page numbers, citation ranges, subtitle times, and chat timestamps\"]}"
+   }
+  },
+  "haiku-E3": {
+   "160m-quarter:random::0": {
+    "label": "C",
+    "error": null,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "prompt_sha256": "c7e31143e7cb71009d1ea1252984f0cc9cd2ad6b5cbc3f26f8c54f78e3f0ac3c",
+    "input_tokens": 3901,
+    "output_tokens": 973,
+    "thinking_tokens": 777,
+    "cost_usd": 0.0008766,
+    "reply": "{\"label\": \"C\", \"patterns\": [\"Fires on varied tokens across domains (URLs, code, legal text, recipes, fiction) with no shared syntactic or semantic role\", \"Often lands on word-internal fragments or the token right before a predictable continuation (e.g., 'Sar' before 'psborg', 'Th' before 'rix', 'st' in 'showstoppers')\", \"Frequently sits at list or phrase boundaries (commas, 'or', 'and', 'of') but without a consistent function\", \"Whitespace and newline tokens in code fire in some cases but not others\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "prompt_sha256": "f99c342487264f0a54e15a714587f8e0a7b1ecf8db2efad96cd04a542ebaf9b9",
+    "input_tokens": 3839,
+    "output_tokens": 486,
+    "thinking_tokens": 373,
+    "cost_usd": 0.0006269,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"number that continues an ascending numeric sequence or range (lists, page ranges, citation pages, verse and chapter numbers)\", \"digits within timestamps in subtitle files and chat logs\", \"panel or subfigure labels (b, c) in figure references\", \"reporter page numbers in legal citations\"]}"
+   }
+  },
+  "sonnet-v7": {
+   "160m-quarter:random::0": {
+    "label": "C",
+    "error": null,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "prompt_sha256": "e7a56a62d44300aeaa291ae33ec8cbb0cf1193ef9c1048466d910acd79129e8a",
+    "input_tokens": 3901,
+    "output_tokens": 168,
+    "thinking_tokens": 0,
+    "cost_usd": 0.009481999999999999,
+    "reply": "{\"label\": \"C\", \"patterns\": [\"Punctuation and delimiter tokens (commas, periods, colons, parentheses, newlines, hyphens) in diverse contexts\", \"Function words/prepositions mid-phrase (of, for, all, the, or, and) where a noun phrase is expected next\", \"Content nouns/adjectives ending a phrase (classes, orb, coast, suspicion, fluid, exit)\", \"Whitespace/indentation tokens in code and word-fragment pieces\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "B",
+    "error": null,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "prompt_sha256": "2d7e5f576d560245e9468f4680e424d9271389cf60dee916d742bc42021f656d",
+    "input_tokens": 3833,
+    "output_tokens": 107,
+    "thinking_tokens": 0,
+    "cost_usd": 0.008736,
+    "reply": "{\"label\":\"B\",\"patterns\":[\"Next item in an enumerated list or range of numbers (e.g., 1, 2, 3; 23-24; 232\u201333)\",\"Panel letters in figure/list references (a, b, c)\",\"Numeric components in structured identifiers like timestamps, page markers, section/chapter numbers\"]}"
+   }
+  },
+  "sonnet-E3": {
+   "160m-quarter:random::0": {
+    "label": "C",
+    "error": null,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "prompt_sha256": "c7e31143e7cb71009d1ea1252984f0cc9cd2ad6b5cbc3f26f8c54f78e3f0ac3c",
+    "input_tokens": 3903,
+    "output_tokens": 184,
+    "thinking_tokens": 112,
+    "cost_usd": 0.009646,
+    "reply": "{\"label\": \"C\", \"patterns\": [\"fires on heterogeneous tokens: punctuation, prepositions, newlines, whitespace, word fragments\", \"no coherent shared token type or context across the snippets\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "prompt_sha256": "f99c342487264f0a54e15a714587f8e0a7b1ecf8db2efad96cd04a542ebaf9b9",
+    "input_tokens": 3840,
+    "output_tokens": 295,
+    "thinking_tokens": 158,
+    "cost_usd": 0.01063,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"next item in an enumerated sequence, predictable from the preceding item (1, 2, [3]; Figure 2b,[c])\", \"second number of a page or citation range that repeats the first one's leading digits (623-[24], 232\u2013[33])\", \"incrementing numbers in timestamps, chapter numbers and section numbering\", \"star-page markers in legal text (*[224])\"]}"
+   }
+  },
+  "opus-v7": {
+   "160m-quarter:random::0": {
+    "label": "C",
+    "error": null,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "prompt_sha256": "e7a56a62d44300aeaa291ae33ec8cbb0cf1193ef9c1048466d910acd79129e8a",
+    "input_tokens": 3894,
+    "output_tokens": 91,
+    "thinking_tokens": 0,
+    "cost_usd": 0.017396,
+    "reply": "{\"label\": \"C\", \"patterns\": [\"punctuation and delimiters (commas, periods, colons, brackets, hyphens)\", \"whitespace, indentation and newlines in code\", \"content words and nouns in varied prose\", \"function words (of, for, the, or, and)\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "prompt_sha256": "2d7e5f576d560245e9468f4680e424d9271389cf60dee916d742bc42021f656d",
+    "input_tokens": 3831,
+    "output_tokens": 68,
+    "thinking_tokens": 0,
+    "cost_usd": 0.016684,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"next item in a sequence of numbers or letters: the predictable next value after a preceding one (list items, page ranges, figure panels, timestamps, citations)\"]}"
+   }
+  },
+  "opus-E3": {
+   "160m-quarter:random::0": {
+    "label": "C",
+    "error": null,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "prompt_sha256": "c7e31143e7cb71009d1ea1252984f0cc9cd2ad6b5cbc3f26f8c54f78e3f0ac3c",
+    "input_tokens": 3902,
+    "output_tokens": 57,
+    "thinking_tokens": 0,
+    "cost_usd": 0.016748,
+    "reply": "{\"label\": \"C\", \"patterns\": [\"no consistent token or context; fires on punctuation, whitespace, function words, content words and code fragments across unrelated texts\"]}"
+   },
+   "160m-quarter:real::0": {
+    "label": "A",
+    "error": null,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "prompt_sha256": "f99c342487264f0a54e15a714587f8e0a7b1ecf8db2efad96cd04a542ebaf9b9",
+    "input_tokens": 3839,
+    "output_tokens": 71,
+    "thinking_tokens": 0,
+    "cost_usd": 0.016776,
+    "reply": "{\"label\": \"A\", \"patterns\": [\"next item in a predictable numeric or letter sequence (lists, ranges, page numbers, subfigure letters, timestamps) where the value follows from the preceding item\"]}"
+   }
+  }
+ },
+ "random_prompts_matching_v20": 100,
+ "spend_usd": 0.1091
+}
