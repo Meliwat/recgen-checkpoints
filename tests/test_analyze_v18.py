@@ -108,4 +108,15 @@ def test_held_out_leak_counts_held_out_snippets_in_examples_answers():
     answers, v15, _ = fake_data(labels, labels, n=1)
     unit_id = "70m:real:0"
     answers["units"][unit_id]["first"]["agent"]["tool_calls"][0]["answer"] = f"rank 51 (5.0): {unit_id} snippet 3\nrank 52 (4.0): x"
-    assert held_out_leak(answers, v15) == {"held-out snippets shown to the agent": 1}
+    leak = held_out_leak(answers, v15)
+    assert leak["held-out snippets shown to the agent"] == 1
+    assert leak["matches"][0]["held-out rank"] == 51 + 3 * 3 and leak["matches"][0]["shown at full-list rank"] == 52
+
+
+def test_post_hoc_transitions_and_the_primary_without_mixed_model_readings():
+    answers, v15, v14 = fake_data({"real": "A", "pooled": "C", "related": "B"}, {"real": "B", "pooled": "C", "related": "B"})
+    answers["units"]["70m:pooled:0"]["first"]["agent"]["models"] = ["claude-opus-5-5", "other"]
+    s = analyze(answers, v15, v14, V8_AUC)["summary"]["post hoc"]
+    assert s["label transitions, v14 -> v18"]["real"] == {"B -> A": 8 * len(MODELS)}
+    assert s["readings whose usage names a second model"] == ["70m:pooled:0"] and s["primary without them"]["units"] == 2 * 8 * 3 - 1
+    assert s["catch-all words in one-job descriptions"]["real"] == {"one-job answers": 8 * len(MODELS), "share with a catch-all word": 0.0}

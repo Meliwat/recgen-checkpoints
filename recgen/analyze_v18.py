@@ -18,7 +18,7 @@ from pathlib import Path
 import numpy as np
 
 from recgen.agent_v18 import ANSWERS_PATH
-from recgen.analyze_v8 import auc, difference, gain
+from recgen.analyze_v8 import CATCH_ALL_WORDS, auc, difference, gain
 from recgen.analyze_v15 import compare, paired_mean, tracked_neurons
 from recgen.config import RESULTS_DIR
 from recgen.rubric_v5 import bootstrap_interval
@@ -27,7 +27,7 @@ from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
 from recgen.rubric_v8 import BOOTSTRAP, EXAMPLES_PER_CALL, MODELS, N_WINDOWS, NO_CALLS_LEFT
 from recgen.rubric_v15 import PRIMARY_SIMULATOR, unit_scores, verdict as v15_verdict
 from recgen.rubric_v18 import (
-    LABEL_RANK, MAX_DESCRIPTION_WORDS, MAX_TOOL_CALLS, MIN_TOOL_CALLS, PROTOCOL_RANKS, auc_verdict, label_auc,
+    AGENT_MODEL, LABEL_RANK, MAX_DESCRIPTION_WORDS, MAX_TOOL_CALLS, MIN_TOOL_CALLS, PROTOCOL_RANKS, auc_verdict, label_auc,
     paired_auc_difference,
 )
 
@@ -263,15 +263,50 @@ def tools_and_cost(rows: dict, answers: dict) -> dict:
 
 
 def held_out_leak(answers: dict, v15: dict) -> dict:
-    """Sanity check: held-out snippets that appear in any examples answer the agent got (should be none)."""
-    seen = 0
+    """Sanity check: held-out snippets whose text appears in any examples answer the agent got. The agent's
+    list leaves out the held-out windows, so a match is the same text in another window; each match's
+    shown rank is mapped back to the full list (post hoc detail, added after seeing three matches)."""
+    matches = []
     for unit_id, u in answers["units"].items():
-        hidden = {h["snippet"] for h in v15["units"][unit_id]["held_out"]}
+        hidden = {h["snippet"]: h for h in v15["units"][unit_id]["held_out"]}
+        held = set(u["held_out_ranks"])
+        kept = [r for r in range(1, N_WINDOWS + 1) if r not in held]
         for reading in ("first", "retest"):
             for call in (u.get(reading) or {}).get("agent", {}).get("tool_calls", []):
-                if call["tool"] == "examples" and call["answer"]:
-                    seen += sum(line.split(": ", 1)[-1] in hidden for line in call["answer"].split("\n") if line.startswith("rank "))
-    return {"held-out snippets shown to the agent": seen}
+                if call["tool"] != "examples" or not call["answer"]:
+                    continue
+                for line in call["answer"].split("\n"):
+                    snippet = line.split(": ", 1)[-1]
+                    if line.startswith("rank ") and snippet in hidden:
+                        shown = int(line.split()[1])
+                        matches.append({"unit": unit_id, "reading": reading, "shown at full-list rank": kept[shown - 1],
+                                        "shown value": float(line.split("(")[1].split(")")[0]),
+                                        "held-out rank": hidden[snippet]["rank"],
+                                        "held-out value": round(hidden[snippet]["value"], 2)})
+    return {"held-out snippets shown to the agent": len(matches), "matches": matches}
+
+
+def post_hoc(rows: dict, answers: dict, rng) -> dict:
+    """Post hoc, added after seeing the results. (1) How each unit's label moved from v14's Opus agent to
+    the v18 agent. (2) The primary test without readings whose CLI usage named a second model. (3) v8's
+    catch-all keyword count on one-job descriptions (v8's words, unchanged)."""
+    transitions = {g: dict(Counter(f"{u['labels']['v14']} -> {u['labels']['v18']}" for m in MODELS for u in rows[m]
+                                   if u["group"] == g)) for g in ("real", "pooled 50/50")}
+    mixed = sorted(k for k, u in answers["units"].items() for r in ("first", "retest")
+                   if r in u and u[r]["agent"]["models"] != [AGENT_MODEL])
+    kept = {m: [u for u in rows[m] if u["id"] not in mixed] for m in MODELS}
+    first, second = label_ranks(kept, READERS)
+    point, interval, _, _ = paired_auc_difference(first, second, rng)
+    catch_all = {}
+    for g in ("real", "pooled 50/50"):
+        ones = [u["description"] for m in MODELS for u in rows[m] if u["group"] == g and u["labels"]["v18"] == ONE_JOB]
+        catch_all[g] = {"one-job answers": len(ones), "share with a catch-all word": round(float(np.mean(
+            [any(w in d.lower() for w in CATCH_ALL_WORDS) for d in ones])), 3)}
+    return {"label transitions, v14 -> v18": transitions,
+            "readings whose usage names a second model": mixed,
+            "primary without them": {"v18 minus v14": round(point, 3), "interval": [round(x, 3) for x in interval],
+                                     "verdict": auc_verdict(point, interval), "units": int(sum(len(p) + len(r) for p, r in first))},
+            "catch-all words in one-job descriptions": catch_all}
 
 
 def exploratory(rows: dict, answers: dict, v15: dict, rng) -> dict:
@@ -333,7 +368,8 @@ def analyze(answers: dict, v15: dict, v14: dict, v8_auc: dict) -> dict:
                         "units without a v18 score": sum(u["first"]["scores"]["v18"] is None for m in MODELS for u in rows[m]),
                         "v14 prompt hashes of the same units": len({v14["first"][u["id"]]["prompt_sha256"]
                                                                     for m in MODELS for u in rows[m]})},
-             "exploratory": exploratory(rows, answers, v15, rng)}
+             "exploratory": exploratory(rows, answers, v15, rng),
+             "post hoc": post_hoc(rows, answers, rng)}
     stats["verdict"] = stats["primary"]["verdict"]
     return {"summary": stats, "units": rows}
 
