@@ -1,6 +1,6 @@
 import json
 
-from recgen.agent_v8 import cache_path, read
+from recgen.agent_v8 import SpendGuard, cache_path, read
 from recgen.probe_v8 import Backend
 from tests.test_probe_v8 import fake_view
 
@@ -41,3 +41,11 @@ def test_read_gives_up_after_the_attempts(tmp_path):
 
     record = read(view, tmp_path, backend, "url", runner)
     assert record["label"] is None and record["error"] == "CLI failed" and len(record["attempts"]) == 3
+
+
+def test_a_spent_guard_stops_new_readings_without_caching_them(tmp_path):
+    view = fake_view()
+    guard = SpendGuard(cap=0.02, spent=0.02)
+    record = read(view, tmp_path, None, None, runner=None, guard=guard)
+    assert record["label"] is None and record["error"] == "spend cap reached" and record["cost_usd"] == 0
+    assert not cache_path(tmp_path, view.unit["id"]).exists()
