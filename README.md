@@ -619,6 +619,115 @@ The label AUC (point 3) and the catch-all count (point 1) were added after seein
 
 `run_v8.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v7.json`, and the `claude` CLI signed in. The readings are cached in `data/v8/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute. From scratch, the 660 readings took about 30 minutes, six at a time, with each Pythia model downloaded, kept in memory while its units are read, and deleted. Labels will differ somewhat, because the agents aren't deterministic (point 5).
 
+## v16 results
+
+v7's one-shot readers sorted units with v7's own scheme: A one job, B related jobs, C unrelated jobs. The essay counts with another. Its preliminary audit of Qwen3-32B neuron poles ("The Short Version" and footnote 1) finds roughly 90% with "one main job", often with "small related offshoots", about 7% with "two related jobs", and about 2 to 4% "not yet understood". The scheme has no category for two unrelated jobs, and the footnote says the numbers depend on how far into weak activations one looks, the depth of the analysis and what counts as "one thing". v16 gives that scheme to the same one-shot readers, on v7's units with known answers, and asks three things: does it push the one-main-job share of real neurons toward 90%, does it still tell known two-neuron pools from real neurons, and does an explicit "unrelated jobs" option change that?
+
+So v16 tests how well the essay's categories separate known mixtures when a one-shot reader reads Pythia's top-50 snippets. It doesn't test the essay's number, which comes from agents investigating Qwen3-32B neuron poles.
+
+The rules are in [`recgen/rubric_v16.py`](recgen/rubric_v16.py), committed (`9bc4583`) before any reading. A pilot of 12 readings came next, on three pythia-160m units at the quarter depth, which aren't in v7's sample. All 12 replies parsed, so nothing was amended. (In it, Haiku under E3 called the 50/50 pool one main job while listing two unrelated patterns: mid-word fragments, and *of* in "of course".) No earlier file or result changed; v7's reader and unit builder now take the prompt, the label parser and the depth as parameters, with v7's as defaults.
+
+### v16 method
+
+1. **Units:** exactly v7's, at the middle layer of all six sizes: per size, 100 real neurons, 50 pools of two random neurons at each mix (50/50, 70/30, 90/10) and 50 pools of related neurons (1,800 units), plus v7's 60 retest units. Each is shown as v7 shows it: the same 50 snippets in the same seeded order, the firing token marked, no activation values. (Rebuilding v7's prompts from these units reproduces all 1,800 of v7's prompt hashes.)
+2. **Two rubrics.** Only the decision paragraph of v7's prompt changes; the reply is still JSON with a label and a list of patterns.
+   - **E3, the essay's scheme:**
+     ```
+     A) ONE MAIN JOB: one main job, often with small related offshoots. The main job may be broad or abstract, such as a grammatical role, a spelling fragment, or a kind of context.
+     B) TWO RELATED JOBS: two jobs that are clearly related to each other.
+     C) NOT YET UNDERSTOOD: no description of what the unit responds to that you are confident in.
+     ```
+   - **E4:** E3 plus `D) TWO OR MORE UNRELATED JOBS: two or more jobs with no clear relation to each other.`
+
+   The letters mean different things from v7's rubric, where C is "unrelated jobs".
+3. **Two readers,** through the `claude` CLI with v7's system prompt and flags: `claude-haiku-5-5` (v7's reader, the primary one) and `claude-sonnet-5-5` (v10's). That's four arms of 1,860 readings. Two settings differ from v7 and v10, the same for every unit. The CLI's prompt caching is off: each prompt is read once, and a check on a filler prompt, before any reading, showed the cache write doubles the reported cost. The model sees the same input either way. And environment variables that set an effort level are removed, as in v10, so the CLI runs at its default effort.
+4. **Baselines:** each reader under v7's rubric, on the same units. For Haiku, v7's readings. For Sonnet, v10's, which are complete; every cached reading was checked to be of v7's exact prompt.
+5. **Flags:** "not one main job" (any label but A) is the primary flag in both rubrics; in E4, "unrelated jobs" (D) is a second one. The label AUC ranks labels A < B < C (< D).
+6. **Pre-registered tests, per arm:**
+   - the one-main-job share of real neurons, over sizes and per size, against the essay's ~90% and against the same reader's A share under v7's rubric;
+   - pool detection: the 50/50 pools' flag rate minus the real neurons', and the label AUC for ranking 50/50 pools above real neurons;
+   - the one-main-job share of 50/50, 70/30 and 90/10 pools;
+   - retest agreement (kappa) on the 60 retest units.
+
+   Everything "over sizes" is the mean over the six sizes, with a 95% bootstrap interval that resamples units within each size and unit type. Comparisons between rubrics are paired on the same units.
+7. **Verdict rule (per reader and rubric, against v7's rubric):** with *rise_real* and *rise_pool* the rises in the one-main-job share of real neurons and of 50/50 pools, the rubric "inflates cleanliness without discrimination" if rise_real's interval is above 0 and the pools rise at least as much (the interval of rise_pool minus rise_real includes 0 or is above it). The alternatives: "raises cleanliness, less for known pools" (rise_real above 0, the difference below 0), "no clear rise" (rise_real's interval includes 0) and "lowers cleanliness" (below 0).
+
+All 7,440 readings returned a valid label, 3 of them (Sonnet, E4) after one retry because the first reply had none; those first replies weren't kept. The CLI reported $1.30 (Haiku, E3), $1.47 (Haiku, E4), $20.58 (Sonnet, E3) and $20.37 (Sonnet, E4, with the retries), plus $0.06 for the pilot and $0.05 for the caching check: $43.84 in all, under the pre-registered $70 cap, which never stopped a reading. Every reading, with the reader's stated patterns and the prompt's SHA-256, is in [`results/v16_answers.json`](results/v16_answers.json).
+
+### What v16 found
+
+![The essay's scheme beside v7's, for both readers](results/figures/v16_rubrics.png)
+
+| Reader and rubric | Real neurons called one (main) job (95% interval) | 50/50 pools | 70/30 | 90/10 | Detection, not one (main) job, points | Label AUC | Retest kappa, not one (main) job |
+|---|---|---|---|---|---|---|---|
+| Haiku, v7 rubric (v7) | 47% (43.5 to 51) | 23% | 31% | 44% | +24 (+18 to +30) | 0.625 | 0.40 (0.14 to 0.62) |
+| **Haiku, E3** | **44% (40 to 47.5)** | 24% | 26% | 41% | +20 (+14 to +26) | 0.60 | 0.89 (0.75 to 1.0) |
+| Haiku, E4 | 41% (37.5 to 45) | 15% | 18% | 33% | +26 (+20 to +31) | 0.64 | 0.625 (0.38 to 0.84) |
+| Sonnet, v7 rubric (v10) | 6% (4 to 8) | 0.3% | 1% | 4% | +6 (+4 to +8) | 0.64 | 0.65 (0.0 to 1.0) |
+| **Sonnet, E3** | **33% (29.5 to 37)** | 11% | 12% | 33% | +22.5 (+18 to +27) | 0.63 | 0.61 (0.36 to 0.82) |
+| Sonnet, E4 | 25.5% (22 to 29) | 5% | 7% | 19% | +20 (+16 to +24.5) | 0.63 | 0.44 (0.09 to 0.71) |
+
+With "unrelated jobs" as the flag (C in v7's rubric, D in E4), detection is +21 (+14.5 to +27) for Haiku under v7's rubric and +22 (+15.5 to +29) under E4, and +26 (+19 to +32) for Sonnet under v7's rubric and +25 (+20 to +30) under E4.
+
+| Pre-registered verdict | Rise in real neurons' one-main-job share, points | Rise in 50/50 pools' | Pools' rise minus real neurons' | Verdict |
+|---|---|---|---|---|
+| **Haiku, E3 (primary)** | **-3.7 (-7.5 to +0.3)** | +0.3 (-5.7 to +6.7) | +4.0 (-3.7 to +11) | **no clear rise in cleanliness** |
+| Haiku, E4 | -6.2 (-9.7 to -2.5) | -8.0 (-13 to -3) | -1.8 (-8 to +4.3) | lowers cleanliness |
+| **Sonnet, E3** | **+26.8 (+23.5 to +30.5)** | +10.3 (+7 to +14) | -16.5 (-21 to -12) | **raises cleanliness, less for known pools** |
+| Sonnet, E4 | +19.2 (+16 to +22) | +5.0 (+2.7 to +7.7) | -14.2 (-18 to -10) | raises cleanliness, less for known pools |
+
+| E4 minus E3 (pre-registered) | Haiku, points | Sonnet, points |
+|---|---|---|
+| Real neurons called one main job | -2.5 (-5.8 to +0.5) | -7.7 (-10 to -5) |
+| 50/50 pools called one main job | -8.3 (-13 to -3.3) | -5.3 (-8 to -2) |
+| Detection, not one main job | +5.8 (-0.3 to +12) | -2.3 (-6.5 to +1.8) |
+| E4's "unrelated jobs" detection minus v7 rubric's | +1.3 (-5.8 to +8.2) | -1.2 (-7.3 to +5) |
+
+Points 2 and 6 and the label moves in point 3 are exploratory: they were in the analysis code before the results but aren't pre-registered tests. The paired AUC differences in point 4 were added after seeing the results. All numbers are in [`results/classification_v16.json`](results/classification_v16.json).
+
+1. **The essay's scheme doesn't bring either reader near 90%.** Under E3, Haiku calls 44% of real neurons one main job (33 to 52% by size) and Sonnet 33% (29 to 42%). Every interval, in every arm, is far below 90%. For Haiku that's no more than under v7's rubric (47%); for Sonnet it's 27 points more than its 6% under v7's rubric. Adding the "unrelated jobs" option lowers both: 41% and 25.5%.
+2. **"Not yet understood" takes what the essay's scheme has no room for.** The essay's split is about 90 / 7 / 2 to 4%. Under E3, Haiku's split of real neurons is 44 / 0.7 / 56% and Sonnet's 33 / 28.5 / 38%. Known mixtures land there too: Haiku calls 75% of the 50/50 pools "not yet understood" and Sonnet 57%. So without an "unrelated" category, these readers file most known mixtures as not understood rather than as one main job.
+3. **Where the labels went (exploratory).** Haiku moved most of its v7 "unrelated jobs" calls on real neurons to "not yet understood" (219 of 257), and also 83 of its 284 "one job" calls; it almost never says "two related jobs" (4 of 600). Sonnet moved 143 of its 324 v7 "related jobs" calls to one main job, which is where the scheme's "small related offshoots" helps, and most of its "unrelated jobs" calls to "not yet understood" (171 of 238). Given D in E4, both use it heavily: for 40% (Haiku) and 66% (Sonnet) of real neurons, and 62% and 91% of 50/50 pools.
+4. **The scheme moves the line, not the ranking.** Detection with the "not one main job" flag is +20 (Haiku, E3) and +22.5 (Sonnet, E3), about what each reader gets under v7's rubric with its own best flag (+24 and +26). The label AUC is 0.60 to 0.64 in all six reader-rubric pairs, and the paired differences from v7's rubric are within noise (Haiku: E3 -0.025, -0.06 to +0.01; E4 +0.016, -0.02 to +0.05; Sonnet: E3 -0.008, -0.04 to +0.03; E4 -0.012, -0.04 to +0.02). Sonnet's verdict, "raises cleanliness, less for known pools", follows from this. Under v7's rubric it called 94% of real neurons related or unrelated jobs, so "not one job" barely separated anything (+6). The essay's scheme moves its line to where that flag works (+22.5), but its labels rank pools above real neurons no better than before.
+5. **Known pools are still called one main job, and the share follows the mix.** Under E3, 24% (Haiku) and 11% (Sonnet) of 50/50 pools are one main job, against 44% and 33% of real neurons. The share rises with the share of examples from one neuron: 50/50, 70/30, 90/10 is 24%, 26%, 41% for Haiku and 11%, 12%, 33% for Sonnet, so 90/10 pools look about as clean as real neurons. Related pools look cleaner than real neurons, as in v7 (Haiku 50%, Sonnet 43%).
+6. **A one-main-job answer rarely names one pattern (exploratory).** 94 to 100% of one-main-job answers list two or more patterns, about 3 on average, for real neurons and pools alike. The reply asks for a list and the scheme allows offshoots, so "one main job" here means a main pattern plus others. For example, Sonnet (E3) called a 50/50 pool of two random 70M neurons one main job while listing seven patterns, from *as* after "data are represented" and *for* after "motion" to *much* in "Thank you very much".
+7. **Haiku is more consistent under E3.** Read a second time, 95% of the 60 retest units get the same E3 label from Haiku (flag kappa 0.89, 0.75 to 1.0), against 60% under v7's rubric (0.40 with the same kind of flag). One possible reason: with "not yet understood" as a default, Haiku has less to decide. The other arms' kappas (0.44 to 0.65) have wide intervals from 60 units.
+8. **Adding "unrelated jobs" (E4) lowers the pools' one-main-job share** (Haiku -8 points, Sonnet -5) and, for Sonnet, the real neurons' (-8). It doesn't clearly improve detection with either flag. Its D flag detects pools about as well as v7's C did (+1.3 and -1.2 points).
+
+### What this does and doesn't show
+
+- **The category scheme alone doesn't produce the essay's ~90%.** With one-shot readers on Pythia's top-50 snippets, the essay's categories give 33 to 44% one main job, and most of the rest goes to "not yet understood", which the essay's audit puts at 2 to 4%. So, at least with readers like these, the wording of the categories isn't what gets an audit to 90%. The essay's footnote names other candidates: how far into weak activations one looks, the depth of the analysis and what counts as "one thing".
+- **The scheme changes the threshold, not the discrimination.** With these readers, it doesn't inflate cleanliness without discrimination (the pre-registered worry): where the real neurons' share rises (Sonnet), the known pools' share rises less. Nor does it improve how well labels rank known pools above real neurons (AUC 0.60 to 0.64 under every rubric). A reader's one-main-job share moves with the rubric (Sonnet: 6% under v7's, 33% under E3), so as in v8, the share describes the reader and rubric as much as the neurons. And under E3, 11 to 24% of known 50/50 pools are still called one main job, so that label from these readers doesn't certify a unit as clean.
+- **"Not yet understood" carries the weight.** Under the essay's scheme, these readers put 57 to 75% of known 50/50 pools and 38 to 56% of real neurons in that bucket. An audit in which that bucket is only 2 to 4% has resolved almost every unit into one main job or two related jobs. Whether its auditors resolve known mixtures that way too is what a positive control like v7's pools would show.
+- **It doesn't test the essay's audit.** The essay reads Qwen3-32B neuron poles with investigating agents; v16 reads the strongest 50 examples of Pythia neurons (closest to a neuron's positive pole) once, without activations or experiments. v8 found that light investigation didn't help Haiku detect pools, but the essay's auditors may investigate far more, and a larger model's neurons may be cleaner.
+
+### What's still shaky
+
+- **The baselines are from other days.** v7's Haiku readings and v10's Sonnet readings were made before v16's, with the same model ids. A rise from v7's rubric to E3 mixes the rubric change with any drift in the models or the CLI. The average thinking length differs too: Haiku 484 (E3) and 635 (E4) tokens against v7's 677, and Sonnet 199 and 162 against v10's 98. A check before any reading found that the effort variable set in the session that ran v16, which v16 removes, didn't change Haiku's thinking length.
+- **One wording per scheme.** "One main job, often with small related offshoots" is the essay's phrase; the rest of each option is my paraphrase. "TWO RELATED JOBS" says two, so a unit with three related jobs has no exact fit. Another wording, or a reply format that asked for one pattern, could move the shares.
+- **The verdict rule is about one flag.** Sonnet's "raises cleanliness, less for known pools" rests on the "not one main job" flag, which under v7's rubric was nearly always on. The threshold-free AUC (point 4) is the better summary of discrimination, and it was added after seeing the results.
+- **60 retest units** give kappa intervals about 0.5 wide.
+- **Pools are the easiest kind of mixture** (v7): two random neurons' strongest examples, side by side. And the related control is easier than intended, because related pools can share a window (v7, point 2).
+- **The CLI adds its own text** to each call, the same for every unit, and runs in the repo folder, as in v7 and v10.
+- **Scope:** the middle layer of six Pythia sizes, two models of one family, one-shot reading of 50 snippets without activations.
+
+### v16 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v16.py`](recgen/rubric_v16.py) | Pre-registered question, units, rubrics, readers, flags, reading order, spend guard, tests and verdict rule |
+| [`recgen/llm_reader_v16.py`](recgen/llm_reader_v16.py) | Runs the four arms and the pilot through the `claude` CLI with v7's reader, a cache, the spend guard and a spend log |
+| [`recgen/analyze_v16.py`](recgen/analyze_v16.py), [`recgen/plots_v16.py`](recgen/plots_v16.py) | Shares, detection, label AUC, verdicts, E4 against E3, retest, exploratory and post-hoc checks; the figure |
+| [`results/v16_answers.json`](results/v16_answers.json) | Every v16 reading, the pilot's included: label, reply with the stated patterns, model id, tokens, cost and the prompt's SHA-256 |
+| [`results/classification_v16.json`](results/classification_v16.json) | All statistics, and every unit's labels in the four arms and both readers' v7-rubric baselines |
+| `tests/test_rubric_v16.py`, `tests/test_llm_reader_v16.py`, `tests/test_analyze_v16.py` | Tests for the rules, the runner and the analysis |
+
+```bash
+./run_v16.sh
+```
+
+`run_v16.sh` needs v6's `data/v6/` recordings, `results/v7_llm_answers.json`, v10's Sonnet cache in `data/v10/sonnet/` and the `claude` CLI signed in. The readings are cached in `data/v16/` (not committed), and every CLI call's reported cost is logged in `data/v16/spend.jsonl`. With the cache, it makes no CLI calls and reruns in about a minute. From scratch, the 7,440 readings took about 3 hours 15 minutes, six at a time. Labels will differ somewhat, because the readers aren't deterministic (point 7).
+
 ## Files
 
 | Path | What it is |
