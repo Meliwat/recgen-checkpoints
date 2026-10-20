@@ -16,3 +16,19 @@ def test_reader_tests_report_quartile_rates_and_both_hypotheses():
     out = reader_tests(rows, "network", 0)
     assert out["n"] == 1200 and out["by_quartile"][3] < out["by_quartile"][0]
     assert out["h1"]["holds"] and out["h2"]["holds"]
+
+
+def test_with_coherence_moves_the_effect_onto_the_variable_that_carries_it():
+    from recgen.analyze_v12 import with_coherence
+
+    rng = np.random.default_rng(1)
+    rows = []
+    for model in MODELS:
+        for _ in range(300):
+            coherence = rng.normal()
+            rows.append({"model": model, "log_peak": coherence + rng.normal(0, 0.8), "peakedness": rng.normal(),
+                         "density": rng.normal(), "token_purity": rng.normal(), "coherence": coherence,
+                         "haiku": float(rng.random() < 1 / (1 + np.exp(2 * coherence)))})
+    out = with_coherence(rows, "haiku", np.random.default_rng(2))
+    assert out["coherence"]["interval"][1] < 0
+    assert abs(out["log_peak"]["coefficient"]) < abs(out["coherence"]["coefficient"]) / 3
