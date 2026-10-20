@@ -17,7 +17,8 @@ from recgen.rubric_v5 import bootstrap_interval
 from recgen.rubric_v6 import cohen_kappa
 from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
 from recgen.rubric_v8 import (
-    AGENT_MODEL, BOOTSTRAP, MIN_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, excess, gain_verdict, paired_gain, rng_for,
+    AGENT_MODEL, BOOTSTRAP, MIN_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, excess, gain_verdict, paired_gain, parse_answer,
+    rng_for,
 )
 
 AGENTS = {"haiku agent": AGENT_MODEL, "sonnet agent": SECOND_AGENT_MODEL}
@@ -29,6 +30,9 @@ PRIMARY = ("haiku agent", "haiku")
 GAINS = (PRIMARY, ("sonnet agent", "haiku"), ("sonnet agent", "haiku agent"))
 ESSAY_ONE_JOB = 0.9
 EXAMPLES_SHOWN = 2
+# Post hoc, added after reading the first results.
+LABEL_RANK = {"A": 0, "B": 1, "C": 2}
+CATCH_ALL_WORDS = ("predictab", "formulaic", "fixed", "templat", "boilerplate", "continuation")
 
 
 def unit_rows(answers: dict, v7_units: dict) -> dict[str, list[dict]]:
@@ -103,6 +107,41 @@ def specificity(rows: dict, reader: str, rng) -> dict:
     return {"pooled minus related": difference(rows, "flag", reader, rng, ("pooled 50/50", "related")),
             "related minus real": difference(rows, "flag", reader, rng, ("related", "real")),
             "related minus real, no shared window": difference(rows, "flag", reader, rng, ("related", "real"), no_shared)}
+
+
+def auc(pooled: np.ndarray, real: np.ndarray) -> float:
+    """The chance a random pool scores above a random real neuron, ties counting half."""
+    diff = pooled[:, None] - real[None, :]
+    return float(np.mean(diff > 0) + 0.5 * np.mean(diff == 0))
+
+
+def label_auc(rows: dict, reader: str, rng) -> dict:
+    """Post hoc: how well a reader's labels (A < B < C, or a detector's flag) rank pools above real
+    neurons, whatever its threshold: the mean over models of the AUC, with a bootstrap interval."""
+    def score(u):
+        return LABEL_RANK.get(u["labels"][reader]) if reader in LLM_READERS else int(u["flag"][reader])
+
+    per_model = []
+    for model in MODELS:
+        units = [u for u in rows[model] if score(u) is not None]
+        per_model.append(tuple(np.array([score(u) for u in units if u["group"] == g], float) for g in ("pooled 50/50", "real")))
+    draws = [np.mean([auc(p[rng.integers(0, len(p), len(p))], r[rng.integers(0, len(r), len(r))]) for p, r in per_model])
+             for _ in range(BOOTSTRAP)]
+    return {"mean_over_models": round(float(np.mean([auc(p, r) for p, r in per_model])), 3),
+            "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]}
+
+
+def catch_all(rows: dict, patterns: dict) -> dict:
+    """Post hoc: the share of one-job (A) answers whose stated pattern uses a catch-all word such as
+    "predictable" or "formulaic", for real neurons and for pools. A crude keyword count."""
+    out = {}
+    for reader in LLM_READERS:
+        out[reader] = {}
+        for g in ("real", "pooled 50/50"):
+            ones = [u["id"] for m in MODELS for u in rows[m] if u["group"] == g and u["labels"][reader] == ONE_JOB]
+            hits = [any(w in " ".join(patterns[reader][k]).lower() for w in CATCH_ALL_WORDS) for k in ones]
+            out[reader][g] = {"one-job answers": len(ones), "share with a catch-all word": round(float(np.mean(hits)), 3)}
+    return out
 
 
 def kappas(rows: dict) -> dict:
@@ -248,7 +287,11 @@ def write_report(rows: dict, stats: dict, answers: dict) -> None:
 def main() -> None:
     answers = json.loads(ANSWERS_PATH.read_text())
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
+    v7_replies = json.loads((RESULTS_DIR / "v7_llm_answers.json").read_text())["first"]
     rows = unit_rows(answers, v7["units"])
+    unit_ids = [u["id"] for m in MODELS for u in rows[m]]
+    patterns = {"haiku": {k: (parse_answer(v7_replies[k]["reply"]) or {"patterns": []})["patterns"] for k in unit_ids},
+                **{name: {k: answers[arm]["first"][k]["patterns"] for k in unit_ids} for name, arm in AGENTS.items()}}
     rng = np.random.default_rng([8, 99])
     stats = {
         "pooled_excess": {measure: {r: difference(rows, measure, r, rng) for r in (READERS if measure == "flag" else LLM_READERS)}
@@ -261,6 +304,8 @@ def main() -> None:
         "retest": retest(answers, rng),
         "rates": rates(rows),
         "exploratory": exploratory(rows, answers),
+        "post_hoc": {"label_auc": {r: label_auc(rows, r, rng) for r in READERS},
+                     "catch_all_one_job": catch_all(rows, patterns)},
     }
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]
     units_out = {m: [{k: v for k, v in u.items()} for u in rows[m]] for m in MODELS}

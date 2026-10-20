@@ -1,6 +1,6 @@
 import numpy as np
 
-from recgen.analyze_v8 import gain, one_job, per_model, retest, tool_summary, unit_rows
+from recgen.analyze_v8 import auc, catch_all, gain, label_auc, one_job, per_model, retest, tool_summary, unit_rows
 from recgen.rubric_v8 import AGENT_MODEL, MODELS, SECOND_AGENT_MODEL
 
 
@@ -74,3 +74,27 @@ def test_tool_summary_shows_ranks_and_each_texts_strongest_value():
     call = {"tool": "activation", "arguments": {"texts": ["a cat", "a dog"]},
             "answer": "Text 1, strongest 7.1 at [[ cat]]: a[[ cat|7.1]]\nText 2, strongest 0.2 at [[ dog]]: a dog"}
     assert tool_summary(call) == 'activation on "a cat" (7.1); "a dog" (0.2)'
+
+
+def test_auc_counts_ties_as_half():
+    assert auc(np.array([2.0, 2.0]), np.array([0.0, 0.0])) == 1.0
+    assert auc(np.array([1.0]), np.array([1.0])) == 0.5
+    assert auc(np.array([0.0, 2.0]), np.array([1.0])) == 0.5
+
+
+def test_label_auc_ranks_c_above_b_above_a():
+    answers, v7_units = fake_inputs()
+    rows = unit_rows(answers, v7_units)
+    # The Sonnet agent calls every pool B and every real neuron A: a perfect ranking without a single C.
+    assert label_auc(rows, "sonnet agent", np.random.default_rng(0))["mean_over_models"] == 1.0
+    assert label_auc(rows, "minilm", np.random.default_rng(0))["mean_over_models"] == 0.5
+
+
+def test_catch_all_counts_one_job_answers_with_a_catch_all_word():
+    answers, v7_units = fake_inputs()
+    rows = unit_rows(answers, v7_units)
+    ids = [u["id"] for m in MODELS for u in rows[m]]
+    patterns = {r: {k: ["a highly predictable continuation"] if ":real:" in k else ["x"] for k in ids}
+                for r in ("haiku", "haiku agent", "sonnet agent")}
+    out = catch_all(rows, patterns)
+    assert out["sonnet agent"]["real"] == {"one-job answers": 12, "share with a catch-all word": 1.0}
