@@ -1136,6 +1136,131 @@ The other readers' numbers are recomputed from v7's and v8's answers with v14's 
 
 `run_v14.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v7.json`, `results/v8_agent_answers.json`, and the `claude` CLI signed in. The readings are cached in `data/v14/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute. From scratch, the 330 readings took about 40 minutes, six at a time, while other jobs shared the machine. Labels will differ somewhat, because the agent isn't deterministic (point 5).
 
+## v15 results
+
+The readers compared in v8 (v5's MiniLM and v6's network detectors, v7's one-shot Haiku and v8's two agents) separate known two-neuron pools from real neurons poorly, with AUCs of 0.51 to 0.64, and the language-model readers' one-job share of real neurons swings from 20% to 66%. v8 suggested that a rubric asking whether a stated job predicts activations on new text might do better. The field's standard autointerp metric is that kind of rubric. An explainer writes an explanation from a unit's top examples, and a scorer uses only the explanation to judge held-out examples:
+
+- In [Bills et al. 2023, "Language models can explain neurons in language models"](https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html) (sections "Step 2: Simulation" and "Step 3: Scoring"), a simulator predicts the activations, and the score is their correlation with the true ones.
+- In [Paulo et al. 2024, "Automatically Interpreting Millions of Features in Large Language Models"](https://arxiv.org/abs/2410.13928) (section 3.3.1, "Detection"), the scorer says which examples activate the unit at all.
+
+v15 uses Bills et al.'s correlation as its main score and a detection-style AUC as a secondary one. It asks whether the score can tell v8's random 50/50 pools from real neurons. If pools score about as well, the score measures how predictable a unit is, not whether it has one job. v12, cited below, is on the `v12` branch.
+
+The rules are in [`recgen/rubric_v15.py`](recgen/rubric_v15.py), committed (`6e395ed`) before any reading. A pilot of the whole pipeline on v8's six pilot units (pythia-160m, outside the sample) came next (`faed2cf`). Every reading parsed, two of them after a retry, so the rubric wasn't amended. The analysis code was committed (`3b40944`) about four minutes into the run, before any result was computed. After the run, one runner bug was fixed (`d9f32b8`): the flag marking retest units shared a key with the retest reading, which crashed the analysis. The answers were rebuilt from the cache, and no reading changed. An independent review of the first write-up (a fresh Claude session) found that one conclusion didn't follow (point 2) and prompted three more post hoc checks (`84b6c52`). No earlier file or result changed.
+
+### v15 method
+
+1. **Units:** exactly v8's 300. At the middle layer of Pythia 70M, 410M and 2.8B, per size, 40 real neurons, 40 50/50 pools of two random neurons and 20 pools of related neurons, on v8's 0-10 activation scale. No Pythia model is loaded: everything comes from v5's window maxima and v6's stored residuals, through v8's `UnitView`.
+2. **Explainer:** `claude-sonnet-5-5` through the `claude` CLI, one shot, with no tools and v7's system prompt. It sees the unit's 50 shown examples (v7's: for a pool, 25 from each neuron), in v7's order with their activations, exactly as v8's agents saw them. It's asked for a concise explanation of what the unit responds to, in at most about 30 words. It isn't asked for a one-job or mixed label, nor told how it's scored.
+3. **Held-out set, per unit, never shown to the explainer:** from the unit's ranked list of 4,096 windows (one example per window, at the unit's strongest token there), 20 windows from ranks 51 to 300, 20 from ranks 301 to 2,000 and 20 from the remaining ranks (2,001 to 4,096, the "random" stratum). The draw and the order (shuffled together) are seeded by the unit's id. The true value is the unit's 0-10 activation there.
+4. **Simulators:** given only the explanation and the 60 held-out snippets (same format and marked token, no values), predict each snippet's activation from 0 to 10 as a strict JSON list. Two arms, `claude-sonnet-5-5` (primary) and `claude-haiku-5-5`, so that dependence on the simulator shows. A reply that doesn't parse is retried, up to three tries.
+5. **Scores, per unit:** the simulation score is the Pearson correlation of predicted with true values over the 60 examples. Spearman and a detection AUC (top two strata against the random stratum) are secondary.
+6. **Primary test:** pools minus real neurons' mean simulation score (Sonnet simulator), averaged over the three sizes, with a bootstrap interval resampling units within size and type, and the score's AUC for ranking real neurons above pools. The pre-registered verdict:
+   - **"detects mixtures"** if the pools-minus-real interval is entirely below 0 and the AUC's interval entirely above 0.5;
+   - otherwise **"doesn't detect mixtures"** if the pools-minus-real interval lies within ±0.10, so pools score about as well as real neurons;
+   - otherwise "inconclusive".
+
+   Also pre-registered, as descriptions: whether the AUC's interval clears v8's largest AUC (0.64), and whether the AUC reaches 0.80, a level at which it would work as a screen.
+7. **Secondary:** the same with the Haiku simulator; related pools; Spearman and detection AUC as the score; coverage of the two pooled neurons; disjunctive explanations (exploratory): a marker count (" or ", "either", "two", "both", ";", "also", "as well as") and a Haiku judge asking whether the explanation names two or more unrelated patterns; a retest of v8's 30 retest units (a new explanation, then both simulators, on the same held-out set); and real neurons' scores against v12's log peak (exploratory).
+
+All 330 explanations, all 330 Sonnet simulations and all 300 judgments were valid; 23 Sonnet simulations needed a retry after a list of the wrong length. The Haiku simulator often miscounted the 60 snippets (most failed lists had 56 to 66 numbers): 146 of its 330 readings needed a retry, and 30 never gave a valid list. Those were 29 first readings (10 real neurons, 13 pools, 6 related pools) and 1 retest. As pre-registered, those units are left out of the Haiku arm. One Haiku prediction was constant, so it scored 0. The 1,290 readings took 37 minutes, six at a time, and the CLI reported $12.09 of quota: $5.05 for the explainer, $6.28 for the Sonnet simulator, $0.67 for the Haiku simulator and $0.09 for the judge, plus $0.23 for the pilot. Every explanation, prediction and judgment is in [`results/v15_answers.json`](results/v15_answers.json).
+
+### What v15 found
+
+![Simulation scores by unit type, and the score's AUC beside v8's readers](results/figures/v15_simulation.png)
+
+| Simulator | Real neurons | 50/50 pools | Related pools | Pools minus real (95% interval) | Score AUC, real over pools (95% interval) | Verdict |
+|---|---|---|---|---|---|---|
+| **Sonnet (primary)** | 0.32 | 0.29 | 0.34 | **-0.03 (-0.07 to +0.01)** | **0.56 (0.49 to 0.63)** | **doesn't detect mixtures** |
+| Haiku | 0.34 | 0.27 | 0.35 | -0.07 (-0.12 to -0.02) | 0.60 (0.53 to 0.68) | detects mixtures |
+
+Mean simulation scores over the three sizes. The Haiku row has 217 of the 240 real and pooled units.
+
+| Size, Sonnet simulator | Real neurons | 50/50 pools | Related pools | Pools minus real |
+|---|---|---|---|---|
+| 70M | 0.36 | 0.37 | 0.37 | +0.01 |
+| 410M | 0.33 | 0.28 | 0.33 | -0.05 |
+| 2.8B | 0.27 | 0.22 | 0.31 | -0.05 |
+
+| Reader (v8's 240 real and pooled units) | AUC separating pools from real neurons (95% interval) |
+|---|---|
+| MiniLM flag (v5) | 0.51 (0.48 to 0.55) |
+| network flag (v6) | 0.62 (0.56 to 0.68) |
+| Haiku labels, one shot (v7) | 0.62 (0.56 to 0.68) |
+| Haiku agent labels (v8) | 0.56 (0.50 to 0.62) |
+| Sonnet agent labels (v8) | 0.64 (0.58 to 0.69) |
+| **Simulation score, Sonnet simulator (v15)** | **0.56 (0.49 to 0.63)** |
+| Simulation score, Haiku simulator (v15, 217 units) | 0.60 (0.53 to 0.68) |
+
+What's post hoc, added after seeing the results:
+- the one-neuron oracle (point 3), the stratum means and the spread adjustment (point 4), and the choice of examples in point 2;
+- added after the independent review: the tracked-neuron check (point 2), the paired comparison of the two simulators (point 1), and the spread by size (point 4).
+
+Everything else was pre-registered or listed as exploratory in the rubric. Details are in [`results/classification_v15.json`](results/classification_v15.json).
+
+1. **The simulation score barely tells a pool of two random neurons from a real neuron.** With the Sonnet simulator, pools score 0.03 below real neurons (interval -0.07 to +0.01), inside the pre-registered ±0.10, so the verdict is "doesn't detect mixtures". The score's AUC is 0.56 (0.49 to 0.63).
+   - There's no gap at 70M (+0.01), and 0.05 at 410M and 2.8B.
+   - With the Haiku simulator, the gap is -0.07 (-0.12 to -0.02) and the AUC 0.60 (0.53 to 0.68), which meets the rule's "detects mixtures", weakly. On the same 217 units, Haiku's gap is 0.05 larger than Sonnet's (interval 0.01 to 0.08), so the verdict depends on the simulator.
+   - Spearman and detection AUC give the same picture (Sonnet simulator: AUCs 0.54 and 0.55).
+   - Neither AUC's interval clears v8's largest AUC (0.64), and neither AUC is near 0.80. Both sit inside the range of v8's readers (0.51 to 0.64), so the standard score isn't detectably better at finding known mixtures than asking a reader for a label. No paired test against those readers was run.
+2. **Pool predictions mostly track one of the two neurons.**
+   - **The pre-registered test can't show this.** Each pool's held-out examples were split by which neuron drives them. The pool's majority neuron (the minority drives a median 40% of the top-strata examples) gets a detection AUC of 0.62, and the minority neuron 0.63 (difference -0.01, interval -0.04 to +0.02). But the explainer saw 25 examples of each neuron, and which one has the longer tail (the held-out majority) is unrelated to which one an explanation describes. So equal AUCs are what you'd see even if every explanation covered just one neuron, picked at random. The first write-up of v15 read this as "explanations cover both neurons", and the independent review caught it.
+   - **Post hoc check.** Each pool's 60 held-out examples were split into two halves, balanced by stratum. On one half, I picked the neuron whose window maxima correlate better with the predictions. On the other half, I measured both neurons' correlations, so picking the tracked neuron can't inflate its own correlation. With the Sonnet simulator, predictions correlate 0.29 with the tracked neuron and 0.07 with the other (gap 0.22, interval 0.16 to 0.28). Haiku gives 0.29 and 0.06. Related pools, whose two neurons share inputs, show a smaller gap (0.08, interval 0.01 to 0.15).
+   - **So most explanations, as the simulator uses them, capture one job.** Some still capture both. The two best-scoring pools (out of 120):
+     - 70M neurons 1279 and 1631 (score 0.69): *Fires right after a subject or relative pronoun (we, I, which, who) on an adverb (really, specifically, closely) or on a mid-word verb stem fragment (recon-, constru-, observ-) where a verb continuation is expected.* It names two patterns, and the judge calls them unrelated. Its majority neuron's detection AUC is 0.86, and its minority neuron's only 0.56.
+     - 410M neurons 687 and 3175 (score 0.60): *A predicate word or verb right after a subject (esp. "it is/was" or a plural subject) that predicts a following "to"/"that" clause: adjectives like normal, common, rare, fair, easy, or verbs like stop, sit, stand.* The judge calls it one pattern, and it predicts both neurons' examples (detection AUCs 0.79 and 0.99).
+3. **Tracking one neuron costs a pool little, relative to how weakly real neurons are explained (post hoc).**
+   - Pools' predictions correlate about as well with the pool's values (0.29) as with the tracked neuron's own maxima (0.29), and real neurons score 0.32. The neglected neuron's examples barely lower the score.
+   - The score has room to penalize mixing. A prediction that tracked one pooled neuron's window maxima perfectly and ignored the other would score 0.70 on a pool for the better of the two neurons and 0.51 for the worse. A perfect prediction of a real neuron scores 1. With explanations that score 0.3, that room goes mostly unused.
+   - Why the cost is so small isn't settled. Window maxima only approximate a neuron's value at the marked token, and the predictions may also follow features both neurons share.
+4. **Part of the small gap may come from the values' spread (post hoc).** A pool takes the larger of two neurons, which lifts its weak windows. Its random stratum averages 3.5 on the 0-10 scale, against 2.6 for real neurons, and its held-out values spread less (mean SD 1.48 against 1.67). A narrower spread can lower correlations by itself.
+   - In a least-squares fit with size fixed effects, adding that spread moves the pools' coefficient from -0.03 to +0.00 (-0.04 to +0.04) with the Sonnet simulator, and from -0.07 to -0.03 (-0.07 to +0.02) with Haiku. Its intervals resample units without stratifying.
+   - But both adjusted intervals still include the unadjusted gaps. Spread also goes with higher scores among real neurons (Spearman 0.35), so it partly stands for how explainable a neuron is. At 70M, pools have the same spread deficit (1.55 against 1.74) and no score gap at all.
+   - The data can't separate a spread effect from an explanation effect.
+5. **Disjunctive explanations are everywhere (exploratory).** The explainer wrote about 30 words for every kind of unit (30.1 for real neurons, 31.1 for pools, 31.0 for related pools).
+   - The marker count is useless: 83 to 87% of explanations of every type contain one, mostly "or".
+   - The judge calls 76% of pool explanations unrelated patterns, but also 63% of real neurons' and 42% of related pools'. That's v7 and v8's finding again: readers call many real neurons mixed.
+   - Among real neurons, explanations the judge calls unrelated score lower (0.30 against 0.36). Among pools, both kinds score 0.29, so there's no sign that a pool's disjunctive explanation is penalized. These are observational splits.
+6. **The score is repeatable with the Sonnet simulator, on a fixed held-out set.** On v8's 30 retest units, a fresh explanation and simulation on the same 60 held-out examples give scores that correlate 0.84 (0.75 to 0.92) with the first run's, a mean absolute difference of 0.08. That leaves out the noise from drawing the held-out examples. With the Haiku simulator, the correlation is 0.44 (-0.04 to 0.82) on 27 units. The two simulators' scores correlate 0.72 across units. So the score is a fairly stable property of a unit, one that tracks mixing only weakly.
+7. **Related pools score like real neurons** (Sonnet simulator: +0.02, interval -0.04 to +0.07; AUC 0.48), as in v7 and v8.
+8. **Stronger real neurons are explained better (exploratory).** Real neurons' scores rise with v12's log peak: Spearman 0.25 (0.05 to 0.42) over all sizes, 0.42 at 410M and 2.8B, and -0.06 at 70M. That's the direction of v12's finding that strongly firing neurons look cleaner to the label readers.
+9. **Scores fall with size (descriptive):** real neurons from 0.36 (70M) to 0.27 (2.8B), pools from 0.37 to 0.22, with the Sonnet simulator.
+
+### What this does and doesn't show
+
+- **On these units, the standard simulation score is at best a weak mixture detector.** With the primary simulator, a pool of two random, unrelated neurons scores 0.03 below a real neuron on average (up to 0.07 by the interval), and the score ranks real neurons above pools 56% of the time. With the Haiku simulator, it does a little better (0.60). Neither is detectably better than v8's readers, and neither is near a usable screen.
+- **A high simulation score isn't evidence that a unit has one job.** It shows that an explanation predicts activations. On pools, the explanations mostly capture one of the two jobs (point 2), and the score barely notices (point 3).
+- **It doesn't show the score is useless.** With the Sonnet simulator it's fairly repeatable (point 6), and it measures what it was built to measure: how predictable a unit's activations are from a short text. Reading it as monosemanticity needs a positive control like the pools, as v7 and v8 found for the labels.
+- **It doesn't rule out a scorer that would catch pools.** Scoring every token of whole texts, as Bills et al. do, or including truly non-activating examples, as Paulo et al.'s detection does, would widen the range of true values. Explanations that predict real neurons much better than 0.3 would leave room for the one-neuron cap (0.51 to 0.70, point 3) to bite. A shorter explanation limit could push explanations either way. v15 tests one common setup, not all of them.
+- **The pools are the easiest kind of mixing to detect** (v7): two unrelated neurons' strongest examples. A score that barely separates these is unlikely to catch subtler mixing within real neurons, though v15 doesn't test that directly.
+
+### What's still shaky
+
+- **The held-out examples are each window's strongest token,** so even the random stratum fires moderately (2.4 to 3.5 of 10 on average, by unit type). That compresses the range of true values, makes prediction harder than in token-level scoring, and keeps absolute scores (0.2 to 0.4) from being comparable with published ones. Real neurons and pools are scored the same way, but pools' values spread less (point 4).
+- **The verdict depends on the simulator** (point 1). The Haiku arm also failed on 30 of 330 readings, which are left out (29 first readings and 1 retest), and its retest interval is wide.
+- **Points 2 to 4 are post hoc.** The tracked-neuron check uses each neuron's window maxima, which only approximate its value at the marked token.
+- **One explainer, one prompt, one sample of examples.** The prompts are mine, modeled on v8's, not Bills et al.'s or Paulo et al.'s exact prompts. The explainer used its full ~30 words almost every time (26 to 35 words, 10th to 90th percentile), and a shorter limit wasn't tested.
+- **The judge and the marker count are crude** and exploratory. The marker count can't tell a list from an "or" inside one pattern.
+- **The CLI adds a little hidden context** to each call (v12 found the working directory, the platform and the date), the same for every unit. It runs in an empty folder outside the repo, as in v8.
+- **Scope:** the middle layer of Pythia 70M, 410M and 2.8B, 300 units, one reading each (plus 30 retests).
+
+### v15 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v15.py`](recgen/rubric_v15.py) | Pre-registered held-out sampling, prompts, parsing, scores, tests and verdict rule |
+| [`recgen/simulate_v15.py`](recgen/simulate_v15.py) | Builds each unit's explainer prompt and held-out set from v8's `UnitView`; runs the explainer, both simulators and the judge through the `claude` CLI, with retries, a $80 spend guard and a cache |
+| [`recgen/analyze_v15.py`](recgen/analyze_v15.py), [`recgen/plots_v15.py`](recgen/plots_v15.py) | The mixture test, related pools, coverage, disjunction, retest, peak and post hoc checks; the figure |
+| [`results/v15_answers.json`](results/v15_answers.json) | Every explanation, prediction and judgment, with each unit's held-out examples (snippet, rank, stratum, true value, each pooled neuron's value), every attempt's reply, tokens and cost |
+| [`results/classification_v15.json`](results/classification_v15.json) | All statistics, and every unit's explanations and scores |
+| [`results/v15_pilot_answers.json`](results/v15_pilot_answers.json) | The six pilot readings on pythia-160m |
+| `tests/test_rubric_v15.py`, `tests/test_simulate_v15.py`, `tests/test_analyze_v15.py` | Tests for the rules, the runner and the analysis |
+
+```bash
+./run_v15.sh
+```
+
+`run_v15.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v8.json`, and the `claude` CLI signed in. The readings are cached in `data/v15/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute and a half. From scratch, the 1,290 readings take about 40 minutes, six at a time, and about $12 of quota. Explanations and predictions will differ somewhat, because the models aren't deterministic (point 6).
+
 ## Files
 
 | Path | What it is |
