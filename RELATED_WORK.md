@@ -82,3 +82,86 @@ Not supported:
 - Limits the claim: pooled units are the easiest kind of mixture, as the README says. Known-answer benchmarks [Schwettmann23, Shaham24] also include conditional units (one concept only in the presence of another). The repo doesn't test those, and they are closer to how real mixed neurons might look.
 
 **Searched:** queries 2, 3, 6 and 7 in the [search log](#search-log), and the evaluation sections of [GuptaKumar25], [Kopf25], [Foote24], [Liu26] and [Paulo24].
+
+## 3. A checkpoint-level test of recursive generalization
+
+**The repo's finding** (README v1, v2, v4). Pythia-410M, layer 12, the 40 most mixed-looking neurons, 15 to 29 checkpoints. Pre-registered rubrics label how each neuron's facets arrived.
+- v2 labels 2 of 40 neurons recursive generalization by upstream-driver adjacency, against 0.9 expected by chance.
+- v4 finds that 0 of 68 unrelated facet pairs shared drivers while they formed, against 3.1 expected from the null.
+- The README reads this as no evidence for the mechanism in this sample, from tests with limited power.
+
+**Closest prior work**
+- *The mechanism, before the essay.* Multimodal Neurons describes CLIP neurons whose concepts seem "conjoined", "overlapping in a superficial way in one facet, and then generalizing out in multiple directions" (Phil-adelphia / Phil-ippines / Phil-ip). A footnote guesses they may be "a vestigial phenomenon from early in training" [Goh21, section "Feature properties", paragraph "Polysemanticity and Conjoined Neurons"]. The essay credits this paragraph, and says the mechanism "is easy to check if you have training checkpoints" [Cammarata26].
+- *The essay's own evidence.* Vision models it retrained, where it follows neurons over training, for example InceptionV1 mixed5a:178 [Cammarata26, the figure "A feature takes shape over training"]. For language models it reports audits of finished models (Qwen3-32B), not checkpoints.
+- *Another origin story.* "Incidental polysemanticity": random initialization can assign several features to one neuron by chance, and training dynamics then strengthen the overlap, even when there are enough neurons [Lecomte24]. That predicts unrelated facets present from early on. The repo's rubric lumps this in with "mixed from the start" and doesn't test it separately.
+- *Pythia checkpoint studies of features and circuits.*
+  - Gurnee et al. suggest tracking how neurons "develop and change through time" with Pythia's checkpoints, as future work [Gurnee23, section 6.4].
+  - SAE-Track trains a chain of sparse autoencoders over Pythia-410M checkpoints. It reports three phases of feature formation and three patterns: maintaining, shifting and grouping [Xu24, section 3, Figure 2].
+  - Crosscoders across three checkpoints of Pythia-1B, OLMo-1B and BLOOM-1B show token detectors giving way to grammatical features [Bayazit26, sections 6.1 and 7.1].
+  - In Pythia-70M, a German-detecting neuron's circuit and the n-gram circuits it gates form independently and then join [Quirke23].
+  - Circuit components (induction, successor and copy-suppression heads) emerge at similar token counts from 70M to 2.8B [Tigges24, section 3.2].
+  - None of these asks whether a single mixed-looking neuron's unrelated facets grew from a shared start.
+
+**Verdict: not found.** I found no published test of recursive generalization on language-model checkpoints. Given that the essay appeared four days before this audit, that isn't surprising. Two cautions for describing it: the result is a null from underpowered tests, so it isn't evidence against the essay. And the scope (40 neurons in one layer of a 410M model) is far from the essay's models.
+
+**Strengthens or contradicts**
+- Neither directly. The repo's exploratory observation that most facet pairs formed over the same stretch of training (v4 point 5) fits incidental polysemanticity [Lecomte24] as easily as packing. A rubric that separates the two would need a prediction that distinguishes them.
+
+**Searched:** queries 7 to 11 in the [search log](#search-log).
+
+## 4. Smaller findings
+
+### 4a. Input support moves from MLP neurons to attention heads early in training
+
+**The repo's finding** (README v4 point 7, exploratory). Pooled over facets, upstream MLP neurons carry 84% of a facet's direct-term rise at step 128 and 67% at step 1k. Attention heads overtake them between steps 1k and 2k (median per facet: 2k to 3k) and carry 80% at the end.
+
+**Closest prior work**
+- Pythia trains on about 2.1M tokens per step [Tigges24, section 2.3], so steps 1k to 3k are about 2 to 6B tokens. Pythia-410M's config sets `"warmup": 0.01` of `"train-iters": 143000`, so warm-up ends near step 1,430 [Pythia-config].
+- Induction heads in Pythia 70M to 2.8B "emerge soon after they have seen 2×10^9 tokens" [Tigges24, section 3.2, Figure 2].
+- In-context learning develops "in a narrow window early in training (roughly 2.5 to 5 billion tokens)" in Anthropic's models, alongside induction-head formation [Olsson22, Argument 1].
+- In Pythia-70M, many tasks share a phase transition "coinciding with the learning rate warm-up", and many early context neurons are later unlearned [Quirke23, abstract and section 3].
+- Pythia's readout reorganizes in "a narrow early window, 0.4-1.1% of the way through Pythia's pretraining" (about steps 570 to 1,570) [He26].
+- Networks learn low-order token statistics first [Belrose24].
+
+**Verdict: partly known.** I found no paper that measures how a mid-layer neuron's direct input splits between MLP neurons and attention heads over training. But the crossover falls in a window where several transitions are already documented: warm-up ending, induction heads forming, the readout reorganizing. So the likely reading is that this is one more view of those transitions, not a separate phenomenon. If it's reported, it should be framed that way, with warm-up as a possible confound.
+
+**Searched:** queries 8 and 12 in the [search log](#search-log).
+
+### 4b. The residual-stream mean direction grows with model size
+
+**The repo's finding** (README v6 point 6, exploratory). After LayerNorm normalization, the mean over random positions makes up 26% of the squared norm in 70M's middle layer and 55% in 2.8B's (73% at 2.8B's three-quarters layer).
+
+**Closest prior work**
+- Machina & Mercer compute the average cosine similarity between hidden states ("Inter-Sim") at every layer of Pythia 70M, 160M, 410M, 1.4B and 6.9B. 70M and 160M have relatively low values in their middle layers, while 1.4B and 6.9B have high values there, "quite high in the case of 6.9B", then drop at the last layer [MachinaMercer24, section 4.1.1, Figure 1]. Their Eq. 7 rewrites the average pairwise cosine as the squared norm of the summed unit vectors. For vectors of equal norm, as after LayerNorm normalization, that is the repo's measure up to a negligible term.
+- Average cosine between random tokens' representations as an anisotropy measure, subtracted as a baseline before comparing similarities, goes back to Ethayarajh, who found GPT-2's upper layers highly anisotropic [Ethayarajh19, sections 3.4 and 4.1].
+
+**Verdict: already published.** The repo should cite [MachinaMercer24] where it mentions the growing mean (README v6 point 6), and not count it as a finding. Centering before comparing similarities is standard practice [Ethayarajh19], so v6's choice to remove the mean is well supported.
+
+### 4c. Neurons repurposed during training
+
+**The repo's finding** (README v1 point 4, exploratory, from reading the top examples at each checkpoint). Neuron 3282's main job goes "bone" to "There / Most" to object nouns to digits inside codes, and its "behind her" facet looks like a leftover from the object-noun phase. Neurons 2918 and 2382 look similar. The README calls repurposing a third way to get a mixed-looking neuron, besides branching and packing.
+
+**Closest prior work**
+- *The idea.* Goh et al. guess that conjoined features may be "a vestigial phenomenon from early in training when the model couldn't distinguish between the two concepts in that facet" [Goh21, footnote to "Polysemanticity and Conjoined Neurons"]. The essay's InceptionV1 mixed5a:178 drifts between dome, fire engine and station wagon examples over training [Cammarata26].
+- *Changes of role in language-model training.*
+  - SAE features in Pythia-410M: "Some features alter their primary semantic association during training" [Xu24, section 3, Figure 2].
+  - Token detectors decline as grammatical features rise [Bayazit26, section 7.1, Table 1].
+  - Context neurons in Pythia-70M form early and are later unlearned [Quirke23].
+- *Evidence for stability, which cuts the other way.*
+  - Explanations of a fully trained GPT-3-series model's neurons lose less than 25% of their score when applied at a quarter of training, which the authors read as "a relatively high degree of stability in feature-neuron correspondence" [Bills23, section "Subject model training time"].
+  - Universal neurons in GPT-2 small stay stable across checkpoints [Nandan25].
+  - In a vision model, Network Dissection finds no "transitions across different concept categories during training" [Bau17, section 3.5, Figure 10].
+
+**Verdict: partly known.** The idea that a neuron's earlier job can survive as a facet was proposed as a guess [Goh21], and feature-level drift during training is documented [Xu24]. The repo adds a few neuron-level examples in a language model, from reading checkpoints by hand. They are anecdotes, and the stability results above suggest repurposing may be uncommon.
+
+**Searched:** queries 7, 8 and 11 in the [search log](#search-log).
+
+## Methods the repo could adopt
+
+1. **Read below the top 50.** Top-activating examples alone are a known source of illusions [Bolukbasi21; Bills23, section "Neurons may represent many features"; Gurnee23, section 5.1]. Foote samples examples above 75% of the maximum activation for this reason [Foote24, section 4.1.2]. Sampling activation quantiles, as autointerp work does [Paulo24], would test whether the readers' disagreement holds below the top.
+2. **Score the LLM reader by prediction, not only by a label.** Simulation and detection scoring [Bills23; Paulo24] measure whether a reader's description predicts activations. Multi-description methods give a graded polysemanticity score [Kopf25; Liu26]. Any such score should pass the missing-labels and extra-labels sanity checks [Oikarinen25] and the repo's pooled-neuron control.
+3. **Add readers from the neuron's own input.** Neuron embeddings [Foote24] and attribution clustering [Dreyer24] group examples by what drives the neuron, which v2 and v4's upstream drivers already compute. Either would be a fourth reader for the scale sweep, and a check on v6's choice to project the neuron's input direction out.
+4. **Control for word form.** Shared word forms inflate polysemanticity metrics [AitHouHwa26]. Since v6's facets often split by token (token purity, README v6 point 7), a check that holds the activating token fixed would separate word-form effects from context.
+5. **Test conditional units.** Known-answer benchmarks include units that respond to one concept only in the presence of another [Schwettmann23; Shaham24]. A conditional or unequal pool would be a harder, more realistic positive control than 50/50 pools.
+6. **Place training-dynamics observations against known landmarks.** Before reading the MLP-to-attention crossover (4a) as new, compare it with warm-up's end (step 1,430), induction-head formation (about step 1k) [Tigges24] and the readout reorganization [He26]. For repurposing (4c), feature-level tracking across checkpoints [Xu24; Bayazit26] doesn't fix facets at the final checkpoint, which v1 to v4 do.
+7. **Cite the anisotropy result** [MachinaMercer24] in README v6 point 6.
