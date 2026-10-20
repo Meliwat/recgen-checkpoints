@@ -528,6 +528,97 @@ Points 1 to 3 and 5 include exploratory checks (the over-all-models effect, the 
 
 `run_v7.sh` needs v6's `data/v6/` recordings, v5's MiniLM embeddings, and the `claude` CLI signed in. Haiku's answers are cached in `data/v7/` (not committed) and collected in `results/v7_llm_answers.json`. With the cache, it makes no model calls and reruns in about a minute. From scratch, the 1,860 readings take about 45 minutes, six at a time. Their labels will differ somewhat, because Haiku isn't deterministic (point 5).
 
+## v8 results
+
+v7's one-shot reader (Haiku reading a unit's 50 snippets once) detects two pooled neurons only about 21 points more often than real neurons, and calls 42 to 57% of real neurons one job. The essay's "about 90% one main job" comes from preliminary audits of Qwen3-32B whose method it doesn't describe; investigating each neuron is one plausible reading. v8 gives a language-model agent tools to investigate and puts it on v7's units, including the pools with a known answer, to ask whether investigating separates real neurons from pooled ones much better.
+
+The rules are in [`recgen/rubric_v8.py`](recgen/rubric_v8.py), committed (`ca0fc51`) before any agent run. A pilot on six pythia-160m units, which aren't in v8's sample, came next. It led to two amendments, both committed before any v8 unit was read: the prompt now asks the agent to test each pattern and use at least 4 of its 8 tool calls, because the pilot's agents used 0 to 2 (`5d3f546`); and a second agent arm was added (`f2c89af`). The second arm was chosen after its pilot readings: on those six units the Haiku agent called everything one job, both pools included, and the Sonnet agent called both pools unrelated jobs. No earlier file or result changed.
+
+### v8 method
+
+1. **Agents.** Two models through the `claude` CLI, each with no built-in tools and two tools of its own (a small MCP server):
+   - **Haiku agent:** `claude-haiku-5-5`, the model v7 used, so the comparison with v7's reader holds the model fixed. This is the primary arm.
+   - **Sonnet agent:** `claude-sonnet-5-5`, a larger model closer to the essay's auditors.
+2. **What the agent sees and can do.** It starts from v7's prompt (the same 50 snippets in the same order, the same A/B/C definitions), now with each snippet's activation on a 0-10 scale, where 10 is the unit's strongest window. Then it can:
+   - **examples:** read any ranks of the unit's ranked list of 4,096 corpus windows (one example per window), with activations, including weak ones far down the list.
+   - **activation:** measure the unit at every token of text it writes (up to 5 texts of 64 tokens per call). Pythia runs locally for this, in float16 on the M1 Pro, with an end-of-text token in front of the text.
+
+   It has 8 tool calls, then answers A, B or C as in v7, with its patterns and a confidence.
+3. **Pools act like neurons with two jobs.** Each neuron's activation is divided by its 25th-strongest window maximum, and a pool's activation is the larger of its two neurons' normalized activations, at every token of the corpus or of the agent's text. With rank 25, a 50/50 pool's 50 strongest windows are exactly v7's 25 + 25 examples, and a real neuron's scale is its activation over its peak. There's no steering or ablation tool: a pool's two neurons write different output directions, which no single neuron can, so an output-side tool would give pooling away.
+4. **Units:** the middle layer of 70M, 410M and 2.8B (v7's smallest, middle and largest). Per size, 40 real neurons, 40 50/50 pools of random neurons and 20 pools of related neurons, drawn with fixed seeds from v7's units, so v7's three readers are compared on exactly the same units. Each agent reads 30 of them (10 per size) a second time.
+5. **Pre-registered tests:**
+   - **Pooling detection:** for each reader, the 50/50 pools' flag rate minus the real neurons', averaged over the three sizes, with a bootstrap interval. The flag is C (unrelated jobs), as in v7; B or C is the secondary measure.
+   - **Gain from investigation (primary):** the Haiku agent's detection minus one-shot Haiku's on the same units, with a paired bootstrap interval: "much better" if it's at least 15 points and the interval is above 0, "better" if only the interval is above 0. The Sonnet agent is compared with both.
+   - **The one-job share of real neurons**, retest agreement, agreement with the other readers (Cohen's kappa), related pools as a check on false alarms, and rates by size (descriptive only: three sizes are too few for a trend test).
+
+All 660 readings returned a valid label after at most one retry (4 readings, all 50/50 pools, needed one; the replies of their failed first attempts weren't kept). The CLI reported $0.65 of quota for the Haiku agent and $10.27 for the Sonnet agent, plus $0.23 for the kept pilot readings and a few cents for the pilot readings that were overwritten. Every tool call, its answer and each agent's messages are in [`results/v8_agent_answers.json`](results/v8_agent_answers.json).
+
+### What v8 found
+
+![Two investigating agents beside v7's readers](results/figures/v8_readers.png)
+
+| Reader (same 240 real and pooled units) | 50/50 pools flagged over real neurons, points (95% interval) | Label AUC, pools over real | Real neurons called one job | 50/50 pools called one job | Retest kappa |
+|---|---|---|---|---|---|
+| MiniLM (v5) | +2.5 (-5 to +10) | 0.51 | | | |
+| network (v6) | +23 (+11 to +35) | 0.62 | | | |
+| Haiku, one shot (v7) | +19 (+6 to +32) | 0.62 | 42% | 20% | 0.37 (v7's 60 units) |
+| **Haiku agent** | **+11 (-1 to +22)** | 0.56 | 66% | 55% | 0.56 |
+| **Sonnet agent** | **+25 (+13 to +37)** | 0.64 | 20% | 3% | 0.77 |
+
+| Pre-registered gain (C flag) | Points (95% interval) | Verdict |
+|---|---|---|
+| **Haiku agent over one-shot Haiku (primary)** | **-8 (-21 to +5)** | **no clear difference** |
+| Sonnet agent over one-shot Haiku | +6 (-7 to +18) | no clear difference |
+| Sonnet agent over Haiku agent | +14 (+2 to +27) | better |
+
+The label AUC (point 3) and the catch-all count (point 1) were added after seeing the results. Three numbers weren't in the rubric but were added to the analysis during the run, before the full results: the share of pools called one job, the share of readings past rank 50 (point 7) and the agreement between the two agents (point 5). The analysis code was committed after I had seen the label counts of the first 90 Haiku-agent readings at 70M. The other numbers are pre-registered or were listed in the rubric before the run. Details are in [`results/classification_v8.json`](results/classification_v8.json), and examples of what each agent did, with its test texts, are in [`results/v8_models.md`](results/v8_models.md).
+
+1. **Investigating didn't make Haiku a better detector.** On the same units, the Haiku agent separates pools from real neurons by 11 points, against one-shot Haiku's 19 (gain -8, interval -21 to +5). With B or C as the flag, the gain is -12 (-25 to +2). Investigating made it say "one job" much more often: for 66% of real neurons against 42%, and for 55% of the known pools against 20%.
+   - Its one-job answers often name a broad catch-all pattern that can absorb two unrelated jobs, such as "a token inside a highly predictable continuation" or "a formulaic phrase" (examples in `v8_models.md`). Counting answers with such a word ("predictable", "formulaic", "fixed", "template", "boilerplate", "continuation"), one-shot Haiku shows it more than the agent: 54% of its 24 one-job answers on pools against 24% of 51 on real neurons, where the Haiku agent's 41% of 66 against 32% of 79 is within noise. So catch-alls go with calling a pool one job, but aren't specific to investigating. It's a crude count. The A definition, written for v7, allows a pattern to be "broad or abstract", which leaves room for them.
+2. **The Sonnet agent catches pools but calls most real neurons mixed too.** It calls only 4 of 120 pools one job, and flags 85% of them at 410M and 2.8B. But it also flags 52.5 to 57.5% of real neurons and calls only 20% of them one job. Its detection (+25 points) is about the network reader's (+23), and its gain over one-shot Haiku isn't clear (+6, interval -7 to +18). It beats the Haiku agent with C as the flag (+14, interval +2 to +27), but not on the pre-registered secondary measure, B or C (+6, -7 to +19). On that measure its own detection (+17) is below one-shot Haiku's (+22.5).
+3. **No reader separates pools from real neurons well, whatever its threshold.** The readers differ a lot in how often they say "mixed", so a flag-rate difference partly reflects where each draws the line. The AUC of each reader's labels (A < B < C) for ranking pools above real neurons doesn't depend on that. It's 0.64 for the Sonnet agent (0.58 to 0.69), 0.62 for one-shot Haiku and the network reader, 0.56 for the Haiku agent and 0.51 for MiniLM (0.5 is chance).
+4. **The one-job share depends on the auditor.** On the same real neurons, with the same prompt and tools, the Haiku agent calls 66% one job (60 to 72.5% by size) and the Sonnet agent 20% (15 to 22.5%). One-shot Haiku is in between at 42%. None is near the essay's ~90%.
+5. **The agents may be more consistent than one-shot Haiku.** Read a second time, 30 units get the same label from the Haiku agent 83% of the time (flag kappa 0.56, interval 0.17 to 0.87), and from the Sonnet agent 70% of the time (the same flag 90%; kappa 0.77, 0.48 to 1.0). v7's one-shot Haiku had 0.37 on a different 60 units, and only the Sonnet agent's interval clears it. On real neurons, the Sonnet agent agrees with the network reader (kappa 0.44), one-shot Haiku (0.41) and the Haiku agent (0.40) more than the Haiku agent agrees with MiniLM, the network reader or one-shot Haiku (0.14 to 0.29).
+6. **The related control again says little.** Both agents flag related pools much less than random 50/50 pools (Sonnet agent 44 points less, Haiku agent 23). They flag related pools less than real neurons too (19 and 12 points), but among related pools without a shared window, that difference is within noise (-6 and -10 points). As in v7, two neurons with alike input directions look at least as clean as an average real neuron.
+7. **The agents investigated, but lightly.** They used 2.7 to 3.0 of their 8 tool calls on average, though asked for at least 4, and never more than 6, so the budget never bound. The Haiku agent met that minimum in 18 to 23% of readings and the Sonnet agent in 43 to 51%. All but one reading tested the unit on text the agent wrote (5.6 to 7.9 texts on average), and 65 to 95% read examples past rank 50.
+8. **By size (descriptive):** the share of real neurons flagged is flat for both agents (Haiku agent 22.5%, 20%, 30% from 70M to 2.8B; Sonnet agent 57.5%, 52.5%, 57.5%). On these units MiniLM's share falls again (20%, 5%, 2.5%), as in v5 and v7.
+
+### What this does and doesn't show
+
+- **Light investigation didn't measurably improve pooling detection.** With about 3 tool calls per unit, a large gain is ruled out for the Haiku agent (its upper bound is +5 points over Haiku reading the snippets once) but not for the Sonnet agent (-7 to +18). The best reader, the Sonnet agent, is at +25 points and an AUC of 0.64, about the network reader's level. So the methods point from v6 and v7 extends to investigating auditors: an auditor's power should be measured on known mixtures before its cleanliness numbers are read.
+- **The one-job share measures the auditor as much as the network.** Under this rubric and budget, two agents with identical tools and instructions give 66% and 20% on the same neurons, and the one that says "one job" more says it about known pools almost as often (55%). A high one-job share therefore isn't evidence of clean neurons unless the same auditor, run the same way, rarely calls known mixtures one job.
+- **It doesn't refute the essay's ~90%.** The essay audits Qwen3-32B, not Pythia. Its auditors likely investigate much more than 3 tool calls, and it counts "one main job, often with small related offshoots", which isn't v7's A/B/C rubric. A stricter rubric, one that asks whether a stated job predicts activations on new text, might separate pools better. What v8 shows is that the kind of number the essay reports needs a positive control to be interpretable, and that, under v7's rubric with light investigation, two reasonable auditors can disagree by a factor of three.
+
+### What's still shaky
+
+- **The agents investigated lightly** (point 7). Deeper investigation, a larger model or a different rubric could change the result. The pilot's agents used even fewer calls before the prompt was changed. Their readings were overwritten when the prompt changed; only the amended pilot's are kept.
+- **Three things changed at once from v7's reader:** activation values in the prompt, the tools, and the instruction to test patterns. So "investigation" here means all three. v7's readings were also made on a different day, and the Haiku model isn't deterministic (v7's retest kappa was 0.37).
+- **Pools aren't perfectly disguised.** A pool's 50 shown examples sit a little higher on its scale than a real neuron's (median lowest value 7.4 to 8.0 against 7.2 to 7.8), and taking the larger of two neurons gives pools fatter tails further down the list. An agent sees one unit at a time, so it has nothing to compare these against. The values of the first 50 examples are rebuilt from v6's stored residuals; for real neurons they're within 0.01 of v5's recorded activations on the 0-10 scale.
+- **The agents' test texts are short** (up to 64 tokens, with an end-of-text token first), while corpus examples have at least 32 tokens of context in 512-token windows. Some neurons may respond less to short texts. The tool also reports the first tokens of a text, which the corpus examples never include: the first token was marked in 11% of the 4,396 test texts across all readings (14% for pools, 9% for real neurons) and was the strongest token in 2%.
+- **Two leaks were found and fixed after the run, neither used.** A pool that shows two examples from one window had a ranked list a few ranks longer than 4,096, which an agent could have seen by asking for the last ranks; no agent asked for a rank beyond 1,019, and the list is now cut at 4,096. And the CLI ran in a folder inside the repo, so it told the agent its folder was a git repository (checked afterwards: no branch name or commits); it now runs outside the repo.
+- **Small samples.** 40 real neurons and 40 pools per size give gain intervals of about ±13 points, so a smaller gain from investigating couldn't be seen.
+- **Scope:** one prompt and rubric, two models of one family, the middle layer of three Pythia sizes, and pools that mix two neurons' strongest examples, the easiest kind of mixing to detect (v7). The CLI adds its own text to each call, nearly the same for every unit.
+
+### v8 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v8.py`](recgen/rubric_v8.py) | Pre-registered agent, prompt, tools, activation scale, units and tests, with the two amendments |
+| [`recgen/probe_v8.py`](recgen/probe_v8.py), [`recgen/mcp_v8.py`](recgen/mcp_v8.py) | The tool backend (ranked examples, activations on new text through Pythia, a log of every call) and the MCP server each agent talks to |
+| [`recgen/agent_v8.py`](recgen/agent_v8.py) | Runs both agents through the `claude` CLI, with retries, a spend guard and a cache |
+| [`recgen/analyze_v8.py`](recgen/analyze_v8.py), [`recgen/plots_v8.py`](recgen/plots_v8.py) | Gains, detection, one-job shares, retest, agreement, specificity, tool use, post-hoc checks; the figure |
+| [`results/v8_agent_answers.json`](results/v8_agent_answers.json) | Every agent reading: label, patterns, confidence, tool calls with their answers, messages, tokens and cost |
+| [`results/classification_v8.json`](results/classification_v8.json) | All statistics, and every unit's labels and flags from all five readers |
+| [`results/v8_models.md`](results/v8_models.md) | Per size: rates by reader and unit type, and pools the agents called one job and real neurons they disagree on, with patterns and test texts |
+| `results/v8_pilot_*_answers.json` | The amended pilot's readings on pythia-160m |
+| `tests/test_rubric_v8.py`, `tests/test_probe_v8.py`, `tests/test_agent_v8.py`, `tests/test_analyze_v8.py` | Tests for the rules, the tools, the runner and the analysis |
+
+```bash
+./run_v8.sh
+```
+
+`run_v8.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v7.json`, and the `claude` CLI signed in. The readings are cached in `data/v8/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute. From scratch, the 660 readings took about 30 minutes, six at a time, with each Pythia model downloaded, kept in memory while its units are read, and deleted. Labels will differ somewhat, because the agents aren't deterministic (point 5).
+
 ## Files
 
 | Path | What it is |
