@@ -30,7 +30,7 @@ def step_summary(step: int, candidates: list[dict], path=None) -> dict:
     row = {tuple(e): i for i, e in enumerate(data["examples"][:n_facet])}
     neurons = data["neurons"].tolist()
     scaled = data["acts"].reshape(len(data["sigma"]), -1).astype(np.float32) / data["sigma"][:, None]
-    heads = data["heads"].reshape(len(data["sigma"]), -1, len(neurons))
+    heads = data["heads"].astype(np.float32).reshape(len(data["sigma"]), -1, len(neurons))  # v23 stores float16
     coefficients = data["coefficients"].reshape(scaled.shape[1], -1)
     rows = {(c["neuron"], f): [row[(w, p)] for w, p, _ in facet] for c in candidates for f, facet in enumerate(c["facets"])}
     shifts = {key: scaled[r].mean(axis=0) - scaled[n_facet:].mean(axis=0) for key, r in rows.items()}
