@@ -619,6 +619,84 @@ The label AUC (point 3) and the catch-all count (point 1) were added after seein
 
 `run_v8.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v7.json`, and the `claude` CLI signed in. The readings are cached in `data/v8/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute. From scratch, the 660 readings took about 30 minutes, six at a time, with each Pythia model downloaded, kept in memory while its units are read, and deleted. Labels will differ somewhat, because the agents aren't deterministic (point 5).
 
+## v14 results
+
+v8's best investigating agent, Sonnet, flagged 50/50 pools of two neurons 25 points more often than real neurons and called 20% of real neurons one job. The Haiku agent managed 11 points and called 66% one job. The essay's "about 90% one main job" comes from strong investigating auditors. v14 asks whether the strongest available auditor, an Opus agent, detects pools better than the Sonnet agent, and what one-job share it gives real neurons. Everything but the model is v8's: the prompt, tools, budget, units and retest set.
+
+The rules are in [`recgen/rubric_v14.py`](recgen/rubric_v14.py), committed (`eb8ed70`) before any v14 reading. A pilot of two readings on pythia-160m units outside the sample came next (`d7e25e9`). It found nothing broken, so the rules weren't amended. In the pilot, the Opus agent called both units one job, the real neuron and the 50/50 pool (v8's Sonnet agent had called that pool unrelated jobs, and its Haiku agent one job). The analysis code was committed (`92d136d`) while the readings ran, before I looked at any v14 label. v8's analysis and figure code now take the set of readers as an argument; rerunning them leaves v8's results and figure byte-identical. No earlier result changed.
+
+### v14 method
+
+1. **Agent.** `claude-opus-5-5` through the `claude` CLI (2.1.296), by its full id (the `opus` alias resolved to the same model). It runs through v8's runner unchanged: the same CLI flags, system prompt, instructions, two tools, 8 tool calls (at least 4 asked for), activation scale, turn cap, $1 cap per attempt, 3 attempts and empty working folder outside the repo. No effort flag was passed and no effort override was set, so the CLI used its default effort, as in v8.
+2. **Units:** v8's 300 (per size, 40 real neurons, 40 50/50 pools of random neurons and 20 pools of related neurons, at the middle layer of 70M, 410M and 2.8B) and v8's 30 retest units. All 300 prompts are byte-identical to the ones v8's agents saw (checked by hash). The other five readers aren't read again: their labels are v7's and v8's.
+3. **Pre-registered tests:**
+   - **Primary:** the Opus agent's pooling detection (50/50 pools' flag rate minus real neurons', flag = C, averaged over the three sizes) minus the Sonnet agent's, with v8's paired bootstrap on the same units and v8's verdict rule: "much better" if at least 15 points with the interval above 0, "better" if only the interval is above 0.
+   - **Secondary:** the same gain over one-shot Haiku (v7) and over the Haiku agent (v8); every reader's detection with B or C as the flag; label AUC; one-job shares of real neurons and pools; retest; kappa with the other readers on real neurons; tool use; the related pools; rates by size (descriptive).
+4. **Run rules:** six readings at a time, a spend guard of $150 of CLI-reported cost (pilot included), and readings that failed for an infrastructure reason (a CLI error, a usage limit, a timeout) read again on a later run. None did.
+
+All 330 readings returned a valid label on the first attempt. The CLI reported $36.60 of quota for them ($0.11 a reading, against the Sonnet agent's $0.03), $0.22 for the two pilot readings and $0.03 for two one-word checks of the model id, so the guard never came close. Every tool call, its answer and the agent's messages are in [`results/v14_agent_answers.json`](results/v14_agent_answers.json).
+
+### What v14 found
+
+![Six readers on the same units](results/figures/v14_readers.png)
+
+| Reader (same 240 real and pooled units) | 50/50 pools flagged over real neurons, C (95% interval) | Same, B or C | Label AUC | Real neurons called one job | 50/50 pools called one job | Retest kappa | Mean tool calls |
+|---|---|---|---|---|---|---|---|
+| MiniLM (v5) | +2.5 (-6 to +11) | | 0.51 | | | | |
+| network (v6) | +23 (+12 to +35) | | 0.62 | | | | |
+| Haiku, one shot (v7) | +19 (+7.5 to +32) | +22.5 (+11 to +34) | 0.62 | 42.5% | 20% | 0.37 (v7's 60 units) | |
+| Haiku agent (v8) | +11 (-1 to +22.5) | +11 (-2 to +22.5) | 0.56 | 66% | 55% | 0.56 | 2.8 |
+| Sonnet agent (v8) | +25 (+13 to +37) | +17 (+9 to +24) | 0.64 | 20% | 3% | 0.77 | 2.9 |
+| **Opus agent (v14)** | **+22.5 (+11 to +34)** | +29 (+18 to +41) | 0.66 | 50% | 21% | 0.57 | 5.6 |
+
+| Pre-registered gain | C flag, points (95% interval) | Verdict | B or C flag, points | Verdict |
+|---|---|---|---|---|
+| **Opus agent over Sonnet agent (primary)** | **-2.5 (-15 to +9)** | **no clear difference** | +12.5 (+2.5 to +23) | better |
+| Opus agent over one-shot Haiku | +3.3 (-11 to +16) | no clear difference | +6.7 (-6 to +19) | no clear difference |
+| Opus agent over Haiku agent | +12 (-1 to +23) | no clear difference | +18 (+7 to +30) | much better |
+
+The other readers' numbers are recomputed from v7's and v8's answers with v14's bootstrap seed, so a few intervals differ from v8's table by a point. Two checks were added after seeing the results and are post hoc: how Opus's labels map onto the Sonnet agent's (point 2) and the share of readings that used all 8 tool calls (point 4). Reading the essay's definition as A or B (point 3) is exploratory too. Everything else was listed in the rubric. Details are in [`results/classification_v14.json`](results/classification_v14.json).
+
+1. **The Opus agent detects pools no better than the Sonnet agent.** It flags 50/50 pools 22.5 points more often than real neurons, against the Sonnet agent's 25 on the same units (gain -2.5, interval -15 to +9). That rules out the pre-registered "much better" (at least 15 points), and the Opus agent is close to the network reader (+23) and one-shot Haiku (+19) too. Its gain over the Haiku agent (+12, -1 to +23) isn't clear either.
+2. **It draws the line differently: fewer C answers, more B.** It flags 29% of real neurons and 52% of pools, where the Sonnet agent flags 56% and 81%. Of the 67 real neurons the Sonnet agent called unrelated jobs, the Opus agent called 19 related jobs (B) and 16 one job; of its 97 such pools, 23 B and 13 one job (post hoc). So on the secondary measure, B or C as the flag, the Opus agent has the largest detection of any reader (+29, interval +18 to +41) and beats the Sonnet agent (+12.5, +2.5 to +23). That's one of six secondary gains, so it's weak evidence. Its label AUC, which doesn't depend on where a reader draws the line, is 0.66 (0.60 to 0.72), the highest of the six but overlapping the Sonnet agent (0.64), the network reader and one-shot Haiku (both 0.62).
+3. **The strongest auditor calls half of real neurons one job, and a fifth of known pools.** The Opus agent calls 50% of real neurons one job (42 to 59%; 55%, 52.5% and 42.5% from 70M to 2.8B), 30 points more than the Sonnet agent (+22.5 to +38) and 16 fewer than the Haiku agent. It calls 21% of the 50/50 pools one job (14 to 28%). Many of those answers name a broad pattern that can cover two unrelated neurons, such as "tokens that are highly predictable continuations of fixed phrases, known names, words split into pieces or standard formats" (70M pool 1282-1388, which the Sonnet agent split into four unrelated jobs). By v8's crude keyword count, 48% of its 25 one-job answers on pools use such a word, against 37% of its 60 on real neurons. Read the essay's "one main job, often with small related offshoots" as A or B (exploratory): the Opus agent then gives 71% of real neurons, but also 48% of known pools.
+4. **It investigated about twice as much, and the budget still didn't bind.** It used 5.6 of its 8 tool calls on average (the v8 agents 2.8 and 2.9), met the minimum of 4 in 299 of 300 readings, read examples past rank 50 in every reading and wrote 17.3 test texts per reading (the v8 agents 5.8 and 7.8). Only 1 of 300 readings used all 8 calls (post hoc). So the Opus agent investigated clearly more than v8's agents, yet its C-flag detection didn't rise.
+5. **Its labels are about as consistent as the Haiku agent's.** Read a second time, 30 units get the same label 67% of the time and the same flag 80% (kappa 0.57, interval 0.26 to 0.86), against the Haiku agent's 0.56 and the Sonnet agent's 0.77 on the same units. On real neurons it agrees most with the Haiku agent (kappa 0.53), then the Sonnet agent (0.40), the network reader (0.32), one-shot Haiku (0.23) and MiniLM (0.19).
+6. **The related control again says little.** The Opus agent flags related pools 32 points less than 50/50 pools (+18 to +44) and 9 points less than real neurons (-22 to +3). Among related pools without a shared window, the difference from real neurons is +3 (-14 to +21).
+7. **By size (descriptive):** its detection is +12.5, +42.5 and +12.5 points at 70M, 410M and 2.8B, and its share of real neurons flagged is 20%, 22.5% and 45%. With 40 real neurons and 40 pools per size, these per-size numbers are noisy.
+
+### What this does and doesn't show
+
+- **A stronger auditor that investigates more didn't measurably improve pooling detection.** Holding the prompt, tools, budget and units fixed, swapping Sonnet for Opus changed the C-flag detection by -2.5 points (-15 to +9). Across the six readers, the best detection stays around +19 to +25 points and the best AUCs around 0.62 to 0.66. The methods point from v6 to v8 still holds with the strongest auditor available here: its power on known mixtures is moderate, and should be measured before its cleanliness numbers are read.
+- **The one-job share still measures the auditor.** Three agents with identical instructions and tools give 66%, 50% and 20% on the same real neurons, and the agent with the highest share also calls the most known pools one job (55%, 21% and 3%). Opus sits in the middle on both. A high one-job share from any of them isn't evidence of clean neurons on its own.
+- **It doesn't refute the essay's ~90%.** The essay audits Qwen3-32B, not Pythia, likely with deeper investigation and its own rubric. Under the closest reading of that rubric used here (A or B, exploratory), the Opus agent reaches 71% on real neurons, but also 48% on known pools, so under this rubric even the strongest auditor available here separates them only moderately.
+
+### What's still shaky
+
+- **"Only the model changed" covers how the model uses the budget.** The Opus agent wrote three times as many test texts as the Sonnet agent (17.3 against 5.8). The comparison is Opus as the CLI runs it by default, with its own investigation style, not Opus doing the same investigation as Sonnet. A higher effort setting or a larger budget could change the result.
+- **One reading per unit from a noisy reader.** The Opus agent's retest kappa is 0.57, so label noise widens every interval. The gain intervals are about ±12 points: a true gain smaller than that couldn't be seen.
+- **Several secondary comparisons.** The B-or-C "better" over the Sonnet agent is one of six secondary gains, so one of them clearing its interval by chance alone wouldn't be surprising.
+- **Shared machine and account.** The Opus readings ran about an hour after v8's, with CLI 2.1.296 (installed since Oct 9, so most likely v8's version too; v8 didn't record its version or environment). Other jobs, including another Opus reader on the same account and other Pythia jobs, ran at the same time; they could slow readings but not change the tool answers.
+- **v8's caveats all carry over:** pools mix two neurons' strongest examples, the easiest kind of mixing to detect; test texts are short and their first token is marked; the A definition allows broad patterns; one prompt and rubric, one model family, the middle layer of three Pythia sizes.
+
+### v14 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v14.py`](recgen/rubric_v14.py) | Pre-registered arm, units, tests and run rules |
+| [`recgen/agent_v14.py`](recgen/agent_v14.py) | Runs the Opus agent through v8's runner, with the spend guard, the cache and the rerun of infrastructure failures |
+| [`recgen/analyze_v14.py`](recgen/analyze_v14.py), [`recgen/plots_v14.py`](recgen/plots_v14.py) | v8's analysis and figure with six readers: gains, detection, AUC, one-job shares, retest, agreement, tool use, related pools, post-hoc checks |
+| [`results/v14_agent_answers.json`](results/v14_agent_answers.json) | Every Opus reading: label, patterns, confidence, tool calls with their answers, messages, tokens and cost |
+| [`results/classification_v14.json`](results/classification_v14.json) | All statistics, and every unit's labels and flags from all six readers |
+| [`results/v14_pilot_answers.json`](results/v14_pilot_answers.json) | The two pilot readings on pythia-160m |
+| `tests/test_rubric_v14.py`, `tests/test_agent_v14.py`, `tests/test_analyze_v14.py` | Tests for the rules, the runner and the analysis |
+
+```bash
+./run_v14.sh
+```
+
+`run_v14.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/classification_v7.json`, `results/v8_agent_answers.json`, and the `claude` CLI signed in. The readings are cached in `data/v14/` (not committed). With the cache, it loads no model, makes no CLI calls and reruns in about a minute. From scratch, the 330 readings took about 40 minutes, six at a time, while other jobs shared the machine. Labels will differ somewhat, because the agent isn't deterministic (point 5).
+
 ## Files
 
 | Path | What it is |
