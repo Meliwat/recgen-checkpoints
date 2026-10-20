@@ -17,12 +17,12 @@ from recgen import analyze_v8
 from recgen.agent_v8 import ANSWERS_PATH as V8_ANSWERS_PATH
 from recgen.agent_v14 import ANSWERS_PATH
 from recgen.analyze_v8 import (
-    LABEL_RANK, MEASURES, agent_use, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference, rates,
-    retest, specificity, unit_rows,
+    LABEL_RANK, MEASURES, agent_use, auc, catch_all, difference, gain, kappas, label_auc, one_job, one_job_difference,
+    rates, retest, specificity, unit_rows,
 )
 from recgen.config import RESULTS_DIR
 from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
-from recgen.rubric_v8 import MAX_TOOL_CALLS, MODELS, parse_answer
+from recgen.rubric_v8 import BOOTSTRAP, MAX_TOOL_CALLS, MODELS, parse_answer
 from recgen.rubric_v14 import AGENT_MODEL, AGENT_NAME, PRIMARY, SECONDARY
 
 AGENTS = {**analyze_v8.AGENTS, AGENT_NAME: AGENT_MODEL}
@@ -99,6 +99,25 @@ def label_shares(rows: dict, readers: tuple[str, ...] = LLM_READERS) -> dict:
     return out
 
 
+def label_auc_difference(rows: dict, a: str, b: str, rng) -> dict:
+    """Post hoc, added after an independent review: reader a's label AUC (50/50 pools over real neurons,
+    mean over sizes) minus reader b's, on the units both labeled, with v8's paired resampling: units
+    drawn within size and unit type, both readers' labels moving together."""
+    per_model = []
+    for model in MODELS:
+        units = [u for u in rows[model] if u["labels"][a] is not None and u["labels"][b] is not None]
+        per_model.append(tuple(np.array([[LABEL_RANK[u["labels"][r]] for r in (a, b)] for u in units if u["group"] == g], float)
+                               for g in ("pooled 50/50", "real")))
+
+    def difference_of(samples) -> float:
+        return float(np.mean([auc(p[:, 0], r[:, 0]) - auc(p[:, 1], r[:, 1]) for p, r in samples]))
+
+    draws = [difference_of([(p[rng.integers(0, len(p), len(p))], r[rng.integers(0, len(r), len(r))]) for p, r in per_model])
+             for _ in range(BOOTSTRAP)]
+    return {"difference": round(difference_of(per_model), 3),
+            "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])], "draws": BOOTSTRAP}
+
+
 def main() -> None:
     answers = load_answers()
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
@@ -108,6 +127,7 @@ def main() -> None:
     patterns = {"haiku": {k: (parse_answer(v7_replies[k]["reply"]) or {"patterns": []})["patterns"] for k in unit_ids},
                 **{name: {k: answers[arm]["first"][k]["patterns"] for k in unit_ids} for name, arm in AGENTS.items()}}
     rng = np.random.default_rng([14, 99])
+    review_rng = np.random.default_rng([14, 100])  # its own stream, so the checks added after review leave the rest unchanged
     stats = {
         "gains": {measure: {f"{a} over {b}": gain(rows, measure, a, b, rng) for a, b in GAINS} for measure in MEASURES},
         "pooled_excess": {measure: {r: difference(rows, measure, r, rng) for r in (READERS if measure == "flag" else LLM_READERS)}
@@ -126,6 +146,7 @@ def main() -> None:
         "post_hoc_after_review": {
             "note": "post hoc, added after an independent review",
             "label shares": label_shares(rows),
+            f"label AUC, {PRIMARY[0]} minus {PRIMARY[1]}": label_auc_difference(rows, *PRIMARY, review_rng),
         },
     }
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]

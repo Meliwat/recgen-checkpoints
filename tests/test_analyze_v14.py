@@ -1,8 +1,9 @@
 import numpy as np
 
-from recgen.analyze_v8 import gain, kappas, unit_rows
+from recgen.analyze_v8 import gain, kappas, label_auc, unit_rows
 from recgen.analyze_v14 import (
-    AGENTS, LLM_READERS, READERS, label_changes, label_shares, one_job_shares, prompts_match, tool_use,
+    AGENTS, LLM_READERS, READERS, label_auc_difference, label_changes, label_shares, one_job_shares, prompts_match,
+    tool_use,
 )
 from recgen.rubric_v8 import AGENT_MODEL as HAIKU, MODELS, SECOND_AGENT_MODEL as SONNET
 from recgen.rubric_v14 import AGENT_MODEL as OPUS, AGENT_NAME
@@ -99,3 +100,22 @@ def test_label_shares_give_a_or_b_as_one_minus_c_and_the_b_or_c_ceiling():
     for reader in LLM_READERS:
         for group in ("real", "pooled 50/50"):
             assert out[reader][group]["A or B"] == round(1 - out[reader][group]["C"], 3)
+
+
+def test_label_auc_difference_matches_the_two_readers_aucs_and_is_paired():
+    answers, v7_units = fake_inputs()
+    rows = unit_rows(answers, v7_units, AGENTS)
+    # Opus: pools C, real neurons half A and half B (AUC 1); Sonnet: pools B, real neurons A (AUC 1); Haiku agent: all A (0.5).
+    out = label_auc_difference(rows, AGENT_NAME, "haiku agent", np.random.default_rng(0))
+    expected = label_auc(rows, AGENT_NAME, np.random.default_rng(0))["mean_over_models"] - label_auc(
+        rows, "haiku agent", np.random.default_rng(0))["mean_over_models"]
+    assert out["difference"] == round(expected, 3) == 0.5
+    # With the Sonnet agent missing two pools per size its AUC varies across draws, but a reader paired
+    # with itself differs by exactly 0 in every draw, because both columns are drawn from the same units.
+    for model in MODELS:
+        for i in (4, 5):
+            answers[SONNET]["first"][f"{model}:pooled:50/50:{i}"]["label"] = "A"
+    rows = unit_rows(answers, v7_units, AGENTS)
+    assert label_auc_difference(rows, "sonnet agent", "sonnet agent", np.random.default_rng(0))["interval"] == [0.0, 0.0]
+    low, high = label_auc_difference(rows, AGENT_NAME, "sonnet agent", np.random.default_rng(0))["interval"]
+    assert low < high
