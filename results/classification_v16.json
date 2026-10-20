@@ -2788,7 +2788,1039 @@
    "sonnet-E3": 0.593
   }
  },
- "concurrent_addendum": "not run: no results/v16_concurrent_answers.json",
+ "concurrent_addendum": {
+  "arms": {
+   "haiku-v7": {
+    "one_main_job": {
+     "real": {
+      "value": 0.493,
+      "interval": [
+       0.455,
+       0.535
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.55,
+        "interval": [
+         0.45,
+         0.65
+        ]
+       },
+       "160m": {
+        "value": 0.57,
+        "interval": [
+         0.47,
+         0.67
+        ]
+       },
+       "410m": {
+        "value": 0.5,
+        "interval": [
+         0.4,
+         0.6
+        ]
+       },
+       "1b": {
+        "value": 0.5,
+        "interval": [
+         0.4,
+         0.6
+        ]
+       },
+       "1.4b": {
+        "value": 0.46,
+        "interval": [
+         0.37,
+         0.56
+        ]
+       },
+       "2.8b": {
+        "value": 0.38,
+        "interval": [
+         0.29,
+         0.48
+        ]
+       }
+      },
+      "units": 600
+     },
+     "pooled 50/50": {
+      "value": 0.21,
+      "interval": [
+       0.167,
+       0.257
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.22,
+        "interval": [
+         0.12,
+         0.34
+        ]
+       },
+       "160m": {
+        "value": 0.2,
+        "interval": [
+         0.1,
+         0.32
+        ]
+       },
+       "410m": {
+        "value": 0.18,
+        "interval": [
+         0.08,
+         0.3
+        ]
+       },
+       "1b": {
+        "value": 0.2,
+        "interval": [
+         0.1,
+         0.32
+        ]
+       },
+       "1.4b": {
+        "value": 0.28,
+        "interval": [
+         0.16,
+         0.4
+        ]
+       },
+       "2.8b": {
+        "value": 0.18,
+        "interval": [
+         0.08,
+         0.3
+        ]
+       }
+      },
+      "units": 300
+     }
+    },
+    "detection": {
+     "not one main job": {
+      "value": 0.283,
+      "interval": [
+       0.222,
+       0.34
+      ],
+      "per_size": {
+       "70m": 0.33,
+       "160m": 0.37,
+       "410m": 0.32,
+       "1b": 0.3,
+       "1.4b": 0.18,
+       "2.8b": 0.2
+      }
+     },
+     "unrelated jobs": {
+      "value": 0.28,
+      "interval": [
+       0.215,
+       0.342
+      ],
+      "per_size": {
+       "70m": 0.24,
+       "160m": 0.4,
+       "410m": 0.27,
+       "1b": 0.25,
+       "1.4b": 0.21,
+       "2.8b": 0.31
+      }
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 296,
+      "B": 68,
+      "C": 236
+     },
+     "pooled 50/50": {
+      "A": 63,
+      "B": 35,
+      "C": 202
+     }
+    },
+    "near_essay": false,
+    "label_auc": {
+     "value": 0.658,
+     "interval": [
+      0.626,
+      0.691
+     ]
+    },
+    "no_thinking": {
+     "all": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     },
+     "real": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "one_main_job_by_thinking": {
+     "real": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 600,
+       "one main job": 0.493
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 300,
+       "one main job": 0.21
+      }
+     }
+    }
+   },
+   "haiku-E3": {
+    "one_main_job": {
+     "real": {
+      "value": 0.428,
+      "interval": [
+       0.388,
+       0.467
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.57,
+        "interval": [
+         0.47,
+         0.66
+        ]
+       },
+       "160m": {
+        "value": 0.48,
+        "interval": [
+         0.38,
+         0.58
+        ]
+       },
+       "410m": {
+        "value": 0.48,
+        "interval": [
+         0.39,
+         0.58
+        ]
+       },
+       "1b": {
+        "value": 0.35,
+        "interval": [
+         0.26,
+         0.45
+        ]
+       },
+       "1.4b": {
+        "value": 0.32,
+        "interval": [
+         0.23,
+         0.41
+        ]
+       },
+       "2.8b": {
+        "value": 0.37,
+        "interval": [
+         0.28,
+         0.47
+        ]
+       }
+      },
+      "units": 600
+     },
+     "pooled 50/50": {
+      "value": 0.223,
+      "interval": [
+       0.18,
+       0.27
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.3,
+        "interval": [
+         0.18,
+         0.42
+        ]
+       },
+       "160m": {
+        "value": 0.18,
+        "interval": [
+         0.08,
+         0.3
+        ]
+       },
+       "410m": {
+        "value": 0.26,
+        "interval": [
+         0.14,
+         0.38
+        ]
+       },
+       "1b": {
+        "value": 0.2,
+        "interval": [
+         0.1,
+         0.32
+        ]
+       },
+       "1.4b": {
+        "value": 0.26,
+        "interval": [
+         0.14,
+         0.38
+        ]
+       },
+       "2.8b": {
+        "value": 0.14,
+        "interval": [
+         0.04,
+         0.24
+        ]
+       }
+      },
+      "units": 300
+     }
+    },
+    "detection": {
+     "not one main job": {
+      "value": 0.205,
+      "interval": [
+       0.147,
+       0.262
+      ],
+      "per_size": {
+       "70m": 0.27,
+       "160m": 0.3,
+       "410m": 0.22,
+       "1b": 0.15,
+       "1.4b": 0.06,
+       "2.8b": 0.23
+      }
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 257,
+      "B": 2,
+      "C": 341
+     },
+     "pooled 50/50": {
+      "A": 67,
+      "B": 2,
+      "C": 231
+     }
+    },
+    "near_essay": false,
+    "label_auc": {
+     "value": 0.602,
+     "interval": [
+      0.57,
+      0.633
+     ]
+    },
+    "no_thinking": {
+     "all": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     },
+     "real": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "one_main_job_by_thinking": {
+     "real": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 600,
+       "one main job": 0.428
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 300,
+       "one main job": 0.223
+      }
+     }
+    }
+   },
+   "sonnet-v7": {
+    "one_main_job": {
+     "real": {
+      "value": 0.072,
+      "interval": [
+       0.052,
+       0.093
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.15,
+        "interval": [
+         0.09,
+         0.22
+        ]
+       },
+       "160m": {
+        "value": 0.08,
+        "interval": [
+         0.03,
+         0.14
+        ]
+       },
+       "410m": {
+        "value": 0.04,
+        "interval": [
+         0.01,
+         0.08
+        ]
+       },
+       "1b": {
+        "value": 0.07,
+        "interval": [
+         0.02,
+         0.12
+        ]
+       },
+       "1.4b": {
+        "value": 0.06,
+        "interval": [
+         0.02,
+         0.11
+        ]
+       },
+       "2.8b": {
+        "value": 0.03,
+        "interval": [
+         0.0,
+         0.07
+        ]
+       }
+      },
+      "units": 600
+     },
+     "pooled 50/50": {
+      "value": 0.007,
+      "interval": [
+       0.0,
+       0.017
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.02,
+        "interval": [
+         0.0,
+         0.06
+        ]
+       },
+       "160m": {
+        "value": 0.0,
+        "interval": [
+         0.0,
+         0.0
+        ]
+       },
+       "410m": {
+        "value": 0.02,
+        "interval": [
+         0.0,
+         0.06
+        ]
+       },
+       "1b": {
+        "value": 0.0,
+        "interval": [
+         0.0,
+         0.0
+        ]
+       },
+       "1.4b": {
+        "value": 0.0,
+        "interval": [
+         0.0,
+         0.0
+        ]
+       },
+       "2.8b": {
+        "value": 0.0,
+        "interval": [
+         0.0,
+         0.0
+        ]
+       }
+      },
+      "units": 300
+     }
+    },
+    "detection": {
+     "not one main job": {
+      "value": 0.065,
+      "interval": [
+       0.043,
+       0.088
+      ],
+      "per_size": {
+       "70m": 0.13,
+       "160m": 0.08,
+       "410m": 0.02,
+       "1b": 0.07,
+       "1.4b": 0.06,
+       "2.8b": 0.03
+      }
+     },
+     "unrelated jobs": {
+      "value": 0.257,
+      "interval": [
+       0.188,
+       0.317
+      ],
+      "per_size": {
+       "70m": 0.34,
+       "160m": 0.3,
+       "410m": 0.16,
+       "1b": 0.4,
+       "1.4b": 0.18,
+       "2.8b": 0.16
+      }
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 43,
+      "B": 301,
+      "C": 256
+     },
+     "pooled 50/50": {
+      "A": 2,
+      "B": 93,
+      "C": 205
+     }
+    },
+    "near_essay": false,
+    "label_auc": {
+     "value": 0.638,
+     "interval": [
+      0.604,
+      0.669
+     ]
+    },
+    "no_thinking": {
+     "all": {
+      "value": 0.519,
+      "interval": [
+       0.487,
+       0.55
+      ]
+     },
+     "real": {
+      "value": 0.575,
+      "interval": [
+       0.535,
+       0.612
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.407,
+      "interval": [
+       0.353,
+       0.46
+      ]
+     }
+    },
+    "one_main_job_by_thinking": {
+     "real": {
+      "no thinking": {
+       "units": 345,
+       "one main job": 0.078
+      },
+      "thinking": {
+       "units": 255,
+       "one main job": 0.063
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 122,
+       "one main job": 0.008
+      },
+      "thinking": {
+       "units": 178,
+       "one main job": 0.006
+      }
+     }
+    }
+   },
+   "sonnet-E3": {
+    "one_main_job": {
+     "real": {
+      "value": 0.323,
+      "interval": [
+       0.287,
+       0.36
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.37,
+        "interval": [
+         0.28,
+         0.47
+        ]
+       },
+       "160m": {
+        "value": 0.34,
+        "interval": [
+         0.25,
+         0.43
+        ]
+       },
+       "410m": {
+        "value": 0.33,
+        "interval": [
+         0.24,
+         0.42
+        ]
+       },
+       "1b": {
+        "value": 0.3,
+        "interval": [
+         0.21,
+         0.39
+        ]
+       },
+       "1.4b": {
+        "value": 0.29,
+        "interval": [
+         0.21,
+         0.38
+        ]
+       },
+       "2.8b": {
+        "value": 0.31,
+        "interval": [
+         0.22,
+         0.4
+        ]
+       }
+      },
+      "units": 600
+     },
+     "pooled 50/50": {
+      "value": 0.09,
+      "interval": [
+       0.06,
+       0.123
+      ],
+      "per_size": {
+       "70m": {
+        "value": 0.08,
+        "interval": [
+         0.02,
+         0.16
+        ]
+       },
+       "160m": {
+        "value": 0.04,
+        "interval": [
+         0.0,
+         0.1
+        ]
+       },
+       "410m": {
+        "value": 0.14,
+        "interval": [
+         0.06,
+         0.24
+        ]
+       },
+       "1b": {
+        "value": 0.08,
+        "interval": [
+         0.02,
+         0.16
+        ]
+       },
+       "1.4b": {
+        "value": 0.14,
+        "interval": [
+         0.06,
+         0.24
+        ]
+       },
+       "2.8b": {
+        "value": 0.06,
+        "interval": [
+         0.0,
+         0.14
+        ]
+       }
+      },
+      "units": 300
+     }
+    },
+    "detection": {
+     "not one main job": {
+      "value": 0.233,
+      "interval": [
+       0.185,
+       0.282
+      ],
+      "per_size": {
+       "70m": 0.29,
+       "160m": 0.3,
+       "410m": 0.19,
+       "1b": 0.22,
+       "1.4b": 0.15,
+       "2.8b": 0.25
+      }
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 194,
+      "B": 181,
+      "C": 225
+     },
+     "pooled 50/50": {
+      "A": 27,
+      "B": 91,
+      "C": 182
+     }
+    },
+    "near_essay": false,
+    "label_auc": {
+     "value": 0.653,
+     "interval": [
+      0.62,
+      0.686
+     ]
+    },
+    "no_thinking": {
+     "all": {
+      "value": 0.126,
+      "interval": [
+       0.104,
+       0.147
+      ]
+     },
+     "real": {
+      "value": 0.172,
+      "interval": [
+       0.143,
+       0.202
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.033,
+      "interval": [
+       0.017,
+       0.057
+      ]
+     }
+    },
+    "one_main_job_by_thinking": {
+     "real": {
+      "no thinking": {
+       "units": 103,
+       "one main job": 0.786
+      },
+      "thinking": {
+       "units": 497,
+       "one main job": 0.227
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 10,
+       "one main job": 0.7
+      },
+      "thinking": {
+       "units": 290,
+       "one main job": 0.069
+      }
+     }
+    }
+   }
+  },
+  "versus_v7": {
+   "haiku": {
+    "rise_real": {
+     "value": -0.065,
+     "interval": [
+      -0.103,
+      -0.028
+     ]
+    },
+    "rise_pool": {
+     "value": 0.013,
+     "interval": [
+      -0.04,
+      0.067
+     ]
+    },
+    "rise_pool_minus_rise_real": {
+     "value": 0.078,
+     "interval": [
+      0.013,
+      0.142
+     ]
+    },
+    "verdict": "lowers cleanliness",
+    "units": 900
+   },
+   "sonnet": {
+    "rise_real": {
+     "value": 0.252,
+     "interval": [
+      0.218,
+      0.285
+     ]
+    },
+    "rise_pool": {
+     "value": 0.083,
+     "interval": [
+      0.05,
+      0.117
+     ]
+    },
+    "rise_pool_minus_rise_real": {
+     "value": -0.168,
+     "interval": [
+      -0.218,
+      -0.118
+     ]
+    },
+    "verdict": "raises cleanliness, less for known pools",
+    "units": 900
+   }
+  },
+  "label_auc_difference": {
+   "haiku": {
+    "value": -0.056,
+    "interval": [
+     -0.09,
+     -0.021
+    ]
+   },
+   "sonnet": {
+    "value": 0.015,
+    "interval": [
+     -0.018,
+     0.048
+    ]
+   }
+  },
+  "drift": {
+   "haiku": {
+    "session_v7": {
+     "real": {
+      "value": 0.02,
+      "interval": [
+       -0.013,
+       0.055
+      ]
+     },
+     "pooled 50/50": {
+      "value": -0.023,
+      "interval": [
+       -0.077,
+       0.033
+      ]
+     }
+    },
+    "session_E3": {
+     "real": {
+      "value": -0.008,
+      "interval": [
+       -0.037,
+       0.02
+      ]
+     },
+     "pooled 50/50": {
+      "value": -0.013,
+      "interval": [
+       -0.063,
+       0.033
+      ]
+     }
+    },
+    "rise_gap": {
+     "real": {
+      "value": 0.028,
+      "interval": [
+       -0.018,
+       0.075
+      ]
+     },
+     "pooled 50/50": {
+      "value": -0.01,
+      "interval": [
+       -0.08,
+       0.06
+      ]
+     },
+     "rise_pool_minus_rise_real": {
+      "value": -0.038,
+      "interval": [
+       -0.123,
+       0.053
+      ]
+     }
+    },
+    "units": 900
+   },
+   "sonnet": {
+    "session_v7": {
+     "real": {
+      "value": 0.008,
+      "interval": [
+       -0.008,
+       0.025
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.003,
+      "interval": [
+       0.0,
+       0.01
+      ]
+     }
+    },
+    "session_E3": {
+     "real": {
+      "value": -0.008,
+      "interval": [
+       -0.032,
+       0.015
+      ]
+     },
+     "pooled 50/50": {
+      "value": -0.017,
+      "interval": [
+       -0.047,
+       0.013
+      ]
+     }
+    },
+    "rise_gap": {
+     "real": {
+      "value": 0.017,
+      "interval": [
+       -0.012,
+       0.043
+      ]
+     },
+     "pooled 50/50": {
+      "value": 0.02,
+      "interval": [
+       -0.013,
+       0.053
+      ]
+     },
+     "rise_pool_minus_rise_real": {
+      "value": 0.003,
+      "interval": [
+       -0.042,
+       0.047
+      ]
+     }
+    },
+    "units": 900
+   }
+  },
+  "answer": {
+   "haiku": {
+    "main verdict": "no clear rise in cleanliness",
+    "concurrent verdict": "lowers cleanliness",
+    "verdict": "not reproduced",
+    "session_dependent": false
+   },
+   "sonnet": {
+    "main verdict": "raises cleanliness, less for known pools",
+    "concurrent verdict": "raises cleanliness, less for known pools",
+    "verdict": "reproduced",
+    "session_dependent": false
+   }
+  },
+  "usage": {
+   "haiku-v7": {
+    "readings": 900,
+    "without a label": 0,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "cost_usd": 0.739,
+    "mean thinking tokens": 736.64
+   },
+   "haiku-E3": {
+    "readings": 900,
+    "without a label": 0,
+    "models": [
+     "claude-haiku-5-5"
+    ],
+    "cost_usd": 0.629,
+    "mean thinking tokens": 478.87
+   },
+   "sonnet-v7": {
+    "readings": 900,
+    "without a label": 0,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "cost_usd": 9.16,
+    "mean thinking tokens": 92.053
+   },
+   "sonnet-E3": {
+    "readings": 900,
+    "without a label": 0,
+    "models": [
+     "claude-sonnet-5-5"
+    ],
+    "cost_usd": 9.918,
+    "mean thinking tokens": 195.448
+   },
+   "all CLI calls, by the addendum's spend log": 20.459
+  }
+ },
  "usage": {
   "haiku-E3": {
    "first readings": 1800,
