@@ -1,0 +1,290 @@
+{
+ "claude-opus-5-5": {
+  "first": {
+   "160m:real::0": {
+    "id": "160m:real::0",
+    "prompt_sha256": "33522c3a860e23591d9863ea26c6102100a82f44eaf5d9643b35cd9fbe624ce9",
+    "label": "A",
+    "patterns": [
+     "inside a person's name, after the first name, initial or nickname (initial dots, the space after an initial, nickname closing quotes, the middle of a split first name), where the surname comes next"
+    ],
+    "confidence": "high",
+    "error": null,
+    "attempts": [
+     {
+      "error": null,
+      "cost_usd": 0.0893632,
+      "tool_calls": 4,
+      "reply": "Nearly all the snippets share one pattern: the unit fires inside a person's name, after the first name or initial and before the surname, where the surname is about to come.\n\n- **Top examples:** These fit the pattern well. It fires on the dot after an initial in citations (\"F[[.]] Glover\"), the space after an initial (\"S.[[ ]]Roether\"), the closing quote of a nickname (\"Bobbie[[\"]] Logan\"), and the second piece of a split first name (\"Mas[[aki]] Yuki\").\n- **Weaker examples (around ranks 200 and 2000):** The same pattern holds, across languages and in contexts like court captions, cast lists and email addresses. Name pieces carry it at lower strength (\"Shaun[[ Hill]]\", \"General[[ Eisen]]hower\").\n- **Texts I wrote:**\n  - Initials in a byline lit it up, peaking at 5.9 on the dot in \"K[[.]] L. Jones\".\n  - A nickname scored 7.2 on the closing quote in \"Mary \\\"Molly[[\\\"]] Brown\".\n  - A Japanese name peaked at 5.7 on \"Tak[[ashi]]\".\n  - A lone first name scored 4.3 on \"Jennifer\".\n  - Ordinary sentences, numbered lists (\"3. apples\") and company or place names scored no more than 0.3.\n\nInitials, nicknames and split first names all serve the same role (the part of a name that leads up to the surname), so this is one job rather than related ones.\n\n{\"label\": \"A\", \"patterns\": [\"inside a person's name, after the first name, initial or nickname (initial dots, the space after an initial, nickname closing quotes, the middle of a split first name), where the surname comes next\"], \"confidence\": \"high\"}"
+     }
+    ],
+    "cost_usd": 0.0893632,
+    "input_tokens": 20105,
+    "output_tokens": 1059,
+    "num_turns": 5,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "tools_offered": [
+     "mcp__probe__activation",
+     "mcp__probe__examples"
+    ],
+    "reply": "Nearly all the snippets share one pattern: the unit fires inside a person's name, after the first name or initial and before the surname, where the surname is about to come.\n\n- **Top examples:** These fit the pattern well. It fires on the dot after an initial in citations (\"F[[.]] Glover\"), the space after an initial (\"S.[[ ]]Roether\"), the closing quote of a nickname (\"Bobbie[[\"]] Logan\"), and the second piece of a split first name (\"Mas[[aki]] Yuki\").\n- **Weaker examples (around ranks 200 and 2000):** The same pattern holds, across languages and in contexts like court captions, cast lists and email addresses. Name pieces carry it at lower strength (\"Shaun[[ Hill]]\", \"General[[ Eisen]]hower\").\n- **Texts I wrote:**\n  - Initials in a byline lit it up, peaking at 5.9 on the dot in \"K[[.]] L. Jones\".\n  - A nickname scored 7.2 on the closing quote in \"Mary \\\"Molly[[\\\"]] Brown\".\n  - A Japanese name peaked at 5.7 on \"Tak[[ashi]]\".\n  - A lone first name scored 4.3 on \"Jennifer\".\n  - Ordinary sentences, numbered lists (\"3. apples\") and company or place names scored no more than 0.3.\n\nInitials, nicknames and split first names all serve the same role (the part of a name that leads up to the surname), so this is one job rather than related ones.\n\n{\"label\": \"A\", \"patterns\": [\"inside a person's name, after the first name, initial or nickname (initial dots, the space after an initial, nickname closing quotes, the middle of a split first name), where the surname comes next\"], \"confidence\": \"high\"}",
+    "messages": [
+     {
+      "tool": "examples",
+      "input": {
+       "start": 200,
+       "count": 15
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "The paper was written by J. R. Smith and K. L. Jones.",
+        "Cast: Mary \"Molly\" Brown as herself.",
+        "The weather in Paris was nice today.",
+        "He bought 3. apples and 4. pears.",
+        "Dr. Takashi Yamamoto presented the results."
+       ]
+      }
+     },
+     {
+      "text": "Confirmed. One more check at lower ranks."
+     },
+     {
+      "tool": "examples",
+      "input": {
+       "start": 2000,
+       "count": 15
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "The Hilton Hotel is located on Main Street.",
+        "Microsoft Corporation announced new products.",
+        "She called her friend Jennifer yesterday."
+       ]
+      }
+     },
+     {
+      "text": "Nearly all the snippets share one pattern: the unit fires inside a person's name, after the first name or initial and before the surname, where the surname is about to come.\n\n- **Top examples:** These fit the pattern well. It fires on the dot after an initial in citations (\"F[[.]] Glover\"), the space after an initial (\"S.[[ ]]Roether\"), the closing quote of a nickname (\"Bobbie[[\"]] Logan\"), and the second piece of a split first name (\"Mas[[aki]] Yuki\").\n- **Weaker examples (around ranks 200 and 2000):** The same pattern holds, across languages and in contexts like court captions, cast lists and email addresses. Name pieces carry it at lower strength (\"Shaun[[ Hill]]\", \"General[[ Eisen]]hower\").\n- **Texts I wrote:**\n  - Initials in a byline lit it up, peaking at 5.9 on the dot in \"K[[.]] L. Jones\".\n  - A nickname scored 7.2 on the closing quote in \"Mary \\\"Molly[[\\\"]] Brown\".\n  - A Japanese name peaked at 5.7 on \"Tak[[ashi]]\".\n  - A lone first name scored 4.3 on \"Jennifer\".\n  - Ordinary sentences, numbered lists (\"3. apples\") and company or place names scored no more than 0.3.\n\nInitials, nicknames and split first names all serve the same role (the part of a name that leads up to the surname), so this is one job rather than related ones.\n\n{\"label\": \"A\", \"patterns\": [\"inside a person's name, after the first name, initial or nickname (initial dots, the space after an initial, nickname closing quotes, the middle of a split first name), where the surname comes next\"], \"confidence\": \"high\"}"
+     }
+    ],
+    "tool_calls": [
+     {
+      "tool": "examples",
+      "arguments": {
+       "start": 200,
+       "count": 15
+      },
+      "answer": "rank 200 (6.1): ished in 1963, Michelin-starred Walnut Tree serves the imaginative meat and seafood creations of chef Shaun[[ Hill]], made from fresh\nrank 201 (6.1):  the treatment assigned) and derived sharp bounds in that case.\u23ce\u23ce[^23]: A viewpoint recently explored by @m[[ohan]]:pearl:\nrank 202 (6.1): estatslige organisationer.\u23ceJeg vil gerne udtrykkeligt takke hr. Ml[[aden]]ov og hr.\nrank 203 (6.1):  for over a year and is being conducted by a Western Cape task team.\u23ce\u23ceNational police commissioner Riah Phiy[[ega]] said the high-\nrank 204 (6.1):  GARRISON.\u23ce\u23ceGARRISON, WILLIAM E, born ABT 1933, and his bride NANC[[Y]] L, born A\nrank 205 (6.0):  fre:ac - free audio converter\u23ce  * Copyright (C) 2001-2020 Robert Kausch <robert[[.]]kausch@\nrank 206 (6.0):  \u00e4lytt\u00f6m\u00e4n k\u00e4tev\u00e4 formaatti esimerkiksi lomaillessa. Kustantaja V[[ille]] Rauvola\nrank 207 (6.0):  its facility, but participating employees were required to pay a fee to the instructor for the class.\u23ceThe plaintiff, Laura[[ Lee]] Combs, was\nrank 208 (6.0): an \u2013 vocals\u23ceRitchie Blackmore \u2013 guitar\u23ceRoger Glover \u2013 bass\u23ceJon Lord \u2013 organ\u23ceI[[an]] Paice \u2013 drums\nrank 209 (6.0):  biggest trade deficit from India amongst all ASEAN member States.\u23ce\u23ceThe committee chaired by BJP MP Bhup[[ender]] Yadav has\nrank 210 (6.0):  paper on British Journal of Cancer website (http://www.nature.com/bjc)\u23ce\u23ceRA, IB[[,]] AF, SS and\nrank 211 (6.0): \u23ceUNITED STATES OF AMERICA,\u23ce\u23ce                                                Plaintiff - Appellee,\u23ce\u23ce          versus\u23ce\u23ce\u23ceJOSEPH DOUGL[[AS]] WEBB, JR\nrank 212 (6.0): /426\\\">issue 426</a>.\u23ce</li>\u23ce<li>\u23ceMarch 19, 2015, by[[ Michael]] Wetter:<\nrank 213 (6.0):  innovative work in radio broadcasting, with entries from radio stations, networks and independent producers from around the globe. Executive director Rose[[ Anderson]] says, \u201cEven\nrank 214 (6.0): \"He'll be good for the economy. He's a businessman and he'll bring more jobs back,\" said Francisco Bar[[rera]], 26, of\n\n(7 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "The paper was written by J. R. Smith and K. L. Jones.",
+        "Cast: Mary \"Molly\" Brown as herself.",
+        "The weather in Paris was nice today.",
+        "He bought 3. apples and 4. pears.",
+        "Dr. Takashi Yamamoto presented the results."
+       ]
+      },
+      "answer": "Text 1, strongest 5.9 at [[.]]: The paper was written by[[ J|4.0]].[[ R|4.9]][[.|4.6]][[ Smith|3.4]][[ and|1.4]][[ K|4.8]][[.|5.9]][[ L|4.7]][[.|5.5]][[ Jones|3.3]].\nText 2, strongest 7.2 at [[\"]]: Cast:[[ Mary|1.6]] \"[[M|4.0]][[olly|4.4]][[\"|7.2]][[ Brown|4.1]] as herself.\nText 3, strongest 0.3 at [[.]]: The weather in Paris was nice today.\nText 4, strongest 0.3 at [[.]]: He bought 3. apples and 4. pears.\nText 5, strongest 5.7 at [[ashi]]: Dr.[[ Tak|4.0]][[ashi|5.7]][[ Yam|2.6]][[amoto|4.2]] presented the results.\n\n(6 tool calls left)"
+     },
+     {
+      "tool": "examples",
+      "arguments": {
+       "start": 2000,
+       "count": 15
+      },
+      "answer": "rank 2000 (2.7): 240\u23ce<|endoftext|>What would happen if Batman, Superman and Wonder Woman faced off against the villainous likes of Freddy Kr[[ue]]ger and Jason?\nrank 2001 (2.7):  Wake Forest, have developed a number of wound treatment devices which have subsequently been licensed to a company known as KCI.[[ Argent]]a, U.\nrank 2002 (2.7):  3 posts. Description: One of her most advanced abilities in her newly-wired nervous system, Synth-Sp[[ire]], Kiki is\nrank 2003 (2.7):  than pure server side trickery (this allows better control should the\u23ceclient ignore the etags).\u23ce\u23ce~~~\u23ce[[mask]]\nrank 2004 (2.7):  believe they are entitled to receive under the law. To the extent that the Government is asking this court to dismiss Relator[[ Me]]rena's automated chemistry\nrank 2005 (2.7):  here will rate the happiness of your Pokemon.\u23ce\u23ceWhen you enter the house northeast of the Fan Club, a woman[[ named]] Wye will call\nrank 2006 (2.7): 's incessant pronouncements of Iran being an \"existential threat\" are exact replicas of the numerous charges that[[ Herr]] Schickelgr\nrank 2007 (2.7): , 1 cm. Pictures (A) to (D) are frames from movies extracted and processed by M. Maldon[[ado]] (CEAB-\nrank 2008 (2.7):  and NOT seeing the Cubs and White Sox play on WGN between The Golden Girls and Matlock reruns. Ben[[ Mat]]lock, loved hot\nrank 2009 (2.7):  Other beautiful, time-worn rooms hold fascinating relics, including the cradle used by Mary for her son,[[ James]] VI of Scotland (\nrank 2010 (2.7):  American people about the sacrifice required. Tough talk draws headlines, but war rarely conforms to slogans. As General[[ Eisen]]hower, someone with\nrank 2011 (2.7):  oak. Needless to say, many a local microbrewed ale is pulled in both venues.\u23ce\u23ceThomas Beck[[et]]PUB\u23ce\u23ce\nrank 2012 (2.7):  instruction #6 which may be summarized as an issues instruction relating to negligence alleged as to Erie and as to the defendant[[ Br]]inkoetter.\nrank 2013 (2.7): static limit $\\dot{\\gamma}\\rightarrow 0$ [@pdf1; @diff_shear_md3; @[[na]]fsc2].\nrank 2014 (2.6):  you always know what you're getting. Never underestimate the power of less thinking.\u23ceA marketing study conducted by Evo[[ A]]/B tested relative\n\n(5 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "The Hilton Hotel is located on Main Street.",
+        "Microsoft Corporation announced new products.",
+        "She called her friend Jennifer yesterday."
+       ]
+      },
+      "answer": "Text 1, strongest 0.3 at [[.]]: The Hilton Hotel is located on Main Street.\nText 2, strongest 0.3 at [[.]]: Microsoft Corporation announced new products.\nText 3, strongest 4.3 at [[ Jennifer]]: She called her friend[[ Jennifer|4.3]] yesterday.\n\n(4 tool calls left)"
+     }
+    ]
+   },
+   "160m:pooled:50/50:1947-1365": {
+    "id": "160m:pooled:50/50:1947-1365",
+    "prompt_sha256": "6f7a88543000847c97e587dd37990a93ce2615baef961a36d0e5287256f3bc7f",
+    "label": "A",
+    "patterns": [
+     "tokens within formulaic/boilerplate or reference-style text (abbreviations like Pat./Ref./cat. no./i.e., ref-type markup, caption/acknowledgment line breaks, signposted, URLs, markup tags) where the continuation is highly predictable"
+    ],
+    "confidence": "medium",
+    "error": null,
+    "attempts": [
+     {
+      "error": null,
+      "cost_usd": 0.12666980000000003,
+      "tool_calls": 6,
+      "reply": "Checks are done: plain narrative text stays near zero, and formulaic or boilerplate text activates the unit. I'm answering A (one job) with medium confidence. The trigger is broad: tokens inside fixed, reference-style phrases where the next token is easy to predict. The top examples cover a wide mix of surface forms, but they all fit this pattern.\n\n- **Top examples (diverse):** abbreviations like \"Pat.\" / \"No.\" / \"Ref.\" / \"cat. no.\" / \"i.e.\", the \"ref-type\" markup, \"sign|posted\", line breaks closing figure captions or acknowledgments, and XML closing tags.\n- **Lower ranks (100 and 1000):** same kind of tokens, such as travel-guide listings (\"hourly),\"), LaTeX `\\usepackage` lines, \"Hwy\", \"ATTC\" and stock phrases (\"a stone's throw from\").\n- **My own texts:** \"signposted\" scored 7.2, \"cat. no.\" 6.9, \"Pat. No\" 4.6 and \"ref-\" 3.8. A contact line with an email and web address lit up across most of its tokens, peaking at 4.6. Plain story sentences stayed at 0.6 or below.\n- **Caveat:** it isn't simply \"predictable next token\". \"United\" in \"United States\" scored only 1.2 and \"States\" didn't fire. That's why confidence is medium rather than high.\n\n{\"label\": \"A\", \"patterns\": [\"tokens within formulaic/boilerplate or reference-style text (abbreviations like Pat./Ref./cat. no./i.e., ref-type markup, caption/acknowledgment line breaks, signposted, URLs, markup tags) where the continuation is highly predictable\"], \"confidence\": \"medium\"}"
+     }
+    ],
+    "cost_usd": 0.12666980000000003,
+    "input_tokens": 48457,
+    "output_tokens": 1917,
+    "num_turns": 7,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "tools_offered": [
+     "mcp__probe__activation",
+     "mcp__probe__examples"
+    ],
+    "reply": "Checks are done: plain narrative text stays near zero, and formulaic or boilerplate text activates the unit. I'm answering A (one job) with medium confidence. The trigger is broad: tokens inside fixed, reference-style phrases where the next token is easy to predict. The top examples cover a wide mix of surface forms, but they all fit this pattern.\n\n- **Top examples (diverse):** abbreviations like \"Pat.\" / \"No.\" / \"Ref.\" / \"cat. no.\" / \"i.e.\", the \"ref-type\" markup, \"sign|posted\", line breaks closing figure captions or acknowledgments, and XML closing tags.\n- **Lower ranks (100 and 1000):** same kind of tokens, such as travel-guide listings (\"hourly),\"), LaTeX `\\usepackage` lines, \"Hwy\", \"ATTC\" and stock phrases (\"a stone's throw from\").\n- **My own texts:** \"signposted\" scored 7.2, \"cat. no.\" 6.9, \"Pat. No\" 4.6 and \"ref-\" 3.8. A contact line with an email and web address lit up across most of its tokens, peaking at 4.6. Plain story sentences stayed at 0.6 or below.\n- **Caveat:** it isn't simply \"predictable next token\". \"United\" in \"United States\" scored only 1.2 and \"States\" didn't fire. That's why confidence is medium rather than high.\n\n{\"label\": \"A\", \"patterns\": [\"tokens within formulaic/boilerplate or reference-style text (abbreviations like Pat./Ref./cat. no./i.e., ref-type markup, caption/acknowledgment line breaks, signposted, URLs, markup tags) where the continuation is highly predictable\"], \"confidence\": \"medium\"}",
+    "messages": [
+     {
+      "tool": "examples",
+      "input": {
+       "start": 100,
+       "count": 20
+      }
+     },
+     {
+      "tool": "examples",
+      "input": {
+       "start": 1000,
+       "count": 15
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "See U.S. Pat. No. 5,123,456 for details.",
+        "Take the A915 (signposted St Andrews) north.",
+        "as shown in ([Figure 2](#F2){ref-type=\"fig\"}).",
+        "The cat sat on the mat and looked at the bird.",
+        "We thank J. Smith for helpful discussions.\n\nReferences"
+       ]
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "The United States of America is a country.",
+        "To be or not to be, that is the question.",
+        "Once upon a time there lived a king.",
+        "The authors declare that they have no competing interests.\n\nAuthors' contributions",
+        "    </node>\n    <node id=\"2\">\n    </node>\n"
+       ]
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "Total RNA was extracted using the kit (cat. no. 74104, Qiagen).",
+        "This work was supported by NASA Grant #12345.\n\n[^1]: Footnote",
+        "Click to enlarge. Figure 1 (assumes 20% growth).",
+        "Downloaded it and played it for hours.",
+        "Approval was granted (Ref. 343/CNBS) by the committee."
+       ]
+      }
+     },
+     {
+      "tool": "activation",
+      "input": {
+       "texts": [
+        "The results were statistically significant (p < 0.05; see Supplementary Table S3).",
+        "He walked into the room, sat down, and began to read the newspaper quietly.",
+        "Pride in London is usually held in June or July.",
+        "Match pointer: Bolton have beaten Huddersfield.",
+        "Contact us at info@example.com or visit www.example.com."
+       ]
+      }
+     },
+     {
+      "text": "Checks are done: plain narrative text stays near zero, and formulaic or boilerplate text activates the unit. I'm answering A (one job) with medium confidence. The trigger is broad: tokens inside fixed, reference-style phrases where the next token is easy to predict. The top examples cover a wide mix of surface forms, but they all fit this pattern.\n\n- **Top examples (diverse):** abbreviations like \"Pat.\" / \"No.\" / \"Ref.\" / \"cat. no.\" / \"i.e.\", the \"ref-type\" markup, \"sign|posted\", line breaks closing figure captions or acknowledgments, and XML closing tags.\n- **Lower ranks (100 and 1000):** same kind of tokens, such as travel-guide listings (\"hourly),\"), LaTeX `\\usepackage` lines, \"Hwy\", \"ATTC\" and stock phrases (\"a stone's throw from\").\n- **My own texts:** \"signposted\" scored 7.2, \"cat. no.\" 6.9, \"Pat. No\" 4.6 and \"ref-\" 3.8. A contact line with an email and web address lit up across most of its tokens, peaking at 4.6. Plain story sentences stayed at 0.6 or below.\n- **Caveat:** it isn't simply \"predictable next token\". \"United\" in \"United States\" scored only 1.2 and \"States\" didn't fire. That's why confidence is medium rather than high.\n\n{\"label\": \"A\", \"patterns\": [\"tokens within formulaic/boilerplate or reference-style text (abbreviations like Pat./Ref./cat. no./i.e., ref-type markup, caption/acknowledgment line breaks, signposted, URLs, markup tags) where the continuation is highly predictable\"], \"confidence\": \"medium\"}"
+     }
+    ],
+    "tool_calls": [
+     {
+      "tool": "examples",
+      "arguments": {
+       "start": 100,
+       "count": 20
+      },
+      "answer": "rank 100 (7.7):  hij wil alles doen a\u23cehologram op jou zei hij dat dit zou\u23cezijn cd[['s]] om een \u200b\u200b\nrank 101 (7.7):  magazine scan of Origami (I'm honestly quite surprised they're going so far as to actually revealing end-game C[[Gs]] before the game is\nrank 102 (7.7):  destinations including Edinburgh (\u00a356.20, two hours, hourly), London King's Cross (\u00a3121, three hours, hourly[[),]] Newcastle (\u00a35.\nrank 103 (7.7): , our pug is mischievous and it was adorable to watch them both play, tease each other and most[[ importantly]] give chance to bond\nrank 104 (7.7): \u23ce        <item quantity=\"other\">%d \u5206\u9418</item>\u23ce    </plurals[[>]]\u23ce    <!-- Features\nrank 105 (7.7): . Velg hva du vil gj\u00f8re og klikk Neste for \u00e5 fortsette.\"\u23ceStrC[[py]] $PageReinstall\nrank 106 (7.7):  and the increasing population is buying less food per capita? This is Japanese-style deflation. The following BEA-[[generated]] chart shows CURRENT\nrank 107 (7.7):  from R-squared = 39% to 50% ([Table 6](#pone.0150345.t006){ref[[-]]type=\"table\"}).\nrank 108 (7.7):  chain activity to oxidative phosphorylation.](pone.0062400.g007){#pone-0062400-g007}[[\u23ce]]\u23ceTime to Un\nrank 109 (7.7):  Bridge (five minutes), Brockhole Visitor Centre (seven minutes), Ambleside (\u00a36.30, 15 minutes[[),]] Grasmere (\u00a3\nrank 110 (7.7): uting, shopping, and medical services are just around the corner with Loop 1604 just 5 short miles away, and H[[wy]] 281 less than three\nrank 111 (7.7): usepackage{wasysym} \u23ce                \\usepackage{amsfonts} \u23ce                \\usepackage{amssymb} \u23ce                \\usepackage{amsbsy[[}]]\u23ce                \\usepackage\nrank 112 (7.7):  up Princes\u2019 Gate Mews are close to Hyde Park and Harrods and just a stone\u2019s throw[[ from]] South Kensington\nrank 113 (7.6):  transcription-quantitative PCR.\u23ce\u23ceCompeting interests\u23ce===================\u23ce\u23ceThe authors declare that they have no competing interests.[[\u23ce]]\u23ceAuthors\\' contributions\nrank 114 (7.6):  @ Double Door\u23ceIt's the Music Conference Networking Reception presented by Double Door and Yellow Phone Music ...hosted[[ by]] David Silbough\nrank 115 (7.6):  expression of MMP-9/TIMP-1 was perceived in macrophages within the atherosclerotic plaques \\[[@B128-ijms-[[21]]-03946]\\].\nrank 116 (7.6): \u00a0=\u00a03, *P*\u00a0\\>\u00a00.05; Fig. [2](#Fig2){ref[[-]]type=\"fig\"},\nrank 117 (7.6):  minutes, nine daily\u23ce\u23ceTrain\u23ce\u23ceThe train station is about half a mile southeast of the centre on Railway T[[ce]]. Services include the\nrank 118 (7.6):  through the roof exponentially with this series (the first game had two hours of cinematics, with the sequels each[[ having]] three hours), and\nrank 119 (7.6): -35, *S. acidiscabies* ATTC 49003, *S. avermitilis* ATT[[C]] 31267, *\n\n(7 tool calls left)"
+     },
+     {
+      "tool": "examples",
+      "arguments": {
+       "start": 1000,
+       "count": 15
+      },
+      "answer": "rank 1000 (5.9): \u2019 stay in Egypt \u2013 430 years to the very day, as recorded in Exodus 12:40-41, equ[[aling]] 1876-1446\nrank 1001 (5.9):  the child they were expecting now, after 1--2 years, after more than 3 years, or don't know.[[\u23ce]]\u23ce### Men's\nrank 1002 (5.9):  each individual spiritual path. One is the path of the Doer or the Magus, while the other is the path[[ of]] the Knower or\nrank 1003 (5.9):  different. It must be remembered that the court ordered a Gag\u23ceOrder on the case. See, (CR.[[pg]].30). Here\nrank 1004 (5.9):  Magistrate Judge.\u23ceOn January 20, 1993, defendants Mahlon A. Dize, Sr., Wayne W. D[[ize]], Geoffrey K.\nrank 1005 (5.9):  White Spring water. Breakfast is extra (\u00a35 continental, \u00a37.50 cooked). It's about five minutes' walk[[ from]] High St.\u23ce\nrank 1006 (5.9):  the intermediate-frequency signal processing circuit adjustment is done on the AGC level, the sound multiplex signal processing circuit adjustment is[[ done]] on the inputting\nrank 1007 (5.9): locase (p242) involved in the transport of energy equivalents.\u23ce\u23ceCellular retrenchment (that is[[,]] the reduction of cellular\nrank 1008 (5.9):  complete guide to putting one together yourself, check out the link below.\u23ce\u23ceRaspberry Pi Photo Booth | Drummin[[hands]] Design via Adafruit\nrank 1009 (5.9):  the rate of failure to report the decedent\\'s educational attainment was 0.3% for men and 0.4%[[ for]] women aged 35--\nrank 1010 (5.9): June 14, 2016: Tout le monde deteste Starbucks.\u23ce\u23ceJune 14, 2016: Demonstrators.[[\u23ce]]\u23ceJune 14,\nrank 1011 (5.9):  large numbers of genes was useful for detecting mutations in different genes that are possibly disease modifiers or of digenic inheritance.[[\u23ce]]\u23ceMaterials and Methods\nrank 1012 (5.8):  in the Roxbury neighborhood of Boston. During that year, he helped organize a vertical Service Employees International Union affiliate that[[ included]] all salaried\nrank 1013 (5.8): sadeghi2014]), will facilitate the construction of more powerful[^48] causal discovery algorithms that could (potentially[[)]] reveal much more information\nrank 1014 (5.8):  neighbor. The flag is reset to.FALSE. in line 3 at the beginning of a new iteration. The loop in[[ lines]] 4 to 9 visits\n\n(6 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "See U.S. Pat. No. 5,123,456 for details.",
+        "Take the A915 (signposted St Andrews) north.",
+        "as shown in ([Figure 2](#F2){ref-type=\"fig\"}).",
+        "The cat sat on the mat and looked at the bird.",
+        "We thank J. Smith for helpful discussions.\n\nReferences"
+       ]
+      },
+      "answer": "Text 1, strongest 4.6 at [[ No]]: See U.[[S|1.2]]. Pat[[.|1.4]][[ No|4.6]]. 5,123,456 for details.\nText 2, strongest 7.2 at [[posted]]: Take the A[[915|1.9]] (sign[[posted|7.2]] St[[ Andrews|1.6]][[)|1.5]] north.\nText 3, strongest 3.8 at [[-]]: as shown in ([Figure 2](#F2){ref[[-|3.8]]type=\"fig\"}).\nText 4, strongest 0.1 at [[.]]: The cat sat on the mat and looked at the bird.\nText 5, strongest 1.0 at [[ Smith]]: We thank J.[[ Smith|1.0]] for helpful discussions.\u23ce\u23ceReferences\n\n(5 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "The United States of America is a country.",
+        "To be or not to be, that is the question.",
+        "Once upon a time there lived a king.",
+        "The authors declare that they have no competing interests.\n\nAuthors' contributions",
+        "    </node>\n    <node id=\"2\">\n    </node>\n"
+       ]
+      },
+      "answer": "Text 1, strongest 1.2 at [[ United]]: The[[ United|1.2]] States of America is a country.\nText 2, strongest 0.8 at [[,]]: To be or not to be, that is the question.\nText 3, strongest 2.5 at [[ time]]: Once[[ upon|1.1]] a[[ time|2.5]] there lived a king.\nText 4, strongest 1.9 at [[ contributions]]: The authors declare that they have no competing interests.[[\u23ce|1.4]]\u23ceAuthors'[[ contributions|1.9]]\nText 5, strongest 0.8 at [[>]]:     </node>\u23ce    <node id=\"2\">\u23ce    </node>\u23ce\n\n(4 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "Total RNA was extracted using the kit (cat. no. 74104, Qiagen).",
+        "This work was supported by NASA Grant #12345.\n\n[^1]: Footnote",
+        "Click to enlarge. Figure 1 (assumes 20% growth).",
+        "Downloaded it and played it for hours.",
+        "Approval was granted (Ref. 343/CNBS) by the committee."
+       ]
+      },
+      "answer": "Text 1, strongest 6.9 at [[.]]: Total RNA was extracted using the kit (cat.[[ no|5.2]][[.|6.9]] 74[[104|2.7]][[,|3.9]] Qiagen).\nText 2, strongest 4.9 at [[ #]]: This work was[[ supported|4.1]] by NASA Grant[[ #|4.9]]12345.\u23ce\u23ce[^1]: Foot[[note|3.5]]\nText 3, strongest 4.4 at [[umes]]: Click to[[ enlarge|3.1]]. Figure 1 (ass[[umes|4.4]] 20% growth).\nText 4, strongest 3.5 at [[loaded]]: Down[[loaded|3.5]] it and[[ played|1.1]] it for hours.\nText 5, strongest 1.6 at [[)]]: Approval was granted (Ref. 343/CN[[BS|1.2]][[)|1.6]] by the committee.\n\n(3 tool calls left)"
+     },
+     {
+      "tool": "activation",
+      "arguments": {
+       "texts": [
+        "The results were statistically significant (p < 0.05; see Supplementary Table S3).",
+        "He walked into the room, sat down, and began to read the newspaper quietly.",
+        "Pride in London is usually held in June or July.",
+        "Match pointer: Bolton have beaten Huddersfield.",
+        "Contact us at info@example.com or visit www.example.com."
+       ]
+      },
+      "answer": "Text 1, strongest 1.8 at [[3]]: The results were statistically significant (p < 0.05;[[ see|1.8]] Supplementary Table S[[3|1.8]]).\nText 2, strongest 0.6 at [[ quietly]]: He walked into the room, sat down, and began to read the newspaper quietly.\nText 3, strongest 1.4 at [[ usually]]: Pride in London is[[ usually|1.4]] held in June[[ or|1.0]][[ July|1.1]].\nText 4, strongest 2.9 at [[ pointer]]: Match[[ pointer|2.9]][[:|2.4]] Bolton have[[ beaten|1.3]] Huddersfield.\nText 5, strongest 4.6 at [[ or]]: Contact us at info@[[example|1.5]].com[[ or|4.6]][[ visit|4.4]][[ www|1.8]][[.|1.3]][[example|2.8]][[.|2.8]][[com|3.7]][[.|1.1]]\n\n(2 tool calls left)"
+     }
+    ]
+   }
+  },
+  "retest": {}
+ }
+}

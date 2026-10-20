@@ -25,33 +25,35 @@ def dots(ax, y, values, color, label):
                 linewidth=1.5, label=label)
 
 
-def main() -> None:
-    summary = json.loads((RESULTS_DIR / "classification_v8.json").read_text())["summary"]
+def draw(summary: dict, readers: tuple[str, ...], llm_readers: tuple[str, ...], names: dict[str, str], path,
+         height: float = 4.2) -> None:
+    """Each reader's pooling detection (left) and each language-model reader's one-job shares (right)."""
     excess = summary["pooled_excess"]
-    fig, (left, right) = plt.subplots(1, 2, figsize=(13, 4.2), gridspec_kw={"width_ratios": [1.2, 1]})
+    fig, (left, right) = plt.subplots(1, 2, figsize=(13, height), gridspec_kw={"width_ratios": [1.2, 1]})
 
-    y = np.arange(len(READERS))[::-1]
-    dots(left, y, [(excess["flag"][r]["mean_over_models"], excess["flag"][r]["interval"]) for r in READERS], BLUE,
+    y = np.arange(len(readers))[::-1]
+    dots(left, y, [(excess["flag"][r]["mean_over_models"], excess["flag"][r]["interval"]) for r in readers], BLUE,
          "flag = unrelated jobs (C)")
-    llm_y = y[[READERS.index(r) for r in LLM_READERS]] - 0.22
+    llm_y = y[[readers.index(r) for r in llm_readers]] - 0.22
     dots(left, llm_y, [(excess["not_one_job"][r]["mean_over_models"], excess["not_one_job"][r]["interval"])
-                       for r in LLM_READERS], ORANGE, "flag = not one job (B or C)")
+                       for r in llm_readers], ORANGE, "flag = not one job (B or C)")
     left.axvline(0, color=GRAY, linewidth=1)
-    left.set_yticks(y, [NAMES[r] for r in READERS])
+    left.set_yticks(y, [names[r] for r in readers])
     left.set_xlabel("50/50 pools flagged minus real neurons flagged (mean over 70M, 410M, 2.8B; 95% interval)")
     left.set_title("Detecting two pooled neurons", fontsize=10)
-    left.set_xlim(right=0.55)
+    highest = max(excess[m][r]["interval"][1] for m in excess for r in excess[m])
+    left.set_xlim(right=max(0.55, highest + 0.05))
     left.legend(fontsize=8, loc="upper right")
 
     one_job = summary["one_job_real"]
-    y2 = np.arange(len(LLM_READERS))[::-1]
-    dots(right, y2, [(one_job[r]["share"], one_job[r]["interval"]) for r in LLM_READERS], BLUE, "real neurons")
+    y2 = np.arange(len(llm_readers))[::-1]
+    dots(right, y2, [(one_job[r]["share"], one_job[r]["interval"]) for r in llm_readers], BLUE, "real neurons")
     pools = summary["one_job_pools"]
-    dots(right, y2 - 0.22, [(pools[r]["share"], pools[r]["interval"]) for r in LLM_READERS], ORANGE, "50/50 pools")
+    dots(right, y2 - 0.22, [(pools[r]["share"], pools[r]["interval"]) for r in llm_readers], ORANGE, "50/50 pools")
     right.axvline(ESSAY_ONE_JOB, color=GRAY, linestyle="--", linewidth=1)
     right.text(ESSAY_ONE_JOB - 0.01, (y2[0] + y2[1]) / 2, "essay: ~90%\none main job", ha="right", va="center",
                fontsize=8, color="#52514e")
-    right.set_yticks(y2, [NAMES[r] for r in LLM_READERS])
+    right.set_yticks(y2, [names[r] for r in llm_readers])
     right.set_xlim(0, 1)
     right.set_xlabel("share labeled one job (A), all three sizes")
     right.set_title("How often a reader says one job", fontsize=10)
@@ -62,8 +64,13 @@ def main() -> None:
         ax.set_axisbelow(True)
     fig.tight_layout()
     FIGURES_DIR.mkdir(exist_ok=True)
-    fig.savefig(FIGURES_DIR / "v8_readers.png", dpi=110)
+    fig.savefig(path, dpi=110)
     plt.close(fig)
+
+
+def main() -> None:
+    summary = json.loads((RESULTS_DIR / "classification_v8.json").read_text())["summary"]
+    draw(summary, READERS, LLM_READERS, NAMES, FIGURES_DIR / "v8_readers.png")
 
 
 if __name__ == "__main__":
