@@ -152,6 +152,18 @@ def haiku_checks(rows: list[dict], v12_answers: dict, v17_answers: dict) -> dict
             "without_label": sum(a["label"] is None for k in ("band", "retest", "top_reread") for a in v17_answers[k].values())}
 
 
+def facet_counts(rows: list[dict]) -> dict:
+    """Exploratory, added after a first look at 70M's band flags: by peak quartile, the network reader's mean
+    facet count and the shares of neurons with no facet and with 2+ facets, for each sample. The flag needs
+    2+ facets, so diffuse examples can lower it (the pre-registered caveat)."""
+    out = {}
+    for sample in SAMPLES:
+        counts = [np.array([r[f"{sample}_n_facets"] for r in rows if r["quartile"] == q]) for q in range(4)]
+        out[sample] = {"mean": [float(c.mean()) for c in counts], "no_facet": [float(np.mean(c == 0)) for c in counts],
+                       "two_plus": [float(np.mean(c >= 2)) for c in counts]}
+    return out
+
+
 def model_range(rows: list[dict], value) -> list[list[float]]:
     """By peak quartile, the range over models of the median of value(row)."""
     medians = [[float(np.median([value(r) for r in rows if r["model"] == model and r["quartile"] == q])) for model in MODELS]
@@ -187,6 +199,7 @@ def main() -> None:
                       "largest_activation_error": max(r["activation_error"] for r in recording.values()),
                       "seconds": sum(r["seconds"] for r in recording.values())},
         "haiku_checks": haiku_checks(haiku, v12_answers, v17_answers),
+        "exploratory_network_facets_by_quartile": facet_counts(included),
         "neurons": {model: {str(r["neuron"]): [r["band_flag"], r["band_n_facets"], round(r["band_coherence"], 2)]
                             for r in included if r["model"] == model} for model in MODELS},
     }

@@ -68,3 +68,12 @@ def test_reader_tests_read_t1_and_the_verdict():
 def test_agreement_counts_labels_and_flags():
     out = agreement(["A", "C", "B", "C"], ["A", "C", "A", "A"])
     assert out["same_label"] == 0.5 and out["same_flag"] == 0.75 and out["flag_rates"] == [0.5, 0.25]
+
+
+def test_facet_counts_by_quartile():
+    from recgen.analyze_v17 import facet_counts
+
+    rows = [{"quartile": q, "top_n_facets": 2, "band_n_facets": q % 2, "reference_n_facets": 0} for q in range(4) for _ in range(3)]
+    out = facet_counts(rows)
+    assert out["top"]["two_plus"] == [1.0] * 4 and out["band"]["no_facet"] == [1.0, 0.0, 1.0, 0.0]
+    assert out["reference"]["mean"] == [0.0] * 4
