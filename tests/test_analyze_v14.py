@@ -3,7 +3,7 @@ import numpy as np
 from recgen.analyze_v8 import gain, kappas, label_auc, unit_rows
 from recgen.analyze_v14 import (
     AGENTS, LLM_READERS, READERS, label_auc_difference, label_changes, label_shares, one_job_shares, prompts_match,
-    tool_use,
+    shared_unrelated, tool_use,
 )
 from recgen.rubric_v8 import AGENT_MODEL as HAIKU, MODELS, SECOND_AGENT_MODEL as SONNET
 from recgen.rubric_v14 import AGENT_MODEL as OPUS, AGENT_NAME
@@ -119,3 +119,13 @@ def test_label_auc_difference_matches_the_two_readers_aucs_and_is_paired():
     assert label_auc_difference(rows, "sonnet agent", "sonnet agent", np.random.default_rng(0))["interval"] == [0.0, 0.0]
     low, high = label_auc_difference(rows, AGENT_NAME, "sonnet agent", np.random.default_rng(0))["interval"]
     assert low < high
+
+
+def test_shared_unrelated_counts_each_readers_c_labels_and_the_overlap():
+    answers, v7_units = fake_inputs()
+    answers[SONNET]["first"]["70m:pooled:50/50:4"]["label"] = "C"
+    answers[SONNET]["first"]["70m:real::2"]["label"] = "C"  # the Opus agent calls this one B
+    out = shared_unrelated(unit_rows(answers, v7_units, AGENTS), AGENT_NAME, "sonnet agent")
+    assert out["real"] == {f"{AGENT_NAME} C": 0, "sonnet agent C": 1, "both C": 0}
+    assert out["pooled 50/50"] == {f"{AGENT_NAME} C": 12, "sonnet agent C": 1, "both C": 1}
+    assert out["both groups"] == {f"{AGENT_NAME} C": 12, "sonnet agent C": 2, "both C": 1}

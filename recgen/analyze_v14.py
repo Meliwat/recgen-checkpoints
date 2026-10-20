@@ -118,6 +118,21 @@ def label_auc_difference(rows: dict, a: str, b: str, rng) -> dict:
             "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])], "draws": BOOTSTRAP}
 
 
+def shared_unrelated(rows: dict, a: str, b: str) -> dict:
+    """Post hoc, added after an independent review: per unit group, how many units each reader calls C
+    (unrelated jobs), and how many get C from both, on units both labeled."""
+    groups = ("real", "pooled 50/50")
+    out = {}
+    for g in groups:
+        units = [u for m in MODELS for u in rows[m]
+                 if u["group"] == g and u["labels"][a] is not None and u["labels"][b] is not None]
+        out[g] = {f"{a} C": sum(u["labels"][a] == UNRELATED_JOBS for u in units),
+                  f"{b} C": sum(u["labels"][b] == UNRELATED_JOBS for u in units),
+                  "both C": sum(u["labels"][a] == u["labels"][b] == UNRELATED_JOBS for u in units)}
+    out["both groups"] = {k: sum(out[g][k] for g in groups) for k in out[groups[0]]}
+    return out
+
+
 def main() -> None:
     answers = load_answers()
     v7 = json.loads((RESULTS_DIR / "classification_v7.json").read_text())
@@ -147,6 +162,7 @@ def main() -> None:
             "note": "post hoc, added after an independent review",
             "label shares": label_shares(rows),
             f"label AUC, {PRIMARY[0]} minus {PRIMARY[1]}": label_auc_difference(rows, *PRIMARY, review_rng),
+            f"C labels, {PRIMARY[0]} and {PRIMARY[1]}": shared_unrelated(rows, *PRIMARY),
         },
     }
     stats["verdict"] = stats["gains"]["flag"][f"{PRIMARY[0]} over {PRIMARY[1]}"]["verdict"]
