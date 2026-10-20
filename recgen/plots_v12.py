@@ -13,7 +13,7 @@ from recgen.plots import FIGURES_DIR
 
 def main() -> None:
     results = json.loads((RESULTS_DIR / "classification_v12.json").read_text())
-    fig, ax = plt.subplots(figsize=(8, 4))
+    fig, ax = plt.subplots(figsize=(11, 4))
     x = [1, 2, 3, 4]
     for part, style in (("held_out", "-"), ("discovery", ":")):
         for key, r in results[part].items():
@@ -21,7 +21,7 @@ def main() -> None:
     ax.set_xticks(x, ["weakest", "2nd", "3rd", "strongest"])
     ax.set_xlabel("quartile of peak activation")
     ax.set_ylabel("share flagged unrelated mixed")
-    ax.legend(fontsize=7, loc="center left")
+    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(1.01, 1))
     ax.set_title("Do strongly firing neurons look cleaner? Held-out tests (solid) and the discovery layer (dotted)", fontsize=9)
     fig.tight_layout()
     FIGURES_DIR.mkdir(exist_ok=True)
