@@ -99,6 +99,7 @@ def main() -> None:
     for (unit_id, _, directory), record in zip(jobs, records):
         answers["first" if directory == LLM_DIR else "retest"][unit_id] = {
             "label": record["label"], "error": record["error"], "models": record["models"],
+            "prompt_sha256": record["prompt_sha256"],
             "input_tokens": sum(record["usage"].get(k) or 0 for k in
                                 ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")),
             "reply": record["reply"]}

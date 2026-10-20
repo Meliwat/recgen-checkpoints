@@ -45,3 +45,24 @@ def test_retest_compares_labels_and_flags():
                "retest": {"a": {"label": "C"}, "b": {"label": "B"}, "c": {"label": None}}}
     r = retest_stats(answers)
     assert r["units"] == 2 and r["same_label"] == 0.5 and r["same_flag"] == 1.0
+
+
+def test_max_kappa_is_reached_when_one_readers_flags_are_a_subset_of_the_others():
+    import numpy as np
+
+    from recgen.analyze_v7 import max_kappa
+    from recgen.rubric_v6 import cohen_kappa
+
+    a = np.array([True] * 5 + [False] * 95)  # 5% flagged
+    b = np.array([True] * 50 + [False] * 50)  # 50% flagged, including all of a's
+    assert abs(max_kappa(0.05, 0.5) - cohen_kappa(a, b)) < 1e-9
+    assert max_kappa(0.3, 0.3) == 1.0
+
+
+def test_pass_probability_rises_with_the_true_excess():
+    import numpy as np
+
+    from recgen.analyze_v7 import pass_probability
+
+    rng = np.random.default_rng(0)
+    assert pass_probability(0.0, rng) < 0.05 and pass_probability(0.5, rng) > 0.95

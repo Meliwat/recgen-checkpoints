@@ -7,6 +7,7 @@ never labeled is left out of that reader's rates and counted.
 
 import json
 from collections import Counter
+from math import comb
 
 import numpy as np
 
@@ -18,13 +19,18 @@ from recgen.llm_reader import ANSWERS_PATH
 from recgen.rubric_v5 import MODELS, bootstrap_interval, decide
 from recgen.rubric_v6 import MERGE_PERCENTILE, cohen_kappa
 from recgen.rubric_v7 import (
-    DEPTH, MIN_MODELS, MIXES, UNRELATED_JOBS, has_power, is_specific, rng_for,
+    DEPTH, MIN_MODELS, MIXES, N_POOLED, N_REAL, POWER_MARGIN, UNRELATED_JOBS, has_power, is_specific, rng_for,
 )
 from recgen.units_v7 import build_units
 
 READERS = ("minilm", "network", "llm")
 GROUPS = ["real"] + [f"pooled {mix}" for mix in MIXES] + ["related"]
 EXAMPLES_SHOWN = 2  # per model, of each kind of disagreement worth reading
+# Exploratory, added after an independent review of the first v7 results.
+SIMULATED_EXCESSES = (0.15, 0.21, 0.25, 0.30)
+SIMULATED_BASE_RATE = 0.45
+SIMULATIONS = 500
+BOOTSTRAP = 2000
 
 
 def group(unit: dict) -> str:
@@ -39,7 +45,8 @@ def flags_for(model: str, minilm: MiniLM, answers: dict) -> list[dict]:
         units, _, levels = layer.embedded(PRIMARY, unit["rows"], list(unit["neurons"]))
         network = detect(units, levels["merge"][MERGE_PERCENTILE], levels["unrelated"])
         label = answers["first"][unit["id"]]["label"]
-        rows.append({**unit, "group": group(unit),
+        rows.append({**unit, "group": group(unit), "neuron_ids": [int(layer.neurons[n]) for n in unit["neurons"]],
+                     "shared_window": len({int(w) for w, _ in unit["keys"]}) < len(unit["keys"]),
                      "minilm": bool(minilm.detect(unit["keys"])["unrelated_mixed"]),
                      "network": bool(network["unrelated_mixed"]),
                      "llm": None if label is None else label == UNRELATED_JOBS, "llm_label": label})
@@ -95,11 +102,79 @@ def verdicts(stats: list[dict]) -> dict:
     return out
 
 
+def max_kappa(a: float, b: float) -> float:
+    """The highest Cohen's kappa two flag sets with these rates can reach."""
+    chance = a * b + (1 - a) * (1 - b)
+    return (1 - abs(a - b) - chance) / (1 - chance) if chance < 1 else float("nan")
+
+
+def pass_probability(excess: float, rng) -> float:
+    """How often the pre-registered power test passes in one model for a reader whose true 50/50 rate
+    is excess above a SIMULATED_BASE_RATE real rate, with v7's sample sizes."""
+    passes = 0
+    for _ in range(SIMULATIONS):
+        real = rng.random(N_REAL) < SIMULATED_BASE_RATE
+        pooled = rng.random(N_POOLED) < SIMULATED_BASE_RATE + excess
+        passes += has_power(pooled, real, rng)[0]
+    return passes / SIMULATIONS
+
+
+def exploratory_stats(rows: dict, answers: dict) -> dict:
+    """Not pre-registered: checks added after an independent review of the first v7 results."""
+    real = [r for model_rows in rows.values() for r in model_rows if r["group"] == "real"]
+    out = {"kappa_ceiling": {}, "flag_rate_given_minilm": {}, "shared_window_share": {}, "pooled_excess": {},
+           "models_with_excess_at_margin": {}, "power_test_pass_probability": {}}
+    for model, model_rows in rows.items():
+        r = [x for x in model_rows if x["group"] == "real"]
+        rate_of = {reader: float(np.mean([x[reader] for x in r])) for reader in READERS}
+        out["kappa_ceiling"][model] = {f"minilm vs {b}": round(max_kappa(rate_of["minilm"], rate_of[b]), 3)
+                                       for b in ("network", "llm")}
+    for reader in ("network", "llm"):
+        out["flag_rate_given_minilm"][reader] = {
+            "minilm flagged": round(float(np.mean([x[reader] for x in real if x["minilm"]])), 3),
+            "minilm not flagged": round(float(np.mean([x[reader] for x in real if not x["minilm"]])), 3)}
+    for g in GROUPS:
+        members = [x for model_rows in rows.values() for x in model_rows if x["group"] == g]
+        out["shared_window_share"][g] = round(float(np.mean([x["shared_window"] for x in members])), 3)
+    related = [x for model_rows in rows.values() for x in model_rows if x["group"] == "related"]
+    out["llm_flag_rate_in_related_pools"] = {
+        "with a shared window": round(float(np.mean([x["llm"] for x in related if x["shared_window"]])), 3),
+        "without": round(float(np.mean([x["llm"] for x in related if not x["shared_window"]])), 3)}
+    rng = np.random.default_rng([7, 99])
+    for reader in READERS:
+        per_model = []
+        for model_rows in rows.values():
+            per_model.append((np.array([x[reader] for x in model_rows if x["group"] == "pooled 50/50"], float),
+                              np.array([x[reader] for x in model_rows if x["group"] == "real"], float)))
+        point = float(np.mean([p.mean() - q.mean() for p, q in per_model]))
+        draws = [np.mean([rng.choice(p, len(p)).mean() - rng.choice(q, len(q)).mean() for p, q in per_model])
+                 for _ in range(BOOTSTRAP)]
+        out["pooled_excess"][reader] = {"mean_over_models": round(point, 3),
+                                        "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]}
+        out["models_with_excess_at_margin"][reader] = int(sum(p.mean() - q.mean() >= POWER_MARGIN - 1e-9 for p, q in per_model))
+    for excess in SIMULATED_EXCESSES:
+        p = pass_probability(excess, rng)
+        five_of_six = sum(comb(6, k) * p ** k * (1 - p) ** (6 - k) for k in (5, 6))
+        out["power_test_pass_probability"][f"+{excess:.0%} over {SIMULATED_BASE_RATE:.0%}"] = {
+            "one model": round(p, 3), "5 or more of 6": round(five_of_six, 3)}
+    pairs = [(answers["first"][k]["label"], v["label"], k) for k, v in answers["retest"].items()]
+    first, second = (np.array([p[i] == UNRELATED_JOBS for p in pairs]) for i in (0, 1))
+    kappas = []
+    for _ in range(BOOTSTRAP):
+        idx = rng.integers(0, len(pairs), len(pairs))
+        kappas.append(cohen_kappa(first[idx], second[idx]))
+    out["retest"] = {"flag_kappa_interval": [round(float(x), 3) for x in np.nanpercentile(kappas, [2.5, 97.5])],
+                     "real_units": sum(":real:" in k for _, _, k in pairs)}
+    return out
+
+
 def write_report(stats: list[dict], rows: dict, answers: dict, corpus: np.ndarray) -> None:
     lines = ["# v7 results per model\n",
              "Flag rates (unrelated mixed) by reader and unit type at the middle layer, then, per model, "
              f"up to {EXAMPLES_SHOWN} real neurons each reader alone flags and {EXAMPLES_SHOWN} 50/50 pools the "
-             "language model missed, with its stated patterns.\n"]
+             "language model missed, with its stated patterns and four of the unit's 50 snippets (its 1st, 2nd, "
+             "26th and 27th strongest; the language model saw all 50 in random order). Unit ids use v6's sample "
+             "indices; the MLP neuron ids are given beside them.\n"]
     for s in stats:
         model = s["model"]
         lines.append(f"## pythia-{model}\n")
@@ -119,8 +194,9 @@ def write_report(stats: list[dict], rows: dict, answers: dict, corpus: np.ndarra
             lines.append(f"### {title}\n")
             for r in chosen[:EXAMPLES_SHOWN]:
                 reply = answers["first"][r["id"]]["reply"].replace("\n", " ")
-                lines.append(f"**{r['id']}** (MiniLM {r['minilm']}, network {r['network']}, LLM {r['llm_label']})\n")
-                lines.append(f"- Language model: `{reply[:400]}`")
+                lines.append(f"**{r['id']}**, MLP neuron(s) {', '.join(map(str, r['neuron_ids']))} "
+                             f"(MiniLM {r['minilm']}, network {r['network']}, LLM {r['llm_label']})\n")
+                lines.append(f"- Language model: `{reply[:700]}`")
                 lines += [f"- `{display_text(corpus, int(w), int(p))}`" for w, p in r["keys"][[0, 1, 25, 26]]]
                 lines.append("")
     (RESULTS_DIR / "v7_models.md").write_text("\n".join(lines))
@@ -133,6 +209,7 @@ def main() -> None:
     rows = {model: flags_for(model, minilm, answers) for model in MODELS}
     stats = [model_stats(model, rows[model]) for model in MODELS]
     summary = {"verdicts": verdicts(stats), "retest": retest_stats(answers),
+               "exploratory": exploratory_stats(rows, answers),
                "llm_models_used": sorted({m for a in answers["first"].values() for m in a["models"]}),
                "llm_input_tokens": sum(a["input_tokens"] for part in answers.values() for a in part.values())}
     units_out = {model: [{k: (list(v) if isinstance(v, tuple) else v) for k, v in r.items() if k not in ("rows", "keys")}
