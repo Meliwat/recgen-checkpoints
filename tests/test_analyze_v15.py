@@ -1,6 +1,6 @@
 import numpy as np
 
-from recgen.analyze_v15 import analyze, post_hoc, spread_adjusted, unit_rows
+from recgen.analyze_v15 import analyze, post_hoc, simulator_difference, spread_adjusted, tracked_neurons, unit_rows
 from recgen.rubric_v8 import MODELS
 from recgen.rubric_v15 import DETECTS, NO_DETECTION, RANDOM_STRATUM, TOP_STRATA
 
@@ -90,3 +90,14 @@ def test_spread_adjusted_pool_effect_matches_the_raw_gap_without_spread():
     raw = np.mean([u["first"]["scores"]["sonnet"]["pearson"] for m in MODELS for u in rows[m] if u["group"] == "pooled 50/50"]) - 1
     assert out["units"] == 24 and np.isclose(out["pool coefficient"][0], raw, atol=1e-3)
     assert len(out["pool coefficient with spread"][1]) == 2
+
+
+def test_tracked_neurons_finds_predictions_that_follow_one_pool_neuron():
+    answers = fake_answers(pools_covered=False)  # predictions follow neuron 0 and miss neuron 1's examples
+    out = tracked_neurons(unit_rows(answers), answers, "sonnet", np.random.default_rng(0))
+    assert out["units"] == 12 and out["tracked neuron r"] > 0.5 > out["other neuron r"] and out["interval"][0] > 0
+
+
+def test_simulator_difference_is_zero_when_both_simulators_agree():
+    out = simulator_difference(unit_rows(fake_answers(pools_covered=False)), np.random.default_rng(0))
+    assert out["units"] == 24 and out["haiku minus sonnet"] == 0 and out["interval"] == [0, 0]

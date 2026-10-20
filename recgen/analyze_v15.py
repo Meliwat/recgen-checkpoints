@@ -12,10 +12,10 @@ import numpy as np
 from scipy.stats import spearmanr
 
 from recgen.config import RESULTS_DIR
-from recgen.rubric_v8 import BOOTSTRAP, MODELS
+from recgen.rubric_v8 import BOOTSTRAP, MODELS, excess, paired_gain
 from recgen.rubric_v15 import (
     MIN_DRIVEN, PRIMARY_SIMULATOR, SCREEN_AUC, SIMULATORS, UNCOVERED_AUC, coverage, group_difference,
-    has_disjunction_marker, pearson, separation_auc, unit_scores, verdict,
+    has_disjunction_marker, pearson, separation_auc, unit_rng, unit_scores, verdict,
 )
 from recgen.simulate_v15 import ANSWERS_PATH, READINGS
 
@@ -214,8 +214,10 @@ def post_hoc(answers: dict) -> dict:
                                for h, x in zip(u["held_out"], p) if h["stratum"] == stratum] for arm in ARMS}
             strata[g][stratum] = {"mean true": round(float(np.mean(true)), 2),
                                   **{f"mean predicted, {arm}": round(float(np.mean(v)), 2) for arm, v in predicted.items()}}
-    spread = {g: round(float(np.mean([np.std([h["value"] for h in u["held_out"]]) for u in units if u["group"] == g])), 2)
-              for g in GROUPS}
+    spread = {m: {g: round(float(np.mean([np.std([h["value"] for h in u["held_out"]]) for u in units
+                                          if u["group"] == g and u["model"] == m])), 2) for g in GROUPS} for m in MODELS}
+    spread["all sizes"] = {g: round(float(np.mean([np.std([h["value"] for h in u["held_out"]]) for u in units
+                                                   if u["group"] == g])), 2) for g in GROUPS}
     missing = {arm: {g: sum(u["group"] == g and predictions(u["first"], arm) is None for u in units) for g in GROUPS}
                for arm in ARMS}
     return {"one-neuron oracle": oracle, "values by stratum": strata, "mean sd of true values in a unit": spread,
@@ -232,12 +234,64 @@ def spread_adjusted(rows: dict, answers: dict, arm: str, rng) -> dict:
     base = np.column_stack([[u["group"] == "pooled 50/50" for u, _ in units]] +
                            [[u["model"] == m for u, _ in units] for m in MODELS]).astype(float)
     y = np.array([s for _, s in units])
-    out = {"units": len(units)}
+    real = np.array([u["group"] == "real" for u, _ in units])
+    out = {"units": len(units),
+           "spearman of spread with score, real neurons": round(float(spearmanr(spread[real], y[real]).statistic), 3)}
     for name, X in (("pool coefficient", base), ("pool coefficient with spread", np.column_stack([base, spread]))):
         fit = lambda idx: float(np.linalg.lstsq(X[idx], y[idx], rcond=None)[0][0])  # noqa: E731
         draws = [fit(rng.integers(0, len(y), len(y))) for _ in range(BOOTSTRAP)]
         out[name] = [round(fit(np.arange(len(y))), 3), [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])]]
     return out
+
+
+def tracked_neurons(rows: dict, answers: dict, arm: str, rng, group: str = "pooled 50/50") -> dict:
+    """Post hoc, after an independent review: do a pool's predictions track one of its neurons or both? Each
+    pool's held-out examples are split into two halves, balanced by stratum and seeded by the unit's id. The
+    neuron whose window maxima correlate better with the predictions on one half is the tracked one; both
+    neurons' correlations are then measured on the other half, and the two directions averaged, so picking
+    the tracked neuron doesn't inflate its correlation. Bootstrap interval over pools, within size."""
+    per_model, tracked, other = [], [], []
+    for m in MODELS:
+        gaps = []
+        for u in rows[m]:
+            entry = answers["units"][u["id"]]
+            predicted = predictions(entry["first"], arm)
+            if u["group"] != group or predicted is None:
+                continue
+            predicted = np.array(predicted)
+            values = np.array([h["neuron_values"] for h in entry["held_out"]])
+            strata = [h["stratum"] for h in entry["held_out"]]
+            half = np.zeros(len(strata), bool)
+            split = unit_rng(u["id"], 1)
+            for stratum in sorted(set(strata)):
+                members = [i for i, x in enumerate(strata) if x == stratum]
+                half[split.choice(members, len(members) // 2, replace=False)] = True
+            pair = []
+            for pick, test in ((half, ~half), (~half, half)):
+                k = int(np.argmax([pearson(predicted[pick], values[pick, j]) for j in (0, 1)]))
+                pair.append((pearson(predicted[test], values[test, k]), pearson(predicted[test], values[test, 1 - k])))
+            t, o = np.mean(pair, axis=0)
+            tracked.append(t)
+            other.append(o)
+            gaps.append(t - o)
+        per_model.append(np.array(gaps))
+    point, interval = paired_mean(per_model, rng)
+    return {"units": len(tracked), "tracked neuron r": round(float(np.mean(tracked)), 3),
+            "other neuron r": round(float(np.mean(other)), 3), "gap": round(point, 3),
+            "interval": [round(x, 3) for x in interval]}
+
+
+def simulator_difference(rows: dict, rng) -> dict:
+    """Post hoc, after an independent review: the Haiku simulator's pools-minus-real gap minus the Sonnet
+    simulator's, on units both scored, with a paired bootstrap interval."""
+    both = {m: [u for u in rows[m] if all(score(u, arm, "pearson") is not None for arm in ARMS)] for m in MODELS}
+    arrays = {arm: [tuple(np.array([score(u, arm, "pearson") for u in both[m] if u["group"] == g]) for g in ("pooled 50/50", "real"))
+                    for m in MODELS] for arm in ARMS}
+    point, interval, haiku_interval, sonnet_interval = paired_gain(arrays["haiku"], arrays["sonnet"], rng)
+    return {"units": int(sum(len(a) + len(b) for a, b in arrays["haiku"])), "haiku minus sonnet": round(point, 3),
+            "interval": [round(x, 3) for x in interval],
+            "haiku gap": [round(excess(arrays["haiku"]), 3), [round(x, 3) for x in haiku_interval]],
+            "sonnet gap": [round(excess(arrays["sonnet"]), 3), [round(x, 3) for x in sonnet_interval]]}
 
 
 def analyze(answers: dict, v8_auc: dict) -> dict:
@@ -257,7 +311,10 @@ def analyze(answers: dict, v8_auc: dict) -> dict:
              "peak (exploratory)": peak_stats(rows, rng),
              "descriptive": descriptive(rows, answers),
              "post hoc": {**post_hoc(answers),
-                          "spread-adjusted pool effect": {arm: spread_adjusted(rows, answers, arm, rng) for arm in ARMS}}}
+                          "spread-adjusted pool effect": {arm: spread_adjusted(rows, answers, arm, rng) for arm in ARMS},
+                          "tracked neurons, after review": {arm: {g: tracked_neurons(rows, answers, arm, rng, g)
+                                                                  for g in ("pooled 50/50", "related")} for arm in ARMS},
+                          "simulator difference, after review": simulator_difference(rows, rng)}}
     stats["verdict"] = stats["primary"]["verdict"]
     return {"summary": stats, "units": rows}
 

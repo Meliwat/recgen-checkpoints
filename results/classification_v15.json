@@ -659,9 +659,26 @@
     }
    },
    "mean sd of true values in a unit": {
-    "real": 1.67,
-    "pooled 50/50": 1.48,
-    "related": 1.84
+    "70m": {
+     "real": 1.74,
+     "pooled 50/50": 1.55,
+     "related": 2.07
+    },
+    "410m": {
+     "real": 1.59,
+     "pooled 50/50": 1.4,
+     "related": 1.79
+    },
+    "2.8b": {
+     "real": 1.68,
+     "pooled 50/50": 1.47,
+     "related": 1.65
+    },
+    "all sizes": {
+     "real": 1.67,
+     "pooled 50/50": 1.48,
+     "related": 1.84
+    }
    },
    "unscored units": {
     "sonnet": {
@@ -678,6 +695,7 @@
    "spread-adjusted pool effect": {
     "sonnet": {
      "units": 240,
+     "spearman of spread with score, real neurons": 0.352,
      "pool coefficient": [
       -0.032,
       [
@@ -695,6 +713,7 @@
     },
     "haiku": {
      "units": 217,
+     "spearman of spread with score, real neurons": 0.298,
      "pool coefficient": [
       -0.07,
       [
@@ -710,6 +729,74 @@
       ]
      ]
     }
+   },
+   "tracked neurons, after review": {
+    "sonnet": {
+     "pooled 50/50": {
+      "units": 120,
+      "tracked neuron r": 0.294,
+      "other neuron r": 0.074,
+      "gap": 0.22,
+      "interval": [
+       0.161,
+       0.279
+      ]
+     },
+     "related": {
+      "units": 60,
+      "tracked neuron r": 0.321,
+      "other neuron r": 0.242,
+      "gap": 0.079,
+      "interval": [
+       0.014,
+       0.148
+      ]
+     }
+    },
+    "haiku": {
+     "pooled 50/50": {
+      "units": 107,
+      "tracked neuron r": 0.288,
+      "other neuron r": 0.058,
+      "gap": 0.228,
+      "interval": [
+       0.165,
+       0.29
+      ]
+     },
+     "related": {
+      "units": 54,
+      "tracked neuron r": 0.361,
+      "other neuron r": 0.211,
+      "gap": 0.151,
+      "interval": [
+       0.076,
+       0.225
+      ]
+     }
+    }
+   },
+   "simulator difference, after review": {
+    "units": 217,
+    "haiku minus sonnet": -0.047,
+    "interval": [
+     -0.083,
+     -0.012
+    ],
+    "haiku gap": [
+     -0.07,
+     [
+      -0.117,
+      -0.022
+     ]
+    ],
+    "sonnet gap": [
+     -0.023,
+     [
+      -0.064,
+      0.018
+     ]
+    ]
    }
   },
   "verdict": "doesn't detect mixtures"
