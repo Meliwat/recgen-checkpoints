@@ -12,7 +12,7 @@ from recgen.plots import FIGURES_DIR
 
 PANELS = (("network", "flag", "network reader: share flagged unrelated mixed"),
           ("network", "coherence", "network reader: coherence (percentile of null)"),
-          ("haiku", "flag", "Haiku (v12's 600 fresh neurons): share flagged"))
+          ("haiku", "flag", "Haiku (598 of v12's fresh neurons): share flagged"))
 STYLES = {"top": ("top 50", "-", "C0"), "band": ("band, 0.4 to 0.6 of peak", "--", "C3"),
           "reference": ("50 random positions", ":", "0.5")}
 
