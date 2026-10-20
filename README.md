@@ -620,7 +620,7 @@ An independent review of v9 ran while v12's rules were being written. Its report
 1. **Held-out data.**
    - The network reader's (v6) and MiniLM's (v5) flags at the quarter and three-quarters depths of all six sizes. They were computed for every sampled neuron in earlier versions but never examined for magnitude.
    - Fresh Haiku readings at the middle layer: 25 sampled neurons from each peak quartile per model (600 in all), none of them among v7's 100, read with v7's prompt and CLI. All 600 returned a valid label.
-   - v11's Haiku readings of real neurons (v7's design at the other depths, branch `v11`), added if they existed at analysis time. The quarter depth was complete (100 real neurons per model, 600 in all). The three-quarters depth was still being read, so it isn't included. The first write-up of v12 wrongly said no v11 readings existed and left them out; v12's independent review caught that.
+   - v11's Haiku readings of real neurons (v7's design at the other depths, branch `v11`), added if they existed at analysis time. The first write-up of v12 wrongly said no v11 readings existed and left them out; v12's independent review caught that. By then the quarter depth was complete (100 real neurons per model, 600 in all), and the three-quarters depth was added when v11 finished reading it (599 of 600 with a valid label).
 2. **Peak** is log(peak / median peak of the layer's sampled neurons). The normalization doesn't affect any test, since quartiles and correlations are taken within models and the regression has a fixed effect per model.
 3. **H1 (primary), per reader and depth.** The top peak quartile's flag rate minus the other three quartiles' must be below zero, with a bootstrap interval entirely below zero. Peak's Spearman correlation with the flag must also be negative in at least 5 of the 6 models.
 4. **H2 (controls).** A logistic regression of the flag on standardized log peak, peakedness (peak over the 50th-ranked window maximum), density (share of windows at or above half the peak) and token purity, with a fixed effect per model. It holds if log peak's coefficient has a bootstrap interval entirely below zero.
@@ -638,6 +638,7 @@ The middle-layer network and MiniLM results are where the effect was found. They
 | network, quarter | 12,242 | 54% / 53% / 48% / 30% | -21 (-23.5 to -19.5), 6/6 | -0.58 (-0.64 to -0.52) | yes / yes |
 | network, three quarters | 11,786 | 52% / 53% / 50% / 30% | -21 (-23.4 to -19.4), 6/6 | -0.56 (-0.62 to -0.51) | yes / yes |
 | Haiku, quarter (v11's real neurons) | 600 | 50% / 41% / 37% / 17% | -25 (-33.0 to -17.6), 6/6 | -0.85 (-1.19 to -0.59) | yes / yes |
+| Haiku, three quarters (v11's real neurons) | 599 | 44% / 41% / 32% / 20% | -20 (-27.7 to -12.0), 6/6 | -0.81 (-1.13 to -0.54) | yes / yes |
 | Haiku, middle (fresh neurons) | 600 | 59% / 50% / 44% / 13% | -38 (-44.9 to -30.5), 6/6 | -0.94 (-1.37 to -0.60) | yes / yes |
 | MiniLM, quarter | 12,242 | 11% / 11% / 12% / 10% | -1 (-2.4 to +0.1), 4/6 | -0.22 (-0.31 to -0.14) | no / yes |
 | MiniLM, three quarters | 11,786 | 17% / 17% / 19% / 13% | -5 (-6.4 to -3.5), 6/6 | -0.28 (-0.35 to -0.21) | yes / yes |
@@ -649,14 +650,14 @@ Points 4 and 5 are exploratory. Point 5 was added after v9's review; point 4, th
 
 1. **The effect replicates on every held-out test for the network reader and Haiku, in all six models.**
    - Network reader: at both held-out depths, the strongest quarter of neurons is flagged 21 points less than the rest. It's mostly a step at the top quartile (54%, 53%, 48%, then 30%), with Spearman correlations of only -0.08 to -0.30 by model.
-   - Haiku: 25 points less on 600 real neurons at the quarter depth, a held-out depth, and 38 points less on 600 fresh neurons at the middle depth. Haiku's decline is more graded (59%, 50%, 44%, 13% at the middle depth).
+   - Haiku: 25 and 20 points less on about 600 real neurons at each held-out depth, and 38 points less on 600 fresh neurons at the middle depth. Haiku's decline is more graded (59%, 50%, 44%, 13% at the middle depth).
 2. **The pre-registered controls don't explain it.** With peakedness, density and token purity in the regression, log peak's coefficient stays clearly negative in every test (H2).
 3. **MiniLM shows the same direction at a much smaller scale:** 1 to 5 points, and its quarter-depth H1 fails. Its H2 holds, but its flag rate is only 10% to 19%.
 4. **The effect doesn't depend on using the single peak, or on neurons Haiku had already seen.**
    - With quartiles of the mean of a neuron's 50 strongest window maxima (the level of the examples the readers see) instead of its single largest, the top quartile is flagged 23 to 27 points less by the network reader and 22 to 32 less by Haiku, in all six models.
    - 84 of Haiku's 600 fresh neurons are part of v9's Haiku-read unions, so Haiku had in effect seen some of their examples. Without them, H1 is -38 points (-46 to -30) and H2's coefficient is -1.08 (-1.53 to -0.73).
-5. **Strong neurons' top examples are more alike inside the network, and that similarity accounts for much of Haiku's effect.** v6's top-pair percentile measures how alike a neuron's 50 strongest examples are in the network's representation: their median pairwise similarity, ranked against random positions. It correlates 0.51 to 0.60 with log peak. Adding it to H2's regression:
-   - **Haiku**, which never sees that representation: similarity's coefficient is -0.93 (-1.28 to -0.69) at the middle depth and -0.81 at the quarter depth. Log peak's coefficient shrinks by 0.58 (0.42 to 0.77, paired bootstrap), from -0.94 to -0.37 (-0.81 to -0.03), and by 0.52 at the quarter depth.
+5. **Strong neurons' top examples are more alike inside the network, and that similarity accounts for much of Haiku's effect.** v6's top-pair percentile measures how alike a neuron's 50 strongest examples are in the network's representation: their median pairwise similarity, ranked against random positions. It correlates 0.50 to 0.60 with log peak. Adding it to H2's regression:
+   - **Haiku**, which never sees that representation: similarity's coefficient is -0.93 (-1.28 to -0.69) at the middle depth, -0.81 at the quarter depth and -0.85 at three quarters. Log peak's coefficient shrinks by 0.58 (0.42 to 0.77, paired bootstrap) at the middle depth, from -0.94 to -0.37 (-0.81 to -0.03); by 0.52 at the quarter depth; and by 0.60 at three quarters, where its interval then includes 0 (-0.56 to +0.10).
    - **MiniLM:** the same pattern, smaller. Similarity's coefficient is -0.17 to -0.39, and log peak's shrinks by 0.10 to 0.25; at three quarters its interval then includes 0.
    - **Network reader:** similarity takes over (-1.4 to -1.5), and log peak's coefficient turns positive (+0.18 to +0.27). This says little. The flag and the similarity are computed from the same similarity matrix of the same examples, against the same null, so this is close to controlling for the outcome. The positive sign is a suppression effect of that, not evidence that stronger neurons are flagged more at fixed similarity.
 
@@ -664,7 +665,7 @@ Points 4 and 5 are exploratory. Point 5 was added after v9's review; point 4, th
 
 - **A pre-registered, replicated regularity.**
   - The network reader confirms it at two held-out depths of six Pythia sizes.
-  - Haiku confirms it on fresh neurons at the middle depth and on real neurons at the quarter depth.
+  - Haiku confirms it on real neurons at both held-out depths and on fresh neurons at the middle depth.
   - It holds with the mean of the top 50 in place of the single peak.
 - **Its source is shared with how alike a neuron's strongest examples are.** That similarity is a continuous version of what the readers judge, so point 5 describes the effect rather than explaining it. Even so, it's notable that Haiku, which reads only text, tracks a similarity measured inside the network.
 - **It doesn't say weak neurons are more polysemantic.** Two readings fit the data, and both predict lower similarity for weak neurons:
@@ -679,7 +680,6 @@ Points 4 and 5 are exploratory. Point 5 was added after v9's review; point 4, th
 - **The flag is a property of the top-50 sample, not of the neuron.** Any selection that makes strong neurons' top 50 more alike would give this pattern.
 - **Point 5 is close to circular for the network reader** (same similarity matrix and null), and post hoc for all readers.
 - **Haiku's labels are noisy.** v7's retest gave kappa 0.37 on real neurons, and v12 didn't retest.
-- **Haiku at the held-out three-quarters depth** isn't included, because v11 hadn't finished reading it when v12 was analyzed.
 - **Token purity** is computed with a stable sort, so in about 10% of neurons one of its 50 windows differs from the readers' 50 at a float16 tie (purity changes by at most 0.02).
 - **Haiku runs through the `claude` CLI,** which adds a little hidden context: the working directory, the platform, the date and an account notice. It includes no git branch, commit or file contents.
 - **Scope:** Pythia 70M to 2.8B, three depths, the 50 strongest examples per neuron. v5's eligibility filter drops near-dead and very dense neurons, so the weakest quartile isn't the models' weakest neurons.
