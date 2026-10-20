@@ -600,6 +600,82 @@ Points 4 and 5 are exploratory, added after seeing the results.
 
 `run_v9.sh` needs v5's and v6's caches and v7's results. With v9's cached Haiku answers in `data/v9/`, it makes no model calls and reruns in a few minutes. From scratch, the 960 readings take about 30 minutes.
 
+## v12 results
+
+v9 found, after looking at the middle layer, that neurons with a larger peak activation are flagged unrelated mixed less often. v12 is a confirmatory test of that finding on data it didn't use. The rules are in [`recgen/rubric_v12.py`](recgen/rubric_v12.py), committed (`49e15c4`) before any held-out data was examined. They were amended once (`d102a67`), after the first analysis run crashed and before any result was computed. No earlier file or result changed.
+
+### v12 method
+
+1. **Held-out data.**
+   - The network reader's (v6) and MiniLM's (v5) flags at the quarter and three-quarters depths of all six sizes. They were computed for every sampled neuron in earlier versions but never examined for magnitude.
+   - Fresh Haiku readings at the middle layer: 25 sampled neurons from each peak quartile per model (600 in all), none of them among v7's 100, read with v7's prompt and CLI. All 600 returned a valid label.
+2. **Peak** is log(peak / median peak of the layer's sampled neurons), so layers and sizes are comparable.
+3. **H1 (primary), per reader and depth.** The top peak quartile's flag rate minus the other three quartiles' must be below zero, with a bootstrap interval entirely below zero. Peak's Spearman correlation with the flag must also be negative in at least 5 of the 6 models.
+4. **H2 (controls).** A logistic regression of the flag on standardized log peak, peakedness (peak over the 50th-ranked window maximum), density (share of windows at or above half the peak) and token purity, with a fixed effect per model. It holds if log peak's coefficient has a bootstrap interval entirely below zero.
+5. **Amendment.** One neuron (70M, quarter depth) fires in fewer than 50 windows, so its peakedness is undefined. It stays in H1 and is left out of H2.
+6. The rules allowed adding v11's Haiku readings at the other depths if they existed at analysis time. They didn't, so v12 has none.
+
+The middle-layer network and MiniLM results are where the effect was found. They're reported as "discovery", apart from the held-out tests.
+
+### What v12 found
+
+![Flag rate by peak quartile](results/figures/v12_magnitude.png)
+
+| Reader, depth | Neurons | Flagged, by peak quartile (weakest to strongest) | Top minus rest (points), models negative | Log-peak coefficient with controls | H1 / H2 |
+|---|---|---|---|---|---|
+| **Held out** | | | | | |
+| network, quarter | 12,242 | 54% / 53% / 48% / 30% | -21 (-24 to -19), 6/6 | -0.58 (-0.64 to -0.52) | yes / yes |
+| network, three quarters | 11,786 | 52% / 53% / 50% / 30% | -21 (-23 to -19), 6/6 | -0.56 (-0.62 to -0.51) | yes / yes |
+| Haiku, middle (fresh neurons) | 600 | 59% / 50% / 44% / 13% | -38 (-45 to -30), 6/6 | -0.94 (-1.37 to -0.60) | yes / yes |
+| MiniLM, quarter | 12,242 | 11% / 11% / 12% / 10% | -1 (-2 to 0), 4/6 | -0.22 (-0.31 to -0.14) | no / yes |
+| MiniLM, three quarters | 11,786 | 17% / 17% / 19% / 13% | -5 (-6 to -3), 6/6 | -0.28 (-0.35 to -0.21) | yes / yes |
+| **Discovery** | | | | | |
+| network, middle | 11,801 | 56% / 55% / 49% / 28% | -26 (-28 to -24), 6/6 | -0.57 (-0.62 to -0.51) | yes / yes |
+| MiniLM, middle | 11,801 | 10% / 11% / 11% / 7% | -4 (-5 to -3), 5/6 | -0.35 (-0.44 to -0.26) | yes / yes |
+
+Point 4 is exploratory, added after v9's independent review and not pre-registered.
+
+1. **The effect replicates on every held-out test for the network reader and Haiku.** The strongest quarter of neurons is flagged about 21 points less than the rest by the network reader at both held-out depths, and 38 points less by Haiku on 600 fresh neurons, in all six models.
+2. **The obvious controls don't explain it.** With peakedness, density and token purity in the regression, log peak's coefficient stays clearly negative in every test (H2).
+3. **MiniLM shows at most a faint version:** a difference of 1 to 5 points, and its quarter-depth H1 fails. Its H2 holds, but its flag rate is only 10% to 19%.
+4. **Most of the effect is how alike a neuron's strongest examples are.** v9's review found that strong neurons' top 50 examples are more alike in the network's own representation (v6's top-pair percentile: the median similarity of the 50 examples, ranked against random positions). Adding that coherence as a fifth covariate (`exploratory_with_coherence` in the results):
+   - **Haiku**, which never sees that representation: coherence is -0.93 (-1.28 to -0.69), and log peak drops from -0.94 to -0.37 (-0.81 to -0.03).
+   - **Network reader:** coherence takes over completely (-1.4 to -1.5 at every depth), and log peak turns slightly positive (+0.18 to +0.27). This is partly circular, because the reader's flag is computed in the same representation.
+   - **MiniLM:** both coefficients are small.
+
+### What this does and doesn't show
+
+- **A pre-registered, replicated regularity.** At three depths of six Pythia sizes, a neuron's strongest examples look more like one job the larger its peak activation. Two readers that work in completely different ways agree. Most of it runs through how alike those examples are inside the network (point 4), and the text-only reader (Haiku) tracks that internal similarity.
+- **It doesn't say weak neurons are more polysemantic.** Two readings fit the data:
+  - Mixing could really concentrate in weakly firing neurons.
+  - Every neuron could be clean at the top of its range and mixed further down. A weak neuron's top 50 examples would then reach less far into its tail. The toy model of superposition makes this prediction within single neurons ([Elhage et al. 2022, "Toy Models of Superposition"](https://transformer-circuits.pub/2022/toy_model/index.html), section "Computation in Superposition", subsection "Superposition vs Sparsity").
+
+  v12 can't separate them, because every reader sees only the top 50. Reading examples from a fixed band of each neuron's own range would.
+- **It's partly known.** A link between strong, rare, heavy-tailed activation and cleaner units has been reported for SAE features, for GPT-2's universal neurons ([Gurnee et al. 2024](https://arxiv.org/abs/2401.12181), section 4.3) and in toy models. Peak activation predicting how mixed a raw neuron's top examples look, across a model family and confirmed by two readers, appears to be a modest extension.
+
+### What's still shaky
+
+- **Coherence and the network reader's flag come from the same representation,** so point 4's network result says little on its own. Haiku is the informative case, and it has 600 neurons with one reading each.
+- **Point 4 isn't pre-registered.** It was added after v9's review, which had already looked at the other depths.
+- **Haiku's labels are noisy.** v7's retest gave kappa 0.37 on real neurons, and v12 didn't retest.
+- **Haiku runs through the `claude` CLI,** which adds a little hidden context: the working directory, the platform, the date and an account notice. It includes no git branch, commit or file contents, so it doesn't reveal which units are real.
+- **Scope:** Pythia 70M to 2.8B, three depths, top 50 examples per neuron.
+
+### v12 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v12.py`](recgen/rubric_v12.py) | Pre-registered held-out data, H1 and H2, with the amendment |
+| [`recgen/read_v12.py`](recgen/read_v12.py) | Fresh middle-layer neurons per peak quartile; Haiku readings through v7's cached reader |
+| [`recgen/analyze_v12.py`](recgen/analyze_v12.py), [`recgen/plots_v12.py`](recgen/plots_v12.py) | Covariates, both hypotheses per reader and depth, the exploratory coherence check; the figure |
+| [`results/classification_v12.json`](results/classification_v12.json), [`results/v12_llm_answers.json`](results/v12_llm_answers.json) | Results and every Haiku reading |
+
+```bash
+./run_v12.sh
+```
+
+`run_v12.sh` needs v5's and v6's caches and results. With v12's cached Haiku answers in `data/v12/`, it makes no model calls and reruns in about five minutes.
+
 ## Files
 
 | Path | What it is |

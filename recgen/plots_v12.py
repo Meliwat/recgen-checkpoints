@@ -21,7 +21,7 @@ def main() -> None:
     ax.set_xticks(x, ["weakest", "2nd", "3rd", "strongest"])
     ax.set_xlabel("quartile of peak activation")
     ax.set_ylabel("share flagged unrelated mixed")
-    ax.legend(fontsize=7, loc="upper right")
+    ax.legend(fontsize=7, loc="center left")
     ax.set_title("Do strongly firing neurons look cleaner? Held-out tests (solid) and the discovery layer (dotted)", fontsize=9)
     fig.tight_layout()
     FIGURES_DIR.mkdir(exist_ok=True)
