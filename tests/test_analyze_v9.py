@@ -28,3 +28,29 @@ def test_analyze_reports_union_minus_real_for_every_reader():
     test = summary["tests"]["llm"]
     assert abs(test["union_minus_real"]["mean_over_models"] - 0.4) < 1e-9 and test["union_minus_real"]["detects_unions"]
     assert abs(test["v7_pools_minus_unions"]["mean_over_models"] - 0.1) < 1e-9
+
+
+def test_quartile_rates_and_partial_spearman():
+    from recgen.analyze_v9 import partial_spearman, quartile_rates
+
+    peak = np.arange(100.0)
+    out = quartile_rates(peak, (peak < 75).astype(float))
+    assert out["by_quartile"] == [1.0, 1.0, 1.0, 0.0] and out["spearman"] < 0
+    rng = np.random.default_rng(0)
+    z = rng.normal(size=500)
+    x, y = z + 0.1 * rng.normal(size=500), z + 0.1 * rng.normal(size=500)
+    assert abs(partial_spearman(x, y, [z])) < 0.2 < np.corrcoef(x, y)[0, 1]
+
+
+def test_token_purity_counts_the_most_common_activating_token():
+    from recgen.analyze_v9 import token_purity
+
+    corpus = np.zeros((60, 4), int)
+    corpus[:, 1] = 9  # a token only the weakest windows would show, at position 1
+    corpus[30:, 2] = 5  # 30 of the 50 strongest windows fire on token 5 at position 2
+    corpus[10:30, 2] = np.arange(20) + 100  # the other 20 on distinct tokens
+    window_max = np.zeros((60, 1), np.float16)
+    window_max[:, 0] = np.arange(60)  # windows 10 to 59 are the 50 strongest
+    window_pos = np.full((60, 1), 2)
+    window_pos[:10, 0] = 1
+    assert token_purity(window_max, window_pos, 0, corpus) == 30 / 50

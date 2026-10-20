@@ -456,6 +456,119 @@
     "spearman": -0.316,
     "n": 600
    }
+  },
+  "exploratory_after_review": {
+   "exact_single_neuron_unions": 279,
+   "adjusted_by_minority": {
+    "network": [
+     {
+      "minority": "0 to 4",
+      "observed": 0.308,
+      "own_neurons_baseline": 0.316,
+      "excess": -0.008
+     },
+     {
+      "minority": "5 to 14",
+      "observed": 0.564,
+      "own_neurons_baseline": 0.515,
+      "excess": 0.049
+     },
+     {
+      "minority": "15 to 25",
+      "observed": 0.727,
+      "own_neurons_baseline": 0.467,
+      "excess": 0.26
+     }
+    ],
+    "minilm": [
+     {
+      "minority": "0 to 4",
+      "observed": 0.091,
+      "own_neurons_baseline": 0.1,
+      "excess": -0.009
+     },
+     {
+      "minority": "5 to 14",
+      "observed": 0.085,
+      "own_neurons_baseline": 0.065,
+      "excess": 0.02
+     },
+     {
+      "minority": "15 to 25",
+      "observed": 0.088,
+      "own_neurons_baseline": 0.099,
+      "excess": -0.011
+     }
+    ]
+   },
+   "balanced_minus_real": {
+    "minilm": {
+     "mean_over_models": -0.006,
+     "interval": [
+      -0.052,
+      0.04
+     ]
+    },
+    "network": {
+     "mean_over_models": 0.243,
+     "interval": [
+      0.169,
+      0.315
+     ]
+    },
+    "llm": {
+     "mean_over_models": 0.217,
+     "interval": [
+      0.144,
+      0.293
+     ]
+    }
+   },
+   "magnitude_partials": {
+    "network, 70m": {
+     "peak": -0.297,
+     "peak given coherence": 0.001,
+     "peak given purity": -0.289,
+     "coherence": -0.615
+    },
+    "network, 160m": {
+     "peak": -0.189,
+     "peak given coherence": 0.146,
+     "peak given purity": -0.19,
+     "coherence": -0.456
+    },
+    "network, 410m": {
+     "peak": -0.246,
+     "peak given coherence": 0.173,
+     "peak given purity": -0.234,
+     "coherence": -0.56
+    },
+    "network, 1b": {
+     "peak": -0.217,
+     "peak given coherence": 0.196,
+     "peak given purity": -0.224,
+     "coherence": -0.512
+    },
+    "network, 1.4b": {
+     "peak": -0.213,
+     "peak given coherence": 0.206,
+     "peak given purity": -0.198,
+     "coherence": -0.49
+    },
+    "network, 2.8b": {
+     "peak": -0.153,
+     "peak given coherence": 0.204,
+     "peak given purity": -0.154,
+     "coherence": -0.424
+    },
+    "haiku, pooled": {
+     "peak": -0.323,
+     "peak given coherence": -0.061,
+     "peak given purity": -0.31,
+     "coherence": -0.445,
+     "n": 600
+    }
+   }
   }
  },
  "unions": {
