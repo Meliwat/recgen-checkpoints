@@ -4,6 +4,11 @@ magnitude tests, at the middle layer of GPT-2 small, medium and large, beside Py
 Reads cached data only: data/v19/ (recgen.gpt2_v19), results/v19_llm_answers.json (recgen.read_v19), and
 Pythia's results/classification_v7.json (per-unit flags) and classification_v12.json. MiniLM embeddings of
 every example context and of the random positions are computed once and cached in data/v19/minilm.npz.
+
+Checks added after an independent review, none pre-registered, go under "post_hoc_after_review": the network
+reader with token position projected out (recgen.position_v19, which also reads Pythia's data/v6/*_middle.npz),
+and checks on Haiku's readings and the recording (recgen.review_v19, which also reads v11's cache in data/v11/
+if it's there).
 """
 
 import json
@@ -12,6 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 
+from recgen import position_v19, review_v19
 from recgen.analyze_v6 import PRIMARY, Layer, MiniLM, detect
 from recgen.analyze_v7 import GROUPS, READERS, group, max_kappa, rate, retest_stats
 from recgen.analyze_v12 import with_coherence
@@ -27,6 +33,7 @@ from recgen.rubric_v19 import DEPTH, MODELS, decide_a, difference, excess_over_m
 from recgen.units_v19 import build_units
 
 MINILM_PATH = V19_DIR / "minilm.npz"
+POST_HOC_NOTE = "post hoc, added after an independent review; not pre-registered"
 EMBED_CHUNK = 50_000
 THREADS = 8
 RETEST_BOOTSTRAP = 2000  # as v7's retest interval
@@ -191,13 +198,16 @@ def main() -> None:
     corpus = load_gpt2_corpus()
     answers = json.loads(ANSWERS_PATH.read_text())
     minilm = load_minilm(corpus, [sampled_top_examples(m)[1] for m in MODELS])
-    neurons, units, stats, checks = {}, {}, [], {}
+    neurons, units, stats, checks, position, recording = {}, {}, [], {}, {}, {}
     for model in MODELS:
         layer = Layer(model, DEPTH, network_path(model))
         neurons[model] = neuron_rows(model, layer, minilm, corpus)
         units[model] = unit_rows(model, layer, minilm, answers, neurons[model])
         stats.append(model_stats(model, units[model]))
         checks[model] = layer_checks(model, layer, neurons[model])
+        position[model] = position_v19.model_sensitivity(layer, network_path(model), units[model], rng_for(model, 60))
+        recording[model] = {"largest_coordinate": review_v19.largest_coordinate(layer.nulls["uncentered"].vectors),
+                            "token_purity_ties": review_v19.purity_ties(model, neurons[model], corpus)}
         print(f"{model}: layer {layer.layer}, network flags {checks[model]['flag_rate_all_sampled']['network']:.3f} and "
               f"MiniLM {checks[model]['flag_rate_all_sampled']['minilm']:.3f} of {len(neurons[model])} sampled neurons", flush=True)
 
@@ -245,6 +255,18 @@ def main() -> None:
             "llm_cost_usd": answers["cost_usd"],
         },
     }
+    summary["post_hoc_after_review"] = {
+        "note": POST_HOC_NOTE,
+        "position": {
+            "null_position_correlation": {"gpt2": {m: position[m]["null_position_correlation"] for m in MODELS},
+                                          "pythia_v6_middle": position_v19.pythia_null_correlations()},
+            "position_r2": {m: position[m]["position_r2"] for m in MODELS},
+            # the network reader's own generators in tests (b) and (a), so only the flags differ
+            "variants": position_v19.summarize(position, neurons, units, lambda: rng(20), lambda: rng(1)),
+        },
+        "haiku": review_v19.haiku_checks(units, corpus, answers),
+        "recording": recording,
+    }
     units_out = {model: [{k: (list(v) if isinstance(v, tuple) else v) for k, v in r.items() if k not in ("rows", "keys")}
                          for r in rows] for model, rows in units.items()}
     neurons_out = {model: [{k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items() if k != "model"}
@@ -254,7 +276,10 @@ def main() -> None:
 
     print(json.dumps({"a": test_a, "b": {k: v["h1"] | {"h2": v["h2"]["log_peak"], "by_quartile": v["by_quartile"]}
                                          if isinstance(v, dict) else v for k, v in test_b.items()},
-                      "checks": {k: v for k, v in summary["checks"].items() if k != "layers"}}, indent=1, default=str))
+                      "checks": {k: v for k, v in summary["checks"].items() if k != "layers"},
+                      "post_hoc_position": {name: {k: v[k] for k in ("neuron_flags_changed", "h1", "network_excess")}
+                                            for name, v in summary["post_hoc_after_review"]["position"]["variants"].items()}},
+                     indent=1, default=str))
 
 
 if __name__ == "__main__":

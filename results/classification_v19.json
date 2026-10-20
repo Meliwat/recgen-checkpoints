@@ -660,6 +660,423 @@
    "llm_not_read": 0,
    "llm_input_tokens": 3675905,
    "llm_cost_usd": 1.1349
+  },
+  "post_hoc_after_review": {
+   "note": "post hoc, added after an independent review; not pre-registered",
+   "position": {
+    "null_position_correlation": {
+     "gpt2": {
+      "gpt2": -0.5345331473033373,
+      "gpt2-medium": -0.562658938993584,
+      "gpt2-large": -0.5156383057527917
+     },
+     "pythia_v6_middle": {
+      "70m": -0.018724491569641354,
+      "160m": -0.028979361283632515,
+      "410m": -0.01316731168708195,
+      "1b": -0.008840115287616366,
+      "1.4b": -0.01812020206754668,
+      "2.8b": -0.017005503364773748
+     }
+    },
+    "position_r2": {
+     "gpt2": 0.09754260032839734,
+     "gpt2-medium": 0.06636022185716127,
+     "gpt2-large": 0.05269814716403555
+    },
+    "variants": {
+     "position, 2 dims": {
+      "by_model": {
+       "gpt2": {
+        "captured_share_of_fit": 0.945162358809689,
+        "null_position_correlation": -0.016271643715028743,
+        "neurons_flagged": [
+         0.4052734375,
+         0.3134765625
+        ],
+        "neuron_flags_unchanged": 0.8359375,
+        "real_flagged": [
+         0.41,
+         0.28
+        ],
+        "pooled_50_50_flagged": [
+         0.76,
+         0.76
+        ]
+       },
+       "gpt2-medium": {
+        "captured_share_of_fit": 0.9972157858612487,
+        "null_position_correlation": -0.0020159346693722517,
+        "neurons_flagged": [
+         0.46044921875,
+         0.40380859375
+        ],
+        "neuron_flags_unchanged": 0.8251953125,
+        "real_flagged": [
+         0.46,
+         0.44
+        ],
+        "pooled_50_50_flagged": [
+         0.56,
+         0.7
+        ]
+       },
+       "gpt2-large": {
+        "captured_share_of_fit": 0.9862124722881878,
+        "null_position_correlation": -0.0022054785200687856,
+        "neurons_flagged": [
+         0.4169921875,
+         0.3662109375
+        ],
+        "neuron_flags_unchanged": 0.8369140625,
+        "real_flagged": [
+         0.4,
+         0.36
+        ],
+        "pooled_50_50_flagged": [
+         0.62,
+         0.68
+        ]
+       }
+      },
+      "neuron_flags_changed": 0.16731770833333334,
+      "h1": {
+       "top_minus_rest": -0.24775433445038503,
+       "interval": [
+        -0.2692791986231081,
+        -0.2236853072644104
+       ],
+       "spearman_by_model": [
+        -0.31208593137249996,
+        -0.23166335177716738,
+        -0.15410495128473986
+       ],
+       "models_negative": 3,
+       "holds": true
+      },
+      "network_excess": {
+       "excess": 0.35333333333333333,
+       "interval": [
+        0.26333333333333336,
+        0.44333333333333336
+       ]
+      }
+     },
+     "position, 6 dims": {
+      "by_model": {
+       "gpt2": {
+        "captured_share_of_fit": 0.999654057533082,
+        "null_position_correlation": -0.003077813813325579,
+        "neurons_flagged": [
+         0.4052734375,
+         0.30859375
+        ],
+        "neuron_flags_unchanged": 0.830078125,
+        "real_flagged": [
+         0.41,
+         0.24
+        ],
+        "pooled_50_50_flagged": [
+         0.76,
+         0.74
+        ]
+       },
+       "gpt2-medium": {
+        "captured_share_of_fit": 0.9995264191750192,
+        "null_position_correlation": -0.0023170341664219734,
+        "neurons_flagged": [
+         0.46044921875,
+         0.39990234375
+        ],
+        "neuron_flags_unchanged": 0.81640625,
+        "real_flagged": [
+         0.46,
+         0.4
+        ],
+        "pooled_50_50_flagged": [
+         0.56,
+         0.66
+        ]
+       },
+       "gpt2-large": {
+        "captured_share_of_fit": 0.999386239576317,
+        "null_position_correlation": -0.0014393955576666093,
+        "neurons_flagged": [
+         0.4169921875,
+         0.37890625
+        ],
+        "neuron_flags_unchanged": 0.8349609375,
+        "real_flagged": [
+         0.4,
+         0.36
+        ],
+        "pooled_50_50_flagged": [
+         0.62,
+         0.68
+        ]
+       }
+      },
+      "neuron_flags_changed": 0.1728515625,
+      "h1": {
+       "top_minus_rest": -0.24430049372174298,
+       "interval": [
+        -0.2675172285493315,
+        -0.2204792994426254
+       ],
+       "spearman_by_model": [
+        -0.29721444254653967,
+        -0.2255228727943309,
+        -0.1561769821012807
+       ],
+       "models_negative": 3,
+       "holds": true
+      },
+      "network_excess": {
+       "excess": 0.36000000000000004,
+       "interval": [
+        0.26666666666666666,
+        0.45
+       ]
+      }
+     },
+     "random, 6 dims": {
+      "by_model": {
+       "gpt2": {
+        "null_position_correlation": -0.5340276194142216,
+        "neurons_flagged": [
+         0.4052734375,
+         0.40380859375
+        ],
+        "neuron_flags_unchanged": 0.98486328125,
+        "real_flagged": [
+         0.41,
+         0.37
+        ],
+        "pooled_50_50_flagged": [
+         0.76,
+         0.78
+        ]
+       },
+       "gpt2-medium": {
+        "null_position_correlation": -0.5641292718456073,
+        "neurons_flagged": [
+         0.46044921875,
+         0.45751953125
+        ],
+        "neuron_flags_unchanged": 0.986328125,
+        "real_flagged": [
+         0.46,
+         0.47
+        ],
+        "pooled_50_50_flagged": [
+         0.56,
+         0.56
+        ]
+       },
+       "gpt2-large": {
+        "null_position_correlation": -0.5151084141143574,
+        "neurons_flagged": [
+         0.4169921875,
+         0.41748046875
+        ],
+        "neuron_flags_unchanged": 0.98388671875,
+        "real_flagged": [
+         0.4,
+         0.4
+        ],
+        "pooled_50_50_flagged": [
+         0.62,
+         0.64
+        ]
+       }
+      },
+      "neuron_flags_changed": 0.014973958333333334,
+      "h1": {
+       "top_minus_rest": -0.2152623137098743,
+       "interval": [
+        -0.24108038973513235,
+        -0.18936055788750944
+       ],
+       "spearman_by_model": [
+        -0.26698819025044357,
+        -0.13912161119102046,
+        -0.08859420079173062
+       ],
+       "models_negative": 3,
+       "holds": true
+      },
+      "network_excess": {
+       "excess": 0.2466666666666667,
+       "interval": [
+        0.15333333333333338,
+        0.33666666666666667
+       ]
+      }
+     }
+    }
+   },
+   "haiku": {
+    "size_matched": {
+     "gpt2": {
+      "gpt2": 0.08,
+      "gpt2-medium": 0.18,
+      "gpt2-large": 0.25
+     },
+     "pythia_v7": {
+      "70m": 0.38,
+      "160m": 0.33,
+      "410m": 0.46,
+      "1b": 0.47,
+      "1.4b": 0.47,
+      "2.8b": 0.46
+     },
+     "pythia_size_matched": {
+      "160m": 0.33,
+      "410m": 0.46,
+      "1b": 0.47
+     },
+     "mean": {
+      "gpt2": 0.17,
+      "pythia_size_matched": 0.42
+     }
+    },
+    "pythia_near_in_time": {
+     "v12_fresh_middle": {
+      "readings": 600,
+      "flagged": 0.4166666666666667
+     },
+     "v11": {
+      "quarter": {
+       "readings": 600,
+       "flagged": 0.36333333333333334
+      },
+      "three_quarters": {
+       "readings": 600,
+       "flagged": 0.33889816360601
+      },
+      "retest": {
+       "units": 120,
+       "same_label": 0.6666666666666666,
+       "same_flag": 0.7666666666666667,
+       "flag_kappa": 0.5296752519596866
+      }
+     }
+    },
+    "retest_composition": {
+     "gpt2": {
+      "units": 60,
+      "real_neurons": 17,
+      "flagged_at_first_reading": 0.26666666666666666
+     },
+     "pythia_v7": {
+      "units": 60,
+      "real_neurons": 20,
+      "flagged_at_first_reading": 0.45
+     }
+    },
+    "examples_seen": {
+     "gpt2": {
+      "gpt2": {
+       "duplicated_context_share": 0.009799999999999998,
+       "median_top_token_share": 0.22,
+       "mean_prompt_characters": 7032.78,
+       "mean_input_tokens": 3850.74
+      },
+      "gpt2-medium": {
+       "duplicated_context_share": 0.011000000000000001,
+       "median_top_token_share": 0.18,
+       "mean_prompt_characters": 6916.38,
+       "mean_input_tokens": 3836.08
+      },
+      "gpt2-large": {
+       "duplicated_context_share": 0.0192,
+       "median_top_token_share": 0.16,
+       "mean_prompt_characters": 6852.48,
+       "mean_input_tokens": 3826.93
+      }
+     },
+     "pythia_v7": {
+      "70m": {
+       "duplicated_context_share": 0.026000000000000002,
+       "median_top_token_share": 0.31,
+       "mean_prompt_characters": 6708.0,
+       "mean_input_tokens": 3652.5
+      },
+      "160m": {
+       "duplicated_context_share": 0.0068,
+       "median_top_token_share": 0.22,
+       "mean_prompt_characters": 6798.06,
+       "mean_input_tokens": 3644.62
+      },
+      "410m": {
+       "duplicated_context_share": 0.0058000000000000005,
+       "median_top_token_share": 0.2,
+       "mean_prompt_characters": 6718.92,
+       "mean_input_tokens": 3634.96
+      },
+      "1b": {
+       "duplicated_context_share": 0.0288,
+       "median_top_token_share": 0.16,
+       "mean_prompt_characters": 6527.67,
+       "mean_input_tokens": 3637.86
+      },
+      "1.4b": {
+       "duplicated_context_share": 0.0144,
+       "median_top_token_share": 0.16,
+       "mean_prompt_characters": 6705.47,
+       "mean_input_tokens": 3621.55
+      },
+      "2.8b": {
+       "duplicated_context_share": 0.013000000000000003,
+       "median_top_token_share": 0.19,
+       "mean_prompt_characters": 6608.39,
+       "mean_input_tokens": 3639.79
+      }
+     }
+    },
+    "prompts_reproduce": {
+     "readings": 960,
+     "matching_prompt_hash": 960
+    }
+   },
+   "recording": {
+    "gpt2": {
+     "largest_coordinate": {
+      "dimension": 447,
+      "share_of_positions": 0.857421875,
+      "median_largest": 11.71875,
+      "median_coordinate": 0.476318359375
+     },
+     "token_purity_ties": {
+      "neurons_differing": 0.1005859375,
+      "largest_purity_change": 0.020000000000000018
+     }
+    },
+    "gpt2-medium": {
+     "largest_coordinate": {
+      "dimension": 268,
+      "share_of_positions": 0.998046875,
+      "median_largest": 20.015625,
+      "median_coordinate": 0.372314453125
+     },
+     "token_purity_ties": {
+      "neurons_differing": 0.0947265625,
+      "largest_purity_change": 0.020000000000000018
+     }
+    },
+    "gpt2-large": {
+     "largest_coordinate": {
+      "dimension": 440,
+      "share_of_positions": 0.900390625,
+      "median_largest": 15.54296875,
+      "median_coordinate": 0.51220703125
+     },
+     "token_purity_ties": {
+      "neurons_differing": 0.09619140625,
+      "largest_purity_change": 0.020000000000000018
+     }
+    }
+   }
   }
  },
  "models": [
