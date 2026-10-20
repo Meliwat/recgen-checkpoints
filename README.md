@@ -799,13 +799,13 @@ The top 50 is already a rank-matched sample (ranks 1 to 50), so v12's effect was
 3. **Haiku:** v12's 600 fresh neurons, each shown as its 50 primary-band examples and, separately, its 50 second-band examples, with v7's prompt and CLI (marked token, no activations, seeded order). 30 primary-band units were read a second time, and as a drift check the same 30 neurons' top-50 prompts, byte-identical to v12's, were read again.
 4. **Tests,** v17's unchanged, per band, reader and measure (network flag, network coherence, Haiku flag):
    - **T1, within neuron:** band minus top 50, paired by neuron, each model's mean averaged over the six models, with a bootstrap interval.
-   - **T2, magnitude in the band:** v12's H1 on band values (the strongest peak quartile minus the other three, interval excluding 0, Spearman in the expected direction in at least 5 of 6 models), the same on the top 50, and a paired interval for the difference.
+   - **T2, magnitude in the band:** v12's H1 on band values (the strongest peak quartile minus the other three, with its interval entirely on the expected side of 0, and Spearman in the expected direction in at least 5 of 6 models), the same on the top 50, and a paired interval for the difference.
    - **Verdict:** "persists below the top" if T2 holds in the band; "top-50 specific" if the band statistic's interval includes 0 and the paired difference's excludes it; otherwise "unclear".
 5. **How each outcome reads, written into the rules.** "Persists" in the primary band means the magnitude effect is a property of the neuron beyond selectivity, and v17's persistence wasn't produced by the difference in band width. "Top-50 specific" means v17's persistence was explained by selectivity and the effect is confined to each neuron's very top. Coherence and the Haiku flag are co-primary, as in v17: the answer is "yes" if both persist, "no" if both are top-50 specific, and "mixed" otherwise. The network flag is tested the same way, with v17's caveat that it needs two facets of at least 5 examples. The second band gets the same tests as a secondary result.
 6. **Comparison with v17's band** (descriptive, no verdict): the same T2 statistic in v17's band and in the primary band, on the neurons that have both, with a paired interval for the difference; and where each band's examples sit in their neurons' range.
 7. **Secondary, not in the verdict:** v17's S1 and S2 on the primary band (v12's H2 regression on band flags, and its least-squares version on band coherence, with log peak, peakedness, density and the band examples' token purity).
 
-The 1,260 Haiku readings all returned a valid label: 4.9M input tokens, which the CLI reported as $1.50, against a $10 guard. Recording took 94 minutes for the six models, one at a time, including downloading about 12 GB (each model deleted after use) and the second band's in-memory readings, after a 2-minute wait for another process. `data/v20/` holds 1.6 GB.
+The 1,260 Haiku readings all returned a valid label: 4.9M input tokens, which the CLI reported as $1.50, against a $10 guard. Recording took 94 minutes for the six models, one at a time, including downloading about 12 GB (each model deleted after use) and the second band's in-memory readings, after a 2-minute wait for another process. `data/v20/` holds 1.7 GB (1.6 GiB).
 
 ### What v20 found
 
@@ -827,7 +827,7 @@ The 1,260 Haiku readings all returned a valid label: 4.9M input tokens, which th
 | | ranks 201 to 500 | 11,801 | 32% / 41% / 46% / 41% | +1.3 (-0.8 to +3.3), 1/6 | +26.9 (+24.5 to +29.4) | top-50 specific |
 | | ranks 1,001 to 2,000 | 11,791 | 14% / 19% / 26% / 28% | +8.4 (+6.7 to +10.3), 0/6 | +34.1 (+31.7 to +36.6) | unclear (secondary) |
 
-The pre-registered answer is **yes** in both bands: coherence and Haiku both persist at matched rank.
+The pre-registered answer, defined on the primary band (ranks 201 to 500), is **yes**: coherence and Haiku both persist at matched rank. Their verdicts in the secondary band agree.
 
 **Against v17's band** (descriptive, on the neurons that have both; by-quartile values over every neuron with that sample):
 
@@ -845,7 +845,7 @@ The pre-registered answer is **yes** in both bands: coherence and Haiku both per
 | Haiku, flag | +4.2 points (-0.5 to +9.0), no clear difference | 0 to +7 | +10.0 (+5.3 to +14.8), more mixed | +2 to +18 |
 | network, flag | -6.9 points (-8.0 to -5.6), band looks less mixed | -19.1 to +3.6 | -24.4 (-25.5 to -23.1), less mixed | -35.4 to -9.3 |
 
-The rest of the numbers are in [`results/classification_v20.json`](results/classification_v20.json). Points 1 to 4 and 6 report the pre-registered tests, comparison and checks, with descriptive breakdowns by quartile. The facet counts and the flag among neurons with 2+ facets in point 5 were added after seeing the results, and are exploratory.
+The rest of the numbers are in [`results/classification_v20.json`](results/classification_v20.json). Points 1 to 4, 6 and 7 report the pre-registered tests, comparison and checks, with descriptive breakdowns by quartile. The facet counts and the flag among neurons with 2+ facets in point 5 were added after seeing the results, and are exploratory.
 
 1. **At matched rank, strong neurons' examples are still more coherent, by almost as much as in their top 50.** The strongest quartile's ranks 201 to 500 are 13.6 percentile points more coherent than the rest's, against 14.1 in the top 50, and log peak correlates with rank-band coherence in every model (Spearman +0.54 to +0.66). Every quartile loses 10 to 13 points from its top 50 to these ranks, so the level falls and the gap stays. At ranks 1,001 to 2,000 the gap narrows to 8.5 points, still in every model.
 2. **Haiku's effect persists at matched rank, at the size it had in v17's band.** Haiku flags the strongest quartile's ranks 201 to 500 23.8 points less than the rest's, against 37.8 in the top 50, and the Spearman correlation is negative in all six models (-0.13 to -0.44). The shrinkage from the top 50 is all in the strongest quartile, whose flag rate rises from 13% (top 50) to 28% (ranks 201 to 500) and 40% (ranks 1,001 to 2,000), while the weakest stays at 59 to 62%. At ranks 1,001 to 2,000 the effect is -15.6 points (5 of 6 models).
@@ -887,7 +887,7 @@ The rest of the numbers are in [`results/classification_v20.json`](results/class
 ./run_v20.sh
 ```
 
-`run_v20.sh` needs `data/corpus.npy`, v5's and v6's caches and results, v12's and v17's Haiku answers and v17's results. From scratch it records the six models one at a time (about 95 minutes on this laptop's MPS, including downloading about 12 GB, each deleted after use), caches 1.6 GB in `data/v20/`, and makes 1,260 Haiku readings (about 40 minutes, five at a time). With those caches, it makes no model calls, reruns in about six minutes and leaves `git status` clean.
+`run_v20.sh` needs `data/corpus.npy`, v5's and v6's caches and results, v12's and v17's Haiku answers and v17's results. From scratch it records the six models one at a time (about 95 minutes on this laptop's MPS, including downloading about 12 GB, each deleted after use), caches 1.7 GB (1.6 GiB) in `data/v20/`, and makes 1,260 Haiku readings (about 40 minutes, five at a time). With those caches, it makes no model calls, reruns in about six minutes and leaves `git status` clean.
 
 ## Files
 
