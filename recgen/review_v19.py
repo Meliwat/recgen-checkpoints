@@ -30,7 +30,6 @@ from recgen.gpt2_v19 import tokenizer as gpt2_tokenizer
 from recgen.llm_reader import unit_prompt as pythia_prompt
 from recgen.read_v19 import unit_prompt as gpt2_prompt
 from recgen.rubric_v5 import MODELS as PYTHIA_MODELS
-from recgen.rubric_v6 import cohen_kappa
 from recgen.rubric_v7 import UNRELATED_JOBS
 from recgen.rubric_v19 import MODELS
 from recgen.units_v7 import build_units as pythia_units
