@@ -24,7 +24,7 @@ from recgen.config import RESULTS_DIR
 from recgen.rubric_v5 import bootstrap_interval
 from recgen.rubric_v6 import cohen_kappa
 from recgen.rubric_v7 import ONE_JOB, UNRELATED_JOBS
-from recgen.rubric_v8 import BOOTSTRAP, EXAMPLES_PER_CALL, MODELS, N_WINDOWS, NO_CALLS_LEFT
+from recgen.rubric_v8 import BOOTSTRAP, EXAMPLES_PER_CALL, MODELS, N_WINDOWS, NO_CALLS_LEFT, paired_gain
 from recgen.rubric_v15 import PRIMARY_SIMULATOR, unit_scores, verdict as v15_verdict
 from recgen.rubric_v18 import (
     AGENT_MODEL, LABEL_RANK, MAX_DESCRIPTION_WORDS, MAX_TOOL_CALLS, MIN_TOOL_CALLS, PROTOCOL_RANKS, auc_verdict, label_auc,
@@ -349,6 +349,59 @@ def exploratory(rows: dict, answers: dict, v15: dict, rng) -> dict:
             "C-flag rates by size": flag_rates}
 
 
+def paired_share_difference(units: list[dict], value, rng) -> dict:
+    """Mean of value(u) for v18 minus v14 (or v15) over units, with a bootstrap interval resampling units."""
+    d = np.array([value(u) for u in units], float)
+    draws = [d[rng.integers(0, len(d), len(d))].mean() for _ in range(BOOTSTRAP)]
+    return {"difference": round(float(d.mean()), 3), "interval": [round(float(x), 3) for x in np.percentile(draws, [2.5, 97.5])],
+            "units": len(d)}
+
+
+def before_first_tool_call(record: dict) -> list[dict]:
+    messages = record["messages"]
+    return messages[:next((i for i, m in enumerate(messages) if "tool" in m), len(messages))]
+
+
+def after_review(rows: dict, answers: dict, rng) -> dict:
+    """Post hoc, added after an independent review of the first write-up. (1) Whether the descriptions'
+    score gain differs between pools and real neurons: the v18-minus-v15 change in the pools-minus-real
+    gap, paired (rubric_v8.paired_gain, units resampled within size and type). (2) Paired v18-minus-v14
+    differences in the A and C shares. (3) Paired v18-minus-v15 differences in the judge's yes. (4) Traces
+    of the protocol in the logs: the first tool call, mentions of candidates in the visible text before the
+    first tool call or anywhere, and the deepest rank asked for in the agent's own list."""
+    scored = {m: [u for u in rows[m] if all(u["first"]["scores"][a] is not None for a in ARMS)] for m in MODELS}
+    gaps = {arm: [tuple(np.array([u["first"]["scores"][arm]["pearson"] for u in scored[m] if u["group"] == g])
+                        for g in ("pooled 50/50", "real")) for m in MODELS] for arm in ARMS}
+    point, interval, _, _ = paired_gain(gaps["v18"], gaps["v15"], rng)
+    shares = {}
+    for g in ("real", "pooled 50/50"):
+        units = [u for m in MODELS for u in rows[m] if u["group"] == g and None not in u["labels"].values()]
+        for label in (ONE_JOB, UNRELATED_JOBS):
+            shares[f"{g}, {label}"] = paired_share_difference(
+                units, lambda u, x=label: (u["labels"]["v18"] == x) - (u["labels"]["v14"] == x), rng)
+    judge = {g: paired_share_difference([u for m in MODELS for u in rows[m] if u["group"] == g and None not in u["judge"].values()],
+                                        lambda u: int(u["judge"]["v18"]) - int(u["judge"]["v15"]), rng) for g in GROUPS}
+    traces = {}
+    for reading in ("first", "retest"):
+        records = [u[reading]["agent"] for u in answers["units"].values() if reading in u]
+        deepest = [max((int(c["arguments"]["start"]) + int(c["arguments"]["count"]) - 1 for c in r["tool_calls"]
+                        if c["tool"] == "examples" and c["answer"] != NO_CALLS_LEFT), default=0) for r in records]
+        traces[reading] = {
+            "readings": len(records),
+            "first tool call is activation": sum(bool(r["tool_calls"]) and r["tool_calls"][0]["tool"] == "activation"
+                                                 for r in records),
+            "visible text before the first tool call mentions candidates": sum(
+                any("candidat" in m.get("text", "").lower() for m in before_first_tool_call(r)) for r in records),
+            "visible text anywhere, final reply included, mentions candidates": sum(
+                any("candidat" in m.get("text", "").lower() for m in r["messages"]) or "candidat" in r["reply"].lower()
+                for r in records),
+            f"deepest rank asked for in the agent's list at most {PROTOCOL_RANKS[1]}": sum(d <= PROTOCOL_RANKS[1] for d in deepest)}
+    return {"pools-minus-real gap, v18 minus v15 (paired)": {"difference": round(point, 3),
+                                                             "interval": [round(x, 3) for x in interval]},
+            "label shares, v18 minus v14 (paired)": shares, "judge yes, v18 minus v15 (paired)": judge,
+            "protocol traces": traces}
+
+
 def analyze(answers: dict, v15: dict, v14: dict, v8_auc: dict) -> dict:
     rows = unit_rows(answers, v15, v14)
     rng = np.random.default_rng([18, 99])
@@ -369,7 +422,8 @@ def analyze(answers: dict, v15: dict, v14: dict, v8_auc: dict) -> dict:
                         "v14 prompt hashes of the same units": len({v14["first"][u["id"]]["prompt_sha256"]
                                                                     for m in MODELS for u in rows[m]})},
              "exploratory": exploratory(rows, answers, v15, rng),
-             "post hoc": post_hoc(rows, answers, rng)}
+             "post hoc": post_hoc(rows, answers, rng),
+             "post hoc, after an independent review": after_review(rows, answers, rng)}
     stats["verdict"] = stats["primary"]["verdict"]
     return {"summary": stats, "units": rows}
 

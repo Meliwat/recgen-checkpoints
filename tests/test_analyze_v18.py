@@ -39,7 +39,7 @@ def fake_data(v18_labels, v14_labels, v18_score_noise=0.0, v15_score_noise=1.0, 
                 answered = unit_id not in missing
                 agent = {"label": v18_labels[kind] if answered else None, "description": "fires on things" if answered else None,
                          "confidence": "high", "error": None, "attempts": [{"error": None, "cost_usd": 0.2}], "cost_usd": 0.2,
-                         "input_tokens": 100, "output_tokens": 50, "models": ["claude-opus-5-5"],
+                         "input_tokens": 100, "output_tokens": 50, "models": ["claude-opus-5-5"], "messages": [], "reply": "",
                          "tool_calls": [{"tool": "examples", "arguments": {"start": 51, "count": 20}, "answer": "rank 51 (5.0): x"},
                                         {"tool": "activation", "arguments": {"texts": ["a", "b", "c"]}, "answer": "Text 1"}]}
                 entry = {"id": unit_id, "model": model, "kind": kind, "group": group, "retested": i == 0,
@@ -120,3 +120,16 @@ def test_post_hoc_transitions_and_the_primary_without_mixed_model_readings():
     assert s["label transitions, v14 -> v18"]["real"] == {"B -> A": 8 * len(MODELS)}
     assert s["readings whose usage names a second model"] == ["70m:pooled:0"] and s["primary without them"]["units"] == 2 * 8 * 3 - 1
     assert s["catch-all words in one-job descriptions"]["real"] == {"one-job answers": 8 * len(MODELS), "share with a catch-all word": 0.0}
+
+
+def test_after_review_pairs_label_shares_and_reads_protocol_traces():
+    answers, v15, v14 = fake_data({"real": "A", "pooled": "C", "related": "B"}, {"real": "B", "pooled": "C", "related": "B"})
+    first = answers["units"]["70m:real:0"]["first"]["agent"]
+    first["messages"] = [{"text": "My candidates: X, Y"}, {"tool": "activation", "input": {}}]
+    first["tool_calls"] = first["tool_calls"][::-1]
+    s = analyze(answers, v15, v14, V8_AUC)["summary"]["post hoc, after an independent review"]
+    assert s["label shares, v18 minus v14 (paired)"]["real, A"]["difference"] == 1.0
+    assert s["label shares, v18 minus v14 (paired)"]["pooled 50/50, C"] == {"difference": 0.0, "interval": [0.0, 0.0], "units": 24}
+    traces = s["protocol traces"]["first"]
+    assert traces["first tool call is activation"] == 1 and traces["visible text before the first tool call mentions candidates"] == 1
+    assert traces["deepest rank asked for in the agent's list at most 500"] == traces["readings"] == 72

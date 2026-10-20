@@ -952,6 +952,91 @@
     }
    }
   },
+  "post hoc, after an independent review": {
+   "pools-minus-real gap, v18 minus v15 (paired)": {
+    "difference": 0.012,
+    "interval": [
+     -0.021,
+     0.044
+    ]
+   },
+   "label shares, v18 minus v14 (paired)": {
+    "real, A": {
+     "difference": 0.075,
+     "interval": [
+      0.0,
+      0.15
+     ],
+     "units": 120
+    },
+    "real, C": {
+     "difference": -0.125,
+     "interval": [
+      -0.2,
+      -0.067
+     ],
+     "units": 120
+    },
+    "pooled 50/50, A": {
+     "difference": 0.092,
+     "interval": [
+      0.033,
+      0.158
+     ],
+     "units": 120
+    },
+    "pooled 50/50, C": {
+     "difference": -0.1,
+     "interval": [
+      -0.183,
+      -0.017
+     ],
+     "units": 120
+    }
+   },
+   "judge yes, v18 minus v15 (paired)": {
+    "real": {
+     "difference": 0.017,
+     "interval": [
+      -0.075,
+      0.108
+     ],
+     "units": 120
+    },
+    "pooled 50/50": {
+     "difference": 0.083,
+     "interval": [
+      0.008,
+      0.167
+     ],
+     "units": 120
+    },
+    "related": {
+     "difference": 0.033,
+     "interval": [
+      -0.117,
+      0.183
+     ],
+     "units": 60
+    }
+   },
+   "protocol traces": {
+    "first": {
+     "readings": 300,
+     "first tool call is activation": 300,
+     "visible text before the first tool call mentions candidates": 12,
+     "visible text anywhere, final reply included, mentions candidates": 68,
+     "deepest rank asked for in the agent's list at most 500": 294
+    },
+    "retest": {
+     "readings": 30,
+     "first tool call is activation": 29,
+     "visible text before the first tool call mentions candidates": 1,
+     "visible text anywhere, final reply included, mentions candidates": 9,
+     "deepest rank asked for in the agent's list at most 500": 29
+    }
+   }
+  },
   "verdict": "no clear difference"
  },
  "units": {
