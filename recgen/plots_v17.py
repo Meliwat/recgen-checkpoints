@@ -19,7 +19,7 @@ STYLES = {"top": ("top 50", "-", "C0"), "band": ("band, 0.4 to 0.6 of peak", "--
 
 def main() -> None:
     results = json.loads((RESULTS_DIR / "classification_v17.json").read_text())
-    fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+    fig, axes = plt.subplots(1, 3, figsize=(13, 4.4))
     x = [1, 2, 3, 4]
     for ax, (reader, measure, title) in zip(axes, PANELS):
         for sample, values in results[reader][measure]["by_quartile"].items():
@@ -29,10 +29,11 @@ def main() -> None:
         ax.set_xlabel("quartile of peak activation")
         ax.set_title(title, fontsize=9)
         ax.set_ylim(0, 100 if measure == "coherence" else 1)
-    axes[0].legend(fontsize=8, loc="lower left")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, fontsize=8, loc="lower center", ncol=3)
     fig.suptitle("Below the top 50: the same neurons' top-50 and band examples (middle layer, Pythia 70M to 2.8B)",
                  fontsize=10)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     FIGURES_DIR.mkdir(exist_ok=True)
     fig.savefig(FIGURES_DIR / "v17_band.png", dpi=110)
     plt.close(fig)
