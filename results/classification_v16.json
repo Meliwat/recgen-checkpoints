@@ -2600,8 +2600,195 @@
      0.018
     ]
    }
+  },
+  "thinking": {
+   "haiku-E3": {
+    "first readings": 1800,
+    "no thinking": 0.0,
+    "mean thinking tokens": 482.439,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 600,
+       "one main job": 0.437
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 300,
+       "one main job": 0.237
+      }
+     }
+    }
+   },
+   "haiku-E4": {
+    "first readings": 1800,
+    "no thinking": 0.0,
+    "mean thinking tokens": 634.172,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 600,
+       "one main job": 0.412
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 300,
+       "one main job": 0.153
+      }
+     }
+    }
+   },
+   "sonnet-E3": {
+    "first readings": 1800,
+    "no thinking": 0.119,
+    "mean thinking tokens": 198.097,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 108,
+       "one main job": 0.806
+      },
+      "thinking": {
+       "units": 492,
+       "one main job": 0.228
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 12,
+       "one main job": 0.583
+      },
+      "thinking": {
+       "units": 288,
+       "one main job": 0.087
+      }
+     }
+    }
+   },
+   "sonnet-E4": {
+    "first readings": 1800,
+    "no thinking": 0.116,
+    "mean thinking tokens": 161.543,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 105,
+       "one main job": 0.686
+      },
+      "thinking": {
+       "units": 495,
+       "one main job": 0.164
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 9,
+       "one main job": 0.333
+      },
+      "thinking": {
+       "units": 291,
+       "one main job": 0.045
+      }
+     }
+    }
+   },
+   "haiku-v7": {
+    "first readings": 1800,
+    "no thinking": 0.0,
+    "mean thinking tokens": 677.211,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 600,
+       "one main job": 0.473
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 0,
+       "one main job": null
+      },
+      "thinking": {
+       "units": 300,
+       "one main job": 0.233
+      }
+     }
+    }
+   },
+   "sonnet-v7": {
+    "first readings": 1800,
+    "no thinking": 0.49,
+    "mean thinking tokens": 97.749,
+    "one main job by thinking": {
+     "real": {
+      "no thinking": {
+       "units": 341,
+       "one main job": 0.073
+      },
+      "thinking": {
+       "units": 259,
+       "one main job": 0.05
+      }
+     },
+     "pooled 50/50": {
+      "no thinking": {
+       "units": 126,
+       "one main job": 0.008
+      },
+      "thinking": {
+       "units": 174,
+       "one main job": 0.0
+      }
+     }
+    }
+   }
+  },
+  "one_main_job_odds_ratios": {
+   "haiku: E3 over v7": {
+    "real": 0.862,
+    "pooled 50/50": 1.019
+   },
+   "haiku: E4 over v7": {
+    "real": 0.779,
+    "pooled 50/50": 0.595
+   },
+   "sonnet: E3 over v7": {
+    "real": 7.339,
+    "pooled 50/50": 35.701
+   },
+   "sonnet: E4 over v7": {
+    "real": 5.062,
+    "pooled 50/50": 16.845
+   }
+  },
+  "label_auc_E3_with_B_and_C_swapped": {
+   "haiku-E3": 0.6,
+   "sonnet-E3": 0.593
   }
  },
+ "concurrent_addendum": "not run: no results/v16_concurrent_answers.json",
  "usage": {
   "haiku-E3": {
    "first readings": 1800,

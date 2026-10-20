@@ -4,12 +4,14 @@ import numpy as np
 
 from recgen import analyze_v16
 from recgen.analyze_v16 import (
-    POOL, analyze, arm_stats, auc_differences, baselines, e4_versus_e3, patterns_of, retest, unit_place, unit_rows,
-    v10_sonnet, versus_v7,
+    POOL, analyze, arm_stats, auc_differences, baselines, concurrent_addendum, e4_versus_e3, odds_ratios, patterns_of,
+    retest, swapped_auc, thinking_split, unit_place, unit_rows, v7_haiku_thinking, v10_sonnet, versus_v7,
 )
 from recgen.llm_reader import cache_path
 from recgen.rubric_v5 import MODELS
-from recgen.rubric_v16 import ARMS, INFLATES, SELECTIVE
+from recgen.rubric_v16 import ARMS, INFLATES, NO_RISE, SELECTIVE
+from recgen.rubric_v16_addendum import ARMS as ADDENDUM_ARMS
+from recgen.rubric_v16_addendum import NOT_REPRODUCED, REPRODUCED
 
 KINDS = {"real": "real::", POOL: "pooled:50/50:", "pooled 90/10": "pooled:90/10:"}
 
@@ -114,6 +116,7 @@ def test_analyze_runs_end_to_end_without_a_sonnet_baseline():
     assert result["summary"]["versus_v7"]["sonnet-E3"].startswith("not run")
     assert result["summary"]["versus_v7"]["haiku-E3"]["verdict"] == SELECTIVE
     assert result["usage"]["haiku-E3"]["first readings"] == len(MODELS) * 12
+    assert result["concurrent_addendum"].startswith("not run") and "thinking" in result["post_hoc"]
 
 
 def test_auc_differences_are_paired_per_reader():
@@ -123,3 +126,87 @@ def test_auc_differences_are_paired_per_reader():
     out = auc_differences(unit_rows(answers, base), base, np.random.default_rng(0))
     assert out["haiku: E3 minus E4"]["value"] == 0.5 and out["haiku: E3 minus v7"]["interval"] == [0.0, 0.0]
     assert out["haiku: E4 minus v7"]["value"] == -0.5 and not any(k.startswith("sonnet") for k in out)
+
+
+def test_v7_haiku_thinking_reads_v7s_cache_for_v7s_prompts(tmp_path, monkeypatch):
+    monkeypatch.setattr(analyze_v16, "V7_LLM_DIR", tmp_path)
+    v7_answers = {"first": {"70m:real::1": {"prompt_sha256": "a"}, "70m:real::2": {"prompt_sha256": "b"},
+                            "70m:real::3": {"prompt_sha256": "c"}}}
+    for unit_id, digest in (("70m:real::1", "a"), ("70m:real::2", "other")):
+        cache_path(tmp_path, unit_id).write_text(json.dumps(
+            {"prompt_sha256": digest, "usage": {"output_tokens_details": {"thinking_tokens": 12}}}))
+    assert v7_haiku_thinking(v7_answers) == {"70m:real::1": 12}
+
+
+def test_thinking_split_counts_zero_thinking_and_splits_labels():
+    answers, v7_answers = fake({"sonnet-E3": {"real": "A", POOL: "C", "pooled 90/10": "C"}})
+    rows = unit_rows(answers, baselines(v7_answers, None))
+    real = [r["id"] for r in rows if r["group"] == "real"]
+    tokens = {r["id"]: 0 if r["id"] in real else 30 for r in rows}
+    out = thinking_split(rows, {"sonnet-E3": tokens, "sonnet-v7": {}})
+    assert set(out) == {"sonnet-E3"} and abs(out["sonnet-E3"]["no thinking"] - 1 / 3) < 1e-9
+    split = out["sonnet-E3"]["one main job by thinking"]
+    assert split["real"] == {"no thinking": {"units": len(real), "one main job": 1.0}, "thinking": {"units": 0, "one main job": None}}
+    assert split[POOL]["thinking"] == {"units": len(real), "one main job": 0.0}
+
+
+def test_odds_ratios_and_swapped_auc():
+    arms = {f"haiku-{r}": {"one_main_job": {"real": {"value": v}, POOL: {"value": p}}}
+            for r, v, p in (("v7", 0.5, 0.0), ("E3", 0.75, 0.5), ("E4", 0.5, 0.5))}
+    out = odds_ratios(arms)
+    assert out["haiku: E3 over v7"] == {"real": 3.0, POOL: None} and out["haiku: E4 over v7"]["real"] == 1.0
+    answers, v7_answers = fake({"haiku-E3": {"real": "B", POOL: "C"}, "sonnet-E3": {"real": "A", POOL: "B"}})
+    assert swapped_auc(unit_rows(answers, baselines(v7_answers, None))) == {"haiku-E3": 0.0, "sonnet-E3": 1.0}
+
+
+def fake_concurrent(rows: list[dict], labels: dict, thinking: dict) -> dict:
+    """Addendum answers: labels and thinking map arm -> group -> value, for real neurons and 50/50 pools."""
+    out = {"arms": {arm: {} for arm in ADDENDUM_ARMS}, "spend_usd": 0.5}
+    for arm, by_group in labels.items():
+        for r in rows:
+            if r["group"] in by_group:
+                out["arms"][arm][r["id"]] = {"label": by_group[r["group"]], "thinking_tokens": thinking[arm][r["group"]],
+                                             "models": ["m"], "cost_usd": 0.001}
+    return out
+
+
+def test_concurrent_addendum_tests_and_drift_answer():
+    rng = np.random.default_rng(0)
+    answers, v7_answers = fake({"haiku-E3": {"real": "A", POOL: "C"}, "sonnet-E3": {"real": "A", POOL: "C"}})
+    base = baselines(v7_answers, None)  # Haiku's v7-rubric baseline is C everywhere; Sonnet has none
+    rows = unit_rows(answers, base)
+    main = {"haiku-E3": versus_v7(rows, "haiku", "E3", rng)}
+    assert main["haiku-E3"]["verdict"] == SELECTIVE
+    same = {"real": "A", POOL: "C"}
+    concurrent = fake_concurrent(rows, {arm: same for arm in ADDENDUM_ARMS},
+                                 {arm: {"real": 0, POOL: 40} for arm in ADDENDUM_ARMS})
+    out = concurrent_addendum(rows, concurrent, base, main, rng)
+    haiku = out["versus_v7"]["haiku"]
+    assert haiku["rise_real"]["value"] == 0.0 and haiku["verdict"] == NO_RISE
+    assert out["label_auc_difference"]["haiku"]["value"] == 0.0
+    assert out["drift"]["haiku"]["session_v7"]["real"]["value"] == 1.0  # A now, C in the earlier session
+    assert out["drift"]["haiku"]["session_E3"]["real"]["value"] == 0.0
+    assert out["drift"]["haiku"]["rise_gap"]["real"]["interval"] == [1.0, 1.0]
+    assert out["answer"]["haiku"] == {"main verdict": SELECTIVE, "concurrent verdict": NO_RISE,
+                                      "verdict": NOT_REPRODUCED, "session_dependent": True}
+    assert out["drift"]["sonnet"].startswith("not run") and "sonnet" not in out["answer"]
+    no_thinking = out["arms"]["sonnet-E3"]["no_thinking"]
+    assert no_thinking["real"]["value"] == 1.0 and no_thinking[POOL]["value"] == 0.0
+    assert abs(no_thinking["all"]["value"] - 0.5) < 1e-9  # as many real neurons as pools in the fake
+    assert out["arms"]["haiku-v7"]["one_main_job_by_thinking"]["real"]["no thinking"]["one main job"] == 1.0
+    assert set(out["arms"]["haiku-v7"]["one_main_job"]) == {"real", POOL}
+    assert out["usage"]["haiku-E3"]["readings"] == len(MODELS) * 8
+
+
+def test_concurrent_addendum_reproduces_a_verdict_read_in_the_same_session():
+    rng = np.random.default_rng(0)
+    answers, v7_answers = fake({"haiku-E3": {"real": "A", POOL: "C"}})
+    base = baselines(v7_answers, None)
+    rows = unit_rows(answers, base)
+    main = {"haiku-E3": versus_v7(rows, "haiku", "E3", rng)}
+    labels = {"haiku-E3": {"real": "A", POOL: "C"}, "haiku-v7": {"real": "C", POOL: "C"},
+              "sonnet-E3": {"real": "A", POOL: "C"}, "sonnet-v7": {"real": "C", POOL: "C"}}
+    concurrent = fake_concurrent(rows, labels, {arm: {"real": 5, POOL: 5} for arm in ADDENDUM_ARMS})
+    out = concurrent_addendum(rows, concurrent, base, main, rng)
+    assert out["answer"]["haiku"]["verdict"] == REPRODUCED and not out["answer"]["haiku"]["session_dependent"]
+    assert out["arms"]["haiku-E3"]["no_thinking"]["all"]["value"] == 0.0

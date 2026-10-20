@@ -4,6 +4,10 @@ Reads results/v16_answers.json (from recgen.llm_reader_v16), v7's Haiku answers
 (results/v7_llm_answers.json) and v10's Sonnet answers (data/v10/sonnet/, read only). A unit's size
 and group come from its id, so no recording is loaded. A unit an arm never labeled is left out of
 that arm's rates and, pairwise, out of paired comparisons.
+
+The post-hoc thinking split also reads v7's cached Haiku readings (data/v7/llm/, read only) for their
+thinking tokens. The concurrent addendum block applies recgen/rubric_v16_addendum to
+results/v16_concurrent_answers.json (from recgen.llm_reader_v16_addendum), if it exists.
 """
 
 import json
@@ -13,14 +17,19 @@ import numpy as np
 
 from recgen.config import DATA_DIR, RESULTS_DIR
 from recgen.llm_reader import ANSWERS_PATH as V7_ANSWERS_PATH
+from recgen.llm_reader import LLM_DIR as V7_LLM_DIR
 from recgen.llm_reader import cache_path
 from recgen.llm_reader_v16 import ANSWERS_PATH
+from recgen.llm_reader_v16_addendum import ANSWERS_PATH as CONCURRENT_ANSWERS_PATH
 from recgen.rubric_v5 import MODELS
 from recgen.rubric_v6 import cohen_kappa
 from recgen.rubric_v16 import (
     ARMS, BOOTSTRAP, ESSAY_ONE_MAIN_JOB, LABEL_RANK, LABELS, ONE_MAIN_JOB, READERS, RUBRICS, UNRELATED_JOBS,
     V7_RUBRIC, V7_UNRELATED, auc, bootstrap, changes, interval, near_essay, verdict,
 )
+from recgen.rubric_v16_addendum import ARMS as ADDENDUM_ARMS
+from recgen.rubric_v16_addendum import GROUPS as ADDENDUM_GROUPS
+from recgen.rubric_v16_addendum import drift_answer
 
 V10_SONNET_DIR = DATA_DIR / "v10" / "sonnet"
 POOL = "pooled 50/50"
@@ -39,10 +48,15 @@ def unit_place(unit_id: str) -> tuple[str, str]:
     return size, "real" if kind == "real" else "related" if kind == "related" else f"pooled {mix}"
 
 
+def thinking_of(record: dict) -> int:
+    return ((record.get("usage") or {}).get("output_tokens_details") or {}).get("thinking_tokens") or 0
+
+
 def v10_sonnet(v7_answers: dict) -> dict | None:
     """v10's Sonnet readings under v7's rubric ({"first", "retest"}: unit id -> label), if every one
-    of v7's units has a cached first reading of v7's exact prompt; otherwise None."""
-    out = {"first": {}, "retest": {}, "models": set()}
+    of v7's units has a cached first reading of v7's exact prompt; otherwise None. "thinking" holds
+    the first readings' thinking tokens."""
+    out = {"first": {}, "retest": {}, "models": set(), "thinking": {}}
     for part, folder in (("first", "llm"), ("retest", "llm_retest")):
         for unit_id, v7 in v7_answers[part].items():
             path = cache_path(V10_SONNET_DIR / folder, unit_id)
@@ -53,7 +67,21 @@ def v10_sonnet(v7_answers: dict) -> dict | None:
                 continue
             out[part][unit_id] = record["label"]
             out["models"] |= set(record["models"])
+            if part == "first":
+                out["thinking"][unit_id] = thinking_of(record)
     out["models"] = sorted(out["models"])
+    return out
+
+
+def v7_haiku_thinking(v7_answers: dict) -> dict:
+    """The thinking tokens of v7's first Haiku readings (unit id -> tokens), from v7's cache, for
+    every reading whose cached prompt is the one v7's answers record."""
+    out = {}
+    for unit_id, v7 in v7_answers["first"].items():
+        path = cache_path(V7_LLM_DIR, unit_id)
+        record = json.loads(path.read_text()) if path.exists() else None
+        if record is not None and record["prompt_sha256"] == v7["prompt_sha256"]:
+            out[unit_id] = thinking_of(record)
     return out
 
 
@@ -131,11 +159,11 @@ def rounded(x):
     return round(x, 3) if isinstance(x, float) else x
 
 
-def arm_stats(rows: list[dict], series: str, rng) -> dict:
+def arm_stats(rows: list[dict], series: str, rng, groups=GROUPS) -> dict:
     """Tests 1 to 3 for one arm (or one v7-rubric baseline): one-main-job shares by group, over sizes
     and per size; detection; the label AUC; label counts."""
     out = {"one_main_job": {}, "detection": {}, "labels": {}}
-    for group in GROUPS:
+    for group in groups:
         st = strata(rows, [series], [group], one_main)
         out["labels"][group] = dict(sorted(Counter(u["labels"][series] for u in rows if u["group"] == group).items(),
                                            key=lambda kv: str(kv[0])))
@@ -163,7 +191,13 @@ def arm_stats(rows: list[dict], series: str, rng) -> dict:
 def versus_v7(rows: list[dict], reader: str, rubric: str, rng) -> dict:
     """The pre-registered verdict: rises in the one-main-job share of real neurons and of 50/50
     pools, this rubric minus v7's, paired on the same units."""
-    st = strata(rows, [f"{reader}-{rubric}", f"{reader}-{V7_RUBRIC}"], ["real", POOL], one_main)
+    return rises(rows, f"{reader}-{rubric}", f"{reader}-{V7_RUBRIC}", rng)
+
+
+def rises(rows: list[dict], new: str, old: str, rng) -> dict:
+    """Rises in the one-main-job share of real neurons and of 50/50 pools, series new minus series
+    old, paired on the same units, with the pre-registered verdict."""
+    st = strata(rows, [new, old], ["real", POOL], one_main)
 
     def rise(s, group):
         return share(s, group, 0) - share(s, group, 1)
@@ -279,7 +313,146 @@ def usage(answers: dict) -> dict:
     return out
 
 
-def analyze(answers: dict, v7_answers: dict, sonnet: dict | None, rng) -> dict:
+def by_thinking(rows: list[dict], series: str, tokens: dict) -> dict:
+    """The one-main-job share of real neurons and 50/50 pools among readings with no thinking and
+    among readings with some."""
+    out = {}
+    for group in ("real", POOL):
+        out[group] = {}
+        for name, keep in (("no thinking", lambda t: t == 0), ("thinking", lambda t: t > 0)):
+            labels = [u["labels"][series] for u in rows if u["group"] == group and u["labels"].get(series) is not None
+                      and tokens.get(u["id"]) is not None and keep(tokens[u["id"]])]
+            out[group][name] = {"units": len(labels),
+                                "one main job": float(np.mean([x == ONE_MAIN_JOB for x in labels])) if labels else None}
+    return out
+
+
+def thinking_split(rows: list[dict], thinking: dict) -> dict:
+    """Post hoc, added after seeing the results: per series, the share of first readings with no
+    thinking, their mean thinking length, and the one-main-job shares split by thinking."""
+    return {series: {"first readings": len(tokens), "no thinking": float(np.mean([t == 0 for t in tokens.values()])),
+                     "mean thinking tokens": float(np.mean(list(tokens.values()))),
+                     "one main job by thinking": by_thinking(rows, series, tokens)}
+            for series, tokens in thinking.items() if tokens}
+
+
+def odds(p: float) -> float:
+    return p / (1 - p)
+
+
+def odds_ratios(arms: dict) -> dict:
+    """Post hoc: per reader, the odds of a one-main-job call under each essay rubric over the odds
+    under v7's rubric, for real neurons and 50/50 pools, from the shares over sizes. None where a
+    share is 0 or 1."""
+    out = {}
+    for reader in READERS:
+        if f"{reader}-{V7_RUBRIC}" not in arms:
+            continue
+        for rubric in RUBRICS:
+            ratios = {}
+            for group in ("real", POOL):
+                new, old = (arms[f"{reader}-{r}"]["one_main_job"][group]["value"] for r in (rubric, V7_RUBRIC))
+                ratios[group] = odds(new) / odds(old) if 0 < new < 1 and 0 < old < 1 else None
+            out[f"{reader}: {rubric} over v7"] = ratios
+    return out
+
+
+def swapped_auc(rows: list[dict]) -> dict:
+    """Post hoc: E3's label AUC with "two related jobs" and "not yet understood" swapped in the
+    ranking (A < C < B), beside the pre-registered A < B < C."""
+    swapped = {"A": 0, "C": 1, "B": 2}
+    return {f"{reader}-E3": auc_over_sizes(strata(rows, [f"{reader}-E3"], [POOL, "real"], lambda s, x: float(swapped[x])))
+            for reader in READERS}
+
+
+# Concurrent addendum (recgen/rubric_v16_addendum): pre-registered after v16's main run, read in one run.
+
+CONCURRENT = "concurrent:"  # prefix of the addendum's series, so "concurrent:haiku-E3" has rubric E3
+
+
+def concurrent_rows(rows: list[dict], concurrent: dict) -> list[dict]:
+    """The addendum's units (real neurons and 50/50 pools) with each addendum arm's label and
+    thinking tokens added as series "concurrent:<arm>"."""
+    out = []
+    for row in rows:
+        if row["group"] not in ADDENDUM_GROUPS:
+            continue
+        found = {CONCURRENT + arm: concurrent["arms"][arm].get(row["id"]) for arm in ADDENDUM_ARMS}
+        out.append({**row, "labels": row["labels"] | {k: a and a["label"] for k, a in found.items()},
+                    "thinking": {k: a and a["thinking_tokens"] for k, a in found.items()}})
+    return out
+
+
+def no_thinking(rows: list[dict], series: str, rng) -> dict:
+    """Test 3: the share of the series' labeled readings with zero thinking tokens, over all its
+    units and per group, resampling units within each size and group."""
+    st = {(size, group): np.array([[float(u["thinking"][series] == 0)] for u in rows
+                                   if u["size"] == size and u["group"] == group and u["labels"][series] is not None],
+                                  float).reshape(-1, 1)
+          for size in MODELS for group in ADDENDUM_GROUPS}
+    out = {"all": bootstrap(st, lambda s: float(np.concatenate(list(s.values()))[:, 0].mean()), rng)}
+    for group in ADDENDUM_GROUPS:
+        out[group] = bootstrap({k: v for k, v in st.items() if k[1] == group},
+                               lambda s: float(np.concatenate(list(s.values()))[:, 0].mean()), rng)
+    return out
+
+
+def drift(rows: list[dict], reader: str, rng) -> dict:
+    """Test 4, paired by unit: this run's v7-rubric share minus the earlier baseline's, this run's E3
+    share minus v16's main E3 arm's, and the main comparison's rise minus this run's."""
+    columns = [f"{reader}-E3", f"{reader}-{V7_RUBRIC}", f"{CONCURRENT}{reader}-E3", f"{CONCURRENT}{reader}-{V7_RUBRIC}"]
+    st = strata(rows, columns, ["real", POOL], one_main)
+
+    def gap(s, group):
+        return (share(s, group, 0) - share(s, group, 1)) - (share(s, group, 2) - share(s, group, 3))
+
+    out = {"session_v7": {}, "session_E3": {}, "rise_gap": {}}
+    for group in ("real", POOL):
+        out["session_v7"][group] = bootstrap(st, lambda s, g=group: share(s, g, 3) - share(s, g, 1), rng)
+        out["session_E3"][group] = bootstrap(st, lambda s, g=group: share(s, g, 2) - share(s, g, 0), rng)
+        out["rise_gap"][group] = bootstrap(st, lambda s, g=group: gap(s, g), rng)
+    out["rise_gap"]["rise_pool_minus_rise_real"] = bootstrap(st, lambda s: gap(s, POOL) - gap(s, "real"), rng)
+    out["units"] = int(sum(len(v) for v in st.values()))
+    return out
+
+
+def concurrent_addendum(rows: list[dict], concurrent: dict, base: dict, main_versus: dict, rng) -> dict:
+    """The addendum's pre-registered tests 1 to 4, the answer to the drift confound, the split by
+    thinking (described, not tested) and usage."""
+    rows = concurrent_rows(rows, concurrent)
+    out = {"arms": {}, "versus_v7": {}, "label_auc_difference": {}, "drift": {}, "answer": {}, "usage": {}}
+    for arm in ADDENDUM_ARMS:
+        series = CONCURRENT + arm
+        tokens = {u["id"]: u["thinking"][series] for u in rows if u["thinking"][series] is not None}
+        out["arms"][arm] = {**arm_stats(rows, series, rng, groups=ADDENDUM_GROUPS),
+                            "no_thinking": no_thinking(rows, series, rng),
+                            "one_main_job_by_thinking": by_thinking(rows, series, tokens)}
+        done = list(concurrent["arms"][arm].values())
+        out["usage"][arm] = {"readings": len(done), "without a label": sum(a["label"] is None for a in done),
+                             "models": sorted({m for a in done for m in a["models"]}),
+                             "cost_usd": sum(a["cost_usd"] or 0 for a in done),
+                             "mean thinking tokens": float(np.mean([a["thinking_tokens"] for a in done])) if done else None}
+    out["usage"]["all CLI calls, by the addendum's spend log"] = concurrent["spend_usd"]
+    for reader in READERS:
+        new, old = f"{CONCURRENT}{reader}-E3", f"{CONCURRENT}{reader}-{V7_RUBRIC}"
+        out["versus_v7"][reader] = rises(rows, new, old, rng)
+        st = strata(rows, [new, old], [POOL, "real"], rank)
+        out["label_auc_difference"][reader] = bootstrap(st, lambda s: auc_over_sizes(s, 0) - auc_over_sizes(s, 1), rng)
+        if f"{reader}-{V7_RUBRIC}" not in base:
+            out["drift"][reader] = "not run: no v7-rubric baseline"
+            continue
+        out["drift"][reader] = drift(rows, reader, rng)
+        main_verdict = main_versus[f"{reader}-E3"]["verdict"]
+        out["answer"][reader] = {"main verdict": main_verdict, "concurrent verdict": out["versus_v7"][reader]["verdict"],
+                                 **drift_answer(main_verdict, out["versus_v7"][reader]["verdict"],
+                                                out["drift"][reader]["rise_gap"]["real"]["interval"])}
+    return out
+
+
+def analyze(answers: dict, v7_answers: dict, sonnet: dict | None, rng, haiku_thinking: dict | None = None,
+            concurrent: dict | None = None) -> dict:
+    """Everything in results/classification_v16.json. haiku_thinking holds v7's Haiku thinking tokens
+    (v7_haiku_thinking) and concurrent the addendum's answers, each None if not available."""
     base = baselines(v7_answers, sonnet)
     rows = unit_rows(answers, base)
     series = list(ARMS) + list(base)
@@ -299,15 +472,23 @@ def analyze(answers: dict, v7_answers: dict, sonnet: dict | None, rng) -> dict:
             if rubric_of(s) != "E3":
                 flag = (lambda x: x == V7_UNRELATED) if rubric_of(s) == V7_RUBRIC else (lambda x: x == UNRELATED_JOBS)
                 summary["retest"][s]["unrelated jobs"] = retest(first, second, flag, rng)
+    thinking = {arm: {k: a["thinking_tokens"] for k, a in answers["arms"][arm]["first"].items()} for arm in ARMS}
+    thinking |= {"haiku-v7": haiku_thinking or {}, "sonnet-v7": (sonnet or {}).get("thinking") or {}}
+    post_hoc = {"label_auc_differences": auc_differences(rows, base, rng), "thinking": thinking_split(rows, thinking),
+                "one_main_job_odds_ratios": odds_ratios(summary["arms"]), "label_auc_E3_with_B_and_C_swapped": swapped_auc(rows)}
+    addendum = (concurrent_addendum(rows, concurrent, base, summary["versus_v7"], rng) if concurrent
+                else "not run: no results/v16_concurrent_answers.json")
     return {"summary": rounded(summary), "exploratory": rounded(exploratory(rows, answers, base)),
-            "post_hoc": rounded({"label_auc_differences": auc_differences(rows, base, rng)}),
+            "post_hoc": rounded(post_hoc), "concurrent_addendum": rounded(addendum),
             "usage": rounded(usage(answers)), "units": rows}
 
 
 def main() -> None:
     answers = json.loads(ANSWERS_PATH.read_text())
     v7_answers = json.loads(V7_ANSWERS_PATH.read_text())
-    result = analyze(answers, v7_answers, v10_sonnet(v7_answers), np.random.default_rng([16, 1]))
+    concurrent = json.loads(CONCURRENT_ANSWERS_PATH.read_text()) if CONCURRENT_ANSWERS_PATH.exists() else None
+    result = analyze(answers, v7_answers, v10_sonnet(v7_answers), np.random.default_rng([16, 1]),
+                     v7_haiku_thinking(v7_answers), concurrent)
     (RESULTS_DIR / "classification_v16.json").write_text(json.dumps(result, indent=1))
     s = result["summary"]
     for name, arm in s["arms"].items():
@@ -320,6 +501,15 @@ def main() -> None:
               f"{v['rise_real']['interval']}, rise pool {v['rise_pool']['value']:+.3f}, diff "
               f"{v['rise_pool_minus_rise_real']['value']:+.3f} {v['rise_pool_minus_rise_real']['interval']}")
     print(json.dumps(result["usage"], indent=1))
+    addendum = result["concurrent_addendum"]
+    if isinstance(addendum, str):
+        print("concurrent addendum:", addendum)
+        return
+    for reader, v in addendum["versus_v7"].items():
+        auc_diff = addendum["label_auc_difference"][reader]
+        print(f"concurrent {reader}: {v['verdict']}: rise real {v['rise_real']['value']:+.3f} {v['rise_real']['interval']}, "
+              f"rise pool {v['rise_pool']['value']:+.3f} {v['rise_pool']['interval']}, AUC E3 minus v7 "
+              f"{auc_diff['value']:+.3f} {auc_diff['interval']}; answer {addendum['answer'].get(reader)}")
 
 
 if __name__ == "__main__":
