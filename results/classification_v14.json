@@ -1586,6 +1586,173 @@
     }
    }
   },
+  "post_hoc_after_review": {
+   "note": "post hoc, added after an independent review",
+   "label shares": {
+    "haiku": {
+     "real": {
+      "A": 0.425,
+      "B": 0.133,
+      "C": 0.442,
+      "B or C": 0.575,
+      "A or B": 0.558,
+      "B or C per model": {
+       "70m": 0.525,
+       "410m": 0.6,
+       "2.8b": 0.6
+      }
+     },
+     "pooled 50/50": {
+      "A": 0.2,
+      "B": 0.167,
+      "C": 0.633,
+      "B or C": 0.8,
+      "A or B": 0.367,
+      "B or C per model": {
+       "70m": 0.725,
+       "410m": 0.8,
+       "2.8b": 0.875
+      }
+     },
+     "B-or-C ceiling": 0.425
+    },
+    "haiku agent": {
+     "real": {
+      "A": 0.658,
+      "B": 0.1,
+      "C": 0.242,
+      "B or C": 0.342,
+      "A or B": 0.758,
+      "B or C per model": {
+       "70m": 0.35,
+       "410m": 0.275,
+       "2.8b": 0.4
+      }
+     },
+     "pooled 50/50": {
+      "A": 0.55,
+      "B": 0.1,
+      "C": 0.35,
+      "B or C": 0.45,
+      "A or B": 0.65,
+      "B or C per model": {
+       "70m": 0.45,
+       "410m": 0.425,
+       "2.8b": 0.475
+      }
+     },
+     "B-or-C ceiling": 0.658
+    },
+    "sonnet agent": {
+     "real": {
+      "A": 0.2,
+      "B": 0.242,
+      "C": 0.558,
+      "B or C": 0.8,
+      "A or B": 0.442,
+      "B or C per model": {
+       "70m": 0.85,
+       "410m": 0.775,
+       "2.8b": 0.775
+      }
+     },
+     "pooled 50/50": {
+      "A": 0.033,
+      "B": 0.158,
+      "C": 0.808,
+      "B or C": 0.967,
+      "A or B": 0.192,
+      "B or C per model": {
+       "70m": 0.95,
+       "410m": 0.975,
+       "2.8b": 0.975
+      }
+     },
+     "B-or-C ceiling": 0.2
+    },
+    "opus agent": {
+     "real": {
+      "A": 0.5,
+      "B": 0.208,
+      "C": 0.292,
+      "B or C": 0.5,
+      "A or B": 0.708,
+      "B or C per model": {
+       "70m": 0.45,
+       "410m": 0.475,
+       "2.8b": 0.575
+      }
+     },
+     "pooled 50/50": {
+      "A": 0.208,
+      "B": 0.275,
+      "C": 0.517,
+      "B or C": 0.792,
+      "A or B": 0.483,
+      "B or C per model": {
+       "70m": 0.625,
+       "410m": 0.925,
+       "2.8b": 0.825
+      }
+     },
+     "B-or-C ceiling": 0.5
+    }
+   },
+   "label AUC, opus agent minus sonnet agent": {
+    "difference": 0.024,
+    "interval": [
+     -0.036,
+     0.08
+    ],
+    "draws": 2000
+   },
+   "C labels, opus agent and sonnet agent": {
+    "real": {
+     "opus agent C": 35,
+     "sonnet agent C": 67,
+     "both C": 32
+    },
+    "pooled 50/50": {
+     "opus agent C": 62,
+     "sonnet agent C": 97,
+     "both C": 61
+    },
+    "both groups": {
+     "opus agent C": 97,
+     "sonnet agent C": 164,
+     "both C": 93
+    }
+   },
+   "per reading": {
+    "haiku agent": {
+     "readings": 330,
+     "deepest rank asked for": 319,
+     "output tokens per reading": 1089.5,
+     "cost per reading, USD": 0.002
+    },
+    "sonnet agent": {
+     "readings": 330,
+     "deepest rank asked for": 1019,
+     "output tokens per reading": 621.5,
+     "cost per reading, USD": 0.0311
+    },
+    "opus agent": {
+     "readings": 330,
+     "deepest rank asked for": 3014,
+     "output tokens per reading": 1679.9,
+     "cost per reading, USD": 0.1109
+    }
+   },
+   "readings cached before the analysis commit": {
+    "commit time": "2026-10-20T00:48:20-04:00",
+    "readings": 330,
+    "written before": 34,
+    "by folder, size and kind": {
+     "agent_opus, 70m real": 34
+    }
+   },
+   "cost per reading, opus agent over sonnet agent": 3.57
+  },
   "verdict": "no clear difference"
  },
  "units": {
