@@ -13,6 +13,7 @@ import json
 import shutil
 import subprocess
 import sys
+import tempfile
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
@@ -37,7 +38,7 @@ from recgen.sweep_v6 import v6_path
 from recgen.units_v7 import build_units
 
 V8_DIR = DATA_DIR / "v8"
-WORKDIR = V8_DIR / "workdir"  # an empty folder, so the CLI sees nothing of the repo
+WORKDIR = Path(tempfile.gettempdir()) / "recgen-v8-workdir"  # empty and outside the repo, so the CLI sees none of it
 ANSWERS_PATH = RESULTS_DIR / "v8_agent_answers.json"
 PILOT_MODEL, PILOT_PER_KIND = "160m", 2
 WORKERS = 6
@@ -100,7 +101,9 @@ class SpendGuard:
 def read(view: UnitView, directory: Path, backend: Backend | None, url: str | None, runner=run_cli,
          guard: SpendGuard | None = None) -> dict:
     """The cached reading for this prompt, or a new one with up to ATTEMPTS tries. A reading the
-    spend guard stops is returned without a label and isn't cached."""
+    spend guard stops is returned without a label and isn't cached. The cache key is the unit's prompt;
+    the directory names the agent's model, so a change to SYSTEM_PROMPT, TOOLS or MAX_TOOL_CALLS needs
+    the cache cleared."""
     text = view.prompt()
     path, digest = cache_path(directory, view.unit["id"]), hashlib.sha256(text.encode()).hexdigest()
     if path.exists():
@@ -122,7 +125,7 @@ def read(view: UnitView, directory: Path, backend: Backend | None, url: str | No
             calls = backend.close(handle)
             answer = None if error else parse_answer(out["reply"])
             attempts.append({"error": error or (None if answer else "no valid label"),
-                             "cost_usd": out.get("cost_usd", 0.0), "tool_calls": len(calls)})
+                             "cost_usd": out.get("cost_usd", 0.0), "tool_calls": len(calls), "reply": out.get("reply", "")})
             if guard:
                 guard.add(attempts[-1]["cost_usd"])
             if answer:

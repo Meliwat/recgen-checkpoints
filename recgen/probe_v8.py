@@ -19,7 +19,7 @@ from recgen.config import SEED
 from recgen.facets import display_text, tokenizer
 from recgen.rubric_v7 import SNIPPET_AFTER, SNIPPET_BEFORE
 from recgen.rubric_v8 import (
-    EXAMPLES_PER_CALL, MARK_THRESHOLD, MAX_TEXT_TOKENS, MAX_TOOL_CALLS, NO_CALLS_LEFT, SCALE, TEXTS_PER_CALL, TOOLS,
+    EXAMPLES_PER_CALL, MARK_THRESHOLD, MAX_TEXT_TOKENS, MAX_TOOL_CALLS, N_WINDOWS, NO_CALLS_LEFT, SCALE, TEXTS_PER_CALL, TOOLS,
     normalizers, prompt, ranked_rest, snippet_line, unit_values,
 )
 
@@ -53,8 +53,9 @@ class UnitView:
         self.first = [(tuple(k), SCALE * v / self.top) for k, v in zip(first_keys, first_values)]
         rest = ranked_rest(window_values, first_keys[:, 0])
         strongest = window_pos[:, self.neuron_ids][rest, per_window[rest].argmax(axis=1)]
-        self.ranked = sorted(self.first, key=lambda kv: -kv[1]) + [
-            ((int(w), int(p)), SCALE * float(window_values[w]) / self.top) for w, p in zip(rest, strongest)]
+        # Cut at N_WINDOWS: a pool showing two examples from one window would otherwise have a longer list.
+        self.ranked = (sorted(self.first, key=lambda kv: -kv[1]) + [
+            ((int(w), int(p)), SCALE * float(window_values[w]) / self.top) for w, p in zip(rest, strongest)])[:N_WINDOWS]
 
     def snippet(self, key: tuple[int, int]) -> str:
         return display_text(self.corpus, key[0], key[1], SNIPPET_BEFORE, SNIPPET_AFTER)

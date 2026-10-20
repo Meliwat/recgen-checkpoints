@@ -8,7 +8,7 @@ from recgen.rubric_v8 import EXAMPLES_PER_CALL, MAX_TOOL_CALLS, NO_CALLS_LEFT, S
 W, T = 60, 64
 
 
-def fake_view(neurons=(0, 1)) -> UnitView:
+def fake_view(neurons=(0, 1), windows=(3, 7, 11, 13, 17)) -> UnitView:
     """Two sampled neurons whose pre-activations at stored residual row r are r + 1 and 2 * (r + 1)."""
     rng = np.random.default_rng(0)
     window_max = rng.gamma(2.0, 1.0, (W, 3)).astype(np.float16)
@@ -18,7 +18,7 @@ def fake_view(neurons=(0, 1)) -> UnitView:
     v6 = {"neurons": np.array([0, 1, 2]), "z": z, "gain": np.ones(2, np.float32),
           "weights": np.array([[1, 0], [2, 0], [0, 1]], np.float32), "constant": np.zeros(3, np.float32)}
     unit = {"id": "70m:pooled:50/50:0-1", "neurons": neurons, "rows": np.arange(5),
-            "keys": np.array([[w, 40] for w in (3, 7, 11, 13, 17)])}
+            "keys": np.array([[w, 40 + i] for i, w in enumerate(windows)])}
     corpus = np.arange(W * T).reshape(W, T) % 50000
     return UnitView(unit, v6, window_max, window_pos, corpus)
 
@@ -39,6 +39,13 @@ def test_unit_view_ranks_the_shown_examples_first_then_every_other_window():
     gelu = lambda x: torch.nn.functional.gelu(torch.tensor(x)).numpy()  # noqa: E731
     expected = SCALE * np.maximum(gelu(np.arange(1.0, 6)) / view.norms[0], gelu(2 * np.arange(1.0, 6)) / view.norms[1]) / view.top
     assert np.allclose(first_values, expected, atol=1e-3)
+
+
+def test_the_ranked_list_never_runs_past_the_corpus_windows(monkeypatch):
+    from recgen import probe_v8
+    monkeypatch.setattr(probe_v8, "N_WINDOWS", W)
+    # Two shown examples from one window, as in some pools, must not make the list longer than a real neuron's.
+    assert len(fake_view(windows=(3, 3, 11, 13, 17)).ranked) == W
 
 
 def test_examples_caps_the_count_and_reports_ranks_out_of_range():
