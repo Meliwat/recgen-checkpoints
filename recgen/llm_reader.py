@@ -29,11 +29,11 @@ CLI = ["claude", "-p", "--model", LLM_MODEL, "--system-prompt", SYSTEM_PROMPT, "
        "--setting-sources", "", "--no-session-persistence", "--output-format", "json"]
 
 
-def unit_prompt(unit: dict, corpus: np.ndarray) -> str:
+def unit_prompt(unit: dict, corpus: np.ndarray, make_prompt=prompt) -> str:
     """The unit's examples in a fixed random order (seeded by its id), with no activation values."""
     seed = int(hashlib.sha256(unit["id"].encode()).hexdigest()[:8], 16)
     order = np.random.default_rng([SEED, 7, seed]).permutation(len(unit["keys"]))
-    return prompt([display_text(corpus, int(w), int(p), SNIPPET_BEFORE, SNIPPET_AFTER) for w, p in unit["keys"][order]])
+    return make_prompt([display_text(corpus, int(w), int(p), SNIPPET_BEFORE, SNIPPET_AFTER) for w, p in unit["keys"][order]])
 
 
 def call_cli(text: str) -> dict:
@@ -50,7 +50,7 @@ def cache_path(directory, unit_id: str):
     return directory / (unit_id.replace(":", "_").replace("/", "-") + ".json")
 
 
-def read(unit_id: str, text: str, directory, runner=call_cli) -> dict:
+def read(unit_id: str, text: str, directory, runner=call_cli, parse=parse_label) -> dict:
     """The cached answer for this prompt, or a new reading with retries."""
     path = cache_path(directory, unit_id)
     digest = hashlib.sha256(text.encode()).hexdigest()
@@ -62,7 +62,7 @@ def read(unit_id: str, text: str, directory, runner=call_cli) -> dict:
     for attempt in range(ATTEMPTS):
         try:
             answer = runner(text)
-            label = parse_label(answer["reply"])
+            label = parse(answer["reply"])
             if label is not None:
                 break
             error = "unparseable reply"
