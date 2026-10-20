@@ -73,3 +73,13 @@ def test_requeue_moves_infrastructure_failures_at_most_reruns_times(tmp_path):
 def test_simulations_that_did_not_parse_are_the_models_failure():
     assert not failed_outside_the_model({"parsed": None, "attempts": [{"error": "invalid reply"}] * 3})
     assert not failed_outside_the_model({"parsed": [1.0], "attempts": [{"error": "OSError"}, {"error": None}]})
+
+
+def test_cli_versions_are_kept_and_added_only_when_a_run_makes_readings(tmp_path, monkeypatch):
+    from recgen import agent_v18
+    path = tmp_path / "cli_versions.txt"
+    monkeypatch.setattr(agent_v18, "cli_version", lambda: "9.9.9")
+    assert agent_v18.record_cli_version(False, path) == [] and not path.exists()
+    path.write_text('["1.0.0"]')
+    assert agent_v18.record_cli_version(False, path) == ["1.0.0"]
+    assert agent_v18.record_cli_version(True, path) == ["1.0.0", "9.9.9"] == json.loads(path.read_text())

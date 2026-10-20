@@ -35,6 +35,7 @@ from recgen.units_v7 import build_units
 V18_DIR = DATA_DIR / "v18"
 PILOT_DIR = V18_DIR / "pilot"
 REQUEUED_DIR = V18_DIR / "requeued"
+VERSIONS_PATH = V18_DIR / "cli_versions.txt"
 ANSWERS_PATH = RESULTS_DIR / "v18_agent_answers.json"
 PILOT_ANSWERS_PATH = RESULTS_DIR / "v18_pilot_answers.json"
 V15_ANSWERS_PATH = RESULTS_DIR / "v15_answers.json"
@@ -100,6 +101,20 @@ def cli_version() -> str:
     return subprocess.run(["claude", "--version"], capture_output=True, text=True).stdout.strip()
 
 
+def readings_on_disk(root: Path = V18_DIR) -> int:
+    return sum(1 for _ in root.rglob("*.json")) if root.exists() else 0
+
+
+def record_cli_version(made_readings: bool, path: Path = VERSIONS_PATH) -> list[str]:
+    """The CLI versions that made v18's readings, kept in data/v18 so a rerun from the cache, which
+    makes no readings, writes the same answers whatever CLI is installed then."""
+    versions = json.loads(path.read_text()) if path.exists() else []
+    if made_readings and (version := cli_version()) not in versions:
+        versions.append(version)
+        path.write_text(json.dumps(versions))
+    return versions
+
+
 def read_agents(units: dict[str, list[dict]], wanted: dict[str, set[str]], reading: str, folder: Path, corpus) -> dict:
     """Each wanted unit's agent reading, size by size, with the agent spend guard."""
     guard = SpendGuard(SPEND_CAP_USD - SIMULATION_RESERVE_USD, spent=spent())
@@ -148,8 +163,8 @@ def main() -> None:
     for folder in paths.values():
         if folder.exists() and (moved := requeue(folder)):
             print(f"requeued {len(moved)} infrastructure failures from {folder.name}", flush=True)
-    version = cli_version()
-    print(f"claude CLI {version}; spent so far: ${spent():.2f} of ${SPEND_CAP_USD:.0f}", flush=True)
+    print(f"claude CLI {cli_version()}; spent so far: ${spent():.2f} of ${SPEND_CAP_USD:.0f}", flush=True)
+    before = readings_on_disk()
     SIMULATOR_WORKDIR.mkdir(parents=True, exist_ok=True)
     corpus = load_corpus()
     v15_units = json.loads((V15_PILOT_ANSWERS_PATH if args.pilot else V15_ANSWERS_PATH).read_text())["units"]
@@ -174,7 +189,8 @@ def main() -> None:
         agent["retest"] = read_agents(units, retested, "retest", paths["agent retest"], corpus)
         simulation["retest"] = simulate(agent["retest"], held_out, paths["simulate retest"], "simulator, retest")
 
-    out = {"agent": AGENT_MODEL, "cli_version": version, "simulator": SIMULATOR, "judge": JUDGE, "units": {}}
+    versions = record_cli_version(readings_on_disk() > before)
+    out = {"agent": AGENT_MODEL, "cli_versions": versions, "simulator": SIMULATOR, "judge": JUDGE, "units": {}}
     for model, model_units in units.items():
         for u in model_units:
             entry = {"id": u["id"], "model": model, "kind": u["kind"],
