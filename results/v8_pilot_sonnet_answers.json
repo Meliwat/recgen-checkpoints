@@ -1,0 +1,581 @@
+{
+ "first": {
+  "160m:real::0": {
+   "id": "160m:real::0",
+   "prompt_sha256": "33522c3a860e23591d9863ea26c6102100a82f44eaf5d9643b35cd9fbe624ce9",
+   "label": "A",
+   "patterns": [
+    "Tokens inside a person's name, before the rest of the name follows. These include a first-name fragment, an initial or its period or space, and a closing nickname quote. Citation author lists and cast lists are typical contexts."
+   ],
+   "confidence": "high",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.0301403,
+     "tool_calls": 2
+    }
+   ],
+   "cost_usd": 0.0301403,
+   "input_tokens": 11519,
+   "output_tokens": 374,
+   "num_turns": 3,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "{\"label\":\"A\",\"patterns\":[\"Tokens inside a person's name, before the rest of the name follows. These include a first-name fragment, an initial or its period or space, and a closing nickname quote. Citation author lists and cast lists are typical contexts.\"],\"confidence\":\"high\"}",
+   "messages": [
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "The paper by J. P. Muro and S. Das was good.",
+       "Boris Karloff as Roberta \"Bobbie\" Logan",
+       "The cat sat on the mat in the house.",
+       "Dr. Masaki Yuki said"
+      ]
+     }
+    },
+    {
+     "tool": "examples",
+     "input": {
+      "start": 100,
+      "count": 10
+     }
+    },
+    {
+     "text": "{\"label\":\"A\",\"patterns\":[\"Tokens inside a person's name, before the rest of the name follows. These include a first-name fragment, an initial or its period or space, and a closing nickname quote. Citation author lists and cast lists are typical contexts.\"],\"confidence\":\"high\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "The paper by J. P. Muro and S. Das was good.",
+       "Boris Karloff as Roberta \"Bobbie\" Logan",
+       "The cat sat on the mat in the house.",
+       "Dr. Masaki Yuki said"
+      ]
+     },
+     "answer": "Text 1, strongest 6.4 at [[.]]: The paper[[ by|1.2]][[ J|4.2]].[[ P|3.6]][[.|5.3]][[ M|4.1]][[uro|5.1]][[ and|3.6]][[ S|5.0]][[.|6.4]][[ Das|3.0]] was good.\nText 2, strongest 8.6 at [[\"]]: Bor[[is|2.3]][[ Karl|4.9]][[off|3.1]] as[[ Rober|3.3]][[ta|4.9]][[ \"|3.3]][[Bob|5.0]][[bie|6.3]][[\"|8.6]][[ Logan|5.1]]\nText 3, strongest 0.3 at [[.]]: The cat sat on the mat in the house.\nText 4, strongest 6.2 at [[aki]]: Dr.[[ Mas|4.0]][[aki|6.2]][[ Y|4.5]][[uki|5.3]] said\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 100,
+      "count": 10
+     },
+     "answer": "rank 100 (6.5):  I said above) on Zoltan Szabo's website, http://www.math.princeton.edu/~[[sz]]abo/clay\nrank 101 (6.5): Electronic supplementary material\u23ce=================================\u23ce\u23ce {#Sec17}\u23ce\u23ceSupplementary information\u23ce\u23ceHailuan Zeng and Rench[[ao]] Tong contributed equally to\nrank 102 (6.5): 4_1\u23ce\u23ce# 1. Introduction\u23ce\u23ceMauricio G. C. Resende1  and Cel[[so]] C. Ribe\nrank 103 (6.5):  Department of physics, Indian Institute of Technology Bombay, Mumbai-400076 India'\u23ceauthor:\u23ce- 'An[[il]] K. Yad\nrank 104 (6.5):  this with the structure of the strain rate in the flow.'\u23ceauthor:\u23ce- Jennifer Jucha\u23ce- Hait[[ao]] Xu\u23ce- Al\nrank 105 (6.5):  of the electron transport chain underlies the mitochondrial dysfunction central to Parkinson's disease [@pone.0062400-Gand[[hi]]1], [@pone\nrank 106 (6.5):  elected not to participate in the RSFPP, choosing instead to receive full retirement pay.  Those who, like Major[[ Pass]]aro, had retired\nrank 107 (6.5):  State appeals from the order of the circuit court of\u23ce\u23ceStephenson County granting the motion of the defendant, John A[[.]]\u23ce\u23ceGoeb\nrank 108 (6.5):  District Court, Gillespie County, Texas\u23ce                                    Trial Court No. 4217\u23ce                        Honorable Stephen B[[.]] Ables, Judge\nrank 109 (6.5):  interests exist.\u23ce\u23ce[^2]: Conceived and designed the experiments: TS SO. Performed the experiments: TS[[ SO]] CM. Analyzed\n\n(6 tool calls left)"
+    }
+   ]
+  },
+  "160m:real::62": {
+   "id": "160m:real::62",
+   "prompt_sha256": "cd79c4a86eeacca7ef7b15397d680454eb85042cd0250ef6400b11eafb161571",
+   "label": "A",
+   "patterns": [
+    "punctuation/delimiter tokens inside formulaic structured text: citation parentheses and hyphens, middle-initial periods in signature blocks, license-header newlines, code indentation tabs and assignment operators, math problem operators"
+   ],
+   "confidence": "medium",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.040804599999999996,
+     "tool_calls": 4
+    }
+   ],
+   "cost_usd": 0.040804599999999996,
+   "input_tokens": 12736,
+   "output_tokens": 908,
+   "num_turns": 5,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "Most snippets fit one broad pattern, so I chose A. The unit fires on structural or punctuation tokens that sit inside formulaic boilerplate. That includes legal citations, reference lists, license headers, code indentation, and math-problem templates. The tokens are typically `(`, `-`, `.`, `\u23ce`, tabs, and `=`/`+`.\n\nEvidence for a single job:\n- **Spread across genres:** the snippets come from legal opinions, reference lists, code, license headers, and synthetic math problems. In each, the firing token is a delimiter or junction inside a rigid template.\n- **Probe results:**\n  - Plain prose barely activated it (0.5).\n  - Math text such as \"i + 3\" fired at 7.4.\n  - A citation \"Phys. Rev. B 62 (\" fired at 5.0.\n  - The blank comment line in a license header fired at 3.1.\n  - Short code snippets were weaker (3.2 at most), so the code cases look less clear-cut.\n- **Lower-ranked examples (ranks 51\u201370 and 200\u2013209):** these show the same delimiter-in-template behavior, plus some sentence-start tokens like \"It\" and \"That\".\n\nI used 4 of my 8 tool calls.\n\n{\"label\": \"A\", \"patterns\": [\"punctuation/delimiter tokens inside formulaic structured text: citation parentheses and hyphens, middle-initial periods in signature blocks, license-header newlines, code indentation tabs and assignment operators, math problem operators\"], \"confidence\": \"medium\"}",
+   "messages": [
+    {
+     "tool": "examples",
+     "input": {
+      "start": 51,
+      "count": 20
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "Entered for the Court\n\nRobert H. Henry\n",
+       "Let f(i) = i + 3. Calculate z*",
+       "func main() {\n\tx := 1\n\treturn false\n}",
+       "Phys. Rev. B 62 (1995) 133"
+      ]
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "The cat sat on the mat and looked at the dog.",
+       "met:\n//\n// Licensed under the Apache License"
+      ]
+     }
+    },
+    {
+     "tool": "examples",
+     "input": {
+      "start": 200,
+      "count": 10
+     }
+    },
+    {
+     "text": "Most snippets fit one broad pattern, so I chose A. The unit fires on structural or punctuation tokens that sit inside formulaic boilerplate. That includes legal citations, reference lists, license headers, code indentation, and math-problem templates. The tokens are typically `(`, `-`, `.`, `\u23ce`, tabs, and `=`/`+`.\n\nEvidence for a single job:\n- **Spread across genres:** the snippets come from legal opinions, reference lists, code, license headers, and synthetic math problems. In each, the firing token is a delimiter or junction inside a rigid template.\n- **Probe results:**\n  - Plain prose barely activated it (0.5).\n  - Math text such as \"i + 3\" fired at 7.4.\n  - A citation \"Phys. Rev. B 62 (\" fired at 5.0.\n  - The blank comment line in a license header fired at 3.1.\n  - Short code snippets were weaker (3.2 at most), so the code cases look less clear-cut.\n- **Lower-ranked examples (ranks 51\u201370 and 200\u2013209):** these show the same delimiter-in-template behavior, plus some sentence-start tokens like \"It\" and \"That\".\n\nI used 4 of my 8 tool calls.\n\n{\"label\": \"A\", \"patterns\": [\"punctuation/delimiter tokens inside formulaic structured text: citation parentheses and hyphens, middle-initial periods in signature blocks, license-header newlines, code indentation tabs and assignment operators, math problem operators\"], \"confidence\": \"medium\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 51,
+      "count": 20
+     },
+     "answer": "rank 51 (7.6):  or gaps\u23ce\t\t}\u23ce\u23ce\t\t// Compact nps + non-nil Instrs into a new slice.\u23ce\t[[\t]]// TODO(ad\nrank 52 (7.5): \u23ceI would suggest that it's hardly possible to be after only reputation. Reputation isn't \"only\" reputation.[[ It]]'s a symbol of\nrank 53 (7.5):  must be handled. It should be noted that none of the above-mentioned methods (1), (2) and ([[3]]) provide a dynamic\nrank 54 (7.5):  - Channel Event Detected Interrupt Disable\"]\u23ce    #[inline(always)]\u23ce    pub fn evd(&[[self]]) -> EVD\nrank 55 (7.5):  statements are subject to other risks detailed in our Annual Report on Form 10-K for the year ended December 31, 2017[[ as]] well as our Quarter\nrank 56 (7.5): ACH ARE BA\u23ce\u23ceSIGN UP FOR BREAKING NEWS Get local stories sent straight to your inbox as news breaks[[.]] Sub\nrank 57 (7.5): SAT problems using GRASP. Discrete Applied Mathematics, 100:95\u2013113, 2000.CrossRef00171[[-]]7)MATH\nrank 58 (7.5): ombly, 550 U.S. at 570, 127 S.Ct. 1955; see also Elsensohn v[[.]] St. Tamm\nrank 59 (7.4): _EXEC                         = 0x4\u23ce\tPROT_NONE                         = 0x0\u23ce\tPROT_READ                         =[[ 0]]x1\u23ce\t\nrank 60 (7.4):  -5*j(s) - 2*p(s).\u23ce-s**3 + 98*s -[[ 2]]\u23ceLet z(\nrank 61 (7.4):  presented here at KF, last time.])\u23ce\u23ce18 --> So much so, that the evolutionary materialists ([[as]] we have seen)\nrank 62 (7.4):  article is available online at <https://doi.org/10.1038/s41598-017-14856[[-]]1>.\u23ce\u23ce\nrank 63 (7.4): , produces a person who\u23ceis both happy and in a relationship?\u23ce\u23cePsychology can't tell us. But[[ it]] can certainly pretend to\nrank 64 (7.4):  justifies certain military interventions and limits others\u2014while redefining national security interests to include climate change and other matters.[[ That]]\u2019s a tough\nrank 65 (7.4): .3d 387, 391 (5th Cir. 1998), cert. denied, 119 S. Ct. 1286[[ (]]1999).\u23ceWe\nrank 66 (7.4):  The Origin of G.N. Lewis's Theory of the Shared Pair Bond, _Historical Studies in the Physical Sciences[[_]] , 3, 343\nrank 67 (7.4):  at <http://www.jcb.org/cgi/content/full/jcb.200502101[[/]]DC1>).\u23ce\nrank 68 (7.4): public RRI_I12_AUTHORIZATION_CONTACT(IGroup parent, IModelClassFactory[[ factory]]) : base(\nrank 69 (7.4): \u23ceAn action on the case, in Black's Law Dictionary, 51 (4th Ed. 1968), is defined as[[:]]\u23ce\u23ce*667\nrank 70 (7.3):  the\u23ce  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for\u23ce[[  ]]// methods supported on\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "Entered for the Court\n\nRobert H. Henry\n",
+       "Let f(i) = i + 3. Calculate z*",
+       "func main() {\n\tx := 1\n\treturn false\n}",
+       "Phys. Rev. B 62 (1995) 133"
+      ]
+     },
+     "answer": "Text 1, strongest 2.5 at [[.]]: Entered for the Court\u23ce\u23ceRobert H[[.|2.5]] Henry\u23ce\nText 2, strongest 7.4 at [[ +]]: Let f([[i|1.6]])[[ =|2.6]][[ i|2.2]][[ +|7.4]][[ 3|6.8]]. Calculate z*\nText 3, strongest 3.2 at [[}]]: func[[ main|1.2]]()[[ {|1.2]]\u23ce\t[[x|1.2]] := 1\u23ce\t[[return|1.8]] false\u23ce[[}|3.2]]\nText 4, strongest 5.0 at [[ (]]: Phys. Rev.[[ B|4.0]][[ 62|1.3]][[ (|5.0]]1995) 133\n\n(6 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "The cat sat on the mat and looked at the dog.",
+       "met:\n//\n// Licensed under the Apache License"
+      ]
+     },
+     "answer": "Text 1, strongest 0.5 at [[.]]: The cat sat on the mat and looked at the dog.\nText 2, strongest 3.1 at [[\u23ce]]: met:\u23ce//[[\u23ce|3.1]]// Licensed under the Apache License\n\n(5 tool calls left)"
+    },
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 200,
+      "count": 10
+     },
+     "answer": "rank 200 (6.6): ult B medium (STEMCELL Technologies, Vancouver, BC, Canada) supplemented with 5% fetal bovine serum (F[[BS]]) and 10^-\nrank 201 (6.6):  claim alleging a hostile work environment, Albero must show that: 1) she was harassed because of her sex;[[ 2]]) the harassment was\nrank 202 (6.6): \u23ce  public $role;\u23ce\u23ce  public function setMembers($members)\u23ce  {\u23ce    $this->members[[ =]] $members;\u23ce\nrank 203 (6.6): \u23ce\u23ce3. Gasometric parameters {#s3c}\u23ce------------------------\u23ce\u23ceGasometric results for groups 2H and[[ 4]]H are summarised\nrank 204 (6.6): \u23ce\t\tif (!s->s_dev)\u23ce\t\t\tbreak;\u23ce\t}\u23ce\ts->s_dev[[ =]] dev;\u23ce\t\nrank 205 (6.6):  interest which, by the language of 26 U.S.C.A. (1958 Ed.) \u00a7 6654([[a]]), is also \"\nrank 206 (6.6):  macrophage colony stimulating factor.\u23ceTreatment of adherent peripheral blood mononuclear cells (PBMCs) with macrophage colony stimulating factor ([[M]]-CSF) and\nrank 207 (6.6): motions that were denied. This timely appeal followed.\u23ce\u23ce       On appeal, Woods presents the following issues for our consideration[[:]]\u23ce\u23ce\u23ce\u23ce\u23ce____________________________________________\nrank 208 (6.6): ).\u23cePride Offshore argues that the proposed amended claim would be futile. Pride Offshore faults Century Exploration for[[:]]\u23cefall[ing\nrank 209 (6.6):  of benzenoid aromatic hydrocarbons. J. Dias, Setting Benzenoids to Order, _Chemistry in Britain[[_]] , 30, 384\n\n(4 tool calls left)"
+    }
+   ]
+  },
+  "160m:pooled:50/50:1947-1365": {
+   "id": "160m:pooled:50/50:1947-1365",
+   "prompt_sha256": "6f7a88543000847c97e587dd37990a93ce2615baef961a36d0e5287256f3bc7f",
+   "label": "C",
+   "patterns": [
+    "period after abbreviations (Pat., incl., i.e., Ref., Cat no.)",
+    "hyphen in ref-type markup and newline after figure caption or acknowledgments in scientific text",
+    "XML/code structure tokens (>, #define)",
+    "word fragments such as 'signposted', 'via', 'located'"
+   ],
+   "confidence": "medium",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.035305100000000006,
+     "tool_calls": 2
+    }
+   ],
+   "cost_usd": 0.035305100000000006,
+   "input_tokens": 11660,
+   "output_tokens": 767,
+   "num_turns": 3,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "The unit looks like it fires where the next token is a structural or boilerplate continuation. That covers abbreviation periods, markup hyphens and newlines, and the \"post\" in \"signposted\". These patterns are loosely related at best.\n\n- **Abbreviation periods.** It fires on the period in \"Pat.\", \"incl.\", \"i.e.\" and \"Ref.\". In my test, \"incl.\" reached 6.2 and \"i.e.,\" reached 5.1.\n- **Markdown/XML structure.** It fires on the hyphen in `ref-type`, on the newline after a figure caption or acknowledgments paragraph, on `>` closing XML tags, and on `#define`.\n- **\"signposted\".** It fires on \"posted\" in \"signposted\", which was the strongest snippet at 10.0. In my test it only reached 1.5, and the higher 3.3 was on \"Andrews\".\n\nThe patterns don't share an obvious common trait, and my test texts activated the unit more weakly than the examples did. I used 2 of the 8 tool calls, so I stopped short of testing each pattern separately.\n\n{\"label\": \"C\", \"patterns\": [\"period after abbreviations (Pat., incl., i.e., Ref., Cat no.)\", \"hyphen in ref-type markup and newline after figure caption or acknowledgments in scientific text\", \"XML/code structure tokens (>, #define)\", \"word fragments such as 'signposted', 'via', 'located'\"], \"confidence\": \"medium\"}",
+   "messages": [
+    {
+     "tool": "examples",
+     "input": {
+      "start": 51,
+      "count": 20
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "See U.S. Pat. No. 4,123 and Ref. 343 (i.e., test) incl. wildcards",
+       "The road is signposted to St Andrews.",
+       "([Figure 7](#f7){ref-type=\"fig\"}).",
+       "Thanks to John for help.\n\nConflict of interest"
+      ]
+     }
+    },
+    {
+     "text": "The unit looks like it fires where the next token is a structural or boilerplate continuation. That covers abbreviation periods, markup hyphens and newlines, and the \"post\" in \"signposted\". These patterns are loosely related at best.\n\n- **Abbreviation periods.** It fires on the period in \"Pat.\", \"incl.\", \"i.e.\" and \"Ref.\". In my test, \"incl.\" reached 6.2 and \"i.e.,\" reached 5.1.\n- **Markdown/XML structure.** It fires on the hyphen in `ref-type`, on the newline after a figure caption or acknowledgments paragraph, on `>` closing XML tags, and on `#define`.\n- **\"signposted\".** It fires on \"posted\" in \"signposted\", which was the strongest snippet at 10.0. In my test it only reached 1.5, and the higher 3.3 was on \"Andrews\".\n\nThe patterns don't share an obvious common trait, and my test texts activated the unit more weakly than the examples did. I used 2 of the 8 tool calls, so I stopped short of testing each pattern separately.\n\n{\"label\": \"C\", \"patterns\": [\"period after abbreviations (Pat., incl., i.e., Ref., Cat no.)\", \"hyphen in ref-type markup and newline after figure caption or acknowledgments in scientific text\", \"XML/code structure tokens (>, #define)\", \"word fragments such as 'signposted', 'via', 'located'\"], \"confidence\": \"medium\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 51,
+      "count": 20
+     },
+     "answer": "rank 51 (8.1): 05), and SQW M treatment decreased the ATP-induced contractions ([Figure 6D,E](#F6){ref[[-]]type=\"fig\"}).\nrank 52 (8.1):  detected in each tumor, including point mutations (such as the example depicted in Figure\u00a0 [4](#F4){ref[[-]]type=\"fig\"}\nrank 53 (8.0): e Sacrae I, Teil 1 SWV 257\u2013266 / 10 lateinische Konzerte (Nr[[.]] 1\u201310)\nrank 54 (8.0):  ceased and resumed (totaling 13 years of growth) or up to 6 years where relatively little growth occurred annually (tot[[aling]] up to 18 years\nrank 55 (8.0): \u0394C cells at 7\u00a0h\u00a0p.i.](cdd462f4){#cdd462f4}[[\u23ce]]\u23ce![**Fig.\nrank 56 (8.0): * = 0.0009. NTC, nontargeting control.](mtna201538f5){#fig5}[[\u23ce]]\u23ce![**HTT\nrank 57 (8.0): three daily Monday to Saturday) A year-round service, which runs from Tavistock to Princetown,[[ via]] Merrivale;\nrank 58 (8.0): write>\u23ce    <read><delim>\\x3e</delim><match><pcre>.*?90 B[[ >]]</pcre></\nrank 59 (8.0): , anything, to get it.\u23ce\u23ceSo folks whatever we can each do to convert our healthy poll numbers into ACT[[UAL]] votes cast should our\nrank 60 (8.0): 3 C/U' vs 'All'). By contrast, for 200 genes with the preferred bases at all positions, ie[[.]] A~-3~\nrank 61 (8.0):  lung transplantation (SLT).\u23ce\u23ce(TIFF)\u23ce\u23ce###### \u23ce\u23ceClick here for additional data file.[[\u23ce]]\u23ce###### \"Values\nrank 62 (8.0): -less plating, and polishing the inter-connect to form a planar top surface.\u23ceIn U.S. Pat[[.]] No. 5,\nrank 63 (8.0): \u23ce_Les Mille et Une Nuits_ , abr\u00e9g\u00e9s par V. Charpentier, \u00e9d[[.]] \u00c9cole des\nrank 64 (8.0): , six daily Monday to Saturday) to Land's End; 1 goes via Sennen, while the 1A travels[[ via]] Treen and P\nrank 65 (8.0): , a double order-picker arrangement, each acting independently of the other to perform its function. U.S. Pat[[.]] No. 3,\nrank 66 (8.0): define F_TX_IMM_ACK    V_TX_IMM_ACK(1U)\u23ce\u23ce[[#]]define S_TX\nrank 67 (7.9): ){ref-type=\"fig\"}), as well as based on ROS induction ([Supplementary Figure S2](#sup1){ref[[-]]type=\"supplementary-\nrank 68 (7.9):  SPIE Publications).](sensors-15-26039-g017){#sensors-15-26039-f017}[[\u23ce]]\u23ce\nrank 69 (7.9): S), located at Kojarena, near Geraldton, Western Australia,\u23ce the Shoal Bay Receiving Station,[[ located]] at Shoal Bay\nrank 70 (7.9):  *M. edulis* (EduN).\u23ce\u23ce###### \u23ce\u23ceClick here for additional data file.[[\u23ce]]\u23ce10.\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "See U.S. Pat. No. 4,123 and Ref. 343 (i.e., test) incl. wildcards",
+       "The road is signposted to St Andrews.",
+       "([Figure 7](#f7){ref-type=\"fig\"}).",
+       "Thanks to John for help.\n\nConflict of interest"
+      ]
+     },
+     "answer": "Text 1, strongest 6.2 at [[.]]: See U.[[S|1.2]]. Pat[[.|1.4]][[ No|4.6]]. 4,123[[ and|1.2]] Ref[[.|1.0]] 343 (i.[[e|1.9]][[.,|5.1]] test[[)|1.7]] incl[[.|6.2]] wild[[cards|4.1]]\nText 2, strongest 3.3 at [[ Andrews]]: The road is sign[[posted|1.5]] to St[[ Andrews|3.3]].\nText 3, strongest 3.5 at [[-]]: ([Figure 7](#f7){ref[[-|3.5]]type=\"fig\"}).\nText 4, strongest 0.2 at [[ for]]: Thanks to John for help.\u23ce\u23ceConflict of interest\n\n(6 tool calls left)"
+    }
+   ]
+  },
+  "160m:pooled:50/50:452-1945": {
+   "id": "160m:pooled:50/50:452-1945",
+   "prompt_sha256": "2f3f893ac6ffc915bbce73e267f5e06a557f97e89eacc5c315f36999fad6437a",
+   "label": "C",
+   "patterns": [
+    "noun after determiner/quantifier like 'each/both/the' (set, time, end, value, sets)",
+    "'it's time' construction",
+    "'such that' / 'so that' conjunctions",
+    "structured-data keys and punctuation (JSON/code tokens like id, url, '(')",
+    "body-part noun after possessive (hands, nose); 'paused'"
+   ],
+   "confidence": "low",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.0417155,
+     "tool_calls": 4
+    }
+   ],
+   "cost_usd": 0.0417155,
+   "input_tokens": 13514,
+   "output_tokens": 668,
+   "num_turns": 5,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "The unit is diffuse. It fires on nouns or function words in many different contexts: \"it's time\", \"each set\", \"such that\", JSON keys, and body-part nouns after \"his\". These look like a loose set of mid-sentence slots where a noun or complement is expected next, not one clean pattern. It could be a few related jobs or several unrelated ones, and I picked unrelated.\n\n{\"label\": \"C\", \"patterns\": [\"noun after determiner/quantifier like 'each/both/the' (set, time, end, value, sets)\", \"'it's time' construction\", \"'such that' / 'so that' conjunctions\", \"structured-data keys and punctuation (JSON/code tokens like id, url, '(')\", \"body-part noun after possessive (hands, nose); 'paused'\"], \"confidence\": \"low\"}",
+   "messages": [
+    {
+     "tool": "examples",
+     "input": {
+      "start": 51,
+      "count": 20
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "It's time to go home.",
+       "For each set of values, at the time of cancellation.",
+       "She paused at the door and placed his hands on my shoulders.",
+       "Choose such that the right amount.",
+       "The dog ran across the field."
+      ]
+     }
+    },
+    {
+     "tool": "examples",
+     "input": {
+      "start": 200,
+      "count": 20
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "For both sets, points differ.",
+       "Now it's time to take a look.",
+       "{\"id\": 5, \"author_url\": \"x\"}",
+       "Thank you for your time.",
+       "He buried his nose into it."
+      ]
+     }
+    },
+    {
+     "text": "The unit is diffuse. It fires on nouns or function words in many different contexts: \"it's time\", \"each set\", \"such that\", JSON keys, and body-part nouns after \"his\". These look like a loose set of mid-sentence slots where a noun or complement is expected next, not one clean pattern. It could be a few related jobs or several unrelated ones, and I picked unrelated.\n\n{\"label\": \"C\", \"patterns\": [\"noun after determiner/quantifier like 'each/both/the' (set, time, end, value, sets)\", \"'it's time' construction\", \"'such that' / 'so that' conjunctions\", \"structured-data keys and punctuation (JSON/code tokens like id, url, '(')\", \"body-part noun after possessive (hands, nose); 'paused'\"], \"confidence\": \"low\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 51,
+      "count": 20
+     },
+     "answer": "rank 51 (7.6): Nude photography\u23ceCategory:1951 births\u23ceCategory:Living people\u23ceCategory:American women photographers\u23ceCategory:Gug[[gen]]heim Fellows\u23ce\nrank 52 (7.6):  and the rack gear 14a constitute a rack and pinion mechanism 15. Front wheels 17, 17 are connected to the[[ ends]] of the rack shaft\nrank 53 (7.6):  of propidium iodide solution were added to the cell suspension. A total of 400 \u00b5l binding buffer was added to each[[ tube]] 15 min later,\nrank 54 (7.6): \u23ce\u23ce      alert(\"Please select an item.\");\u23ce\u23ce    }\u23ce\u23ce  });\u23ce\u23ce});    \u23ce\u23ce<|endoftext|>// Copyright ([[C]]) 2002-2014\nrank 55 (7.5): <|endoftext|>{\u23ce  \"images\" : [\u23ce    {\u23ce      \"idiom\" : \"watch\",\u23ce      [[\"]]scale\" : \"\nrank 56 (7.5): \u23ceBorrowing from that, you could create this table:\u23ceCREATE TABLE dbo.TableTypeCreationEvents\u23ce[[(]]\u23ce  EventDate\nrank 57 (7.5): \\\",\\\"account_sid\\\": \\\"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\",\\\"unique_name\\\": \\\"unique_name\\\",\\\"[[date]]_updated\\\": \\\"\nrank 58 (7.5): in A$ and let $\\gamma _1,\\gamma _2,\\gamma _3\\in R^a$. Assume[[ that]] ${\\mathrm{Vol\nrank 59 (7.5):  150 working women who participated in the project and offers an account of the participants' relationship to the workplace, as well as[[ reflections]] on the changes in\nrank 60 (7.5):  indicator rod outwardly, with the total expansion being selected to move the head outwardly of the housing. Thus, both[[ ends]] of the housing define\nrank 61 (7.5):  with\u23cewords lead him to the Church, he said, it was the example of his friend that\u23cearoused his[[ interest]]. At that time\nrank 62 (7.5): \u23ce\"You have to try to play in the same style as normal, keep the ball, play attacking and nice football[[ so]] that you can forget\nrank 63 (7.5):  to find the\u23ce    Corresponding Source.  Regardless of what server hosts the\u23ce    Corresponding Source, you remain[[ obligated]] to ensure that it\nrank 64 (7.5):  2](#micromachines-10-00324-f002){ref-type=\"fig\"}. Then, the charge of each[[ point]] on the cantile\nrank 65 (7.4): QQ$-Gorenstein $d$-dimensional complete toroidal variety, satisfying the assumption of Proposition\u00a0\\[BDvsB[[\\].]] The stringy Hodge\nrank 66 (7.4): (\\gamma^{-1}(t))$ for $\\gamma(t)$ a nice function. Then, for any fixed initially infected[[ set]] $A_0\nrank 67 (7.4): \u23ce\u23ceA Tesco spokesman said: \u2018We constantly review the products that we sell, and always try to have the[[ right]] range and products available\nrank 68 (7.4): 'd stood up to her mother. He hadn't seemed intimidated by Thrix either. Kalix had long felt the[[ need]] of an ally against\nrank 69 (7.4): streetmap.org\u23ceSubscribe to CNBCInternational: http://bit.ly/1eiWsDq\u23ceLike[[ us]] on CNBC's\nrank 70 (7.4):  \\subset U'_0 \\subset X$ be a pair of small open neighborhoods of $\\overline X_0$ such[[ that]] $f_0\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "It's time to go home.",
+       "For each set of values, at the time of cancellation.",
+       "She paused at the door and placed his hands on my shoulders.",
+       "Choose such that the right amount.",
+       "The dog ran across the field."
+      ]
+     },
+     "answer": "Text 1, strongest 4.9 at [[ time]]: It's[[ time|4.9]] to[[ go|2.6]][[ home|1.1]].\nText 2, strongest 5.1 at [[ set]]: For each[[ set|5.1]] of[[ values|3.0]], at the[[ time|3.2]] of[[ cancellation|1.3]].\nText 3, strongest 7.6 at [[ hands]]: She[[ paused|4.8]] at the[[ door|2.2]] and[[ placed|4.6]][[ his|2.1]][[ hands|7.6]] on my[[ shoulders|3.0]].\nText 4, strongest 3.1 at [[ right]]: Choose[[ such|1.2]][[ that|1.2]] the[[ right|3.1]][[ amount|2.1]].\nText 5, strongest 0.4 at [[.]]: The dog ran across the field.\n\n(6 tool calls left)"
+    },
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 200,
+      "count": 20
+     },
+     "answer": "rank 200 (6.8):  and is such that a magnetic component of electromagnetic radiation lying within a predetermined frequency band induces an electrical current to flow around said[[ path]] and through said associated\nrank 201 (6.8): , respectively. **D**). An interface (actin & deoxyribonuclease I; 1ATN) where certain[[ region]] moves away to avoid\nrank 202 (6.8): \"Effect\": \"Allow\",\u23ce        \"Action\": \"kinesis:PutRecords\",\u23ce        \"Resource\":[[ \"]]arn:aws:\nrank 203 (6.8): 0 during the 6 months of CGM use in the control group (which followed the 6-month randomized trial) (*[[P]]* = 0.\nrank 204 (6.8): , suberin was placed in *ca*. 4\u00d74 cm cotton pouches (200 mg suberin per[[ pouch]]). Control flasks\nrank 205 (6.8):  (Qiagen, Netherlands). Mutation analysis of the *FLT3* gene was performed using multiplex PCR amplification with two[[ sets]] of fluorescently labeled\nrank 206 (6.8): An immediate and permanent ceasefire must come into force. This ceasefire must be achieved with the mediation of Egypt and the[[ involvement]] of all players.\nrank 207 (6.8): //\u23ce//  http://www.apache.org/licenses/LICENSE-2.0\u23ce//\u23ce//  [[Unless]] required by applicable law\nrank 208 (6.8):  HAuCl~4~\u00b73H~2~O solution (w/v) with stirring. Then the[[ mixture]] was heated to 100\nrank 209 (6.7): _Model {\u23ce\u23cefunction addPost($id, $message) {\u23ce        $data = array(\u23ce            [[']]id' => $\nrank 210 (6.7): 37-878117; www.lewinnicklodge.co.uk; Pentire Head, Newquay[[;]] Mains \u00a310\nrank 211 (6.7):  4 shown below, for example).\u23ceAccording to the technique which builds the rubber components constituting the tire by winding the rubber[[ strips]] discussed above, the\nrank 212 (6.7):  seen that the precise input data predict values of $\\mtop$ and $\\mw$ consistent with those observed \u2013 in both[[ cases]] within two standard deviations\nrank 213 (6.7): , only allow the white list through.\u23ce    def question_params\u23ce      params.require(:question).permit[[(:]]text, :qu\nrank 214 (6.7):  studies using the Tierney\\'s methods described above, among which one \\[[@R14]\\] were calculated by variance and *[[P]]* value, and\nrank 215 (6.7):  starve yourself when you're a werewolf.\" Decembrius looked pleased with himself. Moonglow was[[ impressed]], though Daniel still\nrank 216 (6.7):  were buffed on the edges with a grinding wheel. The rubber is then tied back over the metal with stainless steel wire[[ so]] as to stress the\nrank 217 (6.7):  not present. The three other properties will return null because they are not set in the example.\u23ceThe above works as[[ expected]], but I need\nrank 218 (6.7):  and clambered out of the wagon. \"But I still plan to speak to Captain Hendricks.\"\u23ce\u23ce\"Go[[ right]] ahead,\" Jamie invited\nrank 219 (6.7):  whom perceived a lower level of support and 68.1% a higher level of support. The difference is statistically significant (*[[p]]*\u2009=\u2009\n\n(5 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "For both sets, points differ.",
+       "Now it's time to take a look.",
+       "{\"id\": 5, \"author_url\": \"x\"}",
+       "Thank you for your time.",
+       "He buried his nose into it."
+      ]
+     },
+     "answer": "Text 1, strongest 7.3 at [[ sets]]: For both[[ sets|7.3]],[[ points|1.8]] differ.\nText 2, strongest 6.8 at [[ time]]: Now it's[[ time|6.8]] to[[ take|1.2]] a[[ look|1.6]].\nText 3, strongest 6.6 at [[id]]: [[{\"|2.1]][[id|6.6]][[\":|2.8]] 5,[[ \"|3.9]][[author|1.2]][[_|1.4]][[url|6.4]][[\":|3.5]][[ \"|6.3]][[x|4.0]]\"}\nText 4, strongest 5.2 at [[ time]]: Thank you for[[ your|1.1]][[ time|5.2]].\nText 5, strongest 7.0 at [[ nose]]: He[[ buried|1.3]][[ his|1.6]][[ nose|7.0]] into it.\n\n(4 tool calls left)"
+    }
+   ]
+  },
+  "160m:related:50/50:387-1658": {
+   "id": "160m:related:50/50:387-1658",
+   "prompt_sha256": "120546ac3a878b27010bc61b183785f05aa99c28e7aa9df63a4da5e6c4ffccc7",
+   "label": "B",
+   "patterns": [
+    "paragraph-break newline after figure captions ](id){#F1} or after acknowledgments/conflict statements in scientific papers",
+    "'#' of #define lines in C header macro lists",
+    "'.' in 'U.S. Pat.' and '-' in ref-type markup, plus indentation in numeric data or XML",
+    "mid-word fragments in prose"
+   ],
+   "confidence": "medium",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.033626699999999995,
+     "tool_calls": 2
+    }
+   ],
+   "cost_usd": 0.033626699999999995,
+   "input_tokens": 11648,
+   "output_tokens": 618,
+   "num_turns": 3,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "The unit's strongest and most common firing is on a newline at the end of a paragraph, mostly in scientific-paper text. That includes the end of a figure caption, an acknowledgments paragraph, or a conflict-of-interest paragraph. A smaller set of firings fall on other structural tokens: `#` in `#define` lines, `.` in \"U.S. Pat.\", `-` in `ref-type`, and indentation in numeric data tables. Those look like different contexts, so I'm labelling this as several related jobs rather than one. My test texts activated the unit only weakly (about 1.0 to 1.7), so I couldn't confirm the patterns on text I wrote.\n\n{\"label\":\"B\",\"patterns\":[\"paragraph-break newline after figure captions ](id){#F1} or after acknowledgments/conflict statements in scientific papers\",\"'#' of #define lines in C header macro lists\",\"'.' in 'U.S. Pat.' and '-' in ref-type markup, plus indentation in numeric data or XML\",\"mid-word fragments in prose\"],\"confidence\":\"medium\"}",
+   "messages": [
+    {
+     "tool": "examples",
+     "input": {
+      "start": 100,
+      "count": 20
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "Thanks to John for help.\n\nConflict of interest\n\nNone.",
+       "#define A 1\n#define B 2\n#define C 3",
+       "See U.S. Pat. No. 4,123,456.",
+       "![Fig](abc-g001){#F1}\n\nThe results show",
+       "Hello there.\n\nHow are you?"
+      ]
+     }
+    },
+    {
+     "text": "The unit's strongest and most common firing is on a newline at the end of a paragraph, mostly in scientific-paper text. That includes the end of a figure caption, an acknowledgments paragraph, or a conflict-of-interest paragraph. A smaller set of firings fall on other structural tokens: `#` in `#define` lines, `.` in \"U.S. Pat.\", `-` in `ref-type`, and indentation in numeric data tables. Those look like different contexts, so I'm labelling this as several related jobs rather than one. My test texts activated the unit only weakly (about 1.0 to 1.7), so I couldn't confirm the patterns on text I wrote.\n\n{\"label\":\"B\",\"patterns\":[\"paragraph-break newline after figure captions ](id){#F1} or after acknowledgments/conflict statements in scientific papers\",\"'#' of #define lines in C header macro lists\",\"'.' in 'U.S. Pat.' and '-' in ref-type markup, plus indentation in numeric data or XML\",\"mid-word fragments in prose\"],\"confidence\":\"medium\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 100,
+      "count": 20
+     },
+     "answer": "rank 100 (6.7): ER.](jfb-09-00008-g022){#jfb-09-00008-f022}[[\u23ce]]<|endoftext|>Black Night\u23ce\nrank 101 (6.7): ening of both ends with no callous formation.](NAJMS-2-544-g001){#F1}[[\u23ce]]\u23ce### Patient two\nrank 102 (6.7):             <line x=\"53.9\" y=\"11.9\"/>\u23ce            <close/>\u23ce        </path[[>]]\u23ce        <fill\nrank 103 (6.6):  D, only higher CD4^+^counts predicted R5 tropism (Figure [4D](#F4){ref[[-]]type=\"fig\"}).\nrank 104 (6.6): 780584;,\u23ce   0.000000;0.619644;-0.784883;,\u23ce[[   ]]0.000000;\nrank 105 (6.6):  antibodies (IgG), forming various forms of CACs.](zjv0241840640011){#F11}[[\u23ce]]\u23ceContrary to\nrank 106 (6.6):  fig tree and now the blight and rot was beginning to show it. They came up to Jesus with all their pret[[ent]]ious authority and asked\nrank 107 (6.6):  lung transplantation (SLT).](pone.0210975.g007){#pone.0210975.g007}[[\u23ce]]\u23ceCorrelations between\nrank 108 (6.6):  1875\u00d7.](brainsci-03-01374-g010){#brainsci-03-01374-f010}[[\u23ce]]\u23ce2.2\nrank 109 (6.6):  have greatly improved the exposition of the paper; some gaps in the proofs have been corrected thanks to his/her remarks.[[\u23ce]]<|endoftext|>Moss (\nrank 110 (6.6):  (*Drosophila* homolog of ATR) (Fig.\u00a0[5h,j](#Fig5){ref-type[[=\"]]fig\"}), which,\nrank 111 (6.5):  \"Got a regular collection.\" \"They call me \"Mickey, the walking paperweight.\" [ Chuckles ]\" \"[[Don]]'t they ever bother\nrank 112 (6.5): \u00a0=\u00a03, *P*\u00a0\\>\u00a00.05; Fig. [2](#Fig2){ref[[-]]type=\"fig\"},\nrank 113 (6.5):  four species each](vetrec-2013-101745f06){#VETREC2013101745F6}[[\u23ce]]\u23ceDiscussion {#s\nrank 114 (6.5):  could not be amplified by the mentioned primers.](fmicb-11-01067-g001){#F1}[[\u23ce]]\u23ceAmplification\nrank 115 (6.5):  authors thank Dr. Klaus Gawrisch for his support. The authors do not have any conflict of interest.[[\u23ce]]\u23ce![Five major\nrank 116 (6.5):  }\u23ce    public string Title { get; set; }\u23ce    public int Hierarchy_level { get; set[[;]] }\u23ce}\u23ce\nrank 117 (6.5):  I went through the day tentatively as if I had sore muscles; testing each step to determine if it hurt more.[[ It]] was strange how noisy\nrank 118 (6.5):  can have strings as keys.](pone.0225795.g024){#pone.0225795.g024}[[\u23ce]]\u23ceIt is possible\nrank 119 (6.5): band nature of the superconductor.\u23ce\u23ceAKY would like to thank CSIR, India for SRF grant.[[\u23ce]]\u23ce[References]{}\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "Thanks to John for help.\n\nConflict of interest\n\nNone.",
+       "#define A 1\n#define B 2\n#define C 3",
+       "See U.S. Pat. No. 4,123,456.",
+       "![Fig](abc-g001){#F1}\n\nThe results show",
+       "Hello there.\n\nHow are you?"
+      ]
+     },
+     "answer": "Text 1, strongest 1.5 at [[\u23ce]]: Thanks to John for help.\u23ce\u23ceConflict of interest[[\u23ce|1.5]]\u23ceNone.\nText 2, strongest 1.0 at [[#]]: #define A 1\u23ce#define B 2\u23ce#define C 3\nText 3, strongest 1.4 at [[.]]: See U.S. Pat[[.|1.4]] No. 4,123,456.\nText 4, strongest 1.2 at [[Fig]]: ![[[Fig|1.2]]](abc-g001){#F1}\u23ce\u23ceThe results show\nText 5, strongest 1.7 at [[Hello]]: [[Hello|1.7]] there.\u23ce\u23ceHow are you?\n\n(6 tool calls left)"
+    }
+   ]
+  },
+  "160m:related:50/50:1432-1996": {
+   "id": "160m:related:50/50:1432-1996",
+   "prompt_sha256": "c81c38e059d4ee7f84dcfca6baedb9634905aac4f99258742f3b790b028acc52",
+   "label": "A",
+   "patterns": [
+    "Inside a relative clause or wh-question with an object gap, on the subject, auxiliary, verb or stranded preposition just before the missing object (e.g. 'the person she went out [with]', 'the mind you've been blessed [with]')."
+   ],
+   "confidence": "high",
+   "error": null,
+   "attempts": [
+    {
+     "error": null,
+     "cost_usd": 0.0330222,
+     "tool_calls": 4
+    }
+   ],
+   "cost_usd": 0.0330222,
+   "input_tokens": 11510,
+   "output_tokens": 564,
+   "num_turns": 5,
+   "models": [
+    "claude-sonnet-5-5"
+   ],
+   "tools_offered": [
+    "mcp__probe__activation",
+    "mcp__probe__examples"
+   ],
+   "reply": "{\"label\":\"A\",\"patterns\":[\"Inside a relative clause or wh-question with an object gap, on the subject, auxiliary, verb or stranded preposition just before the missing object (e.g. 'the person she went out [with]', 'the mind you've been blessed [with]').\"],\"confidence\":\"high\"}",
+   "messages": [
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "The person she went out with was nice.",
+       "She went out with him.",
+       "The book that I wanted to read is here.",
+       "I want to read the book."
+      ]
+     }
+    },
+    {
+     "tool": "examples",
+     "input": {
+      "start": 300,
+      "count": 12
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "What are you looking at?",
+       "The town isn't much to look at.",
+       "The topics which Robins has worked on are many.",
+       "Robins has worked on many topics."
+      ]
+     }
+    },
+    {
+     "tool": "activation",
+     "input": {
+      "texts": [
+       "The whisky the MacDoigs provided for their customers was good.",
+       "The whisky was good.",
+       "Everything you need is here."
+      ]
+     }
+    },
+    {
+     "text": "{\"label\":\"A\",\"patterns\":[\"Inside a relative clause or wh-question with an object gap, on the subject, auxiliary, verb or stranded preposition just before the missing object (e.g. 'the person she went out [with]', 'the mind you've been blessed [with]').\"],\"confidence\":\"high\"}"
+    }
+   ],
+   "tool_calls": [
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "The person she went out with was nice.",
+       "She went out with him.",
+       "The book that I wanted to read is here.",
+       "I want to read the book."
+      ]
+     },
+     "answer": "Text 1, strongest 6.0 at [[ with]]: The person[[ she|4.3]][[ went|5.5]][[ out|3.4]][[ with|6.0]] was nice.\nText 2, strongest 0.6 at [[.]]: She went out with him.\nText 3, strongest 6.4 at [[ wanted]]: The book that[[ I|4.9]][[ wanted|6.4]][[ to|6.4]][[ read|5.9]] is here.\nText 4, strongest 0.6 at [[.]]: I want to read the book.\n\n(7 tool calls left)"
+    },
+    {
+     "tool": "examples",
+     "arguments": {
+      "start": 300,
+      "count": 12
+     },
+     "answer": "rank 300 (6.3):  need to introduce the notion of a true data-generating graphical model $(G^*, \\mathbb{P})$. All we[[ observe]] is the distribution (\nrank 301 (6.3): 13\u23ce\u23ce\"This urge to see God must run deep in us. 'What I have been striving and pining[[ to]] achieve these thirty years\nrank 302 (6.3): , heterodox, in her religious opinions, and stayed away from church and dogma. What, in fact, did[[ she]] allow to \"put\nrank 303 (6.3): \u23ceCollins, meanwhile, said Republicans will focus in part on the origins of the Russia investigation, which Trump has long der[[ided]] as a political \u201c\nrank 304 (6.3): \u23ceMarkus didn't know. Unless it was just the desire to distance himself from Lucia, something that Markus could[[ understand]]. Markus had\nrank 305 (6.3):  I knew that there were no igloos in Singapore, and that my father lived in a place that we could get[[ to]] by sitting in a\nrank 306 (6.3): The future looks bright and promising.\u23ce\u23ceMy daughter is finalizing a Fall gig with a choreographer she greatly adm[[ires]]. In August she\nrank 307 (6.3): 12-00132]\\], all of which, importantly, corroborate their conclusions using historical records of the spread of the diseases[[ they]] cause. Studies on\nrank 308 (6.3): \u23ceWe need to understand this double vision or we shall never understand ourselves. Many of us were mothered in ways we[[ cannot]] yet even perceive;\nrank 309 (6.3): utus- Go join the Dems or STFU if you refuse to fight the enemy. Some hills are worth dying[[ on]]. Shutdown was\nrank 310 (6.3): \u23ce\u23ceAn awfulness has come over us. We have become obsessed with what we should ignore and ignore what we should[[ honor]]. We seem to\nrank 311 (6.3):  energy technology. There are so many forms of pollution that no one could ever effectively deny and what does the entire world focus[[ on]], the same gas\n\n(6 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "What are you looking at?",
+       "The town isn't much to look at.",
+       "The topics which Robins has worked on are many.",
+       "Robins has worked on many topics."
+      ]
+     },
+     "answer": "Text 1, strongest 6.5 at [[ at]]: What are[[ you|4.7]][[ looking|5.7]][[ at|6.5]]?\nText 2, strongest 7.0 at [[ at]]: The town isn't much to[[ look|5.8]][[ at|7.0]].\nText 3, strongest 7.7 at [[ worked]]: The topics which[[ Rob|1.8]][[ins|3.5]][[ has|6.7]][[ worked|7.7]][[ on|6.7]] are many.\nText 4, strongest 0.6 at [[.]]: Robins has worked on many topics.\n\n(5 tool calls left)"
+    },
+    {
+     "tool": "activation",
+     "arguments": {
+      "texts": [
+       "The whisky the MacDoigs provided for their customers was good.",
+       "The whisky was good.",
+       "Everything you need is here."
+      ]
+     },
+     "answer": "Text 1, strongest 5.3 at [[igs]]: The whisky[[ the|1.7]] MacDo[[igs|5.3]][[ provided|3.7]] for their customers was good.\nText 2, strongest 0.6 at [[.]]: The whisky was good.\nText 3, strongest 4.4 at [[ need]]: Everything[[ you|4.3]][[ need|4.4]] is here.\n\n(4 tool calls left)"
+    }
+   ]
+  }
+ },
+ "retest": {}
+}

@@ -1,0 +1,9254 @@
+{
+ "summary": {
+  "pooled_excess": {
+   "flag": {
+    "minilm": {
+     "mean_over_models": 0.025,
+     "interval": [
+      -0.05,
+      0.1
+     ],
+     "per_model": {
+      "70m": -0.125,
+      "410m": 0.1,
+      "2.8b": 0.1
+     },
+     "units": 240
+    },
+    "network": {
+     "mean_over_models": 0.233,
+     "interval": [
+      0.108,
+      0.35
+     ],
+     "per_model": {
+      "70m": 0.3,
+      "410m": 0.325,
+      "2.8b": 0.075
+     },
+     "units": 240
+    },
+    "haiku": {
+     "mean_over_models": 0.192,
+     "interval": [
+      0.058,
+      0.317
+     ],
+     "per_model": {
+      "70m": 0.1,
+      "410m": 0.15,
+      "2.8b": 0.325
+     },
+     "units": 240
+    },
+    "haiku agent": {
+     "mean_over_models": 0.108,
+     "interval": [
+      -0.008,
+      0.217
+     ],
+     "per_model": {
+      "70m": 0.125,
+      "410m": 0.1,
+      "2.8b": 0.1
+     },
+     "units": 240
+    },
+    "sonnet agent": {
+     "mean_over_models": 0.25,
+     "interval": [
+      0.133,
+      0.367
+     ],
+     "per_model": {
+      "70m": 0.15,
+      "410m": 0.325,
+      "2.8b": 0.275
+     },
+     "units": 240
+    }
+   },
+   "not_one_job": {
+    "haiku": {
+     "mean_over_models": 0.225,
+     "interval": [
+      0.117,
+      0.333
+     ],
+     "per_model": {
+      "70m": 0.2,
+      "410m": 0.2,
+      "2.8b": 0.275
+     },
+     "units": 240
+    },
+    "haiku agent": {
+     "mean_over_models": 0.108,
+     "interval": [
+      -0.008,
+      0.233
+     ],
+     "per_model": {
+      "70m": 0.1,
+      "410m": 0.15,
+      "2.8b": 0.075
+     },
+     "units": 240
+    },
+    "sonnet agent": {
+     "mean_over_models": 0.167,
+     "interval": [
+      0.092,
+      0.25
+     ],
+     "per_model": {
+      "70m": 0.1,
+      "410m": 0.2,
+      "2.8b": 0.2
+     },
+     "units": 240
+    }
+   }
+  },
+  "gains": {
+   "flag": {
+    "haiku agent over haiku": {
+     "gain": -0.083,
+     "interval": [
+      -0.208,
+      0.05
+     ],
+     "verdict": "no clear difference",
+     "haiku agent excess": [
+      0.108,
+      [
+       -0.008,
+       0.217
+      ]
+     ],
+     "haiku excess": [
+      0.192,
+      [
+       0.067,
+       0.325
+      ]
+     ],
+     "units": 240
+    },
+    "sonnet agent over haiku": {
+     "gain": 0.058,
+     "interval": [
+      -0.067,
+      0.184
+     ],
+     "verdict": "no clear difference",
+     "sonnet agent excess": [
+      0.25,
+      [
+       0.133,
+       0.358
+      ]
+     ],
+     "haiku excess": [
+      0.192,
+      [
+       0.066,
+       0.309
+      ]
+     ],
+     "units": 240
+    },
+    "sonnet agent over haiku agent": {
+     "gain": 0.142,
+     "interval": [
+      0.017,
+      0.267
+     ],
+     "verdict": "better",
+     "sonnet agent excess": [
+      0.25,
+      [
+       0.133,
+       0.358
+      ]
+     ],
+     "haiku agent excess": [
+      0.108,
+      [
+       -0.008,
+       0.225
+      ]
+     ],
+     "units": 240
+    }
+   },
+   "not_one_job": {
+    "haiku agent over haiku": {
+     "gain": -0.117,
+     "interval": [
+      -0.25,
+      0.017
+     ],
+     "verdict": "no clear difference",
+     "haiku agent excess": [
+      0.108,
+      [
+       -0.017,
+       0.225
+      ]
+     ],
+     "haiku excess": [
+      0.225,
+      [
+       0.108,
+       0.342
+      ]
+     ],
+     "units": 240
+    },
+    "sonnet agent over haiku": {
+     "gain": -0.058,
+     "interval": [
+      -0.167,
+      0.05
+     ],
+     "verdict": "no clear difference",
+     "sonnet agent excess": [
+      0.167,
+      [
+       0.083,
+       0.25
+      ]
+     ],
+     "haiku excess": [
+      0.225,
+      [
+       0.117,
+       0.342
+      ]
+     ],
+     "units": 240
+    },
+    "sonnet agent over haiku agent": {
+     "gain": 0.058,
+     "interval": [
+      -0.067,
+      0.192
+     ],
+     "verdict": "no clear difference",
+     "sonnet agent excess": [
+      0.167,
+      [
+       0.092,
+       0.242
+      ]
+     ],
+     "haiku agent excess": [
+      0.108,
+      [
+       -0.017,
+       0.233
+      ]
+     ],
+     "units": 240
+    }
+   }
+  },
+  "one_job_real": {
+   "haiku": {
+    "share": 0.425,
+    "interval": [
+     0.333,
+     0.509
+    ],
+    "per_model": {
+     "70m": 0.475,
+     "410m": 0.4,
+     "2.8b": 0.4
+    }
+   },
+   "haiku agent": {
+    "share": 0.658,
+    "interval": [
+     0.583,
+     0.733
+    ],
+    "per_model": {
+     "70m": 0.65,
+     "410m": 0.725,
+     "2.8b": 0.6
+    }
+   },
+   "sonnet agent": {
+    "share": 0.2,
+    "interval": [
+     0.125,
+     0.267
+    ],
+    "per_model": {
+     "70m": 0.15,
+     "410m": 0.225,
+     "2.8b": 0.225
+    }
+   },
+   "haiku agent minus haiku": {
+    "difference": 0.233,
+    "interval": [
+     0.133,
+     0.333
+    ]
+   },
+   "sonnet agent minus haiku": {
+    "difference": -0.225,
+    "interval": [
+     -0.317,
+     -0.133
+    ]
+   }
+  },
+  "one_job_pools": {
+   "haiku": {
+    "share": 0.2,
+    "interval": [
+     0.133,
+     0.275
+    ],
+    "per_model": {
+     "70m": 0.275,
+     "410m": 0.2,
+     "2.8b": 0.125
+    }
+   },
+   "haiku agent": {
+    "share": 0.55,
+    "interval": [
+     0.458,
+     0.642
+    ],
+    "per_model": {
+     "70m": 0.55,
+     "410m": 0.575,
+     "2.8b": 0.525
+    }
+   },
+   "sonnet agent": {
+    "share": 0.033,
+    "interval": [
+     0.008,
+     0.067
+    ],
+    "per_model": {
+     "70m": 0.05,
+     "410m": 0.025,
+     "2.8b": 0.025
+    }
+   },
+   "haiku agent minus haiku": {
+    "difference": 0.35,
+    "interval": [
+     0.258,
+     0.442
+    ]
+   },
+   "sonnet agent minus haiku": {
+    "difference": -0.167,
+    "interval": [
+     -0.242,
+     -0.1
+    ]
+   }
+  },
+  "specificity": {
+   "minilm": {
+    "pooled minus related": {
+     "mean_over_models": 0.05,
+     "interval": [
+      -0.033,
+      0.133
+     ],
+     "per_model": {
+      "70m": 0.025,
+      "410m": 0.0,
+      "2.8b": 0.125
+     },
+     "units": 180
+    },
+    "related minus real": {
+     "mean_over_models": -0.025,
+     "interval": [
+      -0.1,
+      0.058
+     ],
+     "per_model": {
+      "70m": -0.15,
+      "410m": 0.1,
+      "2.8b": -0.025
+     },
+     "units": 180
+    },
+    "related minus real, no shared window": {
+     "mean_over_models": 0.022,
+     "interval": [
+      -0.086,
+      0.136
+     ],
+     "per_model": {
+      "70m": -0.109,
+      "410m": 0.2,
+      "2.8b": -0.025
+     },
+     "units": 154
+    }
+   },
+   "network": {
+    "pooled minus related": {
+     "mean_over_models": 0.242,
+     "interval": [
+      0.108,
+      0.383
+     ],
+     "per_model": {
+      "70m": 0.225,
+      "410m": 0.35,
+      "2.8b": 0.15
+     },
+     "units": 180
+    },
+    "related minus real": {
+     "mean_over_models": -0.008,
+     "interval": [
+      -0.15,
+      0.142
+     ],
+     "per_model": {
+      "70m": 0.075,
+      "410m": -0.025,
+      "2.8b": -0.075
+     },
+     "units": 180
+    },
+    "related minus real, no shared window": {
+     "mean_over_models": 0.111,
+     "interval": [
+      -0.077,
+      0.296
+     ],
+     "per_model": {
+      "70m": 0.161,
+      "410m": 0.142,
+      "2.8b": 0.03
+     },
+     "units": 154
+    }
+   },
+   "haiku": {
+    "pooled minus related": {
+     "mean_over_models": 0.317,
+     "interval": [
+      0.175,
+      0.45
+     ],
+     "per_model": {
+      "70m": 0.25,
+      "410m": 0.175,
+      "2.8b": 0.525
+     },
+     "units": 180
+    },
+    "related minus real": {
+     "mean_over_models": -0.125,
+     "interval": [
+      -0.267,
+      0.033
+     ],
+     "per_model": {
+      "70m": -0.15,
+      "410m": -0.025,
+      "2.8b": -0.2
+     },
+     "units": 180
+    },
+    "related minus real, no shared window": {
+     "mean_over_models": 0.053,
+     "interval": [
+      -0.135,
+      0.244
+     ],
+     "per_model": {
+      "70m": -0.036,
+      "410m": 0.192,
+      "2.8b": 0.005
+     },
+     "units": 154
+    }
+   },
+   "haiku agent": {
+    "pooled minus related": {
+     "mean_over_models": 0.233,
+     "interval": [
+      0.108,
+      0.35
+     ],
+     "per_model": {
+      "70m": 0.25,
+      "410m": 0.1,
+      "2.8b": 0.35
+     },
+     "units": 180
+    },
+    "related minus real": {
+     "mean_over_models": -0.125,
+     "interval": [
+      -0.233,
+      -0.017
+     ],
+     "per_model": {
+      "70m": -0.125,
+      "410m": 0.0,
+      "2.8b": -0.25
+     },
+     "units": 180
+    },
+    "related minus real, no shared window": {
+     "mean_over_models": -0.098,
+     "interval": [
+      -0.222,
+      0.046
+     ],
+     "per_model": {
+      "70m": -0.043,
+      "410m": 0.05,
+      "2.8b": -0.3
+     },
+     "units": 154
+    }
+   },
+   "sonnet agent": {
+    "pooled minus related": {
+     "mean_over_models": 0.442,
+     "interval": [
+      0.3,
+      0.583
+     ],
+     "per_model": {
+      "70m": 0.325,
+      "410m": 0.45,
+      "2.8b": 0.55
+     },
+     "units": 180
+    },
+    "related minus real": {
+     "mean_over_models": -0.192,
+     "interval": [
+      -0.342,
+      -0.05
+     ],
+     "per_model": {
+      "70m": -0.175,
+      "410m": -0.125,
+      "2.8b": -0.275
+     },
+     "units": 180
+    },
+    "related minus real, no shared window": {
+     "mean_over_models": -0.058,
+     "interval": [
+      -0.241,
+      0.124
+     ],
+     "per_model": {
+      "70m": -0.03,
+      "410m": -0.025,
+      "2.8b": -0.12
+     },
+     "units": 154
+    }
+   }
+  },
+  "kappa_real": {
+   "haiku agent vs minilm": {
+    "all models": 0.135,
+    "70m": 0.179,
+    "410m": 0.13,
+    "2.8b": 0.113
+   },
+   "haiku agent vs network": {
+    "all models": 0.213,
+    "70m": 0.28,
+    "410m": 0.369,
+    "2.8b": -0.011
+   },
+   "haiku agent vs haiku": {
+    "all models": 0.291,
+    "70m": 0.382,
+    "410m": 0.227,
+    "2.8b": 0.271
+   },
+   "haiku agent vs sonnet agent": {
+    "all models": 0.403,
+    "70m": 0.353,
+    "410m": 0.369,
+    "2.8b": 0.481
+   },
+   "sonnet agent vs minilm": {
+    "all models": 0.117,
+    "70m": 0.312,
+    "410m": -0.005,
+    "2.8b": 0.037
+   },
+   "sonnet agent vs network": {
+    "all models": 0.437,
+    "70m": 0.404,
+    "410m": 0.599,
+    "2.8b": 0.315
+   },
+   "sonnet agent vs haiku": {
+    "all models": 0.408,
+    "70m": 0.66,
+    "410m": 0.102,
+    "2.8b": 0.458
+   }
+  },
+  "retest": {
+   "haiku agent": {
+    "units": 30,
+    "real units": 10,
+    "same_label": 0.833,
+    "same_flag": 0.833,
+    "flag_kappa": 0.561,
+    "flag_kappa_interval": [
+     0.172,
+     0.87
+    ]
+   },
+   "sonnet agent": {
+    "units": 30,
+    "real units": 10,
+    "same_label": 0.7,
+    "same_flag": 0.9,
+    "flag_kappa": 0.769,
+    "flag_kappa_interval": [
+     0.477,
+     1.0
+    ]
+   }
+  },
+  "rates": {
+   "70m": {
+    "minilm": {
+     "real": {
+      "share": 0.2,
+      "interval": [
+       0.075,
+       0.325
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.075,
+      "interval": [
+       0.0,
+       0.175
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.05,
+      "interval": [
+       0.0,
+       0.15
+      ],
+      "n": 20
+     }
+    },
+    "network": {
+     "real": {
+      "share": 0.475,
+      "interval": [
+       0.325,
+       0.625
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.775,
+      "interval": [
+       0.65,
+       0.9
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.55,
+      "interval": [
+       0.35,
+       0.75
+      ],
+      "n": 20
+     }
+    },
+    "haiku": {
+     "real": {
+      "share": 0.4,
+      "interval": [
+       0.25,
+       0.55
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.5,
+      "interval": [
+       0.35,
+       0.65
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.25,
+      "interval": [
+       0.1,
+       0.45
+      ],
+      "n": 20
+     }
+    },
+    "haiku agent": {
+     "real": {
+      "share": 0.225,
+      "interval": [
+       0.1,
+       0.35
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.35,
+      "interval": [
+       0.2,
+       0.5
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.1,
+      "interval": [
+       0.0,
+       0.25
+      ],
+      "n": 20
+     }
+    },
+    "sonnet agent": {
+     "real": {
+      "share": 0.575,
+      "interval": [
+       0.425,
+       0.725
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.725,
+      "interval": [
+       0.575,
+       0.85
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.4,
+      "interval": [
+       0.2,
+       0.6
+      ],
+      "n": 20
+     }
+    }
+   },
+   "410m": {
+    "minilm": {
+     "real": {
+      "share": 0.05,
+      "interval": [
+       0.0,
+       0.125
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.15,
+      "interval": [
+       0.05,
+       0.275
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.15,
+      "interval": [
+       0.0,
+       0.3
+      ],
+      "n": 20
+     }
+    },
+    "network": {
+     "real": {
+      "share": 0.525,
+      "interval": [
+       0.375,
+       0.675
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.85,
+      "interval": [
+       0.725,
+       0.95
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.5,
+      "interval": [
+       0.3,
+       0.7
+      ],
+      "n": 20
+     }
+    },
+    "haiku": {
+     "real": {
+      "share": 0.475,
+      "interval": [
+       0.325,
+       0.625
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.625,
+      "interval": [
+       0.475,
+       0.775
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.45,
+      "interval": [
+       0.25,
+       0.65
+      ],
+      "n": 20
+     }
+    },
+    "haiku agent": {
+     "real": {
+      "share": 0.2,
+      "interval": [
+       0.075,
+       0.325
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.3,
+      "interval": [
+       0.15,
+       0.45
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.2,
+      "interval": [
+       0.05,
+       0.4
+      ],
+      "n": 20
+     }
+    },
+    "sonnet agent": {
+     "real": {
+      "share": 0.525,
+      "interval": [
+       0.375,
+       0.675
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.85,
+      "interval": [
+       0.725,
+       0.95
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.4,
+      "interval": [
+       0.2,
+       0.6
+      ],
+      "n": 20
+     }
+    }
+   },
+   "2.8b": {
+    "minilm": {
+     "real": {
+      "share": 0.025,
+      "interval": [
+       0.0,
+       0.075
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.125,
+      "interval": [
+       0.025,
+       0.225
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.0,
+      "interval": [
+       0.0,
+       0.0
+      ],
+      "n": 20
+     }
+    },
+    "network": {
+     "real": {
+      "share": 0.425,
+      "interval": [
+       0.275,
+       0.575
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.5,
+      "interval": [
+       0.35,
+       0.65
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.35,
+      "interval": [
+       0.15,
+       0.55
+      ],
+      "n": 20
+     }
+    },
+    "haiku": {
+     "real": {
+      "share": 0.45,
+      "interval": [
+       0.3,
+       0.6
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.775,
+      "interval": [
+       0.65,
+       0.9
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.25,
+      "interval": [
+       0.099,
+       0.45
+      ],
+      "n": 20
+     }
+    },
+    "haiku agent": {
+     "real": {
+      "share": 0.3,
+      "interval": [
+       0.175,
+       0.451
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.4,
+      "interval": [
+       0.25,
+       0.55
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.05,
+      "interval": [
+       0.0,
+       0.15
+      ],
+      "n": 20
+     }
+    },
+    "sonnet agent": {
+     "real": {
+      "share": 0.575,
+      "interval": [
+       0.425,
+       0.725
+      ],
+      "n": 40
+     },
+     "pooled 50/50": {
+      "share": 0.85,
+      "interval": [
+       0.725,
+       0.95
+      ],
+      "n": 40
+     },
+     "related": {
+      "share": 0.3,
+      "interval": [
+       0.1,
+       0.5
+      ],
+      "n": 20
+     }
+    }
+   }
+  },
+  "exploratory": {
+   "haiku agent": {
+    "tool use": {
+     "real": {
+      "mean tool calls": 2.72,
+      "share with at least 4": 0.2,
+      "share writing test text": 1.0,
+      "share reading past rank 50": 0.675,
+      "mean test texts": 7.67
+     },
+     "pooled 50/50": {
+      "mean tool calls": 2.83,
+      "share with at least 4": 0.233,
+      "share writing test text": 1.0,
+      "share reading past rank 50": 0.817,
+      "mean test texts": 7.92
+     },
+     "related": {
+      "mean tool calls": 2.8,
+      "share with at least 4": 0.183,
+      "share writing test text": 1.0,
+      "share reading past rank 50": 0.65,
+      "mean test texts": 7.82
+     }
+    },
+    "flag rate by confidence": {
+     "real, low": {
+      "n": 45,
+      "flag rate": 0.4
+     },
+     "real, medium": {
+      "n": 66,
+      "flag rate": 0.152
+     },
+     "real, high": {
+      "n": 9,
+      "flag rate": 0.111
+     },
+     "pooled 50/50, low": {
+      "n": 63,
+      "flag rate": 0.413
+     },
+     "pooled 50/50, medium": {
+      "n": 56,
+      "flag rate": 0.286
+     },
+     "pooled 50/50, high": {
+      "n": 1,
+      "flag rate": 0.0
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 79,
+      "C": 29,
+      "B": 12
+     },
+     "pooled 50/50": {
+      "A": 66,
+      "B": 12,
+      "C": 42
+     },
+     "related": {
+      "A": 49,
+      "C": 7,
+      "B": 4
+     }
+    },
+    "readings": 330,
+    "without a label": 0,
+    "with retries": 1,
+    "all offered both tools": true,
+    "models used": [
+     "claude-haiku-5-5"
+    ],
+    "cost_usd": 0.65,
+    "input_tokens": 5376139,
+    "output_tokens": 359532
+   },
+   "sonnet agent": {
+    "tool use": {
+     "real": {
+      "mean tool calls": 2.79,
+      "share with at least 4": 0.433,
+      "share writing test text": 1.0,
+      "share reading past rank 50": 0.9,
+      "mean test texts": 5.72
+     },
+     "pooled 50/50": {
+      "mean tool calls": 2.96,
+      "share with at least 4": 0.508,
+      "share writing test text": 0.992,
+      "share reading past rank 50": 0.942,
+      "mean test texts": 5.92
+     },
+     "related": {
+      "mean tool calls": 2.9,
+      "share with at least 4": 0.467,
+      "share writing test text": 1.0,
+      "share reading past rank 50": 0.95,
+      "mean test texts": 5.6
+     }
+    },
+    "flag rate by confidence": {
+     "real, low": {
+      "n": 11,
+      "flag rate": 0.545
+     },
+     "real, medium": {
+      "n": 104,
+      "flag rate": 0.567
+     },
+     "real, high": {
+      "n": 4,
+      "flag rate": 0.5
+     },
+     "pooled 50/50, low": {
+      "n": 11,
+      "flag rate": 0.545
+     },
+     "pooled 50/50, medium": {
+      "n": 102,
+      "flag rate": 0.833
+     },
+     "pooled 50/50, high": {
+      "n": 2,
+      "flag rate": 1.0
+     }
+    },
+    "labels": {
+     "real": {
+      "A": 24,
+      "C": 67,
+      "B": 29
+     },
+     "pooled 50/50": {
+      "C": 97,
+      "B": 19,
+      "A": 4
+     },
+     "related": {
+      "C": 22,
+      "A": 18,
+      "B": 20
+     }
+    },
+    "readings": 330,
+    "without a label": 0,
+    "with retries": 3,
+    "all offered both tools": true,
+    "models used": [
+     "claude-sonnet-5-5"
+    ],
+    "cost_usd": 10.27,
+    "input_tokens": 3981668,
+    "output_tokens": 205101
+   },
+   "agents agree, kappa on all units": 0.33
+  },
+  "post_hoc": {
+   "label_auc": {
+    "minilm": {
+     "mean_over_models": 0.512,
+     "interval": [
+      0.475,
+      0.55
+     ]
+    },
+    "network": {
+     "mean_over_models": 0.617,
+     "interval": [
+      0.558,
+      0.675
+     ]
+    },
+    "haiku": {
+     "mean_over_models": 0.619,
+     "interval": [
+      0.559,
+      0.683
+     ]
+    },
+    "haiku agent": {
+     "mean_over_models": 0.56,
+     "interval": [
+      0.501,
+      0.624
+     ]
+    },
+    "sonnet agent": {
+     "mean_over_models": 0.636,
+     "interval": [
+      0.578,
+      0.691
+     ]
+    }
+   },
+   "catch_all_one_job": {
+    "haiku": {
+     "real": {
+      "one-job answers": 51,
+      "share with a catch-all word": 0.235
+     },
+     "pooled 50/50": {
+      "one-job answers": 24,
+      "share with a catch-all word": 0.542
+     }
+    },
+    "haiku agent": {
+     "real": {
+      "one-job answers": 79,
+      "share with a catch-all word": 0.316
+     },
+     "pooled 50/50": {
+      "one-job answers": 66,
+      "share with a catch-all word": 0.409
+     }
+    },
+    "sonnet agent": {
+     "real": {
+      "one-job answers": 24,
+      "share with a catch-all word": 0.208
+     },
+     "pooled 50/50": {
+      "one-job answers": 4,
+      "share with a catch-all word": 0.75
+     }
+    }
+   }
+  },
+  "verdict": "no clear difference"
+ },
+ "units": {
+  "70m": [
+   {
+    "id": "70m:real::46",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     64
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::56",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     78
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::60",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     83
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::99",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     133
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::118",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     157
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::182",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     240
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::381",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     494
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::639",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     835
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::664",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     865
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::684",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     893
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::685",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     895
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::699",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     911
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::742",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     966
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::747",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     971
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::756",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     980
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::768",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     997
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::802",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1045
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::817",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1062
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::827",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1081
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::830",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1084
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::868",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1135
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::872",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1141
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::877",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1148
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:real::886",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1159
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::975",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1277
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1006",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1312
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1088",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1417
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1172",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1531
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1192",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1557
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1237",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1617
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1275",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1664
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1340",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1754
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1364",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1788
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1370",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1797
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "B",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1405",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1841
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1437",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1882
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1479",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1940
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1505",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1971
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1508",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     1976
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:real::1543",
+    "model": "70m",
+    "group": "real",
+    "neuron_ids": [
+     2026
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:424-1001",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     543,
+     1306
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:420-746",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     538,
+     970
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:851-811",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1116,
+     1055
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:807-1544",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1050,
+     2027
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:212-1535",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     279,
+     2016
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:245-1225",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     318,
+     1605
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1350-1106",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1767,
+     1440
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:355-1397",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     463,
+     1832
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:722-494",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     939,
+     633
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:714-1355",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     931,
+     1775
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1486-1298",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1950,
+     1694
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:977-1248",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1279,
+     1631
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1282-1388",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1674,
+     1818
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1398-537",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1833,
+     695
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:934-374",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1227,
+     485
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:396-1558",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     511,
+     2045
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:893-1528",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1168,
+     2006
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:387-1223",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     500,
+     1600
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:286-614",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     373,
+     800
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1006-667",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1312,
+     870
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1335-377",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1749,
+     490
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1140-924",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1489,
+     1213
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1549-507",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2034,
+     649
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:622-544",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     810,
+     704
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:251-296",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     325,
+     383
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:697-1415",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     908,
+     1852
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1465-1423",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1922,
+     1862
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1169-1483",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1528,
+     1946
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:960-298",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1259,
+     386
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:12-265",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     19,
+     340
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1198-1499",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1566,
+     1963
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1176-798",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1537,
+     1040
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:506-1448",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     648,
+     1899
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1266-1558",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1652,
+     2045
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1144-204",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1496,
+     270
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1375-644",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1805,
+     840
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:984-449",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1287,
+     574
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1097-1318",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1429,
+     1721
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1512-152",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1984,
+     205
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:pooled:50/50:1424-648",
+    "model": "70m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1864,
+     845
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:439-1481",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     559,
+     1943
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:915-1248",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     1202,
+     1631
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:645-700",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     842,
+     912
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:657-1138",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     855,
+     1486
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:1254-1519",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     1639,
+     1993
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:834-907",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     1090,
+     1190
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:154-803",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     207,
+     1046
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:473-814",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     608,
+     1059
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:455-1478",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     584,
+     1939
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:671-849",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     875,
+     1109
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:470-1111",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     605,
+     1446
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:308-1086",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     400,
+     1415
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:446-940",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     569,
+     1233
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:173-245",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     230,
+     318
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:335-984",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     434,
+     1287
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:62-1026",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     85,
+     1338
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:744-1300",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     968,
+     1696
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "70m:related:50/50:303-1021",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     392,
+     1333
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:753-810",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     977,
+     1054
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "70m:related:50/50:153-1518",
+    "model": "70m",
+    "group": "related",
+    "neuron_ids": [
+     206,
+     1992
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   }
+  ],
+  "410m": [
+   {
+    "id": "410m:real::18",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     31
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::22",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     42
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::76",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     132
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::135",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     255
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::531",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1010
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::599",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1165
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::679",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1330
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::714",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1399
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::737",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1447
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::846",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1667
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::880",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1729
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::911",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1813
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::935",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1856
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::972",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1926
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::983",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     1951
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::1037",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2048
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1068",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2124
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1103",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2183
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1132",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2250
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1205",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2405
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1320",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2626
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1405",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2812
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1422",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2837
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1462",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2913
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1478",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     2955
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1533",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3060
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1549",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3091
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1559",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3112
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::1621",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3231
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": true,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1678",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3345
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::1686",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3363
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1695",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3375
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1789",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3554
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1866",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3713
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::1873",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3733
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1888",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3772
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1928",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3865
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::1971",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3945
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:real::1972",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     3948
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:real::2030",
+    "model": "410m",
+    "group": "real",
+    "neuron_ids": [
+     4070
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:36-140",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     63,
+     264
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1920-1959",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3846,
+     3919
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1923-535",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3856,
+     1021
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:233-2026",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     445,
+     4056
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1569-1844",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3130,
+     3666
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1033-482",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2044,
+     895
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:153-361",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     286,
+     674
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1559-1527",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3112,
+     3053
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1856-1775",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3697,
+     3531
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:86-1897",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     148,
+     3788
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:840-491",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1655,
+     916
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:104-643",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     184,
+     1263
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:319-165",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     598,
+     311
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:45-344",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     77,
+     648
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1592-1138",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3165,
+     2262
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1495-1976",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2988,
+     3955
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1155-1264",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2294,
+     2519
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1098-264",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2174,
+     497
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:371-1597",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     687,
+     3175
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1269-1050",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2528,
+     2088
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:797-905",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1574,
+     1799
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:45-1143",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     77,
+     2270
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1976-836",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3955,
+     1644
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1011-581",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2001,
+     1115
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:740-925",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1451,
+     1841
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:2006-364",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     4017,
+     677
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:440-1094",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     801,
+     2165
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1419-1814",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2831,
+     3593
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1286-135",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2571,
+     255
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:272-1244",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     516,
+     2491
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1236-28",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2480,
+     52
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:210-332",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     401,
+     625
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:97-254",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     167,
+     482
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:162-1460",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     303,
+     2911
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:832-143",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1634,
+     271
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:265-185",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     499,
+     348
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:389-923",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     718,
+     1839
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1627-1335",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3254,
+     2648
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:987-1548",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1959,
+     3089
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:pooled:50/50:1975-115",
+    "model": "410m",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3953,
+     212
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:42-293",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     71,
+     554
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:710-733",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1392,
+     1443
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:269-1381",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     512,
+     2773
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:475-659",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     877,
+     1298
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:related:50/50:450-1203",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     833,
+     2403
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:413-1714",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     753,
+     3404
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:371-499",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     687,
+     938
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:50-1562",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     88,
+     3119
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:related:50/50:692-1020",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1356,
+     2011
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "410m:related:50/50:299-339",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     569,
+     640
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:174-1772",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     326,
+     3524
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:1237-1832",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     2481,
+     3632
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:180-610",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     338,
+     1195
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:809-1295",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1594,
+     2585
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:770-1975",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1519,
+     3953
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:788-1732",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1558,
+     3445
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:811-902",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1596,
+     1787
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:230-1584",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     441,
+     3156
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:830-840",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     1631,
+     1655
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "410m:related:50/50:519-1568",
+    "model": "410m",
+    "group": "related",
+    "neuron_ids": [
+     990,
+     3129
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   }
+  ],
+  "2.8b": [
+   {
+    "id": "2.8b:real::103",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     481
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::189",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     868
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::202",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     930
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::218",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1003
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::219",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1009
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::221",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1016
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::236",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1060
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::361",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1705
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::379",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1780
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::384",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     1799
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::482",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     2312
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::484",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     2337
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::574",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     2725
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::623",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3007
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::636",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3113
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "B",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::640",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3130
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::686",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3368
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::702",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3451
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::761",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3756
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::765",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     3779
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::893",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     4428
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::919",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     4556
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::958",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     4817
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1102",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     5518
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1120",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     5571
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1265",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     6348
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1346",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     6795
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1500",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     7566
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:real::1605",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     8140
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1626",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     8262
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1698",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     8663
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1739",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     8810
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1740",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     8811
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1833",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9241
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1845",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9288
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1893",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9485
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1904",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9519
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1939",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9700
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::1966",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     9814
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:real::2039",
+    "model": "2.8b",
+    "group": "real",
+    "neuron_ids": [
+     10199
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1085-627",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5432,
+     3062
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1310-1307",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     6607,
+     6580
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1053-625",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5297,
+     3027
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1850-1538",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     9315,
+     7762
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:38-637",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     186,
+     3116
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1371-1069",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     6949,
+     5383
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1608-798",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8167,
+     3939
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1978-1875",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     9902,
+     9423
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1008-834",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5097,
+     4080
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:247-517",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1107,
+     2470
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:246-374",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1102,
+     1771
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:884-1717",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     4382,
+     8738
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1470-1911",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7424,
+     9565
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1474-1039",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7443,
+     5249
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1336-94",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     6733,
+     449
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1414-1067",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7165,
+     5364
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:131-1171",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     597,
+     5824
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:941-1196",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     4696,
+     5974
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:228-396",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     1035,
+     1874
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:989-1046",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5020,
+     5269
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1724-921",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8754,
+     4567
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:768-496",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3799,
+     2384
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1731-614",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8774,
+     2969
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1667-1137",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8503,
+     5641
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:853-1664",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     4150,
+     8488
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:507-716",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     2429,
+     3528
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1092-871",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5469,
+     4256
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1746-977",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8843,
+     4974
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:776-1272",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3822,
+     6382
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1777-198",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8982,
+     917
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1133-1969",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5626,
+     9840
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:182-1359",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     841,
+     6878
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1057-39",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     5312,
+     189
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1494-1016",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7546,
+     5117
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1748-2009",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     8851,
+     10021
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1938-1954",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     9695,
+     9741
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:800-1741",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     3941,
+     8816
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": true,
+     "network": false,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:152-1319",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     700,
+     6646
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1385-1140",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7049,
+     5662
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:pooled:50/50:1402-1143",
+    "model": "2.8b",
+    "group": "pooled 50/50",
+    "neuron_ids": [
+     7096,
+     5671
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "C",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:678-1882",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     3331,
+     9446
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "B",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:1116-1398",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     5562,
+     7078
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:672-1230",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     3312,
+     6156
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:309-806",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     1433,
+     3980
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:929-1348",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     4633,
+     6804
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:54-1600",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     268,
+     8123
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "C",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": true,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": true,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:902-1359",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     4486,
+     6878
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "B",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:1241-1517",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     6227,
+     7644
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:523-921",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     2487,
+     4567
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:157-1391",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     727,
+     7060
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:705-1428",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     3478,
+     7220
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:1565-1642",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     7937,
+     8379
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:172-1412",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     808,
+     7148
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:320-1707",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     1499,
+     8687
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:114-233",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     537,
+     1048
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:7-1780",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     44,
+     8992
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:63-87",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     318,
+     421
+    ],
+    "shared_window": false,
+    "labels": {
+     "haiku": "C",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": true,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:348-1235",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     1640,
+     6196
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "C"
+    },
+    "flag": {
+     "minilm": false,
+     "network": true,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:1231-1472",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     6172,
+     7432
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "A"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    }
+   },
+   {
+    "id": "2.8b:related:50/50:265-2044",
+    "model": "2.8b",
+    "group": "related",
+    "neuron_ids": [
+     1221,
+     10227
+    ],
+    "shared_window": true,
+    "labels": {
+     "haiku": "A",
+     "haiku agent": "A",
+     "sonnet agent": "B"
+    },
+    "flag": {
+     "minilm": false,
+     "network": false,
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": false
+    },
+    "not_one_job": {
+     "haiku": false,
+     "haiku agent": false,
+     "sonnet agent": true
+    }
+   }
+  ]
+ }
+}
