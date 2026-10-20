@@ -674,7 +674,7 @@ Point 4 is exploratory, added after v9's independent review and not pre-register
 ./run_v12.sh
 ```
 
-`run_v12.sh` needs v5's and v6's caches and results. With v12's cached Haiku answers in `data/v12/`, it makes no model calls and reruns in about five minutes.
+`run_v12.sh` needs v5's and v6's caches and results. With v12's cached Haiku answers in `data/v12/`, it makes no model calls and reruns in about three minutes.
 
 ## Files
 
