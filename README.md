@@ -473,34 +473,41 @@ All 1,860 readings returned a valid label: 6.8M input tokens, which the CLI repo
 
 ![Three readers on the same units](results/figures/v7_readers.png)
 
-| Reader | Power (models of 6) | 50/50 pools over real | Specificity (models of 6) | Real flagged, 70M → 2.8B | Scale verdict |
+| Reader | Power (models of 6) | 50/50 pools over real, per model | Over all models (95% interval) | Real flagged, 70M → 2.8B | Scale verdict |
 |---|---|---|---|---|---|
-| MiniLM | **0** | -9 to +18 points | 1 | 17% → 3% | fits the essay (Spearman -1.00) |
-| network | **4** | +6 to +40 | 5 | 42% → 44% (peak 56%) | no clear trend (+0.12) |
-| Haiku | **2** | +11 to +32 | **6** | 38% → 46% | no clear trend (+0.68) |
+| MiniLM | **0** | -9 to +18 points | +3 (-1 to +8) | 17% → 3% | fits the essay (Spearman -1.00) |
+| network | **4** | +6 to +40 | +22 (+16 to +28) | 42% → 44% (peak 56%) | no clear trend (+0.12) |
+| Haiku | **2** | +11 to +32 | +21 (+14 to +27) | 38% → 46% | no clear trend (+0.68) |
 
-1. **No reader passes the pre-registered power test.** MiniLM never separates a pool of two random neurons from a real neuron. Its 50/50 pools are flagged at about the same rate as real neurons, and its 70/30, 90/10 and related lines sit on top of each other. The network reader passes in 4 of 6 models, falling short at 160M (+11) and 2.8B (+6). Haiku passes in 2 of 6, at 160M (+29) and 2.8B (+32), with gaps of +11 to +18 elsewhere.
-2. **The two readers that can see pooling also tell related pools from random ones.** Haiku flags related pools 22 to 48 points less than random 50/50 pools in all six models, and the network reader does in five. MiniLM does in one. One caveat: Haiku and MiniLM often flag related pools even less than real neurons (Haiku: 16 to 38% against 33 to 47%). So the most alike pairs are probably unusually clean neurons, such as near-duplicate token detectors, and this control is easier than an average neuron.
-3. **Only the reader that can't detect pooling shows the scale decline.** On these 100 real neurons per model, MiniLM's flag rate falls from 17% to 3%, reproducing v5. The network reader is flat, and Haiku drifts up (38% to 46%). Neither passes the trend test.
-4. **Haiku and the network reader partly agree; MiniLM agrees with neither.** On real neurons, kappa is 0.20 to 0.38 between Haiku and the network reader, -0.01 to 0.22 between Haiku and MiniLM, and 0.03 to 0.17 between MiniLM and the network reader.
-5. **Haiku is a noisy reader.** Read a second time, 60% of units get the same label and 68% the same flag (kappa 0.37). Some of the per-model differences above are within that noise.
-6. **Haiku calls 42 to 57% of real neurons one job and 33 to 47% unrelated jobs.** That's far from the essay's "about 90% one job", but the setups differ. Haiku is a small model reading 50 snippets once, without activations, tools or experiments. The essay's agents investigate each neuron and work on larger models. Haiku's stated patterns ([`results/v7_models.md`](results/v7_models.md)) are specific and often checkable:
+Points 1 to 3 and 5 include exploratory checks (the over-all-models effect, the power simulation, the kappa ceilings, shared windows, the retest interval), added after an independent review of the first results.
+
+1. **No reader passes the pre-registered power test, but the test was nearly impossible to pass.** With 50 pools and 100 real neurons per model, a reader whose 50/50 pools are truly 21 points above real neurons passes the test in a given model 42% of the time, and in 5 of 6 models 5% of the time (simulated with the test itself). The fair comparison is the effect over all models:
+   - The network reader and Haiku detect pooling about equally: +22 and +21 points. v6's larger check of the network reader (500 pools per layer) gave +22 to +41 at the middle layer of every size, so its misses at 160M (+11) and 2.8B (+6) here are mostly small samples.
+   - MiniLM barely detects it: +3 points (-1 to +8). It separates pools from real neurons only at 1B (+18, with separated intervals), and never by the 20-point margin.
+2. **The related control was easier than intended, so specificity says little.** All three readers flag related pools less than random 50/50 pools: Haiku in all six models (22 to 48 points less), the network reader in five, MiniLM in one. But related pools often contain two examples from the same text window (38% of them, against 17% of random 50/50 pools and none of the real units, which take one example per window). Haiku flags related pools with a shared window 17% of the time, against 32% without. So the related control is easier than an average real neuron, and Haiku's 6 of 6 mostly reflects that. Judged against real neurons instead, it would pass in 2 of 6 and the network reader in 4.
+3. **MiniLM's flags are a conservative subset, not a disagreement.** On real neurons, kappa is 0.20 to 0.38 between Haiku and the network reader, and lower with MiniLM (-0.01 to 0.22 with Haiku, 0.03 to 0.17 with the network reader). But MiniLM flags so few neurons that its kappa with Haiku can be at most 0.07 to 0.53, depending on the model, and at 410M and 2.8B it reaches that ceiling: every real neuron MiniLM flags, Haiku flags too. Over all models, Haiku flags 61% of the neurons MiniLM flags and 41% of the rest, and the network reader 66% and 46%. So MiniLM picks out a small, more mixed subset.
+4. **MiniLM's scale decline isn't corroborated.** On these 100 real neurons per model, MiniLM's flag rate falls from 17% to 3%, in the same direction as v5's full sample (16.0% to 6.9%). The network reader is flat, and Haiku drifts up (38% to 46%). Neither passes the trend test. They also have only about 21 points of power and 100 neurons per model, so a decline of MiniLM's size would be near the limit of what they could show.
+5. **Haiku is a noisy reader.** Read a second time, 60% of units get the same label and 68% the same flag (kappa 0.37, interval 0.12 to 0.60, from 60 units of which 20 are real neurons). Its agreement with the network reader (kappa 0.20 to 0.38) is about as high as its agreement with itself, so that agreement may be near Haiku's ceiling. Label noise is part of the intervals above; mainly, it pulls kappas down.
+6. **Haiku calls 42 to 57% of real neurons one job and 33 to 47% unrelated jobs.** That's far from the essay's "about 90% one job", but the setups differ. Haiku is a small model reading 50 snippets once, without activations, tools or experiments. The essay's agents investigate each neuron and work on larger models. Its stated patterns ([`results/v7_models.md`](results/v7_models.md)) are specific and often checkable:
    - On 70M, "a relative pronoun right after a head noun" and "a word fragment the next token completes (*were*|wolf, *is*|omer, *can*|oe)".
-   - Some of its "unrelated" calls list what reads like one job: for 2.8B neuron 122, HTML anchors, URL slashes, percent-encoding and broken bytes, which all look like encoded text.
+   - Its "unrelated" calls can be reasonable. For 2.8B MLP neuron 560, it lists HTML markup, plain prose tokens like "declined" and articles, word fragments, non-Latin text, and numeric and URL fragments, and most of the 50 snippets are indeed ordinary prose.
+   - It rarely uses "related jobs" (8 to 12% of real neurons).
 
 ### What this does and doesn't show
 
-- **It strengthens the methods finding.** v5's scale decline came from a reader that can't detect two neurons pooled together. The two readers that can (partly) show no decline, and they agree with each other more than either agrees with MiniLM. Cleanliness numbers from clustering top examples with a sentence model shouldn't be trusted without a positive control like the pooled neurons here.
-- **It doesn't test the essay's method.** The essay's agents are larger models that run experiments on each neuron. v7's Haiku reads a fixed set of snippets once. What it shows is that a simple language-model reader is noisy (point 5) and separates real from pooled neurons only weakly (point 1). An investigating agent may do much better. Running the same positive control on that kind of agent is the obvious next test.
-- **No reader here is a gold standard.** None passes the power test, and they disagree on many individual neurons. "What share of neurons are mixed?" has no reader-independent answer in this repo.
+- **The scale result has no support beyond MiniLM.** MiniLM barely detects two neurons pooled together, and the two readers that partly do (+21 and +22 points) don't show its decline. That doesn't prove MiniLM's decline wrong: its flags pick out a small subset that the other readers also tend to flag, and they could barely detect a decline of that size. But "bigger models have fewer mixed-looking neurons" now rests on the one reader that can't see known mixing.
+- **It strengthens the methods finding.** Cleanliness numbers from clustering top examples with a sentence model shouldn't be trusted without a positive control like the pooled neurons. And a reader's power, measured on known mixtures, matters more than its flag rate.
+- **It doesn't test the essay's method.** The essay's agents are larger models that run experiments on each neuron. v7's Haiku reads a fixed set of snippets once. What it shows is that a simple language-model reader is noisy (point 5) and detects pooling about as well as the network reader, which is only moderately well (point 1). An investigating agent may do much better. Running the same positive control on that kind of agent is the obvious next test.
+- **No reader here is a gold standard.** None separates pools from real neurons by more than about 22 points on average, and they disagree on many individual neurons. "What share of neurons are mixed?" has no reader-independent answer in this repo.
 
 ### What's still shaky
 
-- **The power bar is strict and somewhat arbitrary.** 20 points with separated intervals, from 50 pools and 100 real neurons per model. The network reader's misses at 160M and 2.8B, and Haiku's at four sizes, are partly small samples.
-- **The related control is biased toward clean neurons** (point 2).
-- **Haiku sees no activation values** and only about 30 tokens of context per snippet. That makes the task harder than a real audit and may raise its "unrelated" rate.
+- **Small samples per model.** 50 pools and 100 real neurons per model make per-model tests weak (point 1). The over-all-models effects are the more reliable numbers.
+- **The related control is easier than intended** (point 2): pools can contain two examples from the same window, while real units can't. Pooled units also use only each neuron's strongest 25 to 45 examples, while real units include ranks 26 to 50.
+- **The readers see different inputs.** MiniLM embeds the context before the token, Haiku sees about 30 tokens around it (24 before, 4 after), and the network reader sees the whole preceding window. Haiku also sees no activation values, which makes its task harder than a real audit.
+- **The CLI adds about 500 tokens of its own to each call.** Its length is the same for every kind of unit, so it can't tell Haiku which units are pooled, but its content isn't documented.
 - **One small model, one prompt, one reading per unit** (plus 60 retests). Another model or prompt could change the rates. The prompt was fixed before any reading, and none was tuned.
-- **Pooled units mix two neurons' strongest examples.** Real polysemantic neurons may mix less cleanly: weaker second jobs, or shared contexts. So the pools test the easiest kind of mixing to detect.
+- **Pooled units mix two neurons' strongest examples.** Real polysemantic neurons may mix less cleanly, with weaker second jobs or shared contexts, so the pools test the easiest kind of mixing to detect.
 - **Scope:** the middle layer only, Pythia 70M to 2.8B, 300 units per model.
 
 ### v7 files and reproduce
@@ -510,7 +517,7 @@ All 1,860 readings returned a valid label: 6.8M input tokens, which the CLI repo
 | [`recgen/rubric_v7.py`](recgen/rubric_v7.py) | Pre-registered units, prompt, labels and tests |
 | [`recgen/units_v7.py`](recgen/units_v7.py), [`recgen/llm_reader.py`](recgen/llm_reader.py) | Real, pooled and related units; the cached language-model reader |
 | [`recgen/analyze_v7.py`](recgen/analyze_v7.py), [`recgen/plots_v7.py`](recgen/plots_v7.py) | Three readers' flags, rates, power, specificity, agreement, retest; the figure |
-| [`results/v7_llm_answers.json`](results/v7_llm_answers.json) | Every Haiku reading: label, stated patterns, tokens |
+| [`results/v7_llm_answers.json`](results/v7_llm_answers.json) | Every Haiku reading: label, stated patterns, tokens, and the prompt's SHA-256 so its integrity can be checked |
 | [`results/classification_v7.json`](results/classification_v7.json) | Per-model rates with intervals, verdicts, kappas, retest, per-unit flags |
 | [`results/v7_models.md`](results/v7_models.md) | Per model: rates by reader and unit type, and units where the readers disagree, with Haiku's patterns |
 | `tests/test_rubric_v7.py`, `tests/test_llm_reader.py`, `tests/test_analyze_v7.py` | Tests for the rules, the reader and the analysis |
