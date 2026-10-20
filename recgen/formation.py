@@ -128,13 +128,14 @@ def capture(model, corpus: np.ndarray, examples: list[tuple[int, int]], neurons:
     }
 
 
-def record(step: int, corpus: np.ndarray, examples: list[tuple[int, int]], n_facet: int, neurons: list[int]) -> None:
+def record(step: int, corpus: np.ndarray, examples: list[tuple[int, int]], n_facet: int, neurons: list[int],
+           path=None) -> None:
     with checkpoint(step) as model:
         cap = capture(model, corpus, examples, neurons)
         coefficients = mlp_coefficients(model, neurons)
     parts = [v for k, v in cap.items() if k.startswith("part_")]
     error = float(np.abs(sum(parts) - cap["pre"]).max())
-    np.savez(formation_path(step), examples=np.array(examples), n_facet_examples=n_facet, neurons=np.array(neurons),
+    np.savez(path or formation_path(step), examples=np.array(examples), n_facet_examples=n_facet, neurons=np.array(neurons),
              coefficients=coefficients, reconstruction_error=error,
              **{k: (v.astype(np.float16) if k == "acts" else v) for k, v in cap.items()})
     print(f"step {step}: recorded, largest reconstruction error {error:.1e}", flush=True)

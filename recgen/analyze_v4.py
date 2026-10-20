@@ -22,10 +22,10 @@ PARTS = ["mlp_neurons", "attention_heads", "embedding", "mlp_biases", "attention
 KINDS = {"mlp": TOP_UNITS, "heads": TOP_HEADS}
 
 
-def step_summary(step: int, candidates: list[dict]) -> dict:
+def step_summary(step: int, candidates: list[dict], path=None) -> dict:
     """One checkpoint: driver sets of every facet of every traced neuron, read through each traced
     neuron's weights (MLP neurons and heads), plus each facet's gain and source shares on its own neuron."""
-    data = np.load(formation_path(step))
+    data = np.load(path or formation_path(step))
     n_facet = int(data["n_facet_examples"])
     row = {tuple(e): i for i, e in enumerate(data["examples"][:n_facet])}
     neurons = data["neurons"].tolist()
