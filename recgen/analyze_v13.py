@@ -8,27 +8,28 @@ from itertools import combinations
 
 import numpy as np
 
-from recgen.analyze_v4 import neuron_results, step_summary
+from recgen.analyze_v4 import KINDS, neuron_results, step_summary
 from recgen.analyze_v6 import PRIMARY, Layer
 from recgen.candidates_v13 import load_candidates, v13_path
 from recgen.config import RESULTS_DIR
 from recgen.corpus import load_corpus
 from recgen.rubric_v2 import null_threshold, overlap
-from recgen.rubric_v4 import STEPS, TOP_UNITS, formation_window
+from recgen.rubric_v4 import STEPS, formation_window
 from recgen.rubric_v13 import DEPTH, MODEL
 
 
-def final_adjacency(final: dict, candidates: list[dict], n: int) -> tuple[dict, dict, float]:
-    """v2's rule at the final checkpoint: each pair's MLP driver overlap, whether it beats the 95th
-    percentile of this neuron's null (its facets against the other neurons' facets), and that threshold."""
-    own = [key for key in final["mlp"] if key[0] == n and key[1][0] == n]
+def final_adjacency(final: dict, candidates: list[dict], n: int, kind: str = "mlp") -> tuple[dict, dict, float]:
+    """v2's rule at the final checkpoint: each pair's driver overlap (MLP drivers unless kind is "heads"), whether
+    it beats the 95th percentile of this neuron's null (its facets against the other neurons' facets), and that threshold."""
+    top = KINDS[kind]
+    own = [key for key in final[kind] if key[0] == n and key[1][0] == n]
     keys = [(c["neuron"], f) for c in candidates for f in range(len(c["facets"]))]
-    null = [overlap(final["mlp"][n, a], final["mlp"][n, x], TOP_UNITS) for a in (k[1] for k in own) for x in keys if x[0] != n]
+    null = [overlap(final[kind][n, a], final[kind][n, x], top) for a in (k[1] for k in own) for x in keys if x[0] != n]
     threshold = null_threshold(null)
     overlaps, adjacent = {}, {}
     for (_, a), (_, b) in combinations(sorted(own), 2):
         key = f"{a[1]}-{b[1]}"
-        overlaps[key] = overlap(final["mlp"][n, a], final["mlp"][n, b], TOP_UNITS)
+        overlaps[key] = overlap(final[kind][n, a], final[kind][n, b], top)
         adjacent[key] = {"v2": bool(overlaps[key] > threshold)}
     return overlaps, adjacent, float(threshold)
 

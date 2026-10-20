@@ -1,0 +1,9319 @@
+{
+ "summary": {
+  "neurons_by_quartile": {
+   "sampled": [
+    509,
+    514,
+    513,
+    512
+   ],
+   "eligible": [
+    467,
+    471,
+    461,
+    410
+   ],
+   "selected": [
+    50,
+    50,
+    50,
+    50
+   ]
+  },
+  "facets": 609,
+  "pairs": 701,
+  "facet_count_distribution": {
+   "2": 64,
+   "3": 73,
+   "4": 53,
+   "5": 10
+  },
+  "reconstruction_error": 5.459785461425781e-05,
+  "background": {
+   "positions": 1024,
+   "positions_that_are_facet_examples": 4,
+   "windows_holding_facet_examples": 804
+  },
+  "pre_registered": {
+   "mlp": {
+    "P1_least_pair_unrelated": {
+     "value": -0.33333333333333337,
+     "interval": [
+      -0.47333333333333333,
+      -0.18650000000000014
+     ]
+    },
+    "P2_spearman_peak_margin": {
+     "value": 0.3213710344027952,
+     "interval": [
+      0.1798574355661761,
+      0.44706248867757165
+     ]
+    },
+    "S1_share_unrelated": {
+     "value": -0.3191111111111111,
+     "interval": [
+      -0.4373555555555555,
+      -0.19686666666666658
+     ]
+    },
+    "S2_margin": {
+     "value": 0.0658066666666667,
+     "interval": [
+      0.03811791666666662,
+      0.09747358333333342
+     ]
+    },
+    "S3_reader_least_pair_unrelated": {
+     "value": -0.32666666666666666,
+     "interval": [
+      -0.47333333333333333,
+      -0.18666666666666665
+     ]
+    },
+    "P3_minus_reader_flag": {
+     "value": -0.09333333333333332,
+     "interval": [
+      -0.21999999999999986,
+      0.033333333333333326
+     ]
+    },
+    "reader_flag_top_minus_rest": {
+     "value": -0.24000000000000005,
+     "interval": [
+      -0.4066666666666667,
+      -0.09333333333333338
+     ]
+    },
+    "reading": "more jobs"
+   },
+   "heads": {
+    "P1_least_pair_unrelated": {
+     "value": -0.12,
+     "interval": [
+      -0.2466666666666667,
+      -0.013333333333333308
+     ]
+    },
+    "P2_spearman_peak_margin": {
+     "value": 0.10883950532852638,
+     "interval": [
+      -0.04338659711117086,
+      0.24647491918045059
+     ]
+    },
+    "S1_share_unrelated": {
+     "value": -0.12844444444444447,
+     "interval": [
+      -0.2498000000000001,
+      -0.024383333333333437
+     ]
+    },
+    "S2_margin": {
+     "value": 0.08246666666666622,
+     "interval": [
+      0.01292666666666638,
+      0.15623999999999974
+     ]
+    },
+    "S3_reader_least_pair_unrelated": {
+     "value": -0.1333333333333333,
+     "interval": [
+      -0.26,
+      -0.013333333333333308
+     ]
+    }
+   },
+   "controls": {
+    "C1_margin_within_facet_size_strata": {
+     "value": 0.054511189680627875,
+     "interval": [
+      0.028764883958867612,
+      0.08199312786541293
+     ],
+     "reading": "holds within strata",
+     "strata_by_quartile": {
+      "0": [
+       23,
+       18,
+       14,
+       9
+      ],
+      "1": [
+       15,
+       18,
+       20,
+       15
+      ],
+      "2": [
+       12,
+       14,
+       16,
+       26
+      ]
+     },
+     "stratum_median_facet_sizes": {
+      "0": [
+       5.0,
+       7.5
+      ],
+      "1": [
+       8.0,
+       11.5
+      ],
+      "2": [
+       12.0,
+       25.0
+      ]
+     }
+    },
+    "C2_least_pair_within_facet_count_strata": {
+     "value": -0.29743006551267126,
+     "interval": [
+      -0.41915564027411345,
+      -0.1788606307773327
+     ],
+     "reading": "holds within strata",
+     "strata_by_quartile": {
+      "2": [
+       17,
+       11,
+       14,
+       22
+      ],
+      "3": [
+       16,
+       22,
+       17,
+       18
+      ],
+      "4": [
+       17,
+       17,
+       19,
+       10
+      ]
+     }
+    }
+   }
+  },
+  "by_quartile": {
+   "0": {
+    "neurons": 50,
+    "median_peak": 2.037,
+    "reader_flag_rate": 0.7,
+    "median_facet_size": 8.0,
+    "mean_facets": 3.04,
+    "mlp": {
+     "least_pair_unrelated": 0.96,
+     "share_unrelated": 0.837,
+     "reader_least_pair_unrelated": 0.96,
+     "median_margin": -0.06,
+     "median_least_overlap": 0.01,
+     "median_threshold": 0.08
+    },
+    "heads": {
+     "least_pair_unrelated": 0.96,
+     "share_unrelated": 0.852,
+     "reader_least_pair_unrelated": 0.9,
+     "median_margin": -0.2,
+     "median_least_overlap": 0.0,
+     "median_threshold": 0.4
+    }
+   },
+   "1": {
+    "neurons": 50,
+    "median_peak": 2.279,
+    "reader_flag_rate": 0.72,
+    "median_facet_size": 8.0,
+    "mean_facets": 3.2,
+    "mlp": {
+     "least_pair_unrelated": 0.9,
+     "share_unrelated": 0.775,
+     "reader_least_pair_unrelated": 0.9,
+     "median_margin": -0.05,
+     "median_least_overlap": 0.02,
+     "median_threshold": 0.07
+    },
+    "heads": {
+     "least_pair_unrelated": 0.98,
+     "share_unrelated": 0.903,
+     "reader_least_pair_unrelated": 0.96,
+     "median_margin": -0.235,
+     "median_least_overlap": 0.0,
+     "median_threshold": 0.4
+    }
+   },
+   "2": {
+    "neurons": 50,
+    "median_peak": 2.614,
+    "reader_flag_rate": 0.62,
+    "median_facet_size": 9.0,
+    "mean_facets": 3.16,
+    "mlp": {
+     "least_pair_unrelated": 0.88,
+     "share_unrelated": 0.683,
+     "reader_least_pair_unrelated": 0.86,
+     "median_margin": -0.05,
+     "median_least_overlap": 0.025,
+     "median_threshold": 0.075
+    },
+    "heads": {
+     "least_pair_unrelated": 0.88,
+     "share_unrelated": 0.804,
+     "reader_least_pair_unrelated": 0.88,
+     "median_margin": -0.2,
+     "median_least_overlap": 0.0,
+     "median_threshold": 0.4
+    }
+   },
+   "3": {
+    "neurons": 50,
+    "median_peak": 3.341,
+    "reader_flag_rate": 0.44,
+    "median_facet_size": 10.0,
+    "mean_facets": 2.78,
+    "mlp": {
+     "least_pair_unrelated": 0.58,
+     "share_unrelated": 0.446,
+     "reader_least_pair_unrelated": 0.58,
+     "median_margin": -0.035,
+     "median_least_overlap": 0.045,
+     "median_threshold": 0.08
+    },
+    "heads": {
+     "least_pair_unrelated": 0.82,
+     "share_unrelated": 0.725,
+     "reader_least_pair_unrelated": 0.78,
+     "median_margin": -0.2,
+     "median_least_overlap": 0.2,
+     "median_threshold": 0.4
+    }
+   }
+  },
+  "share_of_pairs_unrelated": {
+   "mlp": 0.7,
+   "heads": 0.827
+  },
+  "v13_check": {
+   "largest_end_threshold_difference": 0.0,
+   "largest_final_overlap_difference": 0.0,
+   "shared_neurons": {
+    "2347": {
+     "mlp_largest_overlap_difference": 0.0,
+     "heads_largest_overlap_difference": 0.0,
+     "v13_threshold": 0.07,
+     "v23_threshold": 0.07
+    }
+   },
+   "v13_neurons_by_quartile": {
+    "0": {
+     "neurons": 8,
+     "least_pair_unrelated": 8,
+     "median_margin": -0.077
+    },
+    "1": {
+     "neurons": 10,
+     "least_pair_unrelated": 10,
+     "median_margin": -0.065
+    },
+    "2": {
+     "neurons": 15,
+     "least_pair_unrelated": 15,
+     "median_margin": -0.058
+    },
+    "3": {
+     "neurons": 7,
+     "least_pair_unrelated": 7,
+     "median_margin": -0.04
+    }
+   }
+  },
+  "exploratory_after_results": {
+   "reader_split": {
+    "reader flags unrelated mixed": {
+     "neurons_by_quartile": [
+      35,
+      36,
+      31,
+      22
+     ],
+     "least_pair_unrelated_by_quartile": [
+      1.0,
+      1.0,
+      1.0,
+      0.955
+     ],
+     "P1": {
+      "value": -0.045454545454545414,
+      "interval": [
+       -0.13636363636363635,
+       0.0
+      ]
+     }
+    },
+    "reader doesn't flag": {
+     "neurons_by_quartile": [
+      15,
+      14,
+      19,
+      28
+     ],
+     "least_pair_unrelated_by_quartile": [
+      0.867,
+      0.643,
+      0.684,
+      0.286
+     ],
+     "P1": {
+      "value": -0.44345238095238093,
+      "interval": [
+       -0.6488095238095237,
+       -0.22909226190476192
+      ]
+     }
+    }
+   },
+   "split_half_reliability": {
+    "median_facet_reliability_by_quartile": [
+     0.41,
+     0.48,
+     0.44,
+     0.54
+    ],
+    "median_least_pair_reliability_by_quartile": [
+     0.44,
+     0.5,
+     0.495,
+     0.548
+    ],
+    "margin_within_reliability_strata": {
+     "value": 0.062056536470588265,
+     "interval": [
+      0.03348253976470588,
+      0.09204513788235304
+     ],
+     "strata_by_quartile": {
+      "0": [
+       24,
+       19,
+       14,
+       9
+      ],
+      "1": [
+       16,
+       13,
+       20,
+       18
+      ],
+      "2": [
+       10,
+       18,
+       16,
+       23
+      ]
+     }
+    }
+   },
+   "source_shares_by_quartile": {
+    "mlp_neurons": [
+     0.195,
+     0.217,
+     0.157,
+     0.051
+    ],
+    "attention_heads": [
+     0.815,
+     0.818,
+     0.846,
+     0.95
+    ]
+   }
+  },
+  "exploratory_after_review": {
+   "reader_margin": {
+    "spearman_reader_margin_driver_margin": 0.654,
+    "median_reader_margin_by_quartile": [
+     -0.074,
+     -0.063,
+     -0.031,
+     0.035
+    ],
+    "median_reader_margin_unflagged_by_quartile": [
+     0.115,
+     0.103,
+     0.054,
+     0.154
+    ],
+    "by_tercile": {
+     "0": {
+      "top_rate": 1.0,
+      "top_n": 9,
+      "rest_rate": 1.0,
+      "rest_n": 58
+     },
+     "1": {
+      "top_rate": 0.933,
+      "top_n": 15,
+      "rest_rate": 0.961,
+      "rest_n": 51
+     },
+     "2": {
+      "top_rate": 0.231,
+      "top_n": 26,
+      "rest_rate": 0.732,
+      "rest_n": 41
+     }
+    },
+    "P1_within_reader_margin_terciles": {
+     "value": -0.2348474654466465,
+     "interval": [
+      -0.3391015166951809,
+      -0.12625189827185176
+     ]
+    }
+   },
+   "shared_tokens": {
+    "least_pair_shares_a_token_by_quartile": [
+     0.08,
+     0.02,
+     0.0,
+     0.06
+    ],
+    "least_pair_unrelated_without_shared_token_by_quartile": [
+     1.0,
+     0.898,
+     0.88,
+     0.596
+    ]
+   },
+   "least_pairs_tied_with_threshold_by_quartile": {
+    "mlp": [
+     1,
+     1,
+     2,
+     2
+    ],
+    "heads": [
+     9,
+     2,
+     2,
+     7
+    ]
+   }
+  }
+ },
+ "neurons": [
+  {
+   "neuron": 41,
+   "quartile": 0,
+   "peak": 1.957,
+   "log_peak": -0.2219,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    5,
+    5
+   ],
+   "median_facet_size": 5.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.01,
+     "1-2": 0.03
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 65,
+   "quartile": 1,
+   "peak": 2.2676,
+   "log_peak": -0.0747,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    8,
+    8,
+    8,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.15,
+     "0-3": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.03,
+     "2-3": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "0-3": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.4,
+     "2-3": 0.0
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 77,
+   "quartile": 3,
+   "peak": 3.0332,
+   "log_peak": 0.2162,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    24,
+    7,
+    6,
+    5
+   ],
+   "median_facet_size": 6.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.21,
+     "0-2": 0.21,
+     "0-3": 0.05,
+     "1-2": 0.3,
+     "1-3": 0.03,
+     "2-3": 0.02
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.02,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.6,
+     "0-3": 0.0,
+     "1-2": 0.6,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 99,
+   "quartile": 2,
+   "peak": 2.7227,
+   "log_peak": 0.1082,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    18,
+    11
+   ],
+   "median_facet_size": 14.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.05,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 115,
+   "quartile": 2,
+   "peak": 2.4629,
+   "log_peak": 0.008,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    9,
+    8
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.1,
+     "0-2": 0.13,
+     "1-2": 0.13
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.1,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 120,
+   "quartile": 1,
+   "peak": 2.2617,
+   "log_peak": -0.0772,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    16,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.04,
+     "1-2": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 142,
+   "quartile": 0,
+   "peak": 2.1191,
+   "log_peak": -0.1424,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    9,
+    9,
+    6
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.24,
+     "0-2": 0.01,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 148,
+   "quartile": 0,
+   "peak": 2.127,
+   "log_peak": -0.1387,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    16,
+    10,
+    9,
+    5
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.01,
+     "0-3": 0.03,
+     "1-2": 0.27,
+     "1-3": 0.05,
+     "2-3": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.4,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 162,
+   "quartile": 3,
+   "peak": 4.5273,
+   "log_peak": 0.6168,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    38,
+    11
+   ],
+   "median_facet_size": 24.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.19,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.13,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 196,
+   "quartile": 1,
+   "peak": 2.1992,
+   "log_peak": -0.1053,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    12,
+    9,
+    7
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.01,
+     "1-2": 0.07
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 210,
+   "quartile": 1,
+   "peak": 2.2734,
+   "log_peak": -0.0721,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    9,
+    7,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.01,
+     "0-3": 0.03,
+     "1-2": 0.04,
+     "1-3": 0.02,
+     "2-3": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.4,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 246,
+   "quartile": 0,
+   "peak": 2.041,
+   "log_peak": -0.1799,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    13,
+    12,
+    9
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.05,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.0615,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.0615,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 247,
+   "quartile": 0,
+   "peak": 1.9541,
+   "log_peak": -0.2234,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    8,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.08,
+     "0-3": 0.2,
+     "1-2": 0.06,
+     "1-3": 0.13,
+     "2-3": 0.02
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.4,
+     "2-3": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 249,
+   "quartile": 3,
+   "peak": 2.8711,
+   "log_peak": 0.1613,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    9,
+    9,
+    8,
+    5
+   ],
+   "median_facet_size": 8.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "0-3": 0.04,
+     "1-2": 0.03,
+     "1-3": 0.01,
+     "2-3": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 291,
+   "quartile": 2,
+   "peak": 2.7852,
+   "log_peak": 0.1309,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 5,
+   "facet_sizes": [
+    8,
+    7,
+    6,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "0-4": 0.02,
+     "1-2": 0.08,
+     "1-3": 0.04,
+     "1-4": 0.1,
+     "2-3": 0.04,
+     "2-4": 0.08,
+     "3-4": 0.05
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.7,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.2,
+     "0-4": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.0,
+     "1-4": 0.4,
+     "2-3": 0.2,
+     "2-4": 0.4,
+     "3-4": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 310,
+   "quartile": 0,
+   "peak": 2.0391,
+   "log_peak": -0.1809,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    13,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.06,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 332,
+   "quartile": 3,
+   "peak": 3.1348,
+   "log_peak": 0.2492,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    21,
+    20,
+    7
+   ],
+   "median_facet_size": 20.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.02,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 356,
+   "quartile": 0,
+   "peak": 1.9795,
+   "log_peak": -0.2105,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    13,
+    8
+   ],
+   "median_facet_size": 10.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.14,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.07,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 443,
+   "quartile": 1,
+   "peak": 2.2773,
+   "log_peak": -0.0704,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    19,
+    11,
+    10,
+    8
+   ],
+   "median_facet_size": 10.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.02,
+     "0-3": 0.04,
+     "1-2": 0.01,
+     "1-3": 0.01,
+     "2-3": 0.04
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 457,
+   "quartile": 0,
+   "peak": 2.0859,
+   "log_peak": -0.1582,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    18,
+    5
+   ],
+   "median_facet_size": 11.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.27,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.27,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 478,
+   "quartile": 1,
+   "peak": 2.4277,
+   "log_peak": -0.0064,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    15,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 543,
+   "quartile": 3,
+   "peak": 3.252,
+   "log_peak": 0.2859,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    32,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.02,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 590,
+   "quartile": 3,
+   "peak": 3.4707,
+   "log_peak": 0.351,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    26,
+    8
+   ],
+   "median_facet_size": 17.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.39
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.39,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.31,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.6,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 627,
+   "quartile": 2,
+   "peak": 2.623,
+   "log_peak": 0.071,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    18,
+    11,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.12,
+     "0-2": 0.11,
+     "0-3": 0.02,
+     "0-4": 0.0,
+     "1-2": 0.01,
+     "1-3": 0.02,
+     "1-4": 0.03,
+     "2-3": 0.0,
+     "2-4": 0.03,
+     "3-4": 0.04
+    },
+    "least_pair": "0-4",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.6,
+     "0-3": 0.0,
+     "0-4": 0.0,
+     "1-2": 0.6,
+     "1-3": 0.0,
+     "1-4": 0.0,
+     "2-3": 0.0,
+     "2-4": 0.0,
+     "3-4": 0.2
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.7,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 657,
+   "quartile": 2,
+   "peak": 2.541,
+   "log_peak": 0.0392,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    9,
+    6
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19,
+     "0-2": 0.08,
+     "1-2": 0.16
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.08,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.01,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.2,
+     "1-2": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 662,
+   "quartile": 2,
+   "peak": 2.6055,
+   "log_peak": 0.0642,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    10,
+    6,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.13,
+     "0-3": 0.17,
+     "1-2": 0.13,
+     "1-3": 0.12,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.08,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.01,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "0-3": 0.4,
+     "1-2": 0.6,
+     "1-3": 0.6,
+     "2-3": 0.6
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 665,
+   "quartile": 0,
+   "peak": 1.8799,
+   "log_peak": -0.2622,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    8,
+    7
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.23,
+     "1-2": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 695,
+   "quartile": 0,
+   "peak": 2.1309,
+   "log_peak": -0.1368,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    11,
+    5,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.24,
+     "0-2": 0.05,
+     "0-3": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.09,
+     "2-3": 0.01
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.4,
+     "0-3": 0.6,
+     "1-2": 0.2,
+     "1-3": 0.8,
+     "2-3": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 715,
+   "quartile": 0,
+   "peak": 2.1719,
+   "log_peak": -0.1178,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    15,
+    7,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.01,
+     "0-3": 0.05,
+     "1-2": 0.05,
+     "1-3": 0.05,
+     "2-3": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "1-2": 0.4,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 728,
+   "quartile": 2,
+   "peak": 2.4922,
+   "log_peak": 0.0198,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    7,
+    7
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.01,
+     "1-2": 0.02
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 732,
+   "quartile": 1,
+   "peak": 2.3262,
+   "log_peak": -0.0491,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    6,
+    6
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.05,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 756,
+   "quartile": 3,
+   "peak": 3.5977,
+   "log_peak": 0.3869,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    33,
+    5,
+    5
+   ],
+   "median_facet_size": 5.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.04,
+     "1-2": 0.09
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 772,
+   "quartile": 1,
+   "peak": 2.2598,
+   "log_peak": -0.0781,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    8,
+    7
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.07,
+     "1-2": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.8,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 787,
+   "quartile": 0,
+   "peak": 1.9287,
+   "log_peak": -0.2365,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    9,
+    7
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.16,
+     "0-2": 0.08,
+     "1-2": 0.06
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.06,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "1-2": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": 0.0,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 789,
+   "quartile": 1,
+   "peak": 2.3359,
+   "log_peak": -0.045,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    21,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.04,
+     "1-2": 0.02
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 830,
+   "quartile": 1,
+   "peak": 2.1875,
+   "log_peak": -0.1106,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    9
+   ],
+   "median_facet_size": 15.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.16
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.16,
+    "threshold": 0.09,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.07,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.27,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.27,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 838,
+   "quartile": 3,
+   "peak": 3.4844,
+   "log_peak": 0.3549,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    23,
+    10,
+    6
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.01,
+     "1-2": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 843,
+   "quartile": 1,
+   "peak": 2.2812,
+   "log_peak": -0.0687,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    19,
+    17,
+    10
+   ],
+   "median_facet_size": 17.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.02,
+     "1-2": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.05,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.6
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 928,
+   "quartile": 2,
+   "peak": 2.4746,
+   "log_peak": 0.0127,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    16,
+    9,
+    7
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.11,
+     "0-2": 0.06,
+     "1-2": 0.11
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.06,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 949,
+   "quartile": 1,
+   "peak": 2.3574,
+   "log_peak": -0.0358,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    11,
+    9,
+    6
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.02,
+     "1-2": 0.06
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.6,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 954,
+   "quartile": 2,
+   "peak": 2.5391,
+   "log_peak": 0.0384,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    10
+   ],
+   "median_facet_size": 16.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 967,
+   "quartile": 0,
+   "peak": 2.1562,
+   "log_peak": -0.125,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    6,
+    6
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.07,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 980,
+   "quartile": 2,
+   "peak": 2.832,
+   "log_peak": 0.1476,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    18,
+    5
+   ],
+   "median_facet_size": 11.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.2,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 982,
+   "quartile": 0,
+   "peak": 2.1445,
+   "log_peak": -0.1305,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    12,
+    12
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1068,
+   "quartile": 1,
+   "peak": 2.4102,
+   "log_peak": -0.0137,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    23,
+    14,
+    5
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.16,
+     "0-2": 0.23,
+     "1-2": 0.1
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.1,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1081,
+   "quartile": 0,
+   "peak": 1.874,
+   "log_peak": -0.2653,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    7,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.0,
+     "0-3": 0.02,
+     "1-2": 0.03,
+     "1-3": 0.11,
+     "2-3": 0.04
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.4,
+     "2-3": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1099,
+   "quartile": 2,
+   "peak": 2.6621,
+   "log_peak": 0.0857,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    16,
+    12,
+    5
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.03,
+     "1-2": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1109,
+   "quartile": 3,
+   "peak": 3.1777,
+   "log_peak": 0.2628,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    25,
+    5
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.1
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.1,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.04,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1122,
+   "quartile": 2,
+   "peak": 2.4453,
+   "log_peak": 0.0008,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    15,
+    8,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.08,
+     "1-2": 0.19
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1136,
+   "quartile": 0,
+   "peak": 2.0625,
+   "log_peak": -0.1695,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    10,
+    5,
+    5
+   ],
+   "median_facet_size": 7.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.09,
+     "0-3": 0.02,
+     "1-2": 0.01,
+     "1-3": 0.05,
+     "2-3": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "0-3": 0.6,
+     "1-2": 0.2,
+     "1-3": 0.6,
+     "2-3": 0.6
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1140,
+   "quartile": 0,
+   "peak": 2.168,
+   "log_peak": -0.1196,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    18,
+    17,
+    7
+   ],
+   "median_facet_size": 17.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.02,
+     "1-2": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1172,
+   "quartile": 0,
+   "peak": 1.8652,
+   "log_peak": -0.27,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    15,
+    11
+   ],
+   "median_facet_size": 13.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.05,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1207,
+   "quartile": 3,
+   "peak": 3.5566,
+   "log_peak": 0.3754,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    28,
+    10,
+    9
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.24,
+     "0-2": 0.12,
+     "1-2": 0.02
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1225,
+   "quartile": 1,
+   "peak": 2.2617,
+   "log_peak": -0.0772,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    17,
+    7,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.03,
+     "1-2": 0.12
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.03,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "1-2": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1241,
+   "quartile": 0,
+   "peak": 1.7451,
+   "log_peak": -0.3366,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    7,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "0-3": 0.02,
+     "1-2": 0.12,
+     "1-3": 0.11,
+     "2-3": 0.08
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.2,
+     "1-2": 0.4,
+     "1-3": 0.2,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1274,
+   "quartile": 1,
+   "peak": 2.2188,
+   "log_peak": -0.0964,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    21,
+    7
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.1
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.1,
+    "threshold": 0.11,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1288,
+   "quartile": 3,
+   "peak": 3.4512,
+   "log_peak": 0.3453,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    39,
+    5
+   ],
+   "median_facet_size": 22.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.15
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.15,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.08,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1302,
+   "quartile": 2,
+   "peak": 2.7559,
+   "log_peak": 0.1204,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    26,
+    8,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.0,
+     "0-3": 0.05,
+     "1-2": 0.02,
+     "1-3": 0.0,
+     "2-3": 0.02
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1364,
+   "quartile": 2,
+   "peak": 2.7617,
+   "log_peak": 0.1225,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    16,
+    11,
+    7,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.01,
+     "0-3": 0.01,
+     "1-2": 0.09,
+     "1-3": 0.01,
+     "2-3": 0.04
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.4,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1367,
+   "quartile": 2,
+   "peak": 2.7012,
+   "log_peak": 0.1003,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    20,
+    11,
+    8
+   ],
+   "median_facet_size": 11.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.12,
+     "1-2": 0.17
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.12,
+    "threshold": 0.09,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.03,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8,
+     "0-2": 0.8,
+     "1-2": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.8,
+    "threshold": 0.2,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.6,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1396,
+   "quartile": 3,
+   "peak": 3.7051,
+   "log_peak": 0.4163,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    33,
+    14
+   ],
+   "median_facet_size": 23.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.15
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.15,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.09,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1403,
+   "quartile": 0,
+   "peak": 2.0195,
+   "log_peak": -0.1905,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    12,
+    8
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1404,
+   "quartile": 2,
+   "peak": 2.4922,
+   "log_peak": 0.0198,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    6,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 5.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04,
+     "0-2": 0.04,
+     "0-3": 0.01,
+     "1-2": 0.08,
+     "1-3": 0.01,
+     "2-3": 0.01
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.2,
+     "1-2": 0.6,
+     "1-3": 0.2,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1457,
+   "quartile": 3,
+   "peak": 3.1113,
+   "log_peak": 0.2417,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    12,
+    6
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.17
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.17,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.11,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1494,
+   "quartile": 1,
+   "peak": 2.332,
+   "log_peak": -0.0466,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    26,
+    12
+   ],
+   "median_facet_size": 19.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.0935,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.0835,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1519,
+   "quartile": 1,
+   "peak": 2.2637,
+   "log_peak": -0.0764,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    12,
+    7
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.11,
+     "0-2": 0.13,
+     "1-2": 0.17
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.11,
+    "threshold": 0.1,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.01,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "1-2": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1540,
+   "quartile": 3,
+   "peak": 3.2949,
+   "log_peak": 0.299,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    33,
+    9
+   ],
+   "median_facet_size": 21.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.38
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.38,
+    "threshold": 0.1435,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2365,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.8,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.4,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1548,
+   "quartile": 2,
+   "peak": 2.4648,
+   "log_peak": 0.0088,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    9,
+    9,
+    8,
+    5
+   ],
+   "median_facet_size": 8.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.06,
+     "0-3": 0.01,
+     "1-2": 0.06,
+     "1-3": 0.2,
+     "2-3": 0.14
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1605,
+   "quartile": 2,
+   "peak": 2.7988,
+   "log_peak": 0.1358,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    13,
+    10,
+    9,
+    8
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.18,
+     "0-2": 0.16,
+     "0-3": 0.07,
+     "1-2": 0.23,
+     "1-3": 0.02,
+     "2-3": 0.01
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "0-3": 0.4,
+     "1-2": 0.4,
+     "1-3": 0.4,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1607,
+   "quartile": 3,
+   "peak": 3.7246,
+   "log_peak": 0.4216,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    41,
+    9
+   ],
+   "median_facet_size": 25.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.49
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.49,
+    "threshold": 0.13,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.36,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.8,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.4,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1616,
+   "quartile": 2,
+   "peak": 2.5527,
+   "log_peak": 0.0438,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    9,
+    6,
+    6
+   ],
+   "median_facet_size": 7.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.01,
+     "0-3": 0.12,
+     "1-2": 0.0,
+     "1-3": 0.17,
+     "2-3": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.6,
+     "0-3": 0.4,
+     "1-2": 0.4,
+     "1-3": 0.6,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1637,
+   "quartile": 0,
+   "peak": 2.1309,
+   "log_peak": -0.1368,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    15,
+    14,
+    5
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06,
+     "0-2": 0.02,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1642,
+   "quartile": 0,
+   "peak": 2.0879,
+   "log_peak": -0.1572,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    5,
+    5,
+    5
+   ],
+   "median_facet_size": 5.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.0,
+     "0-3": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.13,
+     "2-3": 0.05
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.09,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "1-2": 0.4,
+     "1-3": 0.4,
+     "2-3": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1655,
+   "quartile": 2,
+   "peak": 2.4961,
+   "log_peak": 0.0214,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    24,
+    11
+   ],
+   "median_facet_size": 17.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.08,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.8,
+    "threshold": 0.6,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1663,
+   "quartile": 1,
+   "peak": 2.4043,
+   "log_peak": -0.0161,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    8,
+    8,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.17,
+     "0-3": 0.22,
+     "1-2": 0.05,
+     "1-3": 0.04,
+     "2-3": 0.12
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.6,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.2,
+     "2-3": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1675,
+   "quartile": 2,
+   "peak": 2.709,
+   "log_peak": 0.1032,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    11,
+    10,
+    7
+   ],
+   "median_facet_size": 10.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.19,
+     "0-3": 0.13,
+     "1-2": 0.02,
+     "1-3": 0.11,
+     "2-3": 0.06
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.6,
+     "1-2": 0.2,
+     "1-3": 0.6,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1747,
+   "quartile": 0,
+   "peak": 1.9502,
+   "log_peak": -0.2254,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    13,
+    12,
+    11
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.08,
+     "1-2": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1749,
+   "quartile": 2,
+   "peak": 2.6738,
+   "log_peak": 0.0901,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    12,
+    12,
+    6
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.1,
+     "1-2": 0.03
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.03,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1761,
+   "quartile": 1,
+   "peak": 2.3125,
+   "log_peak": -0.055,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    9,
+    8,
+    5
+   ],
+   "median_facet_size": 8.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.04,
+     "0-3": 0.04,
+     "1-2": 0.04,
+     "1-3": 0.0,
+     "2-3": 0.02
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1790,
+   "quartile": 0,
+   "peak": 2.0723,
+   "log_peak": -0.1647,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    11,
+    7,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "0-3": 0.03,
+     "1-2": 0.07,
+     "1-3": 0.03,
+     "2-3": 0.0
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.0,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.09,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1800,
+   "quartile": 1,
+   "peak": 2.3984,
+   "log_peak": -0.0186,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    12,
+    7,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.01,
+     "1-2": 0.03
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1809,
+   "quartile": 3,
+   "peak": 3.6543,
+   "log_peak": 0.4025,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    19,
+    12,
+    7
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.2,
+     "1-2": 0.03
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1815,
+   "quartile": 2,
+   "peak": 2.5586,
+   "log_peak": 0.0461,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    28,
+    9,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.11,
+     "0-2": 0.03,
+     "1-2": 0.02
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1826,
+   "quartile": 0,
+   "peak": 2.1016,
+   "log_peak": -0.1507,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    13,
+    8,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.07,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1839,
+   "quartile": 0,
+   "peak": 2.0859,
+   "log_peak": -0.1582,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    19,
+    6,
+    6
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.03,
+     "1-2": 0.02
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1842,
+   "quartile": 2,
+   "peak": 2.7383,
+   "log_peak": 0.114,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    14,
+    9,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.04,
+     "1-2": 0.02
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1844,
+   "quartile": 1,
+   "peak": 2.293,
+   "log_peak": -0.0635,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    24,
+    7
+   ],
+   "median_facet_size": 15.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1874,
+   "quartile": 0,
+   "peak": 1.8125,
+   "log_peak": -0.2987,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    11,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.02,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.09,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1880,
+   "quartile": 2,
+   "peak": 2.8066,
+   "log_peak": 0.1386,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    30,
+    7
+   ],
+   "median_facet_size": 18.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1893,
+   "quartile": 0,
+   "peak": 2.1484,
+   "log_peak": -0.1286,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    9,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 5.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14,
+     "0-2": 0.15,
+     "0-3": 0.0,
+     "1-2": 0.09,
+     "1-3": 0.14,
+     "2-3": 0.16
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.1,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.6,
+     "0-3": 0.6,
+     "1-2": 0.4,
+     "1-3": 0.6,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": 0.0,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 1894,
+   "quartile": 3,
+   "peak": 3.0195,
+   "log_peak": 0.2117,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    30,
+    8
+   ],
+   "median_facet_size": 19.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.11
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.11,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.05,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1923,
+   "quartile": 3,
+   "peak": 2.8438,
+   "log_peak": 0.1517,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    15,
+    12,
+    6
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.09,
+     "1-2": 0.23
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.08,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "1-2": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1930,
+   "quartile": 2,
+   "peak": 2.6875,
+   "log_peak": 0.0952,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    29,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09,
+     "0-2": 0.05,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1934,
+   "quartile": 3,
+   "peak": 3.0352,
+   "log_peak": 0.2169,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    26,
+    14
+   ],
+   "median_facet_size": 20.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1944,
+   "quartile": 3,
+   "peak": 2.8672,
+   "log_peak": 0.16,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    29,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.18,
+     "0-2": 0.06,
+     "1-2": 0.05
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.05,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1958,
+   "quartile": 3,
+   "peak": 3.0723,
+   "log_peak": 0.229,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    8
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.09,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1977,
+   "quartile": 3,
+   "peak": 3.418,
+   "log_peak": 0.3357,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    25,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04,
+     "0-2": 0.14,
+     "1-2": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 1996,
+   "quartile": 0,
+   "peak": 2.1445,
+   "log_peak": -0.1305,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    12,
+    8,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "1-2": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2002,
+   "quartile": 3,
+   "peak": 3.8555,
+   "log_peak": 0.4561,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    28,
+    8,
+    7
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.16,
+     "0-2": 0.02,
+     "1-2": 0.05
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.6,
+     "1-2": 0.2
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2031,
+   "quartile": 1,
+   "peak": 2.2109,
+   "log_peak": -0.1,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    8,
+    8,
+    7,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09,
+     "0-2": 0.08,
+     "0-3": 0.23,
+     "0-4": 0.07,
+     "1-2": 0.05,
+     "1-3": 0.09,
+     "1-4": 0.05,
+     "2-3": 0.06,
+     "2-4": 0.05,
+     "3-4": 0.08
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.05,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.7,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "0-4": 0.2,
+     "1-2": 0.4,
+     "1-3": 0.2,
+     "1-4": 0.2,
+     "2-3": 0.0,
+     "2-4": 0.2,
+     "3-4": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2044,
+   "quartile": 2,
+   "peak": 2.5176,
+   "log_peak": 0.0299,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    17,
+    15,
+    5
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.04,
+     "1-2": 0.03
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2151,
+   "quartile": 3,
+   "peak": 3.0078,
+   "log_peak": 0.2078,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    17,
+    9,
+    6
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.13,
+     "0-2": 0.12,
+     "1-2": 0.04
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.04,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2165,
+   "quartile": 2,
+   "peak": 2.4824,
+   "log_peak": 0.0159,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    35,
+    6
+   ],
+   "median_facet_size": 20.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.1
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.1,
+    "threshold": 0.0835,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.0165,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2245,
+   "quartile": 2,
+   "peak": 2.5898,
+   "log_peak": 0.0582,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    23,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.08,
+     "1-2": 0.06
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.06,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2263,
+   "quartile": 2,
+   "peak": 2.6309,
+   "log_peak": 0.0739,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    32,
+    12
+   ],
+   "median_facet_size": 22.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2272,
+   "quartile": 0,
+   "peak": 2.0957,
+   "log_peak": -0.1535,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    11,
+    9,
+    7,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "0-3": 0.03,
+     "0-4": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.06,
+     "1-4": 0.12,
+     "2-3": 0.04,
+     "2-4": 0.01,
+     "3-4": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.9,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "0-4": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.4,
+     "1-4": 0.4,
+     "2-3": 0.0,
+     "2-4": 0.0,
+     "3-4": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2278,
+   "quartile": 0,
+   "peak": 1.9385,
+   "log_peak": -0.2315,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    20,
+    5
+   ],
+   "median_facet_size": 12.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2317,
+   "quartile": 1,
+   "peak": 2.248,
+   "log_peak": -0.0833,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    8,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.08,
+     "1-2": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2336,
+   "quartile": 2,
+   "peak": 2.457,
+   "log_peak": 0.0056,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    13,
+    9,
+    6,
+    6
+   ],
+   "median_facet_size": 7.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.1,
+     "0-2": 0.02,
+     "0-3": 0.16,
+     "1-2": 0.03,
+     "1-3": 0.11,
+     "2-3": 0.03
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.02,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.6,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2347,
+   "quartile": 3,
+   "peak": 2.9219,
+   "log_peak": 0.1789,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    12,
+    10,
+    9,
+    6,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.02,
+     "0-3": 0.04,
+     "0-4": 0.01,
+     "1-2": 0.11,
+     "1-3": 0.01,
+     "1-4": 0.01,
+     "2-3": 0.1,
+     "2-4": 0.02,
+     "3-4": 0.01
+    },
+    "least_pair": "0-4",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.8,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.2,
+     "0-4": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "1-4": 0.2,
+     "2-3": 0.6,
+     "2-4": 0.0,
+     "3-4": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.9,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2433,
+   "quartile": 1,
+   "peak": 2.373,
+   "log_peak": -0.0292,
+   "unrelated_mixed": true,
+   "reader_least_pair": "3-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    7,
+    6,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.01,
+     "0-3": 0.05,
+     "0-4": 0.05,
+     "1-2": 0.08,
+     "1-3": 0.03,
+     "1-4": 0.0,
+     "2-3": 0.02,
+     "2-4": 0.01,
+     "3-4": 0.0
+    },
+    "least_pair": "1-4",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.9,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.2,
+     "0-4": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.0,
+     "1-4": 0.0,
+     "2-3": 0.2,
+     "2-4": 0.0,
+     "3-4": 0.0
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2435,
+   "quartile": 1,
+   "peak": 2.377,
+   "log_peak": -0.0276,
+   "unrelated_mixed": false,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    8,
+    8,
+    8,
+    7
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14,
+     "0-2": 0.1,
+     "0-3": 0.13,
+     "1-2": 0.12,
+     "1-3": 0.09,
+     "2-3": 0.08
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.08,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "0-3": 0.4,
+     "1-2": 0.4,
+     "1-3": 0.4,
+     "2-3": 0.6
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2436,
+   "quartile": 1,
+   "peak": 2.3066,
+   "log_peak": -0.0576,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    20,
+    10
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2442,
+   "quartile": 3,
+   "peak": 3.9297,
+   "log_peak": 0.4752,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    20,
+    10,
+    9
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.11,
+     "1-2": 0.22
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.11,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.03,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8,
+     "0-2": 0.6,
+     "1-2": 0.6
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2445,
+   "quartile": 0,
+   "peak": 1.8379,
+   "log_peak": -0.2848,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    12,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.22,
+     "1-2": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.1315,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.1315,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2473,
+   "quartile": 0,
+   "peak": 2.0137,
+   "log_peak": -0.1934,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.0,
+     "1-2": 0.13
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.23,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.23,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2482,
+   "quartile": 3,
+   "peak": 3.2207,
+   "log_peak": 0.2762,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    17
+   ],
+   "median_facet_size": 19.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2507,
+   "quartile": 3,
+   "peak": 3.3887,
+   "log_peak": 0.3271,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    14,
+    11
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.02,
+     "1-2": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2520,
+   "quartile": 0,
+   "peak": 2.0234,
+   "log_peak": -0.1886,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    6,
+    6
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.05,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2534,
+   "quartile": 1,
+   "peak": 2.373,
+   "log_peak": -0.0292,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    11,
+    9,
+    8,
+    6
+   ],
+   "median_facet_size": 8.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.01,
+     "0-3": 0.15,
+     "1-2": 0.01,
+     "1-3": 0.01,
+     "2-3": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2573,
+   "quartile": 1,
+   "peak": 2.2383,
+   "log_peak": -0.0877,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    10,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 5.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.12,
+     "0-3": 0.03,
+     "1-2": 0.0,
+     "1-3": 0.01,
+     "2-3": 0.19
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "1-2": 0.0,
+     "1-3": 0.2,
+     "2-3": 0.4
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2585,
+   "quartile": 0,
+   "peak": 2.0137,
+   "log_peak": -0.1934,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    8,
+    7,
+    6,
+    6
+   ],
+   "median_facet_size": 6.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14,
+     "0-2": 0.08,
+     "0-3": 0.09,
+     "1-2": 0.04,
+     "1-3": 0.23,
+     "2-3": 0.05
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.04,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.0,
+     "0-3": 0.8,
+     "1-2": 0.0,
+     "1-3": 0.8,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2602,
+   "quartile": 2,
+   "peak": 2.7988,
+   "log_peak": 0.1358,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    19,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.13,
+     "0-2": 0.07,
+     "1-2": 0.1
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.07,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2645,
+   "quartile": 1,
+   "peak": 2.2383,
+   "log_peak": -0.0877,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    8,
+    8,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.03,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2647,
+   "quartile": 2,
+   "peak": 2.6562,
+   "log_peak": 0.0835,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    8,
+    8,
+    8
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14,
+     "0-2": 0.07,
+     "0-3": 0.26,
+     "1-2": 0.13,
+     "1-3": 0.22,
+     "2-3": 0.15
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.07,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.1667,
+    "margin": -0.03,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8,
+     "0-2": 0.6,
+     "0-3": 0.8,
+     "1-2": 0.8,
+     "1-3": 0.8,
+     "2-3": 0.8
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2666,
+   "quartile": 2,
+   "peak": 2.7441,
+   "log_peak": 0.1161,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    27,
+    5
+   ],
+   "median_facet_size": 16.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.25
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.25,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.18,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2686,
+   "quartile": 3,
+   "peak": 3.7871,
+   "log_peak": 0.4382,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    35,
+    8,
+    7
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.22,
+     "0-2": 0.3,
+     "1-2": 0.47
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.22,
+    "threshold": 0.1215,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.0985,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8,
+     "0-2": 0.6,
+     "1-2": 0.8
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2716,
+   "quartile": 1,
+   "peak": 2.4336,
+   "log_peak": -0.004,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    27,
+    9
+   ],
+   "median_facet_size": 18.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.07,
+    "threshold": 0.0835,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.0135,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2724,
+   "quartile": 3,
+   "peak": 4.7461,
+   "log_peak": 0.6639,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    40,
+    9
+   ],
+   "median_facet_size": 24.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.19,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.11,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2727,
+   "quartile": 0,
+   "peak": 1.8662,
+   "log_peak": -0.2695,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-3",
+   "n_facets": 5,
+   "facet_sizes": [
+    12,
+    8,
+    7,
+    6,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.01,
+     "0-3": 0.02,
+     "0-4": 0.02,
+     "1-2": 0.36,
+     "1-3": 0.07,
+     "1-4": 0.04,
+     "2-3": 0.1,
+     "2-4": 0.08,
+     "3-4": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "0-4": 0.2,
+     "1-2": 0.2,
+     "1-3": 0.0,
+     "1-4": 0.4,
+     "2-3": 0.4,
+     "2-4": 0.2,
+     "3-4": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2756,
+   "quartile": 3,
+   "peak": 2.9277,
+   "log_peak": 0.1809,
+   "unrelated_mixed": false,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    16,
+    10,
+    8,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.04,
+     "0-3": 0.18,
+     "1-2": 0.02,
+     "1-3": 0.06,
+     "2-3": 0.05
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.02,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.4,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2762,
+   "quartile": 2,
+   "peak": 2.5918,
+   "log_peak": 0.059,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    12,
+    9
+   ],
+   "median_facet_size": 10.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.06,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2773,
+   "quartile": 3,
+   "peak": 2.8633,
+   "log_peak": 0.1586,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    11,
+    10,
+    9,
+    5
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.13,
+     "0-2": 0.07,
+     "0-3": 0.09,
+     "1-2": 0.1,
+     "1-3": 0.05,
+     "2-3": 0.0
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.0,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.1,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "0-3": 0.6,
+     "1-2": 0.4,
+     "1-3": 0.2,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2791,
+   "quartile": 3,
+   "peak": 3.3516,
+   "log_peak": 0.3161,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    26,
+    14,
+    8
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19,
+     "0-2": 0.02,
+     "1-2": 0.02
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.02,
+    "threshold": 0.0715,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.0515,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2797,
+   "quartile": 1,
+   "peak": 2.3242,
+   "log_peak": -0.05,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    15,
+    9,
+    6,
+    5
+   ],
+   "median_facet_size": 7.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04,
+     "0-2": 0.07,
+     "0-3": 0.17,
+     "1-2": 0.03,
+     "1-3": 0.04,
+     "2-3": 0.07
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.03,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.4,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2819,
+   "quartile": 1,
+   "peak": 2.1973,
+   "log_peak": -0.1062,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    40,
+    8
+   ],
+   "median_facet_size": 24.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.09,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2856,
+   "quartile": 3,
+   "peak": 3.3301,
+   "log_peak": 0.3096,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    30,
+    17
+   ],
+   "median_facet_size": 23.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.19,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.11,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2920,
+   "quartile": 0,
+   "peak": 1.8652,
+   "log_peak": -0.27,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    9,
+    7,
+    6,
+    5
+   ],
+   "median_facet_size": 6.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.01,
+     "0-3": 0.09,
+     "1-2": 0.06,
+     "1-3": 0.05,
+     "2-3": 0.04
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.4,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": 0.0,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 2964,
+   "quartile": 3,
+   "peak": 3.5332,
+   "log_peak": 0.3688,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    33,
+    13
+   ],
+   "median_facet_size": 23.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 2965,
+   "quartile": 2,
+   "peak": 2.5254,
+   "log_peak": 0.033,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    11,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3003,
+   "quartile": 3,
+   "peak": 2.8438,
+   "log_peak": 0.1517,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    21,
+    7,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.07,
+     "1-2": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3005,
+   "quartile": 3,
+   "peak": 3.2852,
+   "log_peak": 0.296,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    18,
+    8,
+    6,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08,
+     "0-2": 0.33,
+     "0-3": 0.0,
+     "1-2": 0.03,
+     "1-3": 0.09,
+     "2-3": 0.02
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.11,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.11,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.6,
+     "0-3": 0.0,
+     "1-2": 0.4,
+     "1-3": 0.2,
+     "2-3": 0.0
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3020,
+   "quartile": 3,
+   "peak": 3.4141,
+   "log_peak": 0.3345,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    19,
+    10,
+    6,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.18,
+     "0-2": 0.18,
+     "0-3": 0.07,
+     "1-2": 0.13,
+     "1-3": 0.07,
+     "2-3": 0.06
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.06,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.1667,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.2,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.4
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3022,
+   "quartile": 2,
+   "peak": 2.8418,
+   "log_peak": 0.1511,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    19,
+    15
+   ],
+   "median_facet_size": 17.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3037,
+   "quartile": 3,
+   "peak": 3.9199,
+   "log_peak": 0.4727,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    27,
+    14
+   ],
+   "median_facet_size": 20.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.08
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.08,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3067,
+   "quartile": 0,
+   "peak": 2.0352,
+   "log_peak": -0.1828,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    20,
+    9
+   ],
+   "median_facet_size": 14.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.09,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.2,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3076,
+   "quartile": 3,
+   "peak": 2.918,
+   "log_peak": 0.1775,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    41,
+    7
+   ],
+   "median_facet_size": 24.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.15
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.15,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.08,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3122,
+   "quartile": 1,
+   "peak": 2.3984,
+   "log_peak": -0.0186,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    19
+   ],
+   "median_facet_size": 20.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.09,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3132,
+   "quartile": 1,
+   "peak": 2.1836,
+   "log_peak": -0.1124,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    14,
+    13,
+    5,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03,
+     "0-2": 0.01,
+     "0-3": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.01,
+     "2-3": 0.03
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.2,
+     "1-3": 0.0,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3152,
+   "quartile": 1,
+   "peak": 2.2578,
+   "log_peak": -0.079,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    17,
+    8
+   ],
+   "median_facet_size": 12.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.22
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.22,
+    "threshold": 0.07,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.15,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3154,
+   "quartile": 1,
+   "peak": 2.3809,
+   "log_peak": -0.0259,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    21,
+    9
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3164,
+   "quartile": 1,
+   "peak": 2.207,
+   "log_peak": -0.1017,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    14,
+    9,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.04,
+     "1-2": 0.06
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.04,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3169,
+   "quartile": 2,
+   "peak": 2.5391,
+   "log_peak": 0.0384,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    40,
+    9
+   ],
+   "median_facet_size": 24.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3218,
+   "quartile": 3,
+   "peak": 3.3555,
+   "log_peak": 0.3172,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    25,
+    8,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.32,
+     "0-2": 0.25,
+     "1-2": 0.18
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.18,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.1,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8,
+     "0-2": 0.8,
+     "1-2": 0.6
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3230,
+   "quartile": 0,
+   "peak": 2.166,
+   "log_peak": -0.1205,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    21,
+    9
+   ],
+   "median_facet_size": 15.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3248,
+   "quartile": 3,
+   "peak": 3.8066,
+   "log_peak": 0.4434,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    15,
+    9
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.23
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.23,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.15,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.8
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.8,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.4,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3251,
+   "quartile": 0,
+   "peak": 2.0781,
+   "log_peak": -0.1619,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    7,
+    7,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.06,
+     "1-2": 0.19
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.05,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3255,
+   "quartile": 2,
+   "peak": 2.5156,
+   "log_peak": 0.0291,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    13,
+    5,
+    5,
+    5
+   ],
+   "median_facet_size": 5.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.07,
+     "0-3": 0.13,
+     "1-2": 0.14,
+     "1-3": 0.16,
+     "2-3": 0.18
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.07,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.1667,
+    "margin": -0.03,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.4,
+     "1-2": 0.6,
+     "1-3": 0.4,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3260,
+   "quartile": 2,
+   "peak": 2.5352,
+   "log_peak": 0.0369,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    8,
+    6,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.02,
+     "0-3": 0.02,
+     "1-2": 0.06,
+     "1-3": 0.04,
+     "2-3": 0.04
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.02,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.2,
+     "1-2": 0.4,
+     "1-3": 0.0,
+     "2-3": 0.2
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3275,
+   "quartile": 1,
+   "peak": 2.4258,
+   "log_peak": -0.0072,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-4",
+   "n_facets": 5,
+   "facet_sizes": [
+    10,
+    9,
+    8,
+    5,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.06,
+     "0-4": 0.02,
+     "1-2": 0.03,
+     "1-3": 0.04,
+     "1-4": 0.1,
+     "2-3": 0.05,
+     "2-4": 0.04,
+     "3-4": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.9,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.0,
+     "0-4": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "1-4": 0.4,
+     "2-3": 0.2,
+     "2-4": 0.0,
+     "3-4": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3282,
+   "quartile": 2,
+   "peak": 2.7812,
+   "log_peak": 0.1295,
+   "unrelated_mixed": true,
+   "reader_least_pair": "2-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    17,
+    8,
+    8,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.03,
+     "0-3": 0.09,
+     "1-2": 0.03,
+     "1-3": 0.01,
+     "2-3": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "0-3": 0.6,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3299,
+   "quartile": 1,
+   "peak": 2.2148,
+   "log_peak": -0.0982,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    10,
+    9,
+    7,
+    6
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06,
+     "0-2": 0.07,
+     "0-3": 0.02,
+     "1-2": 0.02,
+     "1-3": 0.09,
+     "2-3": 0.09
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.02,
+    "threshold": 0.0605,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.0405,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.4,
+     "2-3": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3305,
+   "quartile": 1,
+   "peak": 2.2617,
+   "log_peak": -0.0772,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    7,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 5.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06,
+     "0-2": 0.07,
+     "0-3": 0.03,
+     "1-2": 0.02,
+     "1-3": 0.05,
+     "2-3": 0.01
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.6
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3328,
+   "quartile": 1,
+   "peak": 2.2168,
+   "log_peak": -0.0973,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 5,
+   "facet_sizes": [
+    10,
+    7,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04,
+     "0-2": 0.01,
+     "0-3": 0.03,
+     "0-4": 0.0,
+     "1-2": 0.02,
+     "1-3": 0.01,
+     "1-4": 0.14,
+     "2-3": 0.01,
+     "2-4": 0.02,
+     "3-4": 0.06
+    },
+    "least_pair": "0-4",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.9,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.2,
+     "0-4": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.2,
+     "1-4": 0.2,
+     "2-3": 0.2,
+     "2-4": 0.4,
+     "3-4": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3355,
+   "quartile": 0,
+   "peak": 2.0957,
+   "log_peak": -0.1535,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    8,
+    7
+   ],
+   "median_facet_size": 7.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3363,
+   "quartile": 3,
+   "peak": 3.5605,
+   "log_peak": 0.3765,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    21,
+    11,
+    8,
+    7
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04,
+     "0-2": 0.06,
+     "0-3": 0.19,
+     "1-2": 0.12,
+     "1-3": 0.02,
+     "2-3": 0.03
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.02,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.8,
+     "1-2": 0.6,
+     "1-3": 0.2,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3369,
+   "quartile": 3,
+   "peak": 3.3594,
+   "log_peak": 0.3184,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    7,
+    6,
+    5
+   ],
+   "median_facet_size": 6.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.15,
+     "0-2": 0.1,
+     "0-3": 0.17,
+     "1-2": 0.13,
+     "1-3": 0.16,
+     "2-3": 0.12
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.1,
+    "threshold": 0.08,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.02,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.2,
+     "0-3": 0.6,
+     "1-2": 0.6,
+     "1-3": 1.0,
+     "2-3": 0.6
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.1667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3370,
+   "quartile": 1,
+   "peak": 2.2559,
+   "log_peak": -0.0798,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    14,
+    10,
+    6
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.04,
+     "1-2": 0.14
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.04,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3387,
+   "quartile": 2,
+   "peak": 2.6406,
+   "log_peak": 0.0776,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    13,
+    11,
+    8,
+    7
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.01,
+     "0-3": 0.06,
+     "1-2": 0.09,
+     "1-3": 0.03,
+     "2-3": 0.03
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.4,
+     "1-3": 0.0,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3393,
+   "quartile": 1,
+   "peak": 2.2539,
+   "log_peak": -0.0807,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    9,
+    5
+   ],
+   "median_facet_size": 9.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.14,
+     "0-2": 0.11,
+     "1-2": 0.06
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.06,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3406,
+   "quartile": 0,
+   "peak": 2.1602,
+   "log_peak": -0.1232,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    21,
+    7
+   ],
+   "median_facet_size": 14.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.07,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3410,
+   "quartile": 0,
+   "peak": 1.9736,
+   "log_peak": -0.2135,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    12,
+    11,
+    6,
+    5
+   ],
+   "median_facet_size": 8.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.02,
+     "0-3": 0.09,
+     "1-2": 0.03,
+     "1-3": 0.02,
+     "2-3": 0.01
+    },
+    "least_pair": "2-3",
+    "least_overlap": 0.01,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.09,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.0,
+     "1-3": 0.2,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3492,
+   "quartile": 3,
+   "peak": 3.0059,
+   "log_peak": 0.2072,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    40,
+    5
+   ],
+   "median_facet_size": 22.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.05,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.04,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3533,
+   "quartile": 3,
+   "peak": 3.1211,
+   "log_peak": 0.2448,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    39,
+    6
+   ],
+   "median_facet_size": 22.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3562,
+   "quartile": 2,
+   "peak": 2.7227,
+   "log_peak": 0.1082,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    22,
+    5
+   ],
+   "median_facet_size": 13.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3566,
+   "quartile": 1,
+   "peak": 2.1836,
+   "log_peak": -0.1124,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    6,
+    5
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.03,
+     "1-2": 0.06
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3582,
+   "quartile": 2,
+   "peak": 2.4531,
+   "log_peak": 0.004,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    24,
+    13,
+    5
+   ],
+   "median_facet_size": 13.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.05,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.4,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3588,
+   "quartile": 3,
+   "peak": 3.8027,
+   "log_peak": 0.4423,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    28,
+    17
+   ],
+   "median_facet_size": 22.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.33
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.33,
+    "threshold": 0.0635,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2665,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3625,
+   "quartile": 0,
+   "peak": 1.9609,
+   "log_peak": -0.22,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    13,
+    6
+   ],
+   "median_facet_size": 9.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.05,
+    "threshold": 0.0835,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.0335,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": 0.0,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3681,
+   "quartile": 2,
+   "peak": 2.6309,
+   "log_peak": 0.0739,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    17,
+    10,
+    6,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.13,
+     "0-3": 0.09,
+     "1-2": 0.06,
+     "1-3": 0.06,
+     "2-3": 0.27
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.06,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.6,
+     "0-3": 0.0,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.4
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3772,
+   "quartile": 1,
+   "peak": 2.3574,
+   "log_peak": -0.0358,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 4,
+   "facet_sizes": [
+    16,
+    8,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.09,
+     "0-3": 0.07,
+     "1-2": 0.05,
+     "1-3": 0.02,
+     "2-3": 0.08
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.02,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "0-3": 0.0,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.0
+    },
+    "least_pair": "0-3",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3773,
+   "quartile": 3,
+   "peak": 3.1953,
+   "log_peak": 0.2683,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    23,
+    6,
+    6
+   ],
+   "median_facet_size": 6.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.06,
+     "0-2": 0.01,
+     "1-2": 0.13
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3781,
+   "quartile": 1,
+   "peak": 2.3516,
+   "log_peak": -0.0383,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    7,
+    7,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.19,
+     "0-2": 0.08,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3790,
+   "quartile": 1,
+   "peak": 2.334,
+   "log_peak": -0.0458,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    10,
+    10,
+    9
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.01,
+     "1-2": 0.1
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.4,
+     "1-2": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.2,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3796,
+   "quartile": 2,
+   "peak": 2.4844,
+   "log_peak": 0.0166,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    19,
+    10,
+    6,
+    5
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.07,
+     "0-2": 0.07,
+     "0-3": 0.27,
+     "1-2": 0.16,
+     "1-3": 0.1,
+     "2-3": 0.08
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.07,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 0.5,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "0-3": 0.4,
+     "1-2": 0.2,
+     "1-3": 0.2,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3811,
+   "quartile": 2,
+   "peak": 2.6465,
+   "log_peak": 0.0799,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    31,
+    12
+   ],
+   "median_facet_size": 21.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.04,
+    "threshold": 0.0635,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.0235,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3835,
+   "quartile": 0,
+   "peak": 2.1699,
+   "log_peak": -0.1187,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    26,
+    10
+   ],
+   "median_facet_size": 18.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3878,
+   "quartile": 0,
+   "peak": 2.1465,
+   "log_peak": -0.1295,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    17,
+    8,
+    8
+   ],
+   "median_facet_size": 8.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.04,
+     "1-2": 0.04
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.0,
+     "1-2": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3886,
+   "quartile": 0,
+   "peak": 2.0059,
+   "log_peak": -0.1973,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    10,
+    10
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.03
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.03,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3892,
+   "quartile": 2,
+   "peak": 2.4434,
+   "log_peak": 0.0,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    22,
+    10,
+    8
+   ],
+   "median_facet_size": 10.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.09,
+     "0-2": 0.17,
+     "1-2": 0.27
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.09,
+    "threshold": 0.1,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": -0.01,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.8,
+     "1-2": 0.6
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.6,
+    "threshold": 0.4,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.2,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3896,
+   "quartile": 0,
+   "peak": 1.9385,
+   "log_peak": -0.2315,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-3",
+   "n_facets": 4,
+   "facet_sizes": [
+    8,
+    6,
+    5,
+    5
+   ],
+   "median_facet_size": 5.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.0,
+     "0-3": 0.11,
+     "1-2": 0.03,
+     "1-3": 0.01,
+     "2-3": 0.0
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3921,
+   "quartile": 3,
+   "peak": 4.4336,
+   "log_peak": 0.5958,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    20,
+    15,
+    8,
+    5
+   ],
+   "median_facet_size": 11.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.22,
+     "0-2": 0.32,
+     "0-3": 0.23,
+     "1-2": 0.27,
+     "1-3": 0.23,
+     "2-3": 0.36
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.22,
+    "threshold": 0.1,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.12,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.6,
+     "0-2": 0.6,
+     "0-3": 0.6,
+     "1-2": 0.6,
+     "1-3": 0.4,
+     "2-3": 0.4
+    },
+    "least_pair": "1-3",
+    "least_overlap": 0.4,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 0.3333,
+    "margin": 0.0,
+    "reader_least_unrelated": false
+   }
+  },
+  {
+   "neuron": 3952,
+   "quartile": 0,
+   "peak": 1.8984,
+   "log_peak": -0.2523,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    14,
+    11
+   ],
+   "median_facet_size": 12.5,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.12,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.11,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3955,
+   "quartile": 0,
+   "peak": 1.9824,
+   "log_peak": -0.2091,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 4,
+   "facet_sizes": [
+    13,
+    8,
+    6,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.01,
+     "0-2": 0.05,
+     "0-3": 0.06,
+     "1-2": 0.02,
+     "1-3": 0.02,
+     "2-3": 0.02
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.01,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.05,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "0-3": 0.0,
+     "1-2": 0.0,
+     "1-3": 0.0,
+     "2-3": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 0.8333,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 3964,
+   "quartile": 1,
+   "peak": 2.4023,
+   "log_peak": -0.0169,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-1",
+   "n_facets": 3,
+   "facet_sizes": [
+    39,
+    5,
+    5
+   ],
+   "median_facet_size": 5.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.05,
+     "1-2": 0.04
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.04,
+    "threshold": 0.06,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.02,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.0
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 4012,
+   "quartile": 2,
+   "peak": 2.5137,
+   "log_peak": 0.0284,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 5,
+   "facet_sizes": [
+    10,
+    9,
+    7,
+    5,
+    5
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.05,
+     "0-3": 0.04,
+     "0-4": 0.02,
+     "1-2": 0.03,
+     "1-3": 0.06,
+     "1-4": 0.04,
+     "2-3": 0.03,
+     "2-4": 0.0,
+     "3-4": 0.02
+    },
+    "least_pair": "2-4",
+    "least_overlap": 0.0,
+    "threshold": 0.08,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.08,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "0-3": 0.0,
+     "0-4": 0.0,
+     "1-2": 0.2,
+     "1-3": 0.4,
+     "1-4": 0.4,
+     "2-3": 0.4,
+     "2-4": 0.0,
+     "3-4": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 4017,
+   "quartile": 1,
+   "peak": 2.3887,
+   "log_peak": -0.0226,
+   "unrelated_mixed": true,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    20,
+    12,
+    6
+   ],
+   "median_facet_size": 12.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.19,
+     "1-2": 0.01
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.01,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 0.6667,
+    "margin": -0.06,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.2,
+     "0-2": 0.2,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.2,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 4056,
+   "quartile": 3,
+   "peak": 3.1543,
+   "log_peak": 0.2554,
+   "unrelated_mixed": false,
+   "reader_least_pair": "0-1",
+   "n_facets": 2,
+   "facet_sizes": [
+    37,
+    5
+   ],
+   "median_facet_size": 21.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.18
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.18,
+    "threshold": 0.06,
+    "least_unrelated": false,
+    "share_unrelated": 0.0,
+    "margin": 0.12,
+    "reader_least_unrelated": false
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.4
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.4,
+    "threshold": 0.6,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.2,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 4071,
+   "quartile": 2,
+   "peak": 2.7988,
+   "log_peak": 0.1358,
+   "unrelated_mixed": false,
+   "reader_least_pair": "1-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    21,
+    18,
+    5
+   ],
+   "median_facet_size": 18.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.05,
+     "0-2": 0.07,
+     "1-2": 0.0
+    },
+    "least_pair": "1-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.2,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  },
+  {
+   "neuron": 4091,
+   "quartile": 1,
+   "peak": 2.2422,
+   "log_peak": -0.0859,
+   "unrelated_mixed": true,
+   "reader_least_pair": "0-2",
+   "n_facets": 3,
+   "facet_sizes": [
+    19,
+    7,
+    6
+   ],
+   "median_facet_size": 7.0,
+   "mlp": {
+    "overlaps": {
+     "0-1": 0.02,
+     "0-2": 0.0,
+     "1-2": 0.05
+    },
+    "least_pair": "0-2",
+    "least_overlap": 0.0,
+    "threshold": 0.07,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.07,
+    "reader_least_unrelated": true
+   },
+   "heads": {
+    "overlaps": {
+     "0-1": 0.0,
+     "0-2": 0.0,
+     "1-2": 0.2
+    },
+    "least_pair": "0-1",
+    "least_overlap": 0.0,
+    "threshold": 0.4,
+    "least_unrelated": true,
+    "share_unrelated": 1.0,
+    "margin": -0.4,
+    "reader_least_unrelated": true
+   }
+  }
+ ]
+}
