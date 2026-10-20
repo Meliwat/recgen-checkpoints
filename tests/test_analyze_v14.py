@@ -133,7 +133,7 @@ def test_shared_unrelated_counts_each_readers_c_labels_and_the_overlap():
 
 def test_reading_stats_report_the_deepest_rank_and_per_reading_tokens_and_cost():
     answers, _ = fake_inputs()
-    answers[OPUS]["retest"]["70m:real::0"] = {**record("A"), "output_tokens": 49, "tool_calls": [
+    answers[OPUS]["retest"]["70m:real::0"] = {**record("A"), "output_tokens": 51, "tool_calls": [
         {"tool": "examples", "arguments": {"start": 3000, "count": 15}}, {"tool": "activation", "arguments": {"texts": ["a"]}}]}
     out = reading_stats(answers)
     assert out[AGENT_NAME] == {"readings": 25, "deepest rank asked for": 3014, "output tokens per reading": 3.0,
