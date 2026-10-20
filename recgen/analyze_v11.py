@@ -12,6 +12,7 @@ import json
 from collections import Counter
 
 import numpy as np
+from scipy.stats import spearmanr
 
 from recgen.analyze_v6 import PRIMARY, Layer, MiniLM, detect
 from recgen.analyze_v7 import EXAMPLES_SHOWN, GROUPS, READERS, exploratory_stats, group, model_stats, retest_stats, verdicts
@@ -19,7 +20,7 @@ from recgen.config import RESULTS_DIR
 from recgen.corpus import load_corpus
 from recgen.facets import display_text
 from recgen.llm_reader_v11 import ANSWERS_PATH
-from recgen.rubric_v5 import MODELS
+from recgen.rubric_v5 import MODELS, decide
 from recgen.rubric_v6 import MERGE_PERCENTILE
 from recgen.rubric_v7 import UNRELATED_JOBS
 from recgen.rubric_v11 import (
@@ -119,6 +120,25 @@ def checks(rows: dict, answers: dict) -> dict:
     return out
 
 
+def exploratory(stats: dict) -> dict:
+    """Not pre-registered: checks added after seeing the v11 results. stats: depth -> per-model stats,
+    smallest model first (the middle depth from v7)."""
+    out = {"scale_without_70m": {}, "pooled_rate_against_size_spearman": {}, "llm_one_job_share_real": {}}
+    for depth, per_model in stats.items():
+        out["scale_without_70m"][depth], out["pooled_rate_against_size_spearman"][depth] = {}, {}
+        for reader in READERS:
+            real = [s["rates"][reader]["real"] for s in per_model][1:]
+            verdict, rho = decide([r["share"] for r in real], [tuple(r["interval"]) for r in real])
+            out["scale_without_70m"][depth][reader] = {"verdict": verdict, "spearman": round(rho, 3)}
+            pooled = [s["rates"][reader]["pooled 50/50"]["share"] for s in per_model]
+            out["pooled_rate_against_size_spearman"][depth][reader] = round(
+                float(spearmanr(np.arange(len(pooled)), pooled).statistic), 3)
+        # Labels of real neurons; JSON turns a missing label's None key into "null".
+        labeled = [{k: v for k, v in s["llm_labels"]["real"].items() if k not in (None, "null")} for s in per_model]
+        out["llm_one_job_share_real"][depth] = [round(c.get("A", 0) / sum(c.values()), 3) for c in labeled]
+    return out
+
+
 def write_report(stats: dict, rows: dict, answers: dict, corpus: np.ndarray) -> None:
     lines = ["# v11 results per model\n",
              "Flag rates (unrelated mixed) by reader and unit type at the quarter and three-quarters depths, then, "
@@ -169,7 +189,9 @@ def main() -> None:
     by_depth = {depth: by_depth[depth] for depth in ALL_DEPTHS}
     for depth in DEPTHS:
         by_depth[depth]["retest"] = retest_stats(answers[depth])
-        explored = exploratory_stats(rows[depth], answers[depth])
+        # v7's checks assume every unit has a language-model label, so units without one are left out of them.
+        labeled = {model: [r for r in model_rows if r["llm"] is not None] for model, model_rows in rows[depth].items()}
+        explored = exploratory_stats(labeled, answers[depth])
         by_depth[depth]["retest"]["flag_kappa_interval"] = explored["retest"]["flag_kappa_interval"]
         by_depth[depth]["llm_labels_real"] = dict(Counter(r["llm_label"] for model_rows in rows[depth].values()
                                                           for r in model_rows if r["group"] == "real"))
@@ -179,14 +201,15 @@ def main() -> None:
                                                 [round(x, 4) for x in v] if isinstance(v, list) else v)
                                            for k, v in compare_depths(excess[a][reader], excess[b][reader]).items()}
                            for a, b in DEPTH_PAIRS} for reader in READERS}
-    summary = {"by_depth": by_depth, "depth_comparison": comparison, "checks": checks(rows, answers)}
+    summary = {"by_depth": by_depth, "depth_comparison": comparison, "checks": checks(rows, answers),
+               "exploratory": exploratory({d: v7_stats if d == "middle" else stats[d] for d in ALL_DEPTHS})}
     units_out = {depth: {model: [{k: (list(v) if isinstance(v, tuple) else v) for k, v in r.items()
                                   if k not in ("rows", "keys")} for r in model_rows]
                          for model, model_rows in rows[depth].items()} for depth in DEPTHS}
     (RESULTS_DIR / "classification_v11.json").write_text(json.dumps(
         {"summary": summary, "models": stats, "units": units_out}, indent=1))
     write_report(stats, rows, answers, corpus)
-    print(json.dumps({"depth_comparison": comparison, "checks": summary["checks"],
+    print(json.dumps({"depth_comparison": comparison, "checks": summary["checks"], "exploratory": summary["exploratory"],
                       **{d: {k: by_depth[d][k] for k in ("verdicts", "excess_over_models", "reader_dependence")}
                          for d in ALL_DEPTHS}}, indent=1))
 

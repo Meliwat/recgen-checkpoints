@@ -18,6 +18,7 @@ from recgen.rubric_v5 import MODELS
 from recgen.rubric_v11 import ALL_DEPTHS
 
 DEPTH_COLORS = {"quarter": "tab:green", "middle": "tab:gray", "three quarters": "tab:purple"}
+READER_COLORS = {"minilm": "tab:blue", "network": "tab:orange", "llm": "tab:red"}
 
 
 def readers_figure(stats: dict) -> None:
@@ -55,7 +56,7 @@ def power_figure(by_depth: dict) -> None:
         point = np.array([v["excess"] for v in e])
         low, high = np.array([v["interval"] for v in e]).T
         ax.errorbar(np.arange(len(ALL_DEPTHS)) + (i - 1) * 0.08, point, yerr=[point - low, high - point], marker="o",
-                    capsize=3, label=TITLES[reader])
+                    capsize=3, color=READER_COLORS[reader], label=TITLES[reader])
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_xticks(range(len(ALL_DEPTHS)), ALL_DEPTHS)
     ax.set_ylabel("50/50 pools minus real neurons, flag rate")
