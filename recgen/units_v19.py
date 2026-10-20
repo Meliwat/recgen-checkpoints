@@ -8,10 +8,11 @@ from recgen.rubric_v7 import MIXES, POOL_SIZE, pool_rows, related_pairs
 from recgen.rubric_v19 import random_pairs, real_units, retest_indices
 
 
-def build_units(model: str) -> list[dict]:
+def build_units(model: str, path=None) -> list[dict]:
     """Every unit of one model: id, kind, mix, the sampled neurons it pools (indices into the sample), and its
-    example rows (into the recording) and positions (window, position)."""
-    data = np.load(network_path(model))
+    example rows (into the recording) and positions (window, position). path: a recording in v19's format elsewhere
+    (v22's, of the same neurons on another corpus)."""
+    data = np.load(path or network_path(model))
     keys, rows = data["keys"], data["example_rows"]
     directions = data["weights"].astype(np.float64) * data["gain"].astype(np.float64)
     units = []

@@ -9,9 +9,10 @@ from recgen.config import CONTEXT_LEN, DATA_DIR, MODEL, N_WINDOWS, SEED
 CORPUS_PATH = DATA_DIR / "corpus.npy"
 
 
-def packed_stream(tokenizer) -> np.ndarray:
-    """Documents end to end with EOS separators, as in Pythia's training."""
-    docs = list(load_dataset("NeelNanda/pile-10k", split="train")["text"])
+def packed_stream(tokenizer, docs: list[str] | None = None) -> np.ndarray:
+    """Documents end to end with EOS separators, as in Pythia's training. docs defaults to the Pile sample."""
+    if docs is None:
+        docs = list(load_dataset("NeelNanda/pile-10k", split="train")["text"])
     stream = []
     for ids in tokenizer(docs)["input_ids"]:
         stream.extend(ids)

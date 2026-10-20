@@ -1956,6 +1956,118 @@ Everything in these tables was pre-registered or listed in the rubric before any
 
 `run_v21.sh` needs v5's `data/v5/` window maxima, v6's `data/v6/` recordings, `results/v7_llm_answers.json`, `results/v8_agent_answers.json`, `results/v16_answers.json`, v10's Sonnet cache in `data/v10/sonnet/`, v14's Opus agent cache in `data/v14/` (read only) and the `claude` CLI signed in. The readings are cached in `data/v21/` (not committed), and arm A's CLI costs are logged in `data/v21/spend.jsonl`. With the cache, it loads no Pythia model, makes no CLI calls and reruns in a few minutes. From scratch, the 2,190 readings took about 85 minutes, six at a time, with each Pythia model downloaded, used and deleted. Labels will differ somewhat, because Opus isn't deterministic (point 7).
 
+## v22 results
+
+v19 read GPT-2's neurons on the Pile, Pythia's training data. GPT-2 was trained on WebText, so the Pile is off-distribution for it, and Haiku flagged far fewer real GPT-2 neurons as unrelated mixed (8 to 25% by size) than Pythia neurons (33 to 47%). v22 reads the same GPT-2 neurons on WebText-like text, a sample of OpenWebText, and asks two things:
+
+- Do v19's results hold? **(a)** MiniLM barely tells two pooled neurons from one, while the network reader and Haiku do. **(b)** Neurons with a larger peak activation are flagged unrelated mixed less often.
+- Does Haiku's flag rate on real GPT-2 neurons rise toward Pythia's? If it does, v19's low rate reflected the corpus.
+
+It's a pre-registered rerun of v19 on a new corpus, with the same neurons. The rules are in [`recgen/rubric_v22.py`](recgen/rubric_v22.py), committed (`a805752`) before any GPT-2 activation was recorded on the new corpus and before any unit was read. Before that, the sample was downloaded and run through GPT-2's tokenizer only, to count it. Some earlier functions gained an optional argument whose default keeps their behavior (`corpus.packed_stream`, `gpt2_v19.float32_error`, `units_v19.build_units` and five functions in `analyze_v19`), and `read_v19`'s reading loop moved into a function that v22 calls too. Rerunning `analyze_v19` after these changes reproduced `classification_v19.json` byte for byte. No earlier result changed, and no rule was amended.
+
+### v22 method
+
+1. **Corpus.** [`stas/openwebtext-10k`](https://huggingface.co/datasets/stas/openwebtext-10k) on the HuggingFace hub: the first 10,000 documents of the OpenWebText corpus ([Gokaslan and Cohen 2019](https://skylion007.github.io/OpenWebTextCorpus/)), an open replication of WebText (pages linked from Reddit posts with at least 3 karma), published as a test subset. Its loading script was never run. v22 downloads the hub's own parquet conversion of it (revision `refs/convert/parquet`, 30 MB) into its own directory and checks the file's SHA-256. The full corpus's card on the hub ([`Skylion007/openwebtext`](https://huggingface.co/datasets/Skylion007/openwebtext)) gives its license as CC0-1.0; the subset's card names none, and the pages' text belongs to their authors. OpenWebText was built the way WebText was, so some of its pages are probably in GPT-2's training data. That's what "WebText-like" means here.
+2. **Windows.** v1's construction with GPT-2's tokenizer, nothing re-tokenized: the documents in the file's order, each followed by GPT-2's end-of-text token, packed into one stream of 11,253,054 tokens and cut into its 21,978 full 512-token windows, of which 4,096 are drawn with v1's seed and kept in stream order. So the corpus is v19's size (2.1M tokens), and 1,639 of its windows contain a document boundary. Window maxima ignore each window's first 32 positions, as before.
+3. **Neurons, readers and units: v19's.** Each model's 2,048 sampled neurons are read from v19's recordings rather than redrawn, so every unit holds the same neurons as in v19 and only their examples change: each neuron's 50 strongest OpenWebText windows. The readers are v19's, with the network reader's null recomputed from 1,024 random positions in the new windows. The units are v19's (per model: 100 real neurons, 50 pools of two random neurons at each mix, 50 related pools), and so are the 60 units read twice.
+4. **Recording checks.** Activations rebuilt from the stored residuals, and a float32 pass over the first 16 windows. v19's float32 pass ran on the CPU, which v19 found computes GPT-2 medium wrongly, so v22's runs on MPS, the recording's device.
+5. **Pre-registered tests.**
+   - **(a)** and **(b)** as v19 ran them, on the new examples. (a) holds if MiniLM's excess has an interval that includes 0 or stays below +10 points, and the network reader's and Haiku's intervals lie above 0. (b) holds if the network reader flags the top peak quartile less than the rest (interval below 0, negative Spearman correlation in all three models).
+   - **(c)** Haiku's flag rate on the 300 real neurons, OpenWebText minus the Pile, as a mean over the three sizes, with an interval from bootstrap draws that resample neurons with both of their readings. It's read against Haiku's rate on Pythia's real neurons at the sizes nearest GPT-2's (v7's 160M, 410M and 1B: 42%). If the interval lies above 0 and the OpenWebText rate closes at least half the gap from v19's 17% to 42%, "the corpus explains most of it"; above 0 but less than half, "part of it"; otherwise "not the corpus", and v19's low rate reflects something about GPT-2's neurons or the setup.
+   - **(d)** Each reader's (a) excess, OpenWebText minus the Pile, paired the same way over the same pools and real neurons.
+   - **Secondary:** everything v19 reported beside its tests; the network reader with token position projected out (the rule v19 chose post hoc, in [`recgen/position_v19.py`](recgen/position_v19.py), with 2 dimensions; pre-registered here); each reader's paired flag rates on real neurons, 50/50 pools and all sampled neurons; Haiku's label shares; the median coherence of a neuron's top 50; and v19's checks on what Haiku sees.
+6. **Spend guard:** $10 of CLI-reported cost.
+
+All 960 readings returned a valid label, from `claude-haiku-5-5` (v19's model): 3.7M input tokens, which the CLI reported as $1.16. Every answer is in [`results/v22_llm_answers.json`](results/v22_llm_answers.json).
+
+### What v22 found
+
+![v22 on OpenWebText](results/figures/v22_openwebtext.png)
+
+**(a) holds on OpenWebText.**
+
+| Reader | OpenWebText: 50/50 pools over real, mean of three sizes (95% interval) | small / medium / large | Pile, v19 | OpenWebText minus Pile, paired (d) |
+|---|---|---|---|---|
+| MiniLM | **+1** (-1 to +3) | 0 / +1 / +1 | -2 (-7 to +2) | +3 (-2 to +8) |
+| network | **+27** (+18 to +36) | +21 / +37 / +23 | +22 (+13 to +31) | +5 (-8 to +16) |
+| Haiku | **+14** (+7 to +22) | +19 / +14 / +9 | +22 (+14 to +31) | -8 (-18 to +1) |
+
+With token position projected out (secondary), the network reader's excess is +38 (+29 to +46), against +35 (+26 to +44) on the Pile.
+
+**(c) Haiku's real-neuron flag rate falls on OpenWebText: not the corpus.**
+
+| Haiku on real neurons | small | medium | large | mean of three sizes |
+|---|---|---|---|---|
+| flagged, OpenWebText | 7% | 10% | 13% | **10%** |
+| flagged, Pile (v19, same neurons) | 8% | 18% | 25% | 17% |
+| flagged on only one corpus: OpenWebText / Pile | 6 / 7 | 6 / 14 | 5 / 17 | |
+| change (points), paired interval | -1 (-8 to +6) | -8 (-16 to 0) | -12 (-21 to -4) | **-7.0** (-11.7 to -2.3) |
+
+Pythia's real neurons at the nearest sizes (v7, read on the Pile): 33%, 46% and 47%, a mean of 42%. OpenWebText moves Haiku's rate away from that, not toward it (-28% of the gap closed).
+
+**(b) holds for the network reader, and now for Haiku too.**
+
+| Reader | Neurons | Flagged, by peak quartile (weakest to strongest) | Top minus rest (points), models negative | Log-peak coefficient with controls | H1 / H2 | Pile (v19): top minus rest; coefficient |
+|---|---|---|---|---|---|---|
+| network | 6,144 | 47% / 55% / 48% / 26% | **-24** (-26.5 to -21.3), 3/3 | -0.37 (-0.43 to -0.30) | **yes** / yes | -22 (-24.3 to -19.2); -0.34 |
+| Haiku (real neurons) | 300 | 17% / 7% / 11% / 3% | **-8.5** (-14.1 to -2.4), 3/3 | -0.80 (-1.51 to -0.25) | yes / yes | -8.2 (-17.2 to +1.3); -0.40 |
+| MiniLM (secondary) | 6,144 | 0.4% / 0.9% / 1.6% / 0.8% | -0.2 (-0.7 to +0.3), 0/3 | +0.10 (-0.27 to +0.41) | no / no | -0.3; +0.13 |
+
+Points 1 to 7 are pre-registered (1 to 3 the tests, 4 to 7 secondary). Sentences marked "(interpretation)", the comparison of Haiku's effect sizes in point 3, and the readings of mechanism under "What this does and doesn't show" go beyond the tests. The two related-pool counts in point 4 were corrected after an independent review of this write-up. Numbers are in [`results/classification_v22.json`](results/classification_v22.json), with v19's beside them where they're compared.
+
+1. **(a): the same pattern as on the Pile.** MiniLM's excess is +1 point, within a point of zero at every size. The network reader flags 50/50 pools 27 points more than real neurons (+21 to +37 by size), and Haiku 14 points more, with an interval above zero, so (a) holds. Against the Pile, paired over the same units (d), no reader's excess changes clearly: the network reader's moves +5 points and MiniLM's +3, and Haiku's -8 (-18 to +1), all with intervals that include zero. Haiku's excess is lower by size too (+19, +14, +9), but with 50 pools per model that's not tested. The three-size means hide larger moves within models: the network reader's excess goes from +35 to +21 in small and from +10 to +37 in medium. MiniLM's result here is close to a floor: it flags 0 to 4% of every kind of unit in every model, and 0.9% of all sampled neurons against 4.8% on the Pile. On OpenWebText's random contexts, its fixed unrelated cutoff (similarity 0.1) sits at the 73rd percentile of its null, against the 81st on the Pile's. So random OpenWebText contexts are more alike to MiniLM, and (interpretation, not measured on facets) fewer pairs of facets would fall below the fixed cutoff.
+2. **(c): Haiku calls GPT-2's neurons cleaner still on WebText-like text.** On the same 300 real neurons, its flag rate falls from 17% to 10%, -7.0 points (-11.7 to -2.3), so the pre-registered reading is "not the corpus": the low rate in v19 doesn't come from reading GPT-2 on off-distribution text. The corpus does move the rate, but down. The fall is in medium (-8, interval -16 to 0) and large (-12, -21 to -4); small is unchanged (7% and 8%). 38 neurons are flagged only on the Pile, 17 only on OpenWebText. By size, Haiku calls 86%, 80% and 73% of the real neurons one job (Pile: 87%, 72%, 69%). It flags fewer 50/50 pools too, 24% against 39% (-15 points, -24 to -7), which is why its excess is lower in point 1. The network reader doesn't see this change. It flags 42.3% of the real neurons on both corpora (paired change 0, -7 to +7) and 44.1% of all sampled neurons against 42.8%, and the median coherence of a neuron's top 50 (v6's top-pair percentile) is 89, 81 and 83 by size, against 90, 83 and 84 on the Pile. So in the network's own representation, judged against random text of the same corpus, a neuron's OpenWebText examples are about as varied as its Pile examples, while Haiku reads them as more alike. The three-size means hide some movement by model here too: the network reader flags 49% of small's real neurons against 41%, and 33% of large's against 40%.
+3. **(b): the network reader flags the strongest quarter of neurons 24 points less than the rest,** in all three models (Spearman -0.25, -0.14 and -0.11), close to its -22 on the Pile, and log peak's coefficient stays negative with the controls (H2). One neuron in large with undefined peakedness is left out of H2. With token position projected out, the top quartile is flagged 28 points less (-30.2 to -25.8), in all three models. Haiku's H1 and H2 hold on OpenWebText where they didn't on the Pile. In points, its effect is the same size (-8.5 against -8.2), with a narrower interval, as expected (not tested) when fewer neurons are flagged. Relative to its lower flag rate, it's larger: the top quartile is flagged 3% of the time against 12% for the rest, where the Pile gave 11% against 19%, and log peak's H2 coefficient is -0.80 against -0.40, with overlapping intervals. So the effect is clearer on OpenWebText; whether it's stronger isn't settled. As on the Pile, coherence carries much of it: adding the top-pair percentile to H2's regression gives coherence a coefficient of -0.82 (-1.53 to -0.22) for Haiku and moves log peak's by +0.56 (+0.16 to +1.01), to -0.23 (-1.16 to +0.51).
+4. **Per-model tests and agreement are weaker than on the Pile.** v7's per-model power test (+20 points with separated intervals) passes for the network reader in 1 of 3 models and for Haiku and MiniLM in none (Pile: 1, 2, 0). Related pools are flagged at least 20 points less than 50/50 pools for the network reader in 2 of 3 models, Haiku in 1 and MiniLM in none (Pile: 2, 2, 0). The JSON's `models_specific` says 1 and 0: two of the gaps are exactly 20 points (network in small, Haiku in medium) and fail v7's `>=` test by floating-point rounding (0.19999999999999996). That inherited bug in `rubric_v7.is_specific` is left as is, since fixing it is outside v22. 44 to 50% of related pools contain two examples from one window, as before. On real neurons, kappa between the network reader and Haiku is 0.06, 0.15 and 0.09 (Pile: 0.22, 0.11, 0.36), against ceilings of 0.15, 0.24 and 0.47 that their flag rates allow.
+5. **Haiku's second readings agree somewhat less than on the Pile's examples.** The same 60 units, read twice with their OpenWebText examples, get the same label 78% of the time and the same flag 88% (kappa 0.62, 0.35 to 0.86), against 0.87 (0.71 to 1.00) on the Pile. The intervals overlap, and kappa depends on how many units are flagged.
+6. **Some of v19's neurons don't meet v5's rule on OpenWebText, and stay in.** By v5's rule, 172, 88 and 43 of the 2,048 sampled neurons in small, medium and large are ineligible here: all dense (strong in over half the windows), except 3 near-dead in large. No neuron's peak is non-positive, so none leaves (b). In all, 2,685, 3,842 and 4,949 of each layer's neurons are eligible on OpenWebText (Pile: 2,896, 3,960, 5,039).
+7. **What Haiku sees changes little.** In real units, 0.1 to 0.9% of examples share their 9-token context with another (Pile: 1.0 to 1.9%), the most common firing token is a median 14 to 22% of a unit's examples (Pile: 16 to 22%), and prompts average 7,385 to 7,387 characters (Pile: 6,850 to 7,030), 5 to 8% longer. Whether the longer prompts matter isn't tested.
+
+**Recording checks.**
+
+- Activations rebuilt from the stored residuals match the recorded ones within 0.0043, against median peaks of 3.1 to 3.5 (Pile: 0.0038, and 3.0 to 3.4).
+- Float32 on MPS matches the float16 window maxima within 0.014, 0.015 and 0.008 by size.
+- MiniLM's null on OpenWebText's contexts puts v1's merge level at the 97.8th percentile and the unrelated cutoff at the 73.4th (Pile: 98.3 and 81.2; frozen: 98.2 and 81.0). They don't change MiniLM's levels, which are fixed similarities.
+- The residual's mean makes up 41%, 66% and 40% of its squared norm by size (Pile: 41%, 64%, 37%).
+- Token position reaches the network reader as on the Pile: over pairs of random positions, similarity correlates -0.58, -0.65 and -0.60 with their distance apart (Pile: -0.53, -0.56, -0.52), and position explains 10%, 7% and 5% of the residual's squared norm. Projecting out 2 position dimensions changes 20% of the network reader's flags, and 6 random directions 1.4%.
+- All 960 readings' prompt hashes match the prompts the committed code builds for their units.
+
+### What this does and doesn't show
+
+- **v19's two findings aren't artifacts of reading GPT-2 on off-distribution text.** On WebText-like text, the network reader and Haiku still see two pooled neurons, and the network reader still flags strongly firing neurons less. MiniLM's (a) result holds too, but near a floor, so it says little here. The network reader's three-size means barely move between corpora, though per-model numbers move more (point 1).
+- **Off-distribution Pile text isn't what kept Haiku's GPT-2 flag rate low.** The corpus does matter, but on OpenWebText the rate is lower still (10% against 17%), and further from the 42% Haiku gave Pythia's neurons on the Pile. What's left is what this design holds fixed: GPT-2's neurons themselves, its tokenizer (snippets are cut in GPT-2 tokens), and the model family. Holding the corpus fixed and changing the family, by reading Pythia's neurons on the same OpenWebText windows, would separate those.
+- **Haiku's flag rates depend on the text.** For the same neurons and pools, it flags fewer of both on OpenWebText. Its excess is 14 points against 22, though that change (d) isn't distinguishable from zero. One reading, not tested here: OpenWebText is mostly news and blog prose, more uniform than the Pile's mix of code, papers and forums (MiniLM's null shows random OpenWebText contexts are more alike), so two neurons' examples more often read as one kind of thing. The network reader judges each unit against random text of its own corpus, which would make it robust to that; Haiku has no such calibration. Either way, a reader's cleanliness rate on one corpus doesn't transfer to another, and its power might not either.
+
+### What's still shaky
+
+- **The sample isn't a random draw from OpenWebText.** It's the first 10,000 documents, from the corpus's first archive files (by the subset's build notes), so its topics and dates may be narrower than WebText's.
+- **Which OpenWebText pages are in GPT-2's training data isn't known.** Some neurons' top examples could be text GPT-2 saw in training, which may differ from both unseen web text and the Pile.
+- **The neurons were sampled on the Pile.** 303 of the 6,144 are dense or near-dead on OpenWebText (point 6). Keeping them is what makes the comparison paired, but they're not a sample of OpenWebText's eligible neurons.
+- **Haiku's (b) pass comes with the same effect in points as on the Pile, and a narrower interval** (point 3). Its 300 neurons have a 10% flag rate, so 30 are flagged.
+- **MiniLM's result is close to a floor** (point 1). A reader that flags almost nothing passes (a)'s test for MiniLM by default, so this corpus adds little about MiniLM.
+- **Haiku's retest agreement is lower on these units** (kappa 0.62 against 0.87 on the same units' Pile examples, with overlapping intervals), and its per-model tests are weak: 50 pools and 100 real neurons per model.
+- **v7's specificity test compares floats with `>=`,** so a gap of exactly 20 points can fail it (point 4). Two v22 counts are affected; v19's aren't.
+- **Token position still reaches the network reader** (recording checks). The position-removed reader, pre-registered as secondary here, gives the same verdicts with a larger excess (+38).
+- **Haiku runs through the `claude` CLI,** which adds a little hidden context: the working directory, the platform, the date and an account notice.
+- **Scope:** three GPT-2 sizes, the middle layer, one 2.1M-token sample of one web corpus.
+
+### v22 files and reproduce
+
+| Path | What it is |
+|---|---|
+| [`recgen/rubric_v22.py`](recgen/rubric_v22.py) | Pre-registered corpus, neurons, tests (c) and (d) and their reading |
+| [`recgen/gpt2_v22.py`](recgen/gpt2_v22.py) | The OpenWebText download and windows, and v19's recording of v19's neurons on them |
+| [`recgen/read_v22.py`](recgen/read_v22.py) | Haiku readings of v19's units with their new examples, through `read_v19.read_all`, with a $10 spend guard |
+| [`recgen/analyze_v22.py`](recgen/analyze_v22.py), [`recgen/plots_v22.py`](recgen/plots_v22.py) | v19's tests on the new recording, the paired comparison with v19 and the secondary results; the figure |
+| [`results/classification_v22.json`](results/classification_v22.json), [`results/v22_llm_answers.json`](results/v22_llm_answers.json) | Results with per-unit and per-neuron flags; every Haiku reading with its prompt hash and cost |
+| `tests/test_rubric_v22.py`, `tests/test_gpt2_v22.py`, `tests/test_analyze_v22.py` | Tests for the rules, the corpus construction and the paired comparison |
+
+```bash
+./run_v22.sh
+```
+
+`run_v22.sh` needs v19's recordings in `data/v19/` (for the sampled neurons), `results/classification_v19.json`, `results/v7_llm_answers.json` and the `claude` CLI signed in. From scratch, it downloads the 30 MB sample once and GPT-2's three sizes one at a time (5.3 GB in all), deleting each after use. In this run, recording took 47 minutes (06:04 to 06:51), the 960 readings ran in three batches between 06:10 and 07:00 (small's and medium's while the larger models recorded), and the analysis took 4.5 minutes, plus 3 for MiniLM's embeddings. It caches 1.0 GB in `data/v22/`. With that cache, it makes no model calls and reruns in about 4.5 minutes, leaving `git status` clean.
+
 ## Files
 
 | Path | What it is |

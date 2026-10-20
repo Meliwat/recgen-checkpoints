@@ -55,21 +55,23 @@ class GPT2MiniLM(MiniLM):
         self.null = pair_similarities(random_vectors.astype(np.float64))
 
 
-def load_minilm(corpus: np.ndarray, example_keys: list[np.ndarray]) -> GPT2MiniLM:
-    """MiniLM embeddings of every example context (float16, as v5's cache) and of the random positions."""
+def load_minilm(corpus: np.ndarray, example_keys: list[np.ndarray], path=MINILM_PATH) -> GPT2MiniLM:
+    """MiniLM embeddings of every example context (float16, as v5's cache) and of the random positions, cached at
+    path."""
     keys = np.unique(np.concatenate([k.reshape(-1, 2) for k in example_keys]), axis=0)
-    if not (MINILM_PATH.exists() and np.array_equal(np.load(MINILM_PATH)["keys"], keys)):
+    if not (path.exists() and np.array_equal(np.load(path)["keys"], keys)):
         vectors = np.concatenate([embed([context_text(corpus, int(w), int(p)) for w, p in keys[i:i + EMBED_CHUNK]])
                                   for i in range(0, len(keys), EMBED_CHUNK)])
         random = embed([context_text(corpus, int(w), int(p)) for w, p in random_positions(len(corpus))])
-        np.savez(MINILM_PATH, keys=keys, vectors=vectors.astype(np.float16), random=random)
-    cached = np.load(MINILM_PATH)
+        np.savez(path, keys=keys, vectors=vectors.astype(np.float16), random=random)
+    cached = np.load(path)
     return GPT2MiniLM(keys, cached["vectors"], cached["random"])
 
 
-def covariates(model: str, neurons: np.ndarray, corpus: np.ndarray) -> dict[int, dict]:
-    """v12's covariates for each sampled neuron, with log peak relative to the layer's median sampled peak."""
-    data = np.load(maxima_path(model))
+def covariates(model: str, neurons: np.ndarray, corpus: np.ndarray, maxima=None) -> dict[int, dict]:
+    """v12's covariates for each sampled neuron, with log peak relative to the layer's median sampled peak. maxima: window
+    maxima in v19's format elsewhere (v22's, on another corpus)."""
+    data = np.load(maxima or maxima_path(model))
     window_max, window_pos = data["max"], data["pos"]
     stats = {}
     for n in map(int, neurons):
@@ -90,22 +92,24 @@ def network_neuron(layer: Layer, s: int) -> dict:
             "coherence": percentile_rank(float(np.median(pair_similarities(units))), null)}
 
 
-def neuron_rows(model: str, layer: Layer, minilm: GPT2MiniLM, corpus: np.ndarray) -> list[dict]:
-    """Every sampled neuron with its covariates, peak quartile and both detectors' flags."""
-    neurons, keys, _ = sampled_top_examples(model)
+def neuron_rows(model: str, layer: Layer, minilm: GPT2MiniLM, corpus: np.ndarray, examples=None, maxima=None) -> list[dict]:
+    """Every sampled neuron with its covariates, peak quartile and both detectors' flags. examples and maxima: the
+    sampled neurons' top examples and the window maxima of a recording elsewhere (v22's)."""
+    neurons, keys, _ = examples or sampled_top_examples(model)
     assert np.array_equal(neurons, layer.neurons) and np.array_equal(keys, layer.keys[layer.rows])
     with ThreadPoolExecutor(THREADS) as pool:
         network = list(pool.map(lambda s: network_neuron(layer, s), range(len(neurons))))
-    stats = covariates(model, neurons, corpus)
+    stats = covariates(model, neurons, corpus, maxima)
     quartile = quartiles(np.array([stats[int(n)]["peak"] for n in neurons]))
     return [{"model": model, "neuron": int(n), "quartile": int(quartile[s]), **stats[int(n)], **network[s],
              "minilm": float(minilm.detect(keys[s])["unrelated_mixed"])} for s, n in enumerate(neurons)]
 
 
-def unit_rows(model: str, layer: Layer, minilm: GPT2MiniLM, answers: dict, neurons: list[dict]) -> list[dict]:
-    """Each unit of one model with every reader's flag (None where Haiku gave no label), as analyze_v7."""
+def unit_rows(model: str, layer: Layer, minilm: GPT2MiniLM, answers: dict, neurons: list[dict], path=None) -> list[dict]:
+    """Each unit of one model with every reader's flag (None where Haiku gave no label), as analyze_v7. path: the
+    recording the units' examples come from, if not v19's."""
     rows = []
-    for unit in build_units(model):
+    for unit in build_units(model, path):
         units, _, levels = layer.embedded(PRIMARY, unit["rows"], list(unit["neurons"]))
         network = bool(detect(units, levels["merge"][MERGE_PERCENTILE], levels["unrelated"])["unrelated_mixed"])
         if unit["kind"] == "real":  # the same computation as the neuron's own flag
@@ -177,10 +181,10 @@ def retest_interval(answers: dict) -> list[float]:
     return [round(float(x), 3) for x in np.nanpercentile(kappas, [2.5, 97.5])]
 
 
-def layer_checks(model: str, layer: Layer, neurons: list[dict]) -> dict:
-    window_max = np.load(maxima_path(model))["max"].astype(np.float32)
+def layer_checks(model: str, layer: Layer, neurons: list[dict], maxima=None, network=None) -> dict:
+    window_max = np.load(maxima or maxima_path(model))["max"].astype(np.float32)
     peak = window_max.max(axis=0)
-    data = np.load(network_path(model))
+    data = np.load(network or network_path(model))
     return {"layer": layer.layer, "n_layers": layer.n_layers, "width": window_max.shape[1],
             "eligible": len(eligible(window_max)), "near_dead": int((peak < DEAD_FRACTION * np.median(peak)).sum()),
             "dense": int(((window_max > DENSE_STRONG_FRACTION * peak).mean(axis=0) > DENSE_MAX_WINDOWS).sum()),
