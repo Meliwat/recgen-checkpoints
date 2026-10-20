@@ -55,21 +55,21 @@ def cached_cost(directories) -> float:
     return sum(json.loads(f.read_text()).get("cost_usd") or 0 for d in directories for f in d.glob("*.json"))
 
 
-def main() -> None:
-    corpus = load_gpt2_corpus()
-    LLM_DIR.mkdir(parents=True, exist_ok=True)
-    RETEST_DIR.mkdir(parents=True, exist_ok=True)
+def read_all(units: dict[str, list[dict]], corpus: np.ndarray, llm_dir, retest_dir, guard: float) -> dict:
+    """Every unit of each model, and the retested ones again, read or taken from the caches in llm_dir and retest_dir,
+    with no new reading once the reported spend reaches guard. The answers, in v19_llm_answers.json's format."""
+    llm_dir.mkdir(parents=True, exist_ok=True)
+    retest_dir.mkdir(parents=True, exist_ok=True)
     jobs = []
-    for model in MODELS:
-        units = build_units(model)
-        again = set(retest_ids(units, model))
-        for unit in units:
+    for model, model_units in units.items():
+        again = set(retest_ids(model_units, model))
+        for unit in model_units:
             text = unit_prompt(unit, corpus)
-            jobs.append((unit["id"], text, LLM_DIR))
+            jobs.append((unit["id"], text, llm_dir))
             if unit["id"] in again:
-                jobs.append((unit["id"], text, RETEST_DIR))
-    budget = Budget(SPEND_GUARD_USD, cached_cost((LLM_DIR, RETEST_DIR)))
-    print(f"{len(jobs)} readings ({sum(d == RETEST_DIR for _, _, d in jobs)} retests); "
+                jobs.append((unit["id"], text, retest_dir))
+    budget = Budget(guard, cached_cost((llm_dir, retest_dir)))
+    print(f"{len(jobs)} readings ({sum(d == retest_dir for _, _, d in jobs)} retests); "
           f"${budget.spent:.2f} already spent", flush=True)
 
     def job(args):
@@ -87,7 +87,7 @@ def main() -> None:
                       f"{sum(r is None or r['label'] is None for r in records)} without a label", flush=True)
     answers = {"first": {}, "retest": {}, "not_read": []}
     for (unit_id, _, directory), record in zip(jobs, records):
-        part = "first" if directory == LLM_DIR else "retest"
+        part = "first" if directory == llm_dir else "retest"
         if record is None:
             answers["not_read"].append(f"{part} {unit_id}")
             continue
@@ -98,6 +98,12 @@ def main() -> None:
                                 ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")),
             "reply": record["reply"]}
     answers["cost_usd"] = round(sum(a["cost_usd"] or 0 for part in ("first", "retest") for a in answers[part].values()), 4)
+    return answers
+
+
+def main() -> None:
+    corpus = load_gpt2_corpus()
+    answers = read_all({model: build_units(model) for model in MODELS}, corpus, LLM_DIR, RETEST_DIR, SPEND_GUARD_USD)
     ANSWERS_PATH.write_text(json.dumps(answers, indent=1))
     print(f"done: ${answers['cost_usd']:.2f}; {len(answers['not_read'])} not read (spend guard), "
           f"{sum(a['label'] is None for a in answers['first'].values())} first readings without a label", flush=True)
