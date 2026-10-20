@@ -9,19 +9,26 @@ from recgen.config import CONTEXT_LEN, DATA_DIR, MODEL, N_WINDOWS, SEED
 CORPUS_PATH = DATA_DIR / "corpus.npy"
 
 
-def build_corpus() -> np.ndarray:
-    """Pack documents end to end with EOS separators, as in Pythia's training,
-    cut the stream into fixed windows, and keep a seeded random subset."""
-    tokenizer = AutoTokenizer.from_pretrained(MODEL)
+def packed_stream(tokenizer) -> np.ndarray:
+    """Documents end to end with EOS separators, as in Pythia's training."""
     docs = list(load_dataset("NeelNanda/pile-10k", split="train")["text"])
     stream = []
     for ids in tokenizer(docs)["input_ids"]:
         stream.extend(ids)
         stream.append(tokenizer.eos_token_id)
-    n_full = len(stream) // CONTEXT_LEN
-    windows = np.array(stream[: n_full * CONTEXT_LEN], dtype=np.int32).reshape(n_full, CONTEXT_LEN)
-    keep = np.sort(np.random.default_rng(SEED).choice(n_full, size=N_WINDOWS, replace=False))
-    return windows[keep]
+    return np.array(stream, dtype=np.int32)
+
+
+def window_starts(n_tokens: int) -> np.ndarray:
+    """Where each corpus window starts in the stream: a seeded random subset of its full windows, in order."""
+    n_full = n_tokens // CONTEXT_LEN
+    return np.sort(np.random.default_rng(SEED).choice(n_full, size=N_WINDOWS, replace=False)) * CONTEXT_LEN
+
+
+def build_corpus() -> np.ndarray:
+    """Cut the packed stream into fixed windows and keep a seeded random subset."""
+    stream = packed_stream(AutoTokenizer.from_pretrained(MODEL))
+    return np.stack([stream[start:start + CONTEXT_LEN] for start in window_starts(len(stream))])
 
 
 def load_corpus() -> np.ndarray:

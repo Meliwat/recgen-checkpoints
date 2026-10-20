@@ -100,8 +100,8 @@ def detect(units: np.ndarray, merge: float, unrelated: float, min_size: int = MI
 class Layer:
     """One model and depth's recorded residuals, and the null of each embedding."""
 
-    def __init__(self, model: str, depth: str):
-        data = np.load(v6_path(model, depth))
+    def __init__(self, model: str, depth: str, path=None):
+        data = np.load(path or v6_path(model, depth))  # path: a recording in v6's format elsewhere (v19's GPT-2)
         self.layer, self.n_layers = int(data["layer"]), int(data["n_layers"])
         self.z, self.keys = data["z"], data["keys"]
         self.neurons, self.rows = data["neurons"], data["example_rows"]
