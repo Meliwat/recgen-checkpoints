@@ -68,7 +68,7 @@ def power_figure(by_depth: dict) -> None:
             ax.plot(x, by_depth[depth]["excess_per_model"][reader], marker="o", color=DEPTH_COLORS[depth], label=depth)
         ax.axhline(0, color="black", linewidth=0.8)
         ax.set_xscale("log")
-        ax.set_xticks(x, MODELS)
+        ax.set_xticks(x, MODELS, rotation=45)
         ax.minorticks_off()
         ax.set_ylim(-0.2, 0.7)
         ax.set_xlabel("Pythia model")

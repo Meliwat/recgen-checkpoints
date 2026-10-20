@@ -85,9 +85,24 @@ def middle_from_v7() -> tuple[dict, list[dict], dict]:
     return v7["units"], v7["models"], v7["summary"]["verdicts"]
 
 
-def checks(rows: dict, answers: dict) -> dict:
-    """Real-neuron flags against v5's and v6's, the resolved model, and readings missing a label."""
-    v6 = json.loads((RESULTS_DIR / "classification_v6.json").read_text())
+def with_llm_labels(rows: dict) -> dict:
+    """Only the units the language model labeled, for v7's checks, which assume every unit has a label.
+    rows: model -> units."""
+    return {model: [r for r in model_rows if r["llm"] is not None] for model, model_rows in rows.items()}
+
+
+def rounded(value):
+    """A float, or a list of floats, to 4 decimals for the results file; anything else unchanged."""
+    if isinstance(value, float):
+        return round(value, 4)
+    if isinstance(value, list):
+        return [round(x, 4) for x in value]
+    return value
+
+
+def checks(rows: dict, answers: dict, v6: dict) -> dict:
+    """Real-neuron flags against v5's and v6's, the resolved model, and readings missing a label.
+    v6: results/classification_v6.json."""
     layers = {(s["model"], s["depth"]): s for s in v6["layers"]}
     out = {"real_flags_differ_from_v5_v6": {}, "subsample_vs_full_sample": {}, "llm_missing": {}}
     for depth in DEPTHS:
@@ -120,10 +135,13 @@ def checks(rows: dict, answers: dict) -> dict:
     return out
 
 
-def exploratory(stats: dict) -> dict:
-    """Not pre-registered: checks added after seeing the v11 results. stats: depth -> per-model stats,
-    smallest model first (the middle depth from v7)."""
-    out = {"scale_without_70m": {}, "pooled_rate_against_size_spearman": {}, "llm_one_job_share_real": {}}
+def exploratory(stats: dict, by_depth: dict, full_sample: dict) -> dict:
+    """Not pre-registered: checks added after seeing the v11 results, and (the full-sample reader
+    dependence) after an independent review of them. stats: depth -> per-model stats, smallest model
+    first (the middle depth from v7); by_depth: the per-depth summaries; full_sample: v6's decisions,
+    which hold v5's MiniLM and v6's network verdicts on their full samples of about 2,048 neurons per model."""
+    out = {"scale_without_70m": {}, "pooled_rate_against_size_spearman": {}, "llm_one_job_share_real": {},
+           "reader_dependence_with_full_samples": {}}
     for depth, per_model in stats.items():
         out["scale_without_70m"][depth], out["pooled_rate_against_size_spearman"][depth] = {}, {}
         for reader in READERS:
@@ -136,6 +154,11 @@ def exploratory(stats: dict) -> dict:
         # Labels of real neurons; JSON turns a missing label's None key into "null".
         labeled = [{k: v for k, v in s["llm_labels"]["real"].items() if k not in (None, "null")} for s in per_model]
         out["llm_one_job_share_real"][depth] = [round(c.get("A", 0) / sum(c.values()), 3) for c in labeled]
+        decision = full_sample[f"{depth}: unrelated_mixed"]
+        out["reader_dependence_with_full_samples"][depth] = reader_dependence(
+            {"minilm": decision["v5"]["verdict"], "network": decision["v6"]["verdict"],
+             "llm": by_depth[depth]["verdicts"]["llm"]["scale"]},
+            {r: by_depth[depth]["excess_over_models"][r]["interval"] for r in READERS})
     return out
 
 
@@ -189,20 +212,19 @@ def main() -> None:
     by_depth = {depth: by_depth[depth] for depth in ALL_DEPTHS}
     for depth in DEPTHS:
         by_depth[depth]["retest"] = retest_stats(answers[depth])
-        # v7's checks assume every unit has a language-model label, so units without one are left out of them.
-        labeled = {model: [r for r in model_rows if r["llm"] is not None] for model, model_rows in rows[depth].items()}
-        explored = exploratory_stats(labeled, answers[depth])
+        explored = exploratory_stats(with_llm_labels(rows[depth]), answers[depth])
         by_depth[depth]["retest"]["flag_kappa_interval"] = explored["retest"]["flag_kappa_interval"]
         by_depth[depth]["llm_labels_real"] = dict(Counter(r["llm_label"] for model_rows in rows[depth].values()
                                                           for r in model_rows if r["group"] == "real"))
         # v7's post-review checks, repeated (its own excess is replaced by the pre-registered one above).
         by_depth[depth]["v7_review_checks"] = {k: v for k, v in explored.items() if k not in ("pooled_excess", "retest")}
-    comparison = {reader: {f"{a} vs {b}": {k: (round(v, 4) if isinstance(v, float) else
-                                                [round(x, 4) for x in v] if isinstance(v, list) else v)
-                                           for k, v in compare_depths(excess[a][reader], excess[b][reader]).items()}
+    comparison = {reader: {f"{a} vs {b}": {k: rounded(v) for k, v in
+                                           compare_depths(excess[a][reader], excess[b][reader]).items()}
                            for a, b in DEPTH_PAIRS} for reader in READERS}
-    summary = {"by_depth": by_depth, "depth_comparison": comparison, "checks": checks(rows, answers),
-               "exploratory": exploratory({d: v7_stats if d == "middle" else stats[d] for d in ALL_DEPTHS})}
+    v6 = json.loads((RESULTS_DIR / "classification_v6.json").read_text())
+    all_stats = {d: v7_stats if d == "middle" else stats[d] for d in ALL_DEPTHS}
+    summary = {"by_depth": by_depth, "depth_comparison": comparison, "checks": checks(rows, answers, v6),
+               "exploratory": exploratory(all_stats, by_depth, v6["summary"]["decisions"])}
     units_out = {depth: {model: [{k: (list(v) if isinstance(v, tuple) else v) for k, v in r.items()
                                   if k not in ("rows", "keys")} for r in model_rows]
                          for model, model_rows in rows[depth].items()} for depth in DEPTHS}
