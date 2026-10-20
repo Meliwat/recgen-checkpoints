@@ -4,6 +4,7 @@ data/v13/'s final checkpoint, and v6's and v13's results. Writes results/classif
 """
 
 import json
+import pickle
 from collections import Counter
 
 import numpy as np
@@ -13,7 +14,7 @@ from recgen.analyze_v6 import Layer
 from recgen.analyze_v13 import final_adjacency
 from recgen.candidates_v13 import load_candidates as load_v13_candidates
 from recgen.candidates_v13 import v13_path
-from recgen.candidates_v23 import RECORDING_PATH, layer_quartiles, load_candidates
+from recgen.candidates_v23 import RECORDING_PATH, V23_DIR, layer_quartiles, load_candidates
 from recgen.config import RESULTS_DIR
 from recgen.rubric_v23 import (
     DEPTH, MIN_FACETS, MODEL, STEP, control_reading, facet_count_strata, facet_size_strata, neuron_measures,
@@ -21,6 +22,16 @@ from recgen.rubric_v23 import (
 )
 
 PURPOSE = {"mlp": 0, "heads": 100}  # bootstrap seeds: [SEED, 23, PURPOSE[kind] + test number]
+SUMMARY_CACHE = V23_DIR / "step143000_summary.pkl"
+
+
+def final_summary(candidates: list[dict]) -> dict:
+    """analyze_v4.step_summary on v23's recording (about 15 minutes), cached in data/v23/."""
+    if SUMMARY_CACHE.exists() and SUMMARY_CACHE.stat().st_mtime > RECORDING_PATH.stat().st_mtime:
+        return pickle.loads(SUMMARY_CACHE.read_bytes())
+    final = step_summary(STEP, candidates, path=RECORDING_PATH)
+    SUMMARY_CACHE.write_bytes(pickle.dumps(final))
+    return final
 
 
 def neuron_rows(candidates: list[dict], final: dict) -> list[dict]:
@@ -158,7 +169,7 @@ def rounded(rows: list[dict]) -> list[dict]:
 
 def main() -> None:
     candidates = load_candidates()
-    final = step_summary(STEP, candidates, path=RECORDING_PATH)
+    final = final_summary(candidates)
     rows = neuron_rows(candidates, final)
     summary = {"neurons_by_quartile": eligible_counts() | {"selected": [sum(r["quartile"] == k for r in rows) for k in range(4)]},
                "facets": len([s for r in rows for s in r["facet_sizes"]]), "pairs": sum(len(r["mlp"]["overlaps"]) for r in rows),
