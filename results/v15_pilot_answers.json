@@ -20,7 +20,7 @@
    "log_peak": [
     0.9886929894719407
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 272,
@@ -961,7 +961,7 @@
    "log_peak": [
     -0.25251815999411403
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 3563,
@@ -1905,7 +1905,7 @@
     -0.12623974567460688,
     1.653773726254152
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 184,
@@ -2909,7 +2909,7 @@
     -0.19375509231470908,
     -0.10497072808711447
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 104,
@@ -3913,7 +3913,7 @@
     1.2664038431239424,
     1.2375093771242274
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 1663,
@@ -4922,7 +4922,7 @@
     0.8654774699903297,
     0.7720556419804692
    ],
-   "retest": false,
+   "retested": false,
    "held_out": [
     {
      "rank": 192,

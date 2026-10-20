@@ -29,7 +29,7 @@ def fake_answers(pools_covered: bool) -> dict:
                          for t, d, s in zip(truth, drivers, strata)]
             unit_id = f"{model}:{group.split()[0]}:{i}"
             units[unit_id] = {
-                "model": model, "group": group, "neuron_ids": [i], "log_peak": [float(i)],
+                "model": model, "group": group, "neuron_ids": [i], "log_peak": [float(i)], "retested": i in (0, 4),
                 "held_out": [{"value": t, "stratum": s, "driver": d} for t, s, d in zip(truth, strata, drivers)],
                 "first": {**reading(predicted, "dates or times" if group != "real" else "dates"),
                           "judge": {"parsed": group != "real", "attempts": [{}], "models": ["j"], "cost_usd": 0.0,

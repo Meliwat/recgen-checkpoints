@@ -137,7 +137,7 @@ def units_of(model: str, corpus: np.ndarray, pilot: bool = False) -> list[dict]:
         out.append({"id": unit["id"], "model": model, "kind": unit["kind"],
                     "group": "pooled 50/50" if unit["kind"] == "pooled" else unit["kind"],
                     "neurons": [int(s) for s in unit["neurons"]], "neuron_ids": view.neuron_ids,
-                    "log_peak": [float(np.log(p / median_peak)) for p in peaks], "retest": unit["id"] in again,
+                    "log_peak": [float(np.log(p / median_peak)) for p in peaks], "retested": unit["id"] in again,
                     "explainer_prompt": explainer_prompt(shown_lines(view)), "held_out": held_out(view, window_max)})
     return out
 
@@ -174,7 +174,7 @@ def main() -> None:
                                                 for f in V15_DIR.rglob("*.json")) if V15_DIR.exists() else 0.0)
     corpus = load_corpus()
     units = [u for model in ([PILOT_MODEL] if args.pilot else MODELS) for u in units_of(model, corpus, args.pilot)]
-    readings = [(u, reading) for reading in READINGS for u in units if reading == "first" or u["retest"]]
+    readings = [(u, reading) for reading in READINGS for u in units if reading == "first" or u["retested"]]
     suffix = {"first": "", "retest": "_retest"}
 
     explained = run_jobs([(u["id"], u["explainer_prompt"], root / f"explain_sonnet{suffix[r]}", EXPLAINER, parse_explanation)
