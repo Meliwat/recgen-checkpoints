@@ -31,7 +31,8 @@ from recgen.corpus import load_corpus
 from recgen.probe_v8 import Backend, TextReader, UnitView
 from recgen.rubric_v7 import DEPTH
 from recgen.rubric_v8 import (
-    AGENT_MODEL, ATTEMPTS, MAX_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, SYSTEM_PROMPT, choose, parse_answer, retest_ids,
+    AGENT_MODEL, ATTEMPTS, MAX_TOOL_CALLS, MODELS, SECOND_AGENT_MODEL, SYSTEM_PROMPT, choose, parse_answer, prompt,
+    retest_ids,
 )
 from recgen.sweep import sweep_path
 from recgen.sweep_v6 import v6_path
@@ -157,14 +158,17 @@ def load_model(model: str):
 
 
 def read_model(model: str, units: list[dict], jobs: list[tuple[str, str, str]], directories: dict[tuple[str, str], Path],
-               guards: dict[str, SpendGuard], corpus: np.ndarray, view_class=UnitView, backend_options: dict | None = None,
-               runner=run_cli, parse=parse_answer) -> list[dict]:
+               guards: dict[str, SpendGuard], corpus: np.ndarray, make_prompt=prompt, view_class=UnitView,
+               backend_options: dict | None = None, runner=run_cli, parse=parse_answer) -> list[dict]:
     """The record of each (unit id, agent, reading) job of one model, loading Pythia only if some
-    reading isn't cached. The keyword arguments let a later version change the view, the backend's
-    budget and tools, the runner and the parser; their defaults are v8's."""
+    reading isn't cached. make_prompt builds each unit's prompt from its snippet lines (v8's by default).
+    The keyword arguments let a later version change the view, the backend's budget and tools, the
+    runner and the parser; their defaults are v8's."""
     v6 = dict(np.load(v6_path(model, DEPTH)))
     v5 = np.load(sweep_path(model, DEPTH))
-    views = {u["id"]: view_class(u, v6, v5["max"], v5["pos"], corpus) for u in units}
+    # make_prompt stays in seventh place for v21's positional call; v18's view_class takes no make_prompt.
+    make_view = view_class if make_prompt is prompt else partial(view_class, make_prompt=make_prompt)
+    views = {u["id"]: make_view(u, v6, v5["max"], v5["pos"], corpus) for u in units}
     for directory in directories.values():
         directory.mkdir(parents=True, exist_ok=True)
 

@@ -40,8 +40,9 @@ def rebuilt_activations(v6: dict, rows: np.ndarray, samples: list[int]) -> np.nd
 class UnitView:
     """One unit as the agent sees it: its ranked examples and values on the 0-10 scale."""
 
-    def __init__(self, unit: dict, v6: dict, window_max: np.ndarray, window_pos: np.ndarray, corpus: np.ndarray):
-        self.unit, self.corpus = unit, corpus
+    def __init__(self, unit: dict, v6: dict, window_max: np.ndarray, window_pos: np.ndarray, corpus: np.ndarray,
+                 make_prompt=prompt):
+        self.unit, self.corpus, self.make_prompt = unit, corpus, make_prompt
         self.neuron_ids = [int(v6["neurons"][s]) for s in unit["neurons"]]
         maxima = window_max[:, self.neuron_ids].astype(np.float64)
         self.norms = normalizers(maxima)
@@ -61,9 +62,11 @@ class UnitView:
         return display_text(self.corpus, key[0], key[1], SNIPPET_BEFORE, SNIPPET_AFTER)
 
     def prompt(self) -> str:
-        """v7's prompt for this unit, with each snippet's activation in front of it."""
+        """v7's prompt for this unit (v8's, unless make_prompt is another), with each snippet's
+        activation in front of it."""
         order = v7_order(self.unit["id"], len(self.first))
-        return prompt([snippet_line(i + 1, self.first[j][1], self.snippet(self.first[j][0])) for i, j in enumerate(order)])
+        return self.make_prompt([snippet_line(i + 1, self.first[j][1], self.snippet(self.first[j][0]))
+                                 for i, j in enumerate(order)])
 
     def examples(self, start: int, count: int) -> str:
         start, count = max(1, int(start)), max(1, min(int(count), EXAMPLES_PER_CALL))

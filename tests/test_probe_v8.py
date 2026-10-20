@@ -8,7 +8,7 @@ from recgen.rubric_v8 import EXAMPLES_PER_CALL, MAX_TOOL_CALLS, NO_CALLS_LEFT, S
 W, T = 60, 64
 
 
-def fake_view(neurons=(0, 1), windows=(3, 7, 11, 13, 17)) -> UnitView:
+def fake_view(neurons=(0, 1), windows=(3, 7, 11, 13, 17), **view_args) -> UnitView:
     """Two sampled neurons whose pre-activations at stored residual row r are r + 1 and 2 * (r + 1)."""
     rng = np.random.default_rng(0)
     window_max = rng.gamma(2.0, 1.0, (W, 3)).astype(np.float16)
@@ -20,7 +20,7 @@ def fake_view(neurons=(0, 1), windows=(3, 7, 11, 13, 17)) -> UnitView:
     unit = {"id": "70m:pooled:50/50:0-1", "neurons": neurons, "rows": np.arange(5),
             "keys": np.array([[w, 40 + i] for i, w in enumerate(windows)])}
     corpus = np.arange(W * T).reshape(W, T) % 50000
-    return UnitView(unit, v6, window_max, window_pos, corpus)
+    return UnitView(unit, v6, window_max, window_pos, corpus, **view_args)
 
 
 def test_v7_order_is_a_seeded_permutation():
