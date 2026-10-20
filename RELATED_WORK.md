@@ -14,6 +14,7 @@ This file checks which of the repo's findings are new, against published work up
 | 4a. Input support moves from MLP neurons to attention heads early (steps 1k to 3k) | **Partly known** | The window matches known early transitions in Pythia: induction heads at about 2B tokens, or step 1k [Tigges24, YinSteinhardt25], the in-context-learning phase change at 2.5 to 5B tokens [Olsson22], a phase transition coinciding with learning-rate warm-up [Quirke23], which ends at step 1,430. | The measurement (direct-term share of a mid-layer neuron's rise, MLP neurons against heads) wasn't found. It likely reflects those known transitions, so it is a modest observation. |
 | 4b. Residual-stream mean direction grows with size | **Already published** | Machina & Mercer measured the same quantity (average cosine similarity) for every layer of Pythia 70M to 6.9B: low in small models' middle layers, high in 1.4B's and 6.9B's [MachinaMercer24, Fig. 1]. | Nothing new beyond confirming it on 2.8B and at the repo's layers. Cite it. |
 | 4c. Neurons repurposed during training, with an old job left as a facet | **Partly known** | Goh et al. guessed that conjoined features might be "a vestigial phenomenon from early in training" [Goh21], a guess the essay now rejects. SAE features in Pythia-410M "alter their primary semantic association during training" [Xu24]. The essay's own InceptionV1 neuron mixed5a:178 changes job over training. | A few neuron-level examples in a language model, from reading checkpoints by hand. Anecdotal. |
+| 5. Neurons with larger peak activation look less mixed (v9, exploratory) | **Partly known** | Theory and practice already tie strong, rare, heavy-tailed activation to cleaner units: a toy model's neurons show their primary feature at their largest activations [ToyModels22], kurtosis and skew predict SAE feature interpretability [Cunningham23], and universal neurons have high kurtosis and "usually have clear interpretations" [Gurnee24]. | Not found: a neuron's peak activation used to predict how mixed its top examples look, across a model family, with two independent readers agreeing. Expected under superposition as well, so it doesn't favor either story. |
 
 ### For a post
 
@@ -27,6 +28,7 @@ Not supported:
 - "First positive control for polysemanticity." Synthetic polysemantic units with known answers exist [Schwettmann23, Shaham24, GuptaKumar26]. What's new is the pooled-real-neuron design and the reader comparison.
 - "Recursive generalization is wrong." The repo's tests are underpowered and cover 40 neurons in one layer of one small model.
 - The anisotropy result as a finding of the repo. It is published [MachinaMercer24].
+- The peak-activation result as evidence against superposition. Toy models of superposition predict the same pattern [ToyModels22, "Superposition vs Sparsity"].
 
 ## 1. Reader-dependence of polysemanticity measurements
 
@@ -156,6 +158,35 @@ Not supported:
 
 **Searched:** queries 7, 8 and 11 in the [search log](#search-log).
 
+## 5. Activation magnitude and apparent cleanliness
+
+**The repo's finding** (v9, exploratory, not yet written up; numbers as reported by the session running v9). At the middle layer of Pythia 70M to 2.8B, neurons with a larger peak activation (the corpus maximum of their per-window maxima) look less mixed.
+- Network reader, all 2,048 sampled neurons per model: the top peak quartile is flagged 24 to 34%, the other quartiles 41 to 66%, with Spearman -0.15 to -0.30 in every model.
+- Haiku, 100 real neurons per model, pooled over models: 62%, 51%, 40% and 19% flagged across peak quartiles from lowest to highest (Spearman -0.32, n = 600).
+- The sentence-model reader shows only a faint version.
+
+**Closest prior work**
+- *Within one unit, the strongest activations are the cleanest.*
+  - In a toy model of superposition, many neurons have a "primary" feature with a large weight and "secondary" features with smaller ones, so "the largest activations of that neuron were all or nearly-all associated with the presence of the 'primary' feature, but [...] the lower-magnitude activations were much more polysemantic". The authors note this matches language-model neurons that look interpretable at their strongest activations [ToyModels22, section "Computation in Superposition", subsection "Superposition vs Sparsity"]. The same passage finds that neurons representing the most important features tend to be monosemantic.
+  - SoLU's authors suspect its extra LayerNorm lets superposition "be smuggled through in smaller activations" while pushing some features "to single neurons with large activations" [Elhage22, section 4.3]. Examples that only slightly activate a seemingly clean neuron are more often off-topic [Elhage22, section 6.4, Figure 9].
+- *Across units, heavy-tailed, rarely active units look cleaner.*
+  - For sparse-autoencoder features, the skew and kurtosis of a feature's activations correlate with its top-and-random interpretability score (0.19 and 0.24 in the text; Table 2 lists 0.20 and 0.15), and the activation mean doesn't (-0.09) [Cunningham23, appendix C.4, Table 2].
+  - Universal neurons in GPT-2 have large weight norm, a large negative input bias, lower activation frequency and "very high pre-activation skew and kurtosis", which the authors call "proprieties [sic] we would expect of monosemantic neurons". They "usually have clear interpretations" [Gurnee24, section 4.2, Figure 3; section 4.3]. The most common family is unigram neurons, which fire "approximately if and only if the current token is a particular word" [Gurnee24, section 4.3].
+  - Training with a sparse activation function (keeping only the top activations) "consistently increases explanation scores", and ReLU scores better than GELU [Bills23, section "Subject model activation function"].
+  - Sparse autoencoders with many dense latents "anecdotally" give "noticeably less interpretable features" [Gao24, appendix E.5, Figure 20 caption].
+- *Readers may favor such units for reasons of their own.* Autointerp scores are similar for sparse autoencoders trained on randomly initialized transformers and on trained ones [Heap25]. Several explanation-evaluation metrics lose their ability to tell good from bad explanations for rarely activating neurons [Oikarinen25, section 4.4, Figure 3].
+
+**Verdict: partly known.** The link between strong, rare, heavy-tailed activation and cleaner units is established in theory [ToyModels22] and for SAE features [Cunningham23], neurons in GPT-2 [Gurnee24] and trained-for-sparsity models [Bills23, Elhage22]. Not found: peak activation itself used to predict how mixed a neuron's top examples look, in raw language-model neurons across a model family, with two independent readers agreeing on the direction. That part appears new, but it is a modest extension.
+
+**Strengthens or contradicts**
+- It doesn't favor recursive generalization over superposition. The toy-model picture [ToyModels22] predicts exactly this pattern under superposition: a neuron whose top 50 examples sit far into its large-activation tail shows mostly its primary feature, whatever its weaker activations do.
+- Likely confounds to rule out before reading more into it:
+  - Peak magnitude goes with sparsity and kurtosis [Gurnee24]. Kurtosis or activation frequency may predict the flags as well as the peak does.
+  - Token-level neurons, like Gurnee et al.'s unigram neurons, are both heavy-tailed and easy for any reader to call clean. The repo's network reader also splits facets by token (README v6 point 7), so token purity by peak quartile is the first check.
+  - Readers that see only the top 50 examples read further into the tail for some neurons than others. A scale-free version (for example, the share of the neuron's activation mass in its top 50) would separate "strong" from "sparse".
+
+**Searched:** queries 14 to 17 in the [search log](#search-log), plus the appendices of [Cunningham23], [Gao24] and [Gurnee24] and the relevant sections of [Bills23], [Elhage22] and [ToyModels22].
+
 ## Methods the repo could adopt
 
 1. **Read below the top 50.** Top-activating examples alone are a known source of illusions [Bolukbasi21; Bills23, section "Neurons may represent many features"; Gurnee23, sections 5.1 and 5.4]. Foote samples examples above 75% of the maximum activation for this reason [Foote24, section 4.1.1]. Sampling activation quantiles, as autointerp work does [Paulo24], would test whether the readers' disagreement holds below the top.
@@ -172,19 +203,23 @@ Not supported:
 - **[Bau17]** David Bau, Bolei Zhou, Aditya Khosla, Aude Oliva, Antonio Torralba (2017). "Network Dissection: Quantifying Interpretability of Deep Visual Representations." CVPR 2017. arXiv:1704.05796. https://arxiv.org/abs/1704.05796
 - **[Bayazit26]** Deniz Bayazit, Aaron Mueller, Antoine Bosselut (2026). "Crosscoding Through Time: Tracking Emergence & Consolidation Of Linguistic Representations Throughout LLM Pretraining." ACL 2026 (2026.acl-long.60). arXiv:2509.05291. https://arxiv.org/abs/2509.05291
 - **[Belrose24]** Nora Belrose, Quintin Pope, Lucia Quirke, Alex Mallen, Xiaoli Fern (2024). "Neural Networks Learn Statistics of Increasing Complexity." ICML 2024. arXiv:2402.04362. https://arxiv.org/abs/2402.04362
-- **[Bills23]** Steven Bills, Nick Cammarata, Dan Mossing, Henk Tillman, Leo Gao, Gabriel Goh, Ilya Sutskever, Jan Leike, Jeff Wu, William Saunders (2023). "Language models can explain neurons in language models." OpenAI. https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html (sections "Subject model size", "Subject model training time", and "Neurons may represent many features" under "Limitations and caveats")
+- **[Bills23]** Steven Bills, Nick Cammarata, Dan Mossing, Henk Tillman, Leo Gao, Gabriel Goh, Ilya Sutskever, Jan Leike, Jeff Wu, William Saunders (2023). "Language models can explain neurons in language models." OpenAI. https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html (sections "Subject model size", "Subject model activation function", "Subject model training time", and "Neurons may represent many features" under "Limitations and caveats")
 - **[Bolukbasi21]** Tolga Bolukbasi, Adam Pearce, Ann Yuan, Andy Coenen, Emily Reif, Fernanda Viégas, Martin Wattenberg (2021). "An Interpretability Illusion for BERT." arXiv:2104.07143. https://arxiv.org/abs/2104.07143
 - **[Cammarata26]** Nick Cammarata (2026-10-15). "Neural Networks Are Already Clean." Goodfire. https://already-clean.goodfire.com/ (date from the page's metadata; sections "The Short Version", "Recursive Generalization", "Superposition" and "Relation to Conjoined Features", and the figure "A feature takes shape over training")
+- **[Cunningham23]** Hoagy Cunningham, Aidan Ewart, Logan Riggs, Robert Huben, Lee Sharkey (2023). "Sparse Autoencoders Find Highly Interpretable Features in Language Models." ICLR 2024. arXiv:2309.08600. https://arxiv.org/abs/2309.08600 (appendix C.4 "Interpretability Scores Correlate with Kurtosis and Skew of Activation", Table 2)
 - **[Dravid26]** Amil Dravid, Yasaman Bahri, Alexei A. Efros, Yossi Gandelsman (2026). "Neuron Populations Exhibit Divergent Selectivity with Scale." arXiv:2606.03990. https://arxiv.org/abs/2606.03990
 - **[Dreyer24]** Maximilian Dreyer, Erblina Purelku, Johanna Vielhaben, Wojciech Samek, Sebastian Lapuschkin (2024). "PURE: Turning Polysemantic Neurons Into Pure Features by Identifying Relevant Circuits." CVPR 2024 Workshops (XAI4CV). arXiv:2404.06453. https://arxiv.org/abs/2404.06453
 - **[Elhage22]** Nelson Elhage, Tristan Hume, Catherine Olsson, et al. (2022). "Softmax Linear Units." Transformer Circuits Thread. https://transformer-circuits.pub/2022/solu/index.html
 - **[Ethayarajh19]** Kawin Ethayarajh (2019). "How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings." EMNLP-IJCNLP 2019. arXiv:1909.00512. https://arxiv.org/abs/1909.00512
 - **[Foote24]** Alex Foote (2024). "Tackling Polysemanticity with Neuron Embeddings." ICML 2024 Mechanistic Interpretability Workshop. arXiv:2411.08166. https://arxiv.org/abs/2411.08166
 - **[Goh21]** Gabriel Goh, Nick Cammarata, Chelsea Voss, Shan Carter, Michael Petrov, Ludwig Schubert, Alec Radford, Chris Olah (2021). "Multimodal Neurons in Artificial Neural Networks." Distill. https://distill.pub/2021/multimodal-neurons/ (section "Feature properties", paragraph "Polysemanticity and Conjoined Neurons" and its footnote)
+- **[Gao24]** Leo Gao, Tom Dupré la Tour, Henk Tillman, Gabriel Goh, Rajan Troll, Alec Radford, Ilya Sutskever, Jan Leike, Jeffrey Wu (2024). "Scaling and evaluating sparse autoencoders." arXiv:2406.04093. https://arxiv.org/abs/2406.04093 (appendix E.5, Figure 20)
 - **[GuptaKumar25]** Manan Gupta, Dhruv Kumar (2025). "Disentangling Polysemantic Neurons with a Null-Calibrated Polysemanticity Index and Causal Patch Interventions." arXiv:2508.16950. https://arxiv.org/abs/2508.16950
 - **[GuptaKumar26]** Manan Gupta, Dhruv Kumar (2026). "DPMI: A Principled Index for Neural Polysemanticity via Dirichlet Process Mixture Modeling." ICML 2026 workshop poster (SCALE workshop). https://icml.cc/virtual/2026/67442 (OpenReview: https://openreview.net/forum?id=AnYCqLSigg)
 - **[Gurnee23]** Wes Gurnee, Neel Nanda, Matthew Pauly, Katherine Harvey, Dmitrii Troitskii, Dimitris Bertsimas (2023). "Finding Neurons in a Haystack: Case Studies with Sparse Probing." TMLR. arXiv:2305.01610. https://arxiv.org/abs/2305.01610
+- **[Gurnee24]** Wes Gurnee, Theo Horsley, Zifan Carl Guo, Tara Rezaei Kheirkhah, Qinyi Sun, Will Hathaway, Neel Nanda, Dimitris Bertsimas (2024). "Universal Neurons in GPT2 Language Models." arXiv:2401.12181. https://arxiv.org/abs/2401.12181
 - **[He26]** Matteo He, William F. Shen, Alex Iacob, Andrej Jovanovic, Xinchi Qiu, Nicholas D. Lane (2026). "Learning to Read Out: Unembedding Dynamics in Language Model Pretraining." arXiv:2610.21025. https://arxiv.org/abs/2610.21025
+- **[Heap25]** Thomas Heap, Tim Lawson, Lucy Farnik, Laurence Aitchison (2025). "Automated Interpretability Metrics Do Not Distinguish Trained and Random Transformers." arXiv:2501.17727. https://arxiv.org/abs/2501.17727
 - **[Kopf25]** Laura Kopf, Nils Feldhus, Kirill Bykov, Philine Lou Bommer, Anna Hedström, Marina M.-C. Höhne, Oliver Eberle (2025). "Capturing Polysemanticity with PRISM: A Multi-Concept Feature Description Framework." NeurIPS 2025. arXiv:2506.15538. https://arxiv.org/abs/2506.15538
 - **[Lecomte24]** Victor Lecomte, Kushal Thaman, Rylan Schaeffer, Naomi Bashkansky, Trevor Chow, Sanmi Koyejo (2024). "What Causes Polysemanticity? An Alternative Origin Story of Mixed Selectivity from Incidental Causes." ICLR 2024 Workshop on Representational Alignment (Re-Align). arXiv:2312.03096. https://arxiv.org/abs/2312.03096
 - **[Liu26]** Weiqi Liu, Yongliang Miao, Haiyan Zhao, Yanguang Liu, Mengnan Du (2026). "NeuronScope: A Multi-Agent Framework for Explaining Polysemantic Neurons in Language Models." arXiv:2601.03671. https://arxiv.org/abs/2601.03671
@@ -199,6 +234,7 @@ Not supported:
 - **[Schwettmann23]** Sarah Schwettmann, Tamar Rott Shaham, Joanna Materzynska, Neil Chowdhury, Shuang Li, Jacob Andreas, David Bau, Antonio Torralba (2023). "FIND: A Function Description Benchmark for Evaluating Interpretability Methods." NeurIPS 2023. arXiv:2309.03886. https://arxiv.org/abs/2309.03886
 - **[Shaham24]** Tamar Rott Shaham, Sarah Schwettmann, Franklin Wang, Achyuta Rajaram, Evan Hernandez, Jacob Andreas, Antonio Torralba (2024). "A Multimodal Automated Interpretability Agent." ICML 2024. arXiv:2404.14394. https://arxiv.org/abs/2404.14394
 - **[Tigges24]** Curt Tigges, Michael Hanna, Qinan Yu, Stella Biderman (2024). "LLM Circuit Analyses Are Consistent Across Training and Scale." NeurIPS 2024. arXiv:2407.10827. https://arxiv.org/abs/2407.10827
+- **[ToyModels22]** Nelson Elhage, Tristan Hume, Catherine Olsson, Nicholas Schiefer, Tom Henighan, et al. (2022). "Toy Models of Superposition." Transformer Circuits Thread. https://transformer-circuits.pub/2022/toy_model/index.html (section "Computation in Superposition", subsection "Superposition vs Sparsity")
 - **[Xu24]** Yang Xu, Yi Wang, Hengguan Huang, Hao Wang (2024). "Tracking the Feature Dynamics in LLM Training: A Mechanistic Study." arXiv:2412.17626. https://arxiv.org/abs/2412.17626
 - **[YinSteinhardt25]** Kayo Yin, Jacob Steinhardt (2025). "Which Attention Heads Matter for In-Context Learning?" arXiv:2502.14010. https://arxiv.org/abs/2502.14010
 
@@ -219,6 +255,10 @@ All searches ran on 2026-10-19 with a web search tool, in "standard" or the more
 11. `"conjoined features" OR "conjoined neurons" polysemanticity training dynamics follow-up` (standard)
 12. `attention heads versus MLP neurons share of contribution changes over training early checkpoints language model direct attribution Pythia` (extended)
 13. `anisotropy Pythia model size training checkpoints residual stream mean cosine similarity` (standard), and `Machina Mercer "Anisotropy is not inherent to transformers" Pythia NAACL 2024` (standard)
+14. `neuron explanation score correlates with activation sparsity kurtosis maximum activation monosemantic neurons language model interpretability predictor` (extended)
+15. `high-activation neurons more interpretable than low-activation neurons polysemantic weak features superposition small activations` (extended)
+16. `neuron peak activation magnitude predicts monosemanticity polysemantic neurons low maximum activation language model readers` (extended)
+17. `sparse autoencoder latent activation frequency density versus interpretability score high frequency latents less interpretable autointerp` (standard)
 
 Targeted lookups of papers already known to be relevant (Bills23, Gurnee23, Lecomte24, Oikarinen25, Foote24, Dreyer24, Nguyen16, Xu24, Bayazit26, Tigges24, Belrose24, Bolukbasi21) are not listed. The searches cover English-language sources indexed by the search tool. Papers behind paywalls, talks and private write-ups would be missed.
 
